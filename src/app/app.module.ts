@@ -3,12 +3,15 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 
+import { NgMaterialMultilevelMenuModule } from './modules/ng-material-multilevel-menu/ng-material-multilevel-menu.module';
+
 @NgModule({
   declarations: [
     AppComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    NgMaterialMultilevelMenuModule
   ],
   providers: [],
   bootstrap: [AppComponent]

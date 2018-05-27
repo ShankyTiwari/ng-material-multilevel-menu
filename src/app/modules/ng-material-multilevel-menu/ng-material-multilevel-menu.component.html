@@ -1,0 +1,32 @@
+<ng-template #anmlMenuItem let-item>
+  <mat-list-item matRipple class="amml-item" (click)="expand(item)" *ngIf="!item.hidden">
+    <div class="anml-data">
+      <mat-icon *ngIf="item.icon" class="amml-icon"> {{item.icon}}</mat-icon>
+      <span>{{item.label}}</span>
+    </div>
+    <mat-icon class='anml-icon-indicator' *ngIf='hasItems(item)' [@isExpanded]="item.items.length > 0 && item.expanded ? 'yes' : 'no'">
+      keyboard_arrow_down
+    </mat-icon>
+  </mat-list-item>
+  <mat-divider *ngIf="!item.hidden"></mat-divider>
+</ng-template>
+
+<ng-template #anmlMenu let-list>
+  <div *ngFor="let item of list; let i = index">
+    <ng-container *ngTemplateOutlet="anmlMenuItem; context:{ $implicit: item }"></ng-container>
+    <div *ngIf="hasItems(item) && item.expanded" [@slideInOut] [ngClass]="{ 
+        'amml-submenu': hasItems(item) && item.expanded ? true : false
+      }">
+      <ng-container *ngTemplateOutlet="anmlMenu; context:{ $implicit: item.items }"></ng-container>
+    </div>
+  </div>
+</ng-template>
+
+<mat-list>
+<ng-container *ngTemplateOutlet="anmlMenu; context:{ $implicit: items }"></ng-container>
+
+</mat-list>
+
+<div class="error-message" *ngIf='items.length === 0'>
+  Invalid data for Multilevel list
+</div>
