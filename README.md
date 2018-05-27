@@ -26,7 +26,7 @@ Follow below steps to add multi level list in your project
 
 You need to import the ```NgMaterialMultilevelMenuModule``` in the module of your app where you want to use it.
 
-```        
+```javascript        
     import { BrowserModule } from '@angular/platform-browser';
     import { NgModule } from '@angular/core';
 
