@@ -6,6 +6,10 @@ Material Multi-Level Menu for Angular Projects.
 
 The main goal of this package is to deliver a slim and Skinny Material Multi-Level Menu for Angular Projects. That can fit into any kind of projects with no muss, no fuss. Within few lines, you will get an animation ready multilevel list that can fit into any kind of project.
 
+## Demo
+
+Check the Material Multi-Level Menu in action, [click here](http://plugins.codershood.info/).
+
 ## Installation
 You can use either the npm or yarn command-line tool to install packages. Use whichever is appropriate for your project in the examples below.
 
