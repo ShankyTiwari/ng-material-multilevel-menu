@@ -26,27 +26,27 @@ Follow below steps to add multi level list in your project
 
 You need to import the ```NgMaterialMultilevelMenuModule``` in the module of your app where you want to use it.
 
-```javascript        
-    import { BrowserModule } from '@angular/platform-browser';
-    import { NgModule } from '@angular/core';
+```typescript        
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
 
-    /* Import the module*/
-    import { NgMaterialMultilevelMenuModule } from 'ng-material-multilevel-menu';
+/* Import the module*/
+import { NgMaterialMultilevelMenuModule } from 'ng-material-multilevel-menu';
 
-    import { AppComponent } from './app.component';
+import { AppComponent } from './app.component';
 
-    @NgModule({
-      declarations: [
-        AppComponent
-      ],
-      imports: [
-        BrowserModule,
-        NgMaterialMultilevelMenuModule // Import here
-      ],
-      providers: [],
-      bootstrap: [AppComponent]
-    })
-    export class AppModule { }
+@NgModule({
+    declarations: [
+    AppComponent
+    ],
+    imports: [
+    BrowserModule,
+    NgMaterialMultilevelMenuModule // Import here
+    ],
+    providers: [],
+    bootstrap: [AppComponent]
+})
+export class AppModule { }
 ```  
 
         
@@ -54,76 +54,76 @@ You need to import the ```NgMaterialMultilevelMenuModule``` in the module of you
 
 In your HTML: Use the ```<ng-material-multilevel-menu>``` wherever you like in your project.
 
-```          
+```html        
 <ng-material-multilevel-menu [items]='appitems' (selectedItem)="selectedItem($event)"></ng-material-multilevel-menu>
 ```
         
 #### 3. Structure of array to display the list
 
 Make sure you structure of array should look like array shown below,     
-```
-    appitems = [
+```typescript
+appitems = [
     {
-      label: 'Item 1',
-      icon: 'offline_bolt',
-      items: [
+        label: 'Item 1',
+        icon: 'offline_bolt',
+        items: [
         {
-          label: 'Item 1.1',
-          link: '/item-1-1',
-          icon: 'pan_tool'
+            label: 'Item 1.1',
+            link: '/item-1-1',
+            icon: 'pan_tool'
         },
         {
-          label: 'Item 1.2',
-          icon: 'payment',
-          items: [
+            label: 'Item 1.2',
+            icon: 'payment',
+            items: [
             {
-              label: 'Item 1.2.1',
-              link: '/item-1-2-1',
-              icon: 'perm_scan_wifi'
+                label: 'Item 1.2.1',
+                link: '/item-1-2-1',
+                icon: 'perm_scan_wifi'
             },
             {
-              label: 'Item 1.2.2',
-              icon: 'restore',
-              items: [
+                label: 'Item 1.2.2',
+                icon: 'restore',
+                items: [
                 {
-                  label: 'Item 1.2.2.1',
-                  link: 'item-1-2-2-1',
-                  icon: 'room'
+                    label: 'Item 1.2.2.1',
+                    link: 'item-1-2-2-1',
+                    icon: 'room'
                 }
-              ]
+                ]
             }
-          ]
+            ]
         }
-      ]
+        ]
     },
     {
-      label: 'Item 2',
-      icon: 'alarm',
-      items: [
+        label: 'Item 2',
+        icon: 'alarm',
+        items: [
         {
-          label: 'Item 2.1',
-          link: '/item-2-1',
-          icon: 'favorite'
+            label: 'Item 2.1',
+            link: '/item-2-1',
+            icon: 'favorite'
         },
         {
-          label: 'Item 2.2',
-          link: '/item-2-2',
-          icon: 'favorite_border'
+            label: 'Item 2.2',
+            link: '/item-2-2',
+            icon: 'favorite_border'
         }
-      ]
+        ]
     },
     {
-      label: 'Item 3',
-      link: '/item-3',
-      icon: 'offline_pin'
+        label: 'Item 3',
+        link: '/item-3',
+        icon: 'offline_pin'
     },
     {
-      label: 'Item 4',
-      link: '/item-4',
-      icon: 'star_rate',
-      hidden: true
+        label: 'Item 4',
+        link: '/item-4',
+        icon: 'star_rate',
+        hidden: true
     }
-  ];
+];
 ```
 
         
