@@ -8,7 +8,7 @@ The main goal of this package is to deliver a slim and Skinny Material Multi-Lev
 
 ## Demo
 
-Check the Material Multi-Level Menu in action, [click here](http://plugins.codershood.info/).
+Check the Material Multi-Level Menu in action, [click here](http://plugins.codershood.info/#/plugins/ngmm-plugin).
 
 ## Installation
 You can use either the npm or yarn command-line tool to install packages. Use whichever is appropriate for your project in the examples below.
