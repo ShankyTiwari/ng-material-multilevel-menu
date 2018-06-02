@@ -4,7 +4,7 @@ Material Multi-Level Menu for Angular Projects.
 
 ## Why ng-material-multilevel-menu?
 
-The main goal of this package is to deliver a slim and Skinny Material Multi-Level Menu for Angular Projects. That can fit into any kind of projects with no muss, no fuss. Within few lines, you will get an animation ready multilevel list that can fit into any kind of project.
+The main goal of this package is to deliver a slim and Skinny Material Multi-Level Menu for Angular Projects. That can fit into any kind of projects with no muss, no fuss. Within few lines, you will get an animation ready multilevel list that just works.
 
 ## Demo
 
