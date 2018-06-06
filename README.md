@@ -67,37 +67,37 @@ In your HTML: Use the ```<ng-material-multilevel-menu>``` wherever you like in y
 Make sure you structure of array should look like array shown below,     
 ```typescript
 appitems = [
-    {
-        label: 'Item 1',
-        icon: 'offline_bolt',
+        {
+        label: 'Item 1 with Font awesome icon',
+        faIcon: 'fab fa-500px',
         items: [
-        {
-            label: 'Item 1.1',
-            link: '/item-1-1',
-            icon: 'pan_tool'
-        },
-        {
-            label: 'Item 1.2',
-            icon: 'payment',
-            items: [
             {
-                label: 'Item 1.2.1',
-                link: '/item-1-2-1',
-                icon: 'perm_scan_wifi'
+                label: 'Item 1.1',
+                link: '/item-1-1',
+                faIcon: 'fab fa-accusoft'
             },
             {
-                label: 'Item 1.2.2',
-                icon: 'restore',
+                label: 'Item 1.2',
+                faIcon: 'fab fa-accessible-icon',
                 items: [
-                {
-                    label: 'Item 1.2.2.1',
-                    link: 'item-1-2-2-1',
-                    icon: 'room'
-                }
+                    {
+                        label: 'Item 1.2.1',
+                        link: '/item-1-2-1',
+                        faIcon: 'fas fa-allergies'
+                    },
+                    {
+                        label: 'Item 1.2.2',
+                        faIcon: 'fas fa-ambulance',
+                        items: [
+                            {
+                                label: 'Item 1.2.2.1',
+                                link: 'item-1-2-2-1',
+                                faIcon: 'fas fa-anchor'
+                            }
+                        ]
+                    }
                 ]
             }
-            ]
-        }
         ]
     },
     {
