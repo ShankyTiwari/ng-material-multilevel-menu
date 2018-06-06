@@ -4,17 +4,16 @@
   justify-content: space-between;
   position: relative;
 }
-
 .anml-data {
   width: 100%;
   text-transform: capitalize;
+  display: flex;
+  justify-content: start;
 }
-
 .amml-icon {
   line-height: 48px;
   margin-right: 15px;
 }
-
 .amml-submenu {
   margin-left: 16px;
 }

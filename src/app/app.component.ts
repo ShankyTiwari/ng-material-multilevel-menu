@@ -9,31 +9,31 @@ export class AppComponent {
   title = 'app';
   outgoingdata = [
     {
-      label: 'Item 1',
-      icon: 'offline_bolt',
+      label: 'Item 1 with Font awesome icon',
+      faIcon: 'fab fa-500px',
       items: [
         {
           label: 'Item 1.1',
           link: '/item-1-1',
-          icon: 'pan_tool'
+          faIcon: 'fab fa-accusoft'
         },
         {
           label: 'Item 1.2',
-          icon: 'payment',
+          faIcon: 'fab fa-accessible-icon',
           items: [
             {
               label: 'Item 1.2.1',
               link: '/item-1-2-1',
-              icon: 'perm_scan_wifi'
+              faIcon: 'fas fa-allergies'
             },
             {
               label: 'Item 1.2.2',
-              icon: 'restore',
+              faIcon: 'fas fa-ambulance',
               items: [
                 {
                   label: 'Item 1.2.2.1',
                   link: 'item-1-2-2-1',
-                  icon: 'room'
+                  faIcon: 'fas fa-anchor'
                 }
               ]
             }
@@ -107,6 +107,10 @@ export class AppComponent {
       icon: 'star_rate',
     }
   ];
+  config = {
+    paddingAtStart: false,
+    classname: 'my-custom-class'
+  };
 
   searchItem($event) {
     console.log($event);

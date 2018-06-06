@@ -1,10 +1,17 @@
 <ng-template #anmlMenuItem let-item>
   <mat-list-item matRipple class="amml-item" (click)="expand(item)" *ngIf="!item.hidden">
     <div class="anml-data">
-      <mat-icon *ngIf="item.icon" class="amml-icon"> {{item.icon}}</mat-icon>
+      <span *ngIf="item.faIcon" class="amml-icon">
+        <i [ngClass]="item.faIcon"></i>
+      </span>
+      <mat-icon *ngIf="item.icon" class="amml-icon">
+        {{item.icon}}
+      </mat-icon>
       <span>{{item.label}}</span>
     </div>
-    <mat-icon class='anml-icon-indicator' *ngIf='hasItems(item)' [@isExpanded]="item.items.length > 0 && item.expanded ? 'yes' : 'no'">
+    <mat-icon 
+        *ngIf='hasItems(item)' 
+        [@isExpanded]="item.items.length > 0 && item.expanded ? 'yes' : 'no'">
       keyboard_arrow_down
     </mat-icon>
   </mat-list-item>
@@ -12,20 +19,24 @@
 </ng-template>
 
 <ng-template #anmlMenu let-list>
-  <div *ngFor="let item of list; let i = index">
+  <div *ngFor="let item of list">
     <ng-container *ngTemplateOutlet="anmlMenuItem; context:{ $implicit: item }"></ng-container>
-    <div *ngIf="hasItems(item) && item.expanded" [@slideInOut] [ngClass]="{ 
-        'amml-submenu': hasItems(item) && item.expanded ? true : false
+    <div 
+      *ngIf="hasItems(item) && item.expanded" 
+      [@slideInOut] 
+      [ngClass]="{ 
+        'amml-submenu': hasItems(item) && item.expanded && getPaddingAtStart()
       }">
       <ng-container *ngTemplateOutlet="anmlMenu; context:{ $implicit: item.items }"></ng-container>
     </div>
   </div>
 </ng-template>
 
-<mat-list>
-<ng-container *ngTemplateOutlet="anmlMenu; context:{ $implicit: items }"></ng-container>
-
-</mat-list>
+<div [ngClass]="getClassName()" *ngIf='items.length !== 0'>
+  <mat-list>
+    <ng-container *ngTemplateOutlet="anmlMenu; context:{ $implicit: items }"></ng-container>
+  </mat-list>
+</div>
 
 <div class="error-message" *ngIf='items.length === 0'>
   Invalid data for Multilevel list

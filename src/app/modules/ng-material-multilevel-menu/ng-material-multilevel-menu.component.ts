@@ -1,6 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { trigger, style, transition, animate, state, group } from '@angular/animations';
 
+import { Configuration } from './interfaces/configuration';
+
 @Component({
   selector: 'ng-material-multilevel-menu',
   templateUrl: './ng-material-multilevel-menu.component.html',
@@ -36,14 +38,51 @@ import { trigger, style, transition, animate, state, group } from '@angular/anim
     ])
   ]
 })
+
 export class NgMaterialMultilevelMenuComponent implements OnInit {
   @Input() items: any;
   @Output() selectedItem = new EventEmitter<any>();
+  @Input() configuration: Configuration = null;
+  isInvalidConfig: boolean = null;
   ngOnInit() {
+    this.detectInvalidConfig();
+    this.initializeList();
+  }
+  detectInvalidConfig(): void {
+    if (this.configuration === null || this.configuration === undefined || this.configuration === '') {
+      this.isInvalidConfig = true;
+    } else {
+      this.isInvalidConfig = false;
+    }
+  }
+  initializeList(): void {
     if (this.items !== undefined && this.items !== null && this.items !== '') {
       this.items.forEach((item) => {
         item['expanded'] = false;
       });
+    }
+  }
+  getPaddingAtStart(){
+    if (!this.isInvalidConfig) {
+      const config = this.configuration;
+      if (config.paddingAtStart !== undefined && config.paddingAtStart !== null && typeof config.paddingAtStart === 'boolean' ) {
+        return config.paddingAtStart ? true : false;
+      } else {
+        return true;
+      }
+    } else {
+      return true
+    }
+  }
+  getClassName(): string {
+    if (this.isInvalidConfig) {
+      return `amml-container`;
+    } else {
+      if (this.configuration.classname !== '' && this.configuration.classname !== null && this.configuration.classname !== undefined) {
+        return `amml-container ${this.configuration.classname}`;
+      } else {
+        return `amml-container`;
+      }
     }
   }
   hasItems(item) {
