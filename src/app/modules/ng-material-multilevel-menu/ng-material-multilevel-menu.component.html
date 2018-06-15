@@ -1,7 +1,7 @@
 <ng-template #anmlMenuItem let-item>
-  <mat-list-item matRipple class="amml-item" (click)="expand(item)" *ngIf="!item.hidden">
+  <mat-list-item matRipple class="amml-item" (click)="expand(item)" *ngIf="!item.hidden" [ngStyle]="getListStyle()">
     <div class="anml-data">
-      <span *ngIf="item.faIcon" class="amml-icon">
+      <span *ngIf="item.faIcon" class="amml-icon amml-icon-fa">
         <i [ngClass]="item.faIcon"></i>
       </span>
       <mat-icon *ngIf="item.icon" class="amml-icon">
@@ -9,9 +9,7 @@
       </mat-icon>
       <span>{{item.label}}</span>
     </div>
-    <mat-icon 
-        *ngIf='hasItems(item)' 
-        [@isExpanded]="item.items.length > 0 && item.expanded ? 'yes' : 'no'">
+    <mat-icon *ngIf='hasItems(item)' [@isExpanded]="item.items.length > 0 && item.expanded ? 'yes' : 'no'">
       keyboard_arrow_down
     </mat-icon>
   </mat-list-item>
@@ -21,10 +19,7 @@
 <ng-template #anmlMenu let-list>
   <div *ngFor="let item of list">
     <ng-container *ngTemplateOutlet="anmlMenuItem; context:{ $implicit: item }"></ng-container>
-    <div 
-      *ngIf="hasItems(item) && item.expanded" 
-      [@slideInOut] 
-      [ngClass]="{ 
+    <div *ngIf="hasItems(item) && item.expanded" [@slideInOut] [ngClass]="{ 
         'amml-submenu': hasItems(item) && item.expanded && getPaddingAtStart()
       }">
       <ng-container *ngTemplateOutlet="anmlMenu; context:{ $implicit: item.items }"></ng-container>
@@ -32,7 +27,7 @@
   </div>
 </ng-template>
 
-<div [ngClass]="getClassName()" *ngIf='items.length !== 0'>
+<div [ngClass]="getClassName()" [ngStyle]="getGlobalStyle()" *ngIf='items.length !== 0'>
   <mat-list>
     <ng-container *ngTemplateOutlet="anmlMenu; context:{ $implicit: items }"></ng-container>
   </mat-list>

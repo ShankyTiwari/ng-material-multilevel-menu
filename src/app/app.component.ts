@@ -108,8 +108,11 @@ export class AppComponent {
     }
   ];
   config = {
-    paddingAtStart: false,
-    classname: 'my-custom-class'
+    paddingAtStart: true,
+    classname: 'my-custom-class',
+    listBackgroundColor: `rgb(0, 255, 245)`,
+    fontColor: `rgb(97, 93, 93)`,
+    backgroundColor: `rgb(0, 255, 245)`,
   };
 
   searchItem($event) {

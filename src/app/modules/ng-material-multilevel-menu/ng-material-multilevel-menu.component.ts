@@ -85,6 +85,30 @@ export class NgMaterialMultilevelMenuComponent implements OnInit {
       }
     }
   }
+  getListStyle() {
+    if (!this.isInvalidConfig) {
+      const styles = {};
+      if (this.configuration.backgroundColor !== '' && this.configuration.backgroundColor !== null && this.configuration.backgroundColor !== undefined) {
+        styles[`background`] = this.configuration.backgroundColor;
+      }
+      if (this.configuration.listBackgroundColor !== '' && this.configuration.listBackgroundColor !== null && this.configuration.listBackgroundColor !== undefined) {
+        styles[`background`] = this.configuration.listBackgroundColor;
+      }
+      if (this.configuration.fontColor !== '' && this.configuration.fontColor !== null && this.configuration.fontColor !== undefined) {
+        styles[`color`] = this.configuration.fontColor;
+      }
+      return styles;
+    }
+  }
+  getGlobalStyle(){
+    if (!this.isInvalidConfig) {
+      const styles = {};
+      if (this.configuration.backgroundColor !== '' && this.configuration.backgroundColor !== null && this.configuration.backgroundColor !== undefined) {
+        styles[`background`] = this.configuration.backgroundColor;
+      }
+      return styles;
+    }
+  }
   hasItems(item) {
     return item.items !== undefined ? item.items.length > 0 : false;
   }
