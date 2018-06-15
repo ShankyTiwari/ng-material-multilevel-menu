@@ -130,7 +130,15 @@ appitems = [
 ];
 ```
 
-        
+## API
+Using ```configuration```, You can customise the appearance of the list.
+* ```paddingAtStart: boolean``` => *[optional]* If you don't want padding at the start of the list item, then you can give ```false```. The default value will be ```true```.
+* ```classname: string;``` => *[optional]* You can give your own custom class name in order to modify the list appearance. 
+* ```listBackgroundColor: string;``` => *[optional]* You can apply custom color to the background of the list.
+* ```fontColor: string;``` => *[optional]* Changes the color of Text and icons inside the list.
+* ```backgroundColor: string;``` => *[optional]* This will change the background color list container.
+
+
 ## Dependencies
 1. [Material Icons](https://material.io/tools/icons/?style=baseline)
 2. [Angular Material](https://material.angular.io)
