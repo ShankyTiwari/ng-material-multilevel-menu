@@ -64,7 +64,7 @@ export class AppModule { }
 In your HTML: Use the ```<ng-material-multilevel-menu>``` wherever you like in your project.
 
 ```html        
-<ng-material-multilevel-menu [items]='appitems' (selectedItem)="selectedItem($event)"></ng-material-multilevel-menu>
+<ng-material-multilevel-menu  [configuration]='config' [items]='appitems' (selectedItem)="selectedItem($event)"></ng-material-multilevel-menu>
 ```
         
 #### 3. Structure of array to display the list
@@ -142,6 +142,17 @@ Using ```configuration```, You can customise the appearance of the list.
 * ```listBackgroundColor: string;``` => *[optional]* You can apply custom color to the background of the list.
 * ```fontColor: string;``` => *[optional]* Changes the color of Text and icons inside the list.
 * ```backgroundColor: string;``` => *[optional]* This will change the background color list container.
+
+Below is example how you can apply diffent background and Font colors,
+```typescript
+config = {
+    paddingAtStart: true,
+    classname: 'my-custom-class',
+    listBackgroundColor: `rgb(0, 255, 245)`,
+    fontColor: `rgb(97, 93, 93)`,
+    backgroundColor: `rgb(0, 255, 245)`,
+};
+```
 
 
 ## Dependencies
