@@ -10,6 +10,11 @@ The main goal of this package is to deliver a slim and Skinny Material Multi-Lev
 
 Check the Material Multi-Level Menu in action, [click here](http://plugins.codershood.info/#/plugins/ngmm-plugin).
 
+## Types of Icons Supported
+
+1. [Material Icons](https://material.io/tools/icons/?style=baseline)
+2. [FontAwesome Icons](https://fontawesome.com/v4.7.0/icons/)
+
 ## Installation
 You can use either the npm or yarn command-line tool to install packages. Use whichever is appropriate for your project in the examples below.
 
