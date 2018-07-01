@@ -6,8 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'app';
-  outgoingdata = [
+  appitems = [
     {
       label: 'Item 1 with Font awesome icon',
       faIcon: 'fab fa-500px',
@@ -33,7 +32,36 @@ export class AppComponent {
                 {
                   label: 'Item 1.2.2.1',
                   link: 'item-1-2-2-1',
-                  faIcon: 'fas fa-anchor'
+                  faIcon: 'fas fa-anchor',
+                  items: [
+                    {
+                      label: 'Item 1.1',
+                      link: '/item-1-1',
+                      faIcon: 'fab fa-accusoft'
+                    },
+                    {
+                      label: 'Item 1.2',
+                      faIcon: 'fab fa-accessible-icon',
+                      items: [
+                        {
+                          label: 'Item 1.2.1',
+                          link: '/item-1-2-1',
+                          faIcon: 'fas fa-allergies'
+                        },
+                        {
+                          label: 'Item 1.2.2',
+                          faIcon: 'fas fa-ambulance',
+                          items: [
+                            {
+                              label: 'Item 1.2.2.1',
+                              link: 'item-1-2-2-1',
+                              faIcon: 'fas fa-anchor'
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
                 }
               ]
             }
@@ -67,55 +95,17 @@ export class AppComponent {
       link: '/item-4',
       icon: 'star_rate',
       hidden: true
-    },
-    {
-      label: 'Item 5',
-      icon: 'offline_bolt',
-      items: [
-        {
-          label: 'Item 5.1',
-          link: '/item-5-1',
-          icon: 'pan_tool'
-        },
-        {
-          label: 'Item 5.2',
-          icon: 'payment',
-          items: [
-            {
-              label: 'Item 5.2.1',
-              link: '/item-5-2-1',
-              icon: 'perm_scan_wifi'
-            },
-            {
-              label: 'Item 5.2.2',
-              icon: 'restore',
-              items: [
-                {
-                  label: 'Item 5.2.2.1',
-                  link: '/item-5-2-2-1',
-                  icon: 'room'
-                }
-              ]
-            }
-          ]
-        }
-      ]
-    },
-    {
-      label: 'Item 6',
-      link: '/item-6',
-      icon: 'star_rate',
     }
   ];
   config = {
     paddingAtStart: true,
     classname: 'my-custom-class',
-    listBackgroundColor: `rgb(0, 255, 245)`,
-    fontColor: `rgb(97, 93, 93)`,
-    backgroundColor: `rgb(0, 255, 245)`,
+    listBackgroundColor: `rgb(208, 241, 239)`,
+    fontColor: `rgb(8, 54, 71)`,
+    backgroundColor: `rgb(208, 241, 239)`,
+    selectedListFontColor: `red`,
   };
-
-  searchItem($event) {
+  selectedItem($event) {
     console.log($event);
   }
 }

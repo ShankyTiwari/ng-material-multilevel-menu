@@ -2,9 +2,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { AppComponent } from './app.component';
+import { NgMaterialMultilevelMenuModule } from 'ng-material-multilevel-menu';
 
-import { NgMaterialMultilevelMenuModule } from './modules/ng-material-multilevel-menu/ng-material-multilevel-menu.module';
+import { AppComponent } from './app.component';
 
 @NgModule({
   declarations: [

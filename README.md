@@ -73,7 +73,7 @@ Make sure you structure of array should look like array shown below,
 ```typescript
 appitems = [
         {
-        label: 'Item 1 with Font awesome icon',
+        label: 'Item 1 (with Font awesome icon)',
         faIcon: 'fab fa-500px',
         items: [
             {
@@ -142,22 +142,23 @@ Using ```configuration```, You can customise the appearance of the list.
 * ```listBackgroundColor: string;``` => *[optional]* You can apply custom color to the background of the list.
 * ```fontColor: string;``` => *[optional]* Changes the color of Text and icons inside the list.
 * ```backgroundColor: string;``` => *[optional]* This will change the background color list container.
+* ```selectedListFontColor: string;``` => *[optional]* This will change the font color of selected list item.
 
 Below is example how you can apply diffent background and Font colors,
 ```typescript
 config = {
     paddingAtStart: true,
     classname: 'my-custom-class',
-    listBackgroundColor: `rgb(0, 255, 245)`,
-    fontColor: `rgb(97, 93, 93)`,
-    backgroundColor: `rgb(0, 255, 245)`,
+    listBackgroundColor: `rgb(208, 241, 239)`,
+    fontColor: `rgb(8, 54, 71)`,
+    backgroundColor: `rgb(208, 241, 239)`,
+    selectedListFontColor: `red`,
 };
 ```
 
 
 ## Dependencies
-1. [Material Icons](https://material.io/tools/icons/?style=baseline)
-2. [Angular Material](https://material.angular.io)
+1. [Angular Material](https://material.angular.io)
 
 ## Contribution
 

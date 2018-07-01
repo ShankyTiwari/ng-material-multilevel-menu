@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "ng-material-multilevel-menu": {
+    "ng-material-multilevel-menu-angular-project": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/ng-material-multilevel-menu",
+            "outputPath": "dist/ng-material-multilevel-menu-angular-project",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -50,18 +50,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "ng-material-multilevel-menu:build"
+            "browserTarget": "ng-material-multilevel-menu-angular-project:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "ng-material-multilevel-menu:build:production"
+              "browserTarget": "ng-material-multilevel-menu-angular-project:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "ng-material-multilevel-menu:build"
+            "browserTarget": "ng-material-multilevel-menu-angular-project:build"
           }
         },
         "test": {
@@ -95,7 +95,7 @@
         }
       }
     },
-    "ng-material-multilevel-menu-e2e": {
+    "ng-material-multilevel-menu-angular-project-e2e": {
       "root": "e2e/",
       "projectType": "application",
       "architect": {
@@ -103,7 +103,7 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "ng-material-multilevel-menu:serve"
+            "devServerTarget": "ng-material-multilevel-menu-angular-project:serve"
           }
         },
         "lint": {
@@ -116,7 +116,47 @@
           }
         }
       }
+    },
+    "ng-material-multilevel-menu": {
+      "root": "projects/ng-material-multilevel-menu",
+      "sourceRoot": "projects/ng-material-multilevel-menu/src",
+      "projectType": "library",
+      "prefix": "ng",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/ng-material-multilevel-menu/tsconfig.lib.json",
+            "project": "projects/ng-material-multilevel-menu/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "project": "projects/ng-material-multilevel-menu/ng-package.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/ng-material-multilevel-menu/src/test.ts",
+            "tsConfig": "projects/ng-material-multilevel-menu/tsconfig.spec.json",
+            "karmaConfig": "projects/ng-material-multilevel-menu/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/ng-material-multilevel-menu/tsconfig.lib.json",
+              "projects/ng-material-multilevel-menu/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }
   },
-  "defaultProject": "ng-material-multilevel-menu"
+  "defaultProject": "ng-material-multilevel-menu-angular-project"
 }

@@ -1,0 +1,27 @@
+<mat-list-item matRipple [ngClass]="selectedListClasses" *ngIf="!node.hidden" (click)="expand(node)"
+  [ngStyle]="getListStyle()">
+  <div class="anml-data">
+    <span *ngIf="node.faIcon" class="amml-icon amml-icon-fa">
+      <i [ngClass]="node.faIcon"></i>
+    </span>
+    <mat-icon *ngIf="node.icon" class="amml-icon">
+      {{node.icon}}
+    </mat-icon>
+    <span class="label">{{node.label}}</span>
+  </div>
+  <mat-icon *ngIf='hasItems()' [@isExpanded]="hasItems() && node.expanded ? 'yes' : 'no'">
+    keyboard_arrow_down
+  </mat-icon>
+</mat-list-item>
+
+<mat-divider></mat-divider>
+
+<div *ngIf="hasItems() && node.expanded" [@slideInOut] [ngClass]="classes">
+  <ng-list-item *ngFor="let singleNode of nodeChildren" 
+    [nodeConfiguration]='nodeConfiguration' 
+    [node]='singleNode' 
+    [level]="level + 1"
+    [selectedNode]='selectedNode'
+    (selectedItem)="selectedListItem($event)">
+  </ng-list-item>
+</div>
