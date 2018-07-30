@@ -1,6 +1,6 @@
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 import { NgModule } from '@angular/core';
 import { MatIconModule, MatListModule, MatRippleModule, } from '@angular/material';

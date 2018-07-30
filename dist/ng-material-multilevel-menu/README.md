@@ -10,10 +10,10 @@ The main goal of this package is to deliver a slim and Skinny Material Multi-Lev
 
 Check the Material Multi-Level Menu in action, [click here](http://plugins.codershood.info/#/plugins/ngmm-plugin).
 
-## Types of Icons Supported
-
-1. [Material Icons](https://material.io/tools/icons/?style=baseline)
-2. [FontAwesome Icons](https://fontawesome.com/v4.7.0/icons/)
+## Features
+1. [Material Icons](https://material.io/tools/icons/?style=baseline) are supported.
+2. [FontAwesome Icons](https://fontawesome.com/v4.7.0/icons/) are supported.
+3. Seamlessly work with Angular routing, if provided.
 
 ## Installation
 You can use either the npm or yarn command-line tool to install packages. Use whichever is appropriate for your project in the examples below.
@@ -72,7 +72,13 @@ In your HTML: Use the ```<ng-material-multilevel-menu>``` wherever you like in y
 Make sure you structure of array should look like array shown below,     
 ```typescript
 appitems = [
-        {
+    {
+        label: 'NPM',
+        icon: 'favorite',
+        link: 'https://www.npmjs.com/package/ng-material-multilevel-menu',
+        externalRedirect: true
+    },
+    {
         label: 'Item 1 (with Font awesome icon)',
         faIcon: 'fab fa-500px',
         items: [
@@ -138,6 +144,7 @@ appitems = [
 ## API
 Using ```configuration```, You can customise the appearance of the list.
 * ```paddingAtStart: boolean``` => *[optional]* If you don't want padding at the start of the list item, then you can give ```false```. The default value will be ```true```.
+* ```interfaceWithRoute: boolean``` => *[required]* only if you want to use Angular Routing with this menu.
 * ```classname: string;``` => *[optional]* You can give your own custom class name in order to modify the list appearance. 
 * ```listBackgroundColor: string;``` => *[optional]* You can apply custom color to the background of the list.
 * ```fontColor: string;``` => *[optional]* Changes the color of Text and icons inside the list.
@@ -148,6 +155,7 @@ Below is example how you can apply diffent background and Font colors,
 ```typescript
 config = {
     paddingAtStart: true,
+    interfaceWithRoute: true,
     classname: 'my-custom-class',
     listBackgroundColor: `rgb(208, 241, 239)`,
     fontColor: `rgb(8, 54, 71)`,

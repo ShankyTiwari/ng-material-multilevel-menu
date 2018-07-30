@@ -1,15 +1,11 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
-import { Observable } from 'rxjs';
-
 import { MultilevelNodes } from './app.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MultilevelMenuService {
-  isLastItemClikedStorage = new BehaviorSubject(false);
-  isLastItemCliked: Observable<boolean> = this.isLastItemClikedStorage.asObservable();
+  foundLinkObject: MultilevelNodes;
   generateId(): string {
     let text = '';
     const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -19,7 +15,7 @@ export class MultilevelMenuService {
     return text;
   }
   addRandomId(nodes: MultilevelNodes[]): void {
-    nodes.forEach((node: MultilevelNodes, index) => {
+    nodes.forEach((node: MultilevelNodes) => {
       node.id = this.generateId();
       if (node.items !== undefined) {
         this.addRandomId(node.items);
@@ -37,7 +33,24 @@ export class MultilevelMenuService {
       }
     }
   }
-  updateClickedItem(isCliked: boolean) {
-    this.isLastItemClikedStorage.next(isCliked);
+  recursiveCheckLink(nodes: MultilevelNodes[], link: string): void {
+    for (let nodeIndex = 0; nodeIndex < nodes.length; nodeIndex++) {
+      const node = nodes[nodeIndex];
+      for (const key in node) {
+        if (node.hasOwnProperty(key)) {
+          if (node.link === link) {
+            this.foundLinkObject = node;
+          } else {
+            if (node.items !== undefined) {
+              this.recursiveCheckLink(node.items, link);
+            }
+          }
+        }
+      }
+    }
+  }
+  getMatchedObjectByUrl(node: MultilevelNodes[], link: string): MultilevelNodes {
+    this.recursiveCheckLink(node, link);
+    return this.foundLinkObject;
   }
 }

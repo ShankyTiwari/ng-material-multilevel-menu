@@ -1,7 +1,9 @@
 import { OnChanges, EventEmitter } from '@angular/core';
+import { Router } from '@angular/router';
 import { MultilevelMenuService } from './../multilevel-menu.service';
 import { Configuration, MultilevelNodes, ListStyle } from './../app.model';
 export declare class ListItemComponent implements OnChanges {
+    private router;
     private multilevelMenuService;
     node: MultilevelNodes;
     level: number;
@@ -16,8 +18,10 @@ export declare class ListItemComponent implements OnChanges {
     selectedListClasses: {
         [index: string]: boolean;
     };
-    constructor(multilevelMenuService: MultilevelMenuService);
+    expanded: boolean;
+    constructor(router: Router, multilevelMenuService: MultilevelMenuService);
     ngOnChanges(): void;
+    setSelectedClass(isFound: boolean): void;
     getPaddingAtStart(): boolean;
     getListStyle(): ListStyle;
     hasItems(): boolean;

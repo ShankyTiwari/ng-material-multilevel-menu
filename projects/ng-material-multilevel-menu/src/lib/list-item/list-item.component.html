@@ -9,14 +9,14 @@
     </mat-icon>
     <span class="label">{{node.label}}</span>
   </div>
-  <mat-icon *ngIf='hasItems()' [@isExpanded]="hasItems() && node.expanded ? 'yes' : 'no'">
+  <mat-icon *ngIf='hasItems()' [@isExpanded]="hasItems() && expanded ? 'yes' : 'no'">
     keyboard_arrow_down
   </mat-icon>
 </mat-list-item>
 
 <mat-divider></mat-divider>
 
-<div *ngIf="hasItems() && node.expanded" [@slideInOut] [ngClass]="classes">
+<div *ngIf="hasItems() && expanded" [@slideInOut] [ngClass]="classes">
   <ng-list-item *ngFor="let singleNode of nodeChildren" 
     [nodeConfiguration]='nodeConfiguration' 
     [node]='singleNode' 

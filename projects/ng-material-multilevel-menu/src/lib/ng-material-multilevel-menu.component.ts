@@ -1,4 +1,5 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, OnChanges, Input, Output, EventEmitter } from '@angular/core';
+import { Router, NavigationEnd } from '@angular/router';
 
 import { MultilevelMenuService } from './multilevel-menu.service';
 
@@ -10,7 +11,7 @@ import { CONSTANT } from './constants';
   templateUrl: './ng-material-multilevel-menu.component.html',
   styleUrls: ['./ng-material-multilevel-menu.component.css'],
 })
-export class NgMaterialMultilevelMenuComponent implements OnInit {
+export class NgMaterialMultilevelMenuComponent implements OnInit, OnChanges {
   @Input() items: MultilevelNodes[];
   @Input() configuration: Configuration = null;
   @Output() selectedItem = new EventEmitter<MultilevelNodes>();
@@ -19,16 +20,38 @@ export class NgMaterialMultilevelMenuComponent implements OnInit {
     paddingAtStart: true,
     listBackgroundColor: null,
     fontColor: null,
-    selectedListFontColor: null
+    selectedListFontColor: null,
+    interfaceWithRoute: null
   };
   isInvalidConfig = true;
-  isLastItemCliked = false;
   constructor(
+    private router: Router,
     private multilevelMenuService: MultilevelMenuService
   ) { }
-  ngOnInit() {
+  ngOnChanges() {
     this.checkValiddata();
     this.detectInvalidConfig();
+  }
+  ngOnInit() {
+    if (
+      this.configuration !== null && this.configuration !== undefined && this.configuration !== '' &&
+      this.configuration.interfaceWithRoute !== null && this.configuration.interfaceWithRoute) {
+      this.router.events
+        .subscribe((event) => {
+          if (event instanceof NavigationEnd) {
+            const foundNode = this.multilevelMenuService.getMatchedObjectByUrl(this.items, event.url);
+            if (
+              foundNode !== undefined &&
+              foundNode.link !== undefined &&
+              foundNode.link !== null &&
+              foundNode.link !== ''
+            ) {
+              this.currentNode = foundNode;
+              this.selectedListItem(foundNode);
+            }
+          }
+        });
+    }
   }
   checkValiddata(): void {
     if (this.items.length === 0) {
@@ -61,6 +84,11 @@ export class NgMaterialMultilevelMenuComponent implements OnInit {
         config.selectedListFontColor !== null &&
         config.selectedListFontColor !== undefined) {
         this.nodeConfig.selectedListFontColor = config.selectedListFontColor;
+      }
+      if (config.interfaceWithRoute !== null &&
+        config.interfaceWithRoute !== undefined &&
+        typeof config.interfaceWithRoute === 'boolean') {
+        this.nodeConfig.interfaceWithRoute = config.interfaceWithRoute;
       }
     }
   }

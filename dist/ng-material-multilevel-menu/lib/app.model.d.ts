@@ -5,9 +5,10 @@ export interface MultilevelNodes {
     icon?: string;
     hidden?: boolean;
     link?: string;
-    expanded?: boolean;
+    externalRedirect?: boolean;
     data: any;
     items?: MultilevelNodes[];
+    onSelected?: Function;
 }
 export interface Configuration {
     classname?: string;
@@ -16,6 +17,7 @@ export interface Configuration {
     listBackgroundColor?: string;
     fontColor?: string;
     selectedListFontColor?: string;
+    interfaceWithRoute?: boolean;
 }
 export interface BackgroundStyle {
     background: string;

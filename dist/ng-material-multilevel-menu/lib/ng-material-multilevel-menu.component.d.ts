@@ -1,7 +1,9 @@
-import { OnInit, EventEmitter } from '@angular/core';
+import { OnInit, OnChanges, EventEmitter } from '@angular/core';
+import { Router } from '@angular/router';
 import { MultilevelMenuService } from './multilevel-menu.service';
 import { Configuration, MultilevelNodes, BackgroundStyle } from './app.model';
-export declare class NgMaterialMultilevelMenuComponent implements OnInit {
+export declare class NgMaterialMultilevelMenuComponent implements OnInit, OnChanges {
+    private router;
     private multilevelMenuService;
     items: MultilevelNodes[];
     configuration: Configuration;
@@ -9,8 +11,8 @@ export declare class NgMaterialMultilevelMenuComponent implements OnInit {
     currentNode: MultilevelNodes;
     nodeConfig: Configuration;
     isInvalidConfig: boolean;
-    isLastItemCliked: boolean;
-    constructor(multilevelMenuService: MultilevelMenuService);
+    constructor(router: Router, multilevelMenuService: MultilevelMenuService);
+    ngOnChanges(): void;
     ngOnInit(): void;
     checkValiddata(): void;
     detectInvalidConfig(): void;

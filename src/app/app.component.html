@@ -1,1 +1,17 @@
-<ng-material-multilevel-menu [configuration]='config' [items]='appitems' (selectedItem)="selectedItem($event)"></ng-material-multilevel-menu>
+<mat-drawer-container class="container">
+  <mat-drawer mode="side" opened class="sibebar-content">
+      <ng-material-multilevel-menu [configuration]='config' [items]='appitems' (selectedItem)="selectedItem($event)"></ng-material-multilevel-menu>
+  </mat-drawer>
+  <mat-drawer-content class="content">
+      <router-outlet></router-outlet>
+<button (click)="redirect('/demo-one')">
+  1</button>
+<br>
+<button (click)="redirect('/demo-two')">2</button>
+<br>
+<button (click)="redirect('/demo/12')">3</button>
+<br>
+<button (click)="redirect('/demo-number/12')">4</button>
+<br>
+  </mat-drawer-content>
+</mat-drawer-container>
