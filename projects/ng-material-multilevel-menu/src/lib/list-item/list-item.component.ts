@@ -82,7 +82,6 @@ export class ListItemComponent implements OnChanges {
     this.setClasses();
   }
   getPaddingAtStart(): boolean {
-    console.log(this.nodeConfiguration);
     return this.nodeConfiguration.paddingAtStart ? true : false;
   }
   getListStyle(): ListStyle {

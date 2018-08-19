@@ -39,18 +39,22 @@ export class NgMaterialMultilevelMenuComponent implements OnInit, OnChanges {
       this.router.events
         .subscribe((event) => {
           if (event instanceof NavigationEnd) {
-            const foundNode = this.multilevelMenuService.getMatchedObjectByUrl(this.items, event.url);
-            if (
-              foundNode !== undefined &&
-              foundNode.link !== undefined &&
-              foundNode.link !== null &&
-              foundNode.link !== ''
-            ) {
-              this.currentNode = foundNode;
-              this.selectedListItem(foundNode);
-            }
+            this.updateNodeByURL(event.url);
           }
         });
+      this.updateNodeByURL(this.router.url);
+    }
+  }
+  updateNodeByURL(url: string): void {
+    const foundNode = this.multilevelMenuService.getMatchedObjectByUrl(this.items, url);
+    if (
+      foundNode !== undefined &&
+      foundNode.link !== undefined &&
+      foundNode.link !== null &&
+      foundNode.link !== ''
+    ) {
+      this.currentNode = foundNode;
+      this.selectedListItem(foundNode);
     }
   }
   checkValiddata(): void {

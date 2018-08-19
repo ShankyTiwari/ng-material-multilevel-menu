@@ -11,11 +11,16 @@ import { constant as CONSTANT } from './constants';
 export class AppComponent {
   appitems = CONSTANT.sidebarDemoLinks;
   config = CONSTANT.sidebarConfigurations;
+  displayList = false;
 
 
   constructor(
     private router: Router
-  ) { }
+  ) {
+    setTimeout(() => {
+      this.displayList = true;
+    }, 5000);
+  }
 
   selectedItem($event) {
     console.log($event);
@@ -23,5 +28,8 @@ export class AppComponent {
 
   redirect(link) {
     this.router.navigate([link]);
+    setTimeout(() => {
+      this.displayList = true;
+    }, 100);
   }
 }
