@@ -1,4 +1,4 @@
-<mat-list-item matRipple [ngClass]="selectedListClasses" *ngIf="!node.hidden" (click)="expand(node)"
+<mat-list-item matRipple [ngClass]="selectedListClasses" *ngIf="!node.hidden" (click)="expand(node)" title="{{node.label}}"
   [ngStyle]="getListStyle()">
   <div class="anml-data">
     <span *ngIf="node.faIcon" class="amml-icon amml-icon-fa">
