@@ -18,6 +18,8 @@ export interface Configuration {
     fontColor?: string;
     selectedListFontColor?: string;
     interfaceWithRoute?: boolean;
+    collapseOnSelect?: boolean;
+    highlightOnSelect?: boolean;
 }
 export interface BackgroundStyle {
     background: string;

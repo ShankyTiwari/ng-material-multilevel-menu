@@ -70,10 +70,13 @@ export class ListItemComponent implements OnChanges {
   }
   setSelectedClass(isFound: boolean): void {
     if (isFound) {
-      this.isSelected = true;
       this.expanded = true;
+      this.isSelected = this.nodeConfiguration.highlightOnSelect || this.selectedNode.items === undefined ? true : false;
     } else {
       this.isSelected = false;
+      if (this.nodeConfiguration.collapseOnSelect) {
+        this.expanded = false;
+      }
     }
     this.selectedListClasses = {
       [CONSTANT.DEFAULT_LIST_CLASS_NAME]: true,
@@ -112,7 +115,10 @@ export class ListItemComponent implements OnChanges {
   expand(node: MultilevelNodes): void {
     this.expanded = !this.expanded;
     this.setClasses();
-    if (this.nodeConfiguration.interfaceWithRoute !== null
+    if (node.onSelected) {
+      node.onSelected(node);
+      this.selectedListItem(node);
+    } else if (this.nodeConfiguration.interfaceWithRoute !== null
       && this.nodeConfiguration.interfaceWithRoute
       && node.link !== undefined
     ) {
@@ -121,7 +127,7 @@ export class ListItemComponent implements OnChanges {
       } else {
         this.router.navigate([node.link]);
       }
-    } else if (node.items === undefined) {
+    } else if (node.items === undefined || this.nodeConfiguration.collapseOnSelect) {
       this.selectedListItem(node);
     }
   }

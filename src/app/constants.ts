@@ -3,6 +3,9 @@ export const constant = {
         {
             label: 'Hemo',
             icon: 'favorite',
+            onSelected: function () {
+                console.log('Home');
+            },
             items: [
                 {
                     label: 'Alter Configurations',
@@ -11,22 +14,34 @@ export const constant = {
                         {
                             label: 'Default',
                             link: '/demo-one',
-                            icon: 'favorite'
+                            icon: 'favorite',
+                            onSelected: function() {
+                                console.log('Default');
+                            }
                         },
                         {
                             label: 'Changing Colours',
                             link: '/demo-two',
-                            icon: 'favorite_border'
+                            icon: 'favorite_border',
+                            onSelected: function() {
+                                console.log('Changing Colours');
+                            }
                         },
                         {
                             label: 'Changing Padding',
                             link: '/demo/12',
-                            icon: 'favorite_border'
+                            icon: 'favorite_border',
+                            onSelected: function() {
+                                console.log('Changing Padding');
+                            }
                         },
                         {
                             label: 'Changing Background',
                             link: '/demo-number/12',
-                            icon: 'favorite_border'
+                            icon: 'favorite_border',
+                            onSelected: function() {
+                                console.log('Changing Background');
+                            }
                         }
                     ]
                 },
@@ -59,7 +74,9 @@ export const constant = {
     ],
     sidebarConfigurations: {
         paddingAtStart: true,
-        interfaceWithRoute: true
+        interfaceWithRoute: true,
+        collapseOnSelect: true,
+        highlightOnSelect: false
     },
     appItems: [
         {

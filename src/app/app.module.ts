@@ -5,9 +5,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialsModule } from './modules/materials.module';
 import { AppRoutingModule } from './app-routing.module';
 
-// import { NgMaterialMultilevelMenuModule } from './../../projects/ng-material-multilevel-menu/src/lib/ng-material-multilevel-menu.module';
+import { NgMaterialMultilevelMenuModule } from './../../projects/ng-material-multilevel-menu/src/lib/ng-material-multilevel-menu.module';
 
-import { NgMaterialMultilevelMenuModule } from 'ng-material-multilevel-menu';
+// import { NgMaterialMultilevelMenuModule } from 'ng-material-multilevel-menu';
 
 import { AppComponent } from './app.component';
 

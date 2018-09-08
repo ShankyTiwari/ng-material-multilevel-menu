@@ -103,7 +103,10 @@ appitems = [
                             {
                                 label: 'Item 1.2.2.1',
                                 link: 'item-1-2-2-1',
-                                faIcon: 'fas fa-anchor'
+                                faIcon: 'fas fa-anchor',
+                                onSelected: function() {
+                                    console.log('Item 1.2.2.1');
+                                }
                             }
                         ]
                     }
@@ -130,7 +133,10 @@ appitems = [
     {
         label: 'Item 3',
         link: '/item-3',
-        icon: 'offline_pin'
+        icon: 'offline_pin',
+        onSelected: function() {
+            console.log('Item 3');
+        }
     },
     {
         label: 'Item 4',
@@ -145,6 +151,8 @@ appitems = [
 Using ```configuration```, You can customise the appearance of the list.
 * ```paddingAtStart: boolean``` => *[optional]* If you don't want padding at the start of the list item, then you can give ```false```. The default value will be ```true```.
 * ```interfaceWithRoute: boolean``` => *[required]* only if you want to use Angular Routing with this menu.
+* ```highlightOnSelect: boolean``` => *[optional]* If you want to highlight the clicked item in the list, then you can do that by making it ```true```. The default value will be ```false```.
+* ```collapseOnSelect: boolean;``` => *[optional]* You have the option to collapse another parent when clicked on the current parent. The default value will be ```false```. 
 * ```classname: string;``` => *[optional]* You can give your own custom class name in order to modify the list appearance. 
 * ```listBackgroundColor: string;``` => *[optional]* You can apply custom color to the background of the list.
 * ```fontColor: string;``` => *[optional]* Changes the color of Text and icons inside the list.
@@ -161,6 +169,8 @@ config = {
     fontColor: `rgb(8, 54, 71)`,
     backgroundColor: `rgb(208, 241, 239)`,
     selectedListFontColor: `red`,
+    highlightOnSelect: true,
+    collapseOnSelect: true
 };
 ```
 

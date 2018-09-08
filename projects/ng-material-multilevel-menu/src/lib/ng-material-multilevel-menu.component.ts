@@ -21,7 +21,9 @@ export class NgMaterialMultilevelMenuComponent implements OnInit, OnChanges {
     listBackgroundColor: null,
     fontColor: null,
     selectedListFontColor: null,
-    interfaceWithRoute: null
+    interfaceWithRoute: null,
+    collapseOnSelect: null,
+    highlightOnSelect: false
   };
   isInvalidConfig = true;
   constructor(
@@ -94,6 +96,16 @@ export class NgMaterialMultilevelMenuComponent implements OnInit, OnChanges {
         typeof config.interfaceWithRoute === 'boolean') {
         this.nodeConfig.interfaceWithRoute = config.interfaceWithRoute;
       }
+      if (config.collapseOnSelect !== null &&
+        config.collapseOnSelect !== undefined &&
+        typeof config.collapseOnSelect === 'boolean') {
+        this.nodeConfig.collapseOnSelect = config.collapseOnSelect;
+      }
+      if (config.highlightOnSelect !== null &&
+        config.highlightOnSelect !== undefined &&
+        typeof config.highlightOnSelect === 'boolean') {
+        this.nodeConfig.highlightOnSelect = config.highlightOnSelect;
+      }
     }
   }
   getClassName(): string {
@@ -122,6 +134,8 @@ export class NgMaterialMultilevelMenuComponent implements OnInit, OnChanges {
   }
   selectedListItem(event: MultilevelNodes): void {
     this.currentNode = event;
-    this.selectedItem.emit(event);
+    if (event.items === undefined && !event.onSelected) {
+      this.selectedItem.emit(event);
+    }
   }
 }
