@@ -1,6 +1,6 @@
 <mat-list-item matRipple [ngClass]="selectedListClasses" *ngIf="!node.hidden" (click)="expand(node)" title="{{node.label}}"
   [ngStyle]="getListStyle()">
-  <div class="anml-data" [dir]="nodeConfiguration.rtlLayout ? 'rtl' : 'ltr'">
+  <div class="anml-data" [dir]="isRtlLayout() ? 'rtl' : 'ltr'">
     <span *ngIf="node.faIcon" class="amml-icon amml-icon-fa">
       <i [ngClass]="node.faIcon"></i>
     </span>
@@ -21,7 +21,7 @@
 
 <mat-divider></mat-divider>
 
-<div *ngIf="hasItems() && expanded" [@slideInOut] [ngClass]="classes" [dir]="nodeConfiguration.rtlLayout ? 'rtl' : 'ltr'">
+<div *ngIf="hasItems() && expanded" [@slideInOut] [ngClass]="classes" [dir]="isRtlLayout() ? 'rtl' : 'ltr'">
   <ng-list-item *ngFor="let singleNode of nodeChildren"
     [nodeConfiguration]='nodeConfiguration'
     [node]='singleNode'
