@@ -21,6 +21,7 @@ export interface Configuration {
     interfaceWithRoute?: boolean;
     collapseOnSelect?: boolean;
     highlightOnSelect?: boolean;
+    rtlLayout?: boolean;
 }
 
 export interface BackgroundStyle {

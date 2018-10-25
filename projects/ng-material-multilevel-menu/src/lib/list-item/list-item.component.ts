@@ -29,8 +29,19 @@ import { CONSTANT } from './../constants';
         ])
       ])
     ]),
-    trigger('isExpanded', [
+    trigger('isExpandedLTR', [
       state('no', style({ transform: 'rotate(-90deg)' })),
+      state('yes', style({ transform: 'rotate(0deg)', })),
+
+      transition('no => yes',
+        animate(300)
+      ),
+      transition('yes => no',
+        animate(300)
+      )
+    ]),
+    trigger('isExpandedRTL', [
+      state('no', style({ transform: 'rotate(90deg)' })),
       state('yes', style({ transform: 'rotate(0deg)', })),
 
       transition('no => yes',
@@ -105,6 +116,9 @@ export class ListItemComponent implements OnChanges {
   }
   hasItems(): boolean {
     return this.nodeChildren.length > 0 ? true : false;
+  }
+  isRtlLayout(): boolean {
+    return this.nodeConfiguration.rtlLayout;
   }
   setClasses(): void {
     this.classes = {

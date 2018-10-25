@@ -23,7 +23,8 @@ export class NgMaterialMultilevelMenuComponent implements OnInit, OnChanges {
     selectedListFontColor: null,
     interfaceWithRoute: null,
     collapseOnSelect: null,
-    highlightOnSelect: false
+    highlightOnSelect: false,
+    rtlLayout: false,
   };
   isInvalidConfig = true;
   constructor(
@@ -106,6 +107,11 @@ export class NgMaterialMultilevelMenuComponent implements OnInit, OnChanges {
         typeof config.highlightOnSelect === 'boolean') {
         this.nodeConfig.highlightOnSelect = config.highlightOnSelect;
       }
+      if (config.rtlLayout !== null &&
+        config.rtlLayout !== undefined &&
+        typeof config.rtlLayout === 'boolean') {
+        this.nodeConfig.rtlLayout = config.rtlLayout;
+      }
     }
   }
   getClassName(): string {
@@ -131,6 +137,9 @@ export class NgMaterialMultilevelMenuComponent implements OnInit, OnChanges {
       }
       return styles;
     }
+  }
+  isRtlLayout(): boolean {
+    return this.nodeConfig.rtlLayout;
   }
   selectedListItem(event: MultilevelNodes): void {
     this.currentNode = event;
