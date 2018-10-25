@@ -184,6 +184,6 @@ config = {
 
 I welcome you to fork and add more features into it. If you have any bugs or feature request, please create an issue at [github repository](https://github.com/ShankyTiwari/ng-material-multilevel-menu/issues).
 
-## Leicense
+## License
 
 MIT
