@@ -153,6 +153,7 @@ Using ```configuration```, You can customise the appearance of the list.
 * ```interfaceWithRoute: boolean``` => *[required]* only if you want to use Angular Routing with this menu.
 * ```highlightOnSelect: boolean``` => *[optional]* If you want to highlight the clicked item in the list, then you can do that by making it ```true```. The default value will be ```false```.
 * ```collapseOnSelect: boolean;``` => *[optional]* You have the option to collapse another parent when clicked on the current parent. The default value will be ```false```. 
+* ```rtlLayout: boolean;``` => *[optional]* whether display is Right To Left. The default value will be ```false```. 
 * ```classname: string;``` => *[optional]* You can give your own custom class name in order to modify the list appearance. 
 * ```listBackgroundColor: string;``` => *[optional]* You can apply custom color to the background of the list.
 * ```fontColor: string;``` => *[optional]* Changes the color of Text and icons inside the list.
@@ -170,7 +171,8 @@ config = {
     backgroundColor: `rgb(208, 241, 239)`,
     selectedListFontColor: `red`,
     highlightOnSelect: true,
-    collapseOnSelect: true
+    collapseOnSelect: true,
+    rtlLayout: false
 };
 ```
 
@@ -182,6 +184,6 @@ config = {
 
 I welcome you to fork and add more features into it. If you have any bugs or feature request, please create an issue at [github repository](https://github.com/ShankyTiwari/ng-material-multilevel-menu/issues).
 
-## Leicense
+## License
 
 MIT
