@@ -3,6 +3,7 @@ export interface MultilevelNodes {
     label: string;
     faIcon?: string;
     icon?: string;
+    imageIcon?: string;
     hidden?: boolean;
     link?: string;
     externalRedirect?: boolean;
@@ -21,6 +22,7 @@ export interface Configuration {
     interfaceWithRoute?: boolean;
     collapseOnSelect?: boolean;
     highlightOnSelect?: boolean;
+    rtlLayout?: boolean;
 }
 
 export interface BackgroundStyle {

@@ -12,19 +12,30 @@
   justify-content: start;
 }
 
-.amml-icon {
-  line-height: 48px;
-  margin-right: 15px;
-}
-
 .amml-icon-fa {
   font-size: 20px;
 }
 
-.amml-submenu {
-  margin-left: 16px;
+.amml-icon {
+  line-height: 48px;
 }
 
 .active {
   color: #1976d2;
 }
+
+div[dir="ltr"] .amml-icon {
+  margin-right: 15px;
+}
+div[dir="ltr"] .amml-submenu {
+  margin-left: 16px;
+}
+
+div[dir="rtl"] .amml-icon {
+  margin-left: 15px;
+}
+div[dir="rtl"] .amml-submenu {
+  margin-right: 16px;
+}
+
+

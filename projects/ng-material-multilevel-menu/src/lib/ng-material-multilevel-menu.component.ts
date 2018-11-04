@@ -15,6 +15,7 @@ export class NgMaterialMultilevelMenuComponent implements OnInit, OnChanges {
   @Input() items: MultilevelNodes[];
   @Input() configuration: Configuration = null;
   @Output() selectedItem = new EventEmitter<MultilevelNodes>();
+  @Output() selectedLabel = new EventEmitter<MultilevelNodes>();
   currentNode: MultilevelNodes;
   nodeConfig: Configuration = {
     paddingAtStart: true,
@@ -23,7 +24,8 @@ export class NgMaterialMultilevelMenuComponent implements OnInit, OnChanges {
     selectedListFontColor: null,
     interfaceWithRoute: null,
     collapseOnSelect: null,
-    highlightOnSelect: false
+    highlightOnSelect: false,
+    rtlLayout: false,
   };
   isInvalidConfig = true;
   constructor(
@@ -106,6 +108,11 @@ export class NgMaterialMultilevelMenuComponent implements OnInit, OnChanges {
         typeof config.highlightOnSelect === 'boolean') {
         this.nodeConfig.highlightOnSelect = config.highlightOnSelect;
       }
+      if (config.rtlLayout !== null &&
+        config.rtlLayout !== undefined &&
+        typeof config.rtlLayout === 'boolean') {
+        this.nodeConfig.rtlLayout = config.rtlLayout;
+      }
     }
   }
   getClassName(): string {
@@ -132,10 +139,15 @@ export class NgMaterialMultilevelMenuComponent implements OnInit, OnChanges {
       return styles;
     }
   }
+  isRtlLayout(): boolean {
+    return this.nodeConfig.rtlLayout;
+  }
   selectedListItem(event: MultilevelNodes): void {
     this.currentNode = event;
     if (event.items === undefined && !event.onSelected) {
       this.selectedItem.emit(event);
+    } else {
+      this.selectedLabel.emit(event);
     }
   }
 }

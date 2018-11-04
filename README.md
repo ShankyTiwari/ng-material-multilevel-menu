@@ -13,7 +13,9 @@ Check the Material Multi-Level Menu in action, [click here](http://plugins.coder
 ## Features
 1. [Material Icons](https://material.io/tools/icons/?style=baseline) are supported.
 2. [FontAwesome Icons](https://fontawesome.com/v4.7.0/icons/) are supported.
-3. Seamlessly work with Angular routing, if provided.
+3. Use images as icons in the list.
+4. Seamlessly work with Angular routing, if provided.
+5. RTL supported ([thanks to StavM](https://github.com/StavM)).
 
 ## Installation
 You can use either the npm or yarn command-line tool to install packages. Use whichever is appropriate for your project in the examples below.
@@ -64,7 +66,12 @@ export class AppModule { }
 In your HTML: Use the ```<ng-material-multilevel-menu>``` wherever you like in your project.
 
 ```html        
-<ng-material-multilevel-menu  [configuration]='config' [items]='appitems' (selectedItem)="selectedItem($event)"></ng-material-multilevel-menu>
+<ng-material-multilevel-menu  
+    [configuration]='config' 
+    [items]='appitems'
+    (selectedItem)="selectedItem($event)" 
+    (selectedLabel)="selectedLabel($event)">
+</ng-material-multilevel-menu>
 ```
         
 #### 3. Structure of array to display the list
@@ -74,7 +81,7 @@ Make sure you structure of array should look like array shown below,
 appitems = [
     {
         label: 'NPM',
-        icon: 'favorite',
+        imageIcon: '/assets/batman.jpg',
         link: 'https://www.npmjs.com/package/ng-material-multilevel-menu',
         externalRedirect: true
     },
@@ -102,7 +109,6 @@ appitems = [
                         items: [
                             {
                                 label: 'Item 1.2.2.1',
-                                link: 'item-1-2-2-1',
                                 faIcon: 'fas fa-anchor',
                                 onSelected: function() {
                                     console.log('Item 1.2.2.1');
@@ -132,7 +138,6 @@ appitems = [
     },
     {
         label: 'Item 3',
-        link: '/item-3',
         icon: 'offline_pin',
         onSelected: function() {
             console.log('Item 3');
@@ -153,6 +158,7 @@ Using ```configuration```, You can customise the appearance of the list.
 * ```interfaceWithRoute: boolean``` => *[required]* only if you want to use Angular Routing with this menu.
 * ```highlightOnSelect: boolean``` => *[optional]* If you want to highlight the clicked item in the list, then you can do that by making it ```true```. The default value will be ```false```.
 * ```collapseOnSelect: boolean;``` => *[optional]* You have the option to collapse another parent when clicked on the current parent. The default value will be ```false```. 
+* ```rtlLayout: boolean;``` => *[optional]* whether display is Right To Left. The default value will be ```false```. 
 * ```classname: string;``` => *[optional]* You can give your own custom class name in order to modify the list appearance. 
 * ```listBackgroundColor: string;``` => *[optional]* You can apply custom color to the background of the list.
 * ```fontColor: string;``` => *[optional]* Changes the color of Text and icons inside the list.
@@ -170,7 +176,8 @@ config = {
     backgroundColor: `rgb(208, 241, 239)`,
     selectedListFontColor: `red`,
     highlightOnSelect: true,
-    collapseOnSelect: true
+    collapseOnSelect: true,
+    rtlLayout: false
 };
 ```
 
@@ -182,6 +189,6 @@ config = {
 
 I welcome you to fork and add more features into it. If you have any bugs or feature request, please create an issue at [github repository](https://github.com/ShankyTiwari/ng-material-multilevel-menu/issues).
 
-## Leicense
+## License
 
 MIT

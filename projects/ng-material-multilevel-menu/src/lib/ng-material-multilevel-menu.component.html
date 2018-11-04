@@ -1,10 +1,10 @@
-<div [ngClass]="getClassName()" [ngStyle]="getGlobalStyle()" *ngIf='items.length !== 0'>
+<div [ngClass]="getClassName()" [ngStyle]="getGlobalStyle()" *ngIf='items.length !== 0' [dir]="isRtlLayout() ? 'rtl' : 'ltr'">
   <mat-list>
-    <ng-list-item 
-      *ngFor="let node of items" 
-      [nodeConfiguration]='nodeConfig' 
-      [node]='node' 
-      [selectedNode]='currentNode' 
+    <ng-list-item
+      *ngFor="let node of items"
+      [nodeConfiguration]='nodeConfig'
+      [node]='node'
+      [selectedNode]='currentNode'
       (selectedItem)="selectedListItem($event)
     ">
     </ng-list-item>

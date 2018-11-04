@@ -38,7 +38,7 @@ export class MultilevelMenuService {
       const node = nodes[nodeIndex];
       for (const key in node) {
         if (node.hasOwnProperty(key)) {
-          if (node.link === link) {
+          if (encodeURI(node.link) === link) {
             this.foundLinkObject = node;
           } else {
             if (node.items !== undefined) {

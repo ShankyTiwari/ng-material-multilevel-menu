@@ -12,11 +12,6 @@
   height: 48px;
 }
 
-.amml-icon {
-  line-height: 48px;
-  margin-right: 15px;
-}
-
 .amml-icon-fa {
   font-size: 20px;
 }
@@ -24,6 +19,21 @@
 .label{
   line-height: 48px;
 }
-.amml-submenu {
+
+.amml-icon {
+  line-height: 48px;
+}
+
+div[dir="ltr"] .amml-icon {
+  margin-right: 16px;
+}
+div[dir="ltr"].amml-submenu {
   margin-left: 16px;
+}
+
+div[dir="rtl"] .amml-icon {
+  margin-left: 16px;
+}
+div[dir="rtl"].amml-submenu {
+  margin-right: 16px;
 }

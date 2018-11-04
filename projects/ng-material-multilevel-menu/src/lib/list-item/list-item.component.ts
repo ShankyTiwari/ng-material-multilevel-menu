@@ -29,8 +29,19 @@ import { CONSTANT } from './../constants';
         ])
       ])
     ]),
-    trigger('isExpanded', [
+    trigger('isExpandedLTR', [
       state('no', style({ transform: 'rotate(-90deg)' })),
+      state('yes', style({ transform: 'rotate(0deg)', })),
+
+      transition('no => yes',
+        animate(300)
+      ),
+      transition('yes => no',
+        animate(300)
+      )
+    ]),
+    trigger('isExpandedRTL', [
+      state('no', style({ transform: 'rotate(90deg)' })),
       state('yes', style({ transform: 'rotate(0deg)', })),
 
       transition('no => yes',
@@ -53,6 +64,7 @@ export class ListItemComponent implements OnChanges {
   classes: { [index: string]: boolean };
   selectedListClasses: { [index: string]: boolean };
   expanded = false;
+  firstInitializer = false;
   constructor(
     private router: Router,
     private multilevelMenuService: MultilevelMenuService
@@ -70,7 +82,9 @@ export class ListItemComponent implements OnChanges {
   }
   setSelectedClass(isFound: boolean): void {
     if (isFound) {
-      this.expanded = true;
+      if (!this.firstInitializer) {
+        this.expanded = true;
+      }
       this.isSelected = this.nodeConfiguration.highlightOnSelect || this.selectedNode.items === undefined ? true : false;
     } else {
       this.isSelected = false;
@@ -103,22 +117,34 @@ export class ListItemComponent implements OnChanges {
     }
     return styles;
   }
+  getListIcon(node: MultilevelNodes): string {
+    if (node.icon !== null && node.icon !== undefined && node.icon !== '') {
+      return `icon`;
+    } else if (node.faIcon !== null && node.faIcon !== undefined && node.faIcon !== '') {
+      return `faicon`;
+    } else if (node.imageIcon !== null && node.imageIcon !== undefined && node.imageIcon !== '') {
+      return `imageicon`;
+    } else {
+      return ``;
+    }
+  }
   hasItems(): boolean {
     return this.nodeChildren.length > 0 ? true : false;
+  }
+  isRtlLayout(): boolean {
+    return this.nodeConfiguration.rtlLayout;
   }
   setClasses(): void {
     this.classes = {
       ['level-' + this.level]: true,
-      'amml-submenu': this.hasItems() && this.expanded && this.getPaddingAtStart()
+      'amml-submenu': this.hasItems() && this.getPaddingAtStart()
     };
   }
   expand(node: MultilevelNodes): void {
     this.expanded = !this.expanded;
+    this.firstInitializer = true;
     this.setClasses();
-    if (node.onSelected) {
-      node.onSelected(node);
-      this.selectedListItem(node);
-    } else if (this.nodeConfiguration.interfaceWithRoute !== null
+    if (this.nodeConfiguration.interfaceWithRoute !== null
       && this.nodeConfiguration.interfaceWithRoute
       && node.link !== undefined
     ) {
@@ -128,6 +154,9 @@ export class ListItemComponent implements OnChanges {
         this.router.navigate([node.link]);
       }
     } else if (node.items === undefined || this.nodeConfiguration.collapseOnSelect) {
+      this.selectedListItem(node);
+    } else if (node.onSelected) {
+      node.onSelected(node);
       this.selectedListItem(node);
     }
   }

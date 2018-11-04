@@ -10,7 +10,7 @@ const routes: Routes = [{
   path: 'demo-one',
   loadChildren: 'src/app/pages/demo-one/demo-one.module#DemoOneModule'
 }, {
-  path: 'demo-two',
+  path: 'demo two',
   loadChildren: 'src/app/pages/demo-two/demo-two.module#DemoTwoModule'
 }, {
   path: 'demo/:demoNumber',
