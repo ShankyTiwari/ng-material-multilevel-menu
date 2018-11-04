@@ -1,11 +1,11 @@
-import { animate, group, state, style, transition, trigger } from '@angular/animations';
-import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
+import { Component, OnChanges, Input, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
-import { Configuration, ListStyle, MultilevelNodes } from './../app.model';
-import { CONSTANT } from './../constants';
+import { trigger, style, transition, animate, state, group } from '@angular/animations';
+
 import { MultilevelMenuService } from './../multilevel-menu.service';
 
-
+import { Configuration, MultilevelNodes, ListStyle } from './../app.model';
+import { CONSTANT } from './../constants';
 
 @Component({
   selector: 'ng-list-item',
