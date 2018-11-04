@@ -1,11 +1,11 @@
-import { Component, OnChanges, Input, Output, EventEmitter } from '@angular/core';
+import { animate, group, state, style, transition, trigger } from '@angular/animations';
+import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
 import { Router } from '@angular/router';
-import { trigger, style, transition, animate, state, group } from '@angular/animations';
-
+import { Configuration, ListStyle, MultilevelNodes } from './../app.model';
+import { CONSTANT } from './../constants';
 import { MultilevelMenuService } from './../multilevel-menu.service';
 
-import { Configuration, MultilevelNodes, ListStyle } from './../app.model';
-import { CONSTANT } from './../constants';
+
 
 @Component({
   selector: 'ng-list-item',
@@ -147,6 +147,7 @@ export class ListItemComponent implements OnChanges {
     if (this.nodeConfiguration.interfaceWithRoute !== null
       && this.nodeConfiguration.interfaceWithRoute
       && node.link !== undefined
+      && node.link
     ) {
       if (node.externalRedirect !== undefined && node.externalRedirect) {
         window.location.href = node.link;
