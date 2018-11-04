@@ -8,6 +8,7 @@ export declare class NgMaterialMultilevelMenuComponent implements OnInit, OnChan
     items: MultilevelNodes[];
     configuration: Configuration;
     selectedItem: EventEmitter<MultilevelNodes>;
+    selectedLabel: EventEmitter<MultilevelNodes>;
     currentNode: MultilevelNodes;
     nodeConfig: Configuration;
     isInvalidConfig: boolean;
@@ -19,5 +20,6 @@ export declare class NgMaterialMultilevelMenuComponent implements OnInit, OnChan
     detectInvalidConfig(): void;
     getClassName(): string;
     getGlobalStyle(): BackgroundStyle;
+    isRtlLayout(): boolean;
     selectedListItem(event: MultilevelNodes): void;
 }

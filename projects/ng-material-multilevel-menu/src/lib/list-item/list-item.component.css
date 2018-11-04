@@ -25,15 +25,15 @@
 }
 
 div[dir="ltr"] .amml-icon {
-  margin-right: 15px;
+  margin-right: 16px;
 }
-div[dir="ltr"] .amml-submenu {
+div[dir="ltr"].amml-submenu {
   margin-left: 16px;
 }
 
 div[dir="rtl"] .amml-icon {
-  margin-left: 15px;
+  margin-left: 16px;
 }
-div[dir="rtl"] .amml-submenu {
+div[dir="rtl"].amml-submenu {
   margin-right: 16px;
 }

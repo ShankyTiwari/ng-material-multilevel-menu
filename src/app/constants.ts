@@ -1,47 +1,32 @@
 export const constant = {
     sidebarDemoLinks: [
         {
-            label: 'Hemo',
-            icon: 'favorite',
-            onSelected: function () {
-                console.log('Home');
-            },
+            label: 'Item 1 (with Font awesome icon)',
+            imageIcon: '/assets/batman.jpg',
             items: [
                 {
                     label: 'Alter Configurations',
-                    icon: 'alarm',
+                    faIcon: 'fab fa-500px',
                     items: [
                         {
                             label: 'Default',
                             link: '/demo-one',
-                            icon: 'favorite',
-                            onSelected: function() {
-                                console.log('Default');
-                            }
+                            icon: 'favorite'
                         },
                         {
                             label: 'Changing Colours',
-                            link: '/demo-two',
-                            icon: 'favorite_border',
-                            onSelected: function() {
-                                console.log('Changing Colours');
-                            }
+                            link: '/demo two',
+                            icon: 'favorite_border'
                         },
                         {
                             label: 'Changing Padding',
                             link: '/demo/12',
-                            icon: 'favorite_border',
-                            onSelected: function() {
-                                console.log('Changing Padding');
-                            }
+                            icon: 'favorite_border'
                         },
                         {
                             label: 'Changing Background',
                             link: '/demo-number/12',
-                            icon: 'favorite_border',
-                            onSelected: function() {
-                                console.log('Changing Background');
-                            }
+                            icon: 'favorite_border'
                         }
                     ]
                 },
@@ -73,7 +58,7 @@ export const constant = {
         }
     ],
     sidebarConfigurations: {
-        paddingAtStart: true,
+        paddingAtStart: false,
         interfaceWithRoute: true,
         collapseOnSelect: true,
         highlightOnSelect: false,

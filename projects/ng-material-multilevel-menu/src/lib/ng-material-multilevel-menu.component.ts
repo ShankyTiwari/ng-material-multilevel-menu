@@ -15,6 +15,7 @@ export class NgMaterialMultilevelMenuComponent implements OnInit, OnChanges {
   @Input() items: MultilevelNodes[];
   @Input() configuration: Configuration = null;
   @Output() selectedItem = new EventEmitter<MultilevelNodes>();
+  @Output() selectedLabel = new EventEmitter<MultilevelNodes>();
   currentNode: MultilevelNodes;
   nodeConfig: Configuration = {
     paddingAtStart: true,
@@ -145,6 +146,8 @@ export class NgMaterialMultilevelMenuComponent implements OnInit, OnChanges {
     this.currentNode = event;
     if (event.items === undefined && !event.onSelected) {
       this.selectedItem.emit(event);
+    } else {
+      this.selectedLabel.emit(event);
     }
   }
 }

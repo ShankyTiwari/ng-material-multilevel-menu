@@ -19,10 +19,14 @@ export class AppComponent {
   ) {
     setTimeout(() => {
       this.displayList = true;
-    }, 5000);
+    }, 100);
   }
 
   selectedItem($event) {
+    console.log($event);
+  }
+
+  selectedLabel($event) {
     console.log($event);
   }
 

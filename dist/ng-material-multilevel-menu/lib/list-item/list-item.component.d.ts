@@ -19,12 +19,15 @@ export declare class ListItemComponent implements OnChanges {
         [index: string]: boolean;
     };
     expanded: boolean;
+    firstInitializer: boolean;
     constructor(router: Router, multilevelMenuService: MultilevelMenuService);
     ngOnChanges(): void;
     setSelectedClass(isFound: boolean): void;
     getPaddingAtStart(): boolean;
     getListStyle(): ListStyle;
+    getListIcon(node: MultilevelNodes): string;
     hasItems(): boolean;
+    isRtlLayout(): boolean;
     setClasses(): void;
     expand(node: MultilevelNodes): void;
     selectedListItem(node: MultilevelNodes): void;

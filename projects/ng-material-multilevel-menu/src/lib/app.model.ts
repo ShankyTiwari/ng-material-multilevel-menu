@@ -3,6 +3,7 @@ export interface MultilevelNodes {
     label: string;
     faIcon?: string;
     icon?: string;
+    imageIcon?: string;
     hidden?: boolean;
     link?: string;
     externalRedirect?: boolean;
