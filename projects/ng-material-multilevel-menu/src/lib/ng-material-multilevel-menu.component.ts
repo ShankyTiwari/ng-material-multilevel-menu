@@ -144,7 +144,7 @@ export class NgMaterialMultilevelMenuComponent implements OnInit, OnChanges {
   }
   selectedListItem(event: MultilevelNodes): void {
     this.currentNode = event;
-    if (event.items === undefined && !event.onSelected) {
+    if (event.items === undefined && (!event.onSelected || typeof event.onSelected !== 'function') ) {
       this.selectedItem.emit(event);
     } else {
       this.selectedLabel.emit(event);

@@ -154,10 +154,10 @@ export class ListItemComponent implements OnChanges {
       } else {
         this.router.navigate([node.link]);
       }
-    } else if (node.items === undefined || this.nodeConfiguration.collapseOnSelect) {
-      this.selectedListItem(node);
-    } else if (node.onSelected) {
+    } else if (node.onSelected && typeof node.onSelected === 'function') {
       node.onSelected(node);
+      this.selectedListItem(node);
+    } else if (node.items === undefined || this.nodeConfiguration.collapseOnSelect) {
       this.selectedListItem(node);
     }
   }
