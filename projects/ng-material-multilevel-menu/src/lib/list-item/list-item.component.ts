@@ -147,6 +147,7 @@ export class ListItemComponent implements OnChanges {
     if (this.nodeConfiguration.interfaceWithRoute !== null
       && this.nodeConfiguration.interfaceWithRoute
       && node.link !== undefined
+      && node.link
     ) {
       if (node.externalRedirect !== undefined && node.externalRedirect) {
         window.location.href = node.link;
