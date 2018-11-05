@@ -17,7 +17,7 @@ import { CONSTANT } from './../constants';
       transition(':leave', [
         style({ height: '*', opacity: 0.2 }),
         group([
-          animate(300, style({ height: 0 })),
+          animate(200, style({ height: 0 })),
           animate('200ms ease-out', style({ opacity: 0 }))
         ])
       ]),
@@ -34,10 +34,10 @@ import { CONSTANT } from './../constants';
       state('yes', style({ transform: 'rotate(0deg)', })),
 
       transition('no => yes',
-        animate(300)
+        animate(200)
       ),
       transition('yes => no',
-        animate(300)
+        animate(200)
       )
     ]),
     trigger('isExpandedRTL', [
@@ -45,10 +45,10 @@ import { CONSTANT } from './../constants';
       state('yes', style({ transform: 'rotate(0deg)', })),
 
       transition('no => yes',
-        animate(300)
+        animate(200)
       ),
       transition('yes => no',
-        animate(300)
+        animate(200)
       )
     ])
   ]
