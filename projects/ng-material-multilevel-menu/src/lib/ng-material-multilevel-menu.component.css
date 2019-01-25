@@ -9,7 +9,7 @@
   width: 100%;
   text-transform: capitalize;
   display: flex;
-  justify-content: start;
+  justify-content: flex-start;
 }
 
 .amml-icon-fa {
