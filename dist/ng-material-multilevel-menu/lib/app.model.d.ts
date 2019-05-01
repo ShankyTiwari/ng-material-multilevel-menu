@@ -1,13 +1,14 @@
 export interface MultilevelNodes {
-    id: string;
+    id?: string;
     label: string;
     faIcon?: string;
     icon?: string;
     imageIcon?: string;
+    svgIcon?: string;
     hidden?: boolean;
     link?: string;
     externalRedirect?: boolean;
-    data: any;
+    data?: any;
     items?: MultilevelNodes[];
     onSelected?: Function;
 }

@@ -16,7 +16,7 @@ export declare class NgMaterialMultilevelMenuComponent implements OnInit, OnChan
     ngOnChanges(): void;
     ngOnInit(): void;
     updateNodeByURL(url: string): void;
-    checkValiddata(): void;
+    checkValidData(): void;
     detectInvalidConfig(): void;
     getClassName(): string;
     getGlobalStyle(): BackgroundStyle;

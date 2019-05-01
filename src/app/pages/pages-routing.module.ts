@@ -16,7 +16,7 @@ const routes: Routes = [{
   path: 'demo/:demoNumber',
   loadChildren: 'src/app/pages/demo-three/demo-three.module#DemoThreeModule'
 }, {
-  path: 'demo-number/:demoNumber',
+  path: 'demo',
   loadChildren: 'src/app/pages/demo-four/demo-four.module#DemoFourModule'
 }, {
   path: '**',

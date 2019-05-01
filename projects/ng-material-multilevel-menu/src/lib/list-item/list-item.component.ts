@@ -72,6 +72,7 @@ export class ListItemComponent implements OnChanges {
     this.selectedListClasses = {
       [CONSTANT.DEFAULT_LIST_CLASS_NAME]: true,
       [CONSTANT.SELECTED_LIST_CLASS_NAME]: false,
+      [CONSTANT.ACTIVE_ITEM_CLASS_NAME]: false,
     };
   }
   ngOnChanges() {
@@ -95,6 +96,7 @@ export class ListItemComponent implements OnChanges {
     this.selectedListClasses = {
       [CONSTANT.DEFAULT_LIST_CLASS_NAME]: true,
       [CONSTANT.SELECTED_LIST_CLASS_NAME]: this.isSelected,
+      [CONSTANT.ACTIVE_ITEM_CLASS_NAME]: this.selectedNode.id === this.node.id,
     };
     this.setClasses();
   }
@@ -124,6 +126,8 @@ export class ListItemComponent implements OnChanges {
       return `faicon`;
     } else if (node.imageIcon !== null && node.imageIcon !== undefined && node.imageIcon !== '') {
       return `imageicon`;
+    } else if (node.svgIcon !== null && node.svgIcon !== undefined && node.svgIcon !== '') {
+      return `svgicon`;
     } else {
       return ``;
     }

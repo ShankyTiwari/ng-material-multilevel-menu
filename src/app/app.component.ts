@@ -1,5 +1,10 @@
-import { Component } from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { DomSanitizer } from '@angular/platform-browser';
+import { MatIconRegistry } from '@angular/material';
+
+// import { MultilevelNodes } from './../../projects/ng-material-multilevel-menu/src/lib/app.model';
+import { MultilevelNodes } from 'ng-material-multilevel-menu';
 
 import { constant as CONSTANT } from './constants';
 
@@ -9,17 +14,21 @@ import { constant as CONSTANT } from './constants';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  appitems = CONSTANT.sidebarDemoLinks;
+  appitems: MultilevelNodes[] = CONSTANT.sidebarDemoLinks;
   config = CONSTANT.sidebarConfigurations;
   displayList = false;
 
-
   constructor(
+    private iconRegistry: MatIconRegistry,
+    private sanitizer: DomSanitizer,
     private router: Router
   ) {
     setTimeout(() => {
       this.displayList = true;
     }, 100);
+    iconRegistry.addSvgIcon(
+      'psychology',
+      sanitizer.bypassSecurityTrustResourceUrl('assets/psychology.svg'));
   }
 
   selectedItem($event) {

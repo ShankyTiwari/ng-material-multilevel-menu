@@ -2,7 +2,7 @@ export const constant = {
     sidebarDemoLinks: [
         {
             label: 'Item 1 (with Font awesome icon)',
-            imageIcon: '/assets/batman.jpg',
+            svgIcon: 'psychology',
             items: [
                 {
                     label: 'Alter Configurations',
@@ -52,7 +52,7 @@ export const constant = {
         },
         {
             label: 'NPM',
-            icon: 'favorite',
+            icon: 'info_outline',
             link: 'https://www.npmjs.com/package/ng-material-multilevel-menu',
             externalRedirect: true
         }

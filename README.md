@@ -181,6 +181,9 @@ config = {
 };
 ```
 
+## Default classes
+* ```selected-amml-item```: This class will be applied to currently selected link and it's father links.
+* ```active-amml-item```: This class will be applied to currently selected link.
 
 ## Dependencies
 1. [Angular Material](https://material.angular.io)

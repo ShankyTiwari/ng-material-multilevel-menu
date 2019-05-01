@@ -153,6 +153,7 @@ var CONSTANT = {
     DEFAULT_CLASS_NAME: "amml-container",
     DEFAULT_LIST_CLASS_NAME: "amml-item",
     SELECTED_LIST_CLASS_NAME: "selected-amml-item",
+    ACTIVE_ITEM_CLASS_NAME: "active-amml-item",
     DEFAULT_SELECTED_FONT_COLOR: "#1976d2",
     DEFAULT_LIST_BACKGROUND_COLOR: "transparent",
     DEFAULT_LIST_FONT_COLOR: "rgba(0,0,0,.87)",
@@ -189,7 +190,7 @@ var NgMaterialMultilevelMenuComponent = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        this.checkValiddata();
+        this.checkValidData();
         this.detectInvalidConfig();
     };
     /**
@@ -233,7 +234,7 @@ var NgMaterialMultilevelMenuComponent = /** @class */ (function () {
     /**
      * @return {?}
      */
-    NgMaterialMultilevelMenuComponent.prototype.checkValiddata = /**
+    NgMaterialMultilevelMenuComponent.prototype.checkValidData = /**
      * @return {?}
      */
     function () {
@@ -403,6 +404,7 @@ var ListItemComponent = /** @class */ (function () {
         this.selectedListClasses = (_a = {},
             _a[CONSTANT.DEFAULT_LIST_CLASS_NAME] = true,
             _a[CONSTANT.SELECTED_LIST_CLASS_NAME] = false,
+            _a[CONSTANT.ACTIVE_ITEM_CLASS_NAME] = false,
             _a);
     }
     /**
@@ -442,6 +444,7 @@ var ListItemComponent = /** @class */ (function () {
         this.selectedListClasses = (_a = {},
             _a[CONSTANT.DEFAULT_LIST_CLASS_NAME] = true,
             _a[CONSTANT.SELECTED_LIST_CLASS_NAME] = this.isSelected,
+            _a[CONSTANT.ACTIVE_ITEM_CLASS_NAME] = this.selectedNode.id === this.node.id,
             _a);
         this.setClasses();
     };
@@ -495,6 +498,9 @@ var ListItemComponent = /** @class */ (function () {
         }
         else if (node.imageIcon !== null && node.imageIcon !== undefined && node.imageIcon !== '') {
             return "imageicon";
+        }
+        else if (node.svgIcon !== null && node.svgIcon !== undefined && node.svgIcon !== '') {
+            return "svgicon";
         }
         else {
             return "";
@@ -576,7 +582,7 @@ var ListItemComponent = /** @class */ (function () {
     ListItemComponent.decorators = [
         { type: Component, args: [{
                     selector: 'ng-list-item',
-                    template: "<mat-list-item matRipple [ngClass]=\"selectedListClasses\" *ngIf=\"!node.hidden\" (click)=\"expand(node)\" title=\"{{node.label}}\"\r\n  [ngStyle]=\"getListStyle()\">\r\n  <div class=\"anml-data\" [dir]=\"isRtlLayout() ? 'rtl' : 'ltr'\">\r\n    <div class=\"icon-container\" [ngSwitch]=\"getListIcon(node)\">\r\n      <span *ngSwitchCase=\"'faicon'\" class=\"amml-icon amml-icon-fa\">\r\n        <i [ngClass]=\"node.faIcon\"></i>\r\n      </span>\r\n      <mat-icon *ngSwitchCase=\"'icon'\" class=\"amml-icon\">\r\n        {{node.icon}}\r\n      </mat-icon>\r\n      <img matListAvatar *ngSwitchCase=\"'imageicon'\" class=\"amml-icon\" src=\"{{node.imageIcon}}\" alt=\"{{node.label}}\"/>\r\n    </div>    \r\n    <span class=\"label\">{{node.label}}</span>\r\n  </div>\r\n  <ng-container *ngIf='hasItems()'>\r\n    <mat-icon *ngIf='!isRtlLayout()' [@isExpandedLTR]=\"hasItems() && expanded ? 'yes' : 'no'\">\r\n      keyboard_arrow_down\r\n    </mat-icon>\r\n    <mat-icon *ngIf='isRtlLayout()'  [@isExpandedRTL]=\"hasItems() && expanded ? 'yes' : 'no'\">\r\n      keyboard_arrow_down\r\n    </mat-icon>\r\n  </ng-container>\r\n</mat-list-item>\r\n\r\n<mat-divider></mat-divider>\r\n\r\n<div *ngIf=\"hasItems() && expanded\" [@slideInOut] [dir]=\"isRtlLayout() ? 'rtl' : 'ltr'\" [ngClass]=\"classes\">\r\n  <ng-list-item *ngFor=\"let singleNode of nodeChildren\"\r\n    [nodeConfiguration]='nodeConfiguration'\r\n    [node]='singleNode'\r\n    [level]=\"level + 1\"\r\n    [selectedNode]='selectedNode'\r\n    (selectedItem)=\"selectedListItem($event)\">\r\n  </ng-list-item>\r\n</div>\r\n",
+                    template: "<mat-list-item matRipple [ngClass]=\"selectedListClasses\" *ngIf=\"!node.hidden\" (click)=\"expand(node)\" title=\"{{node.label}}\"\r\n  [ngStyle]=\"getListStyle()\">\r\n  <div class=\"anml-data\" [dir]=\"isRtlLayout() ? 'rtl' : 'ltr'\">\r\n    <div class=\"icon-container\" [ngSwitch]=\"getListIcon(node)\">\r\n      <span *ngSwitchCase=\"'faicon'\" class=\"amml-icon amml-icon-fa\">\r\n        <i [ngClass]=\"node.faIcon\"></i>\r\n      </span>\r\n      <mat-icon *ngSwitchCase=\"'icon'\" class=\"amml-icon\">\r\n        {{node.icon}}\r\n      </mat-icon>      \r\n      <mat-icon *ngSwitchCase=\"'svgicon'\" svgIcon=\"{{node.svgIcon}}\" class=\"amml-icon amml-svg-icon\">\r\n      </mat-icon>\r\n      <img matListAvatar *ngSwitchCase=\"'imageicon'\" class=\"amml-icon\" src=\"{{node.imageIcon}}\" alt=\"{{node.label}}\"/>\r\n    </div>    \r\n    <span class=\"label\">{{node.label}}</span>\r\n  </div>\r\n  <ng-container *ngIf='hasItems()'>\r\n    <mat-icon *ngIf='!isRtlLayout()' [@isExpandedLTR]=\"hasItems() && expanded ? 'yes' : 'no'\">\r\n      keyboard_arrow_down\r\n    </mat-icon>\r\n    <mat-icon *ngIf='isRtlLayout()'  [@isExpandedRTL]=\"hasItems() && expanded ? 'yes' : 'no'\">\r\n      keyboard_arrow_down\r\n    </mat-icon>\r\n  </ng-container>\r\n</mat-list-item>\r\n\r\n<mat-divider></mat-divider>\r\n\r\n<div *ngIf=\"hasItems() && expanded\" [@slideInOut] [dir]=\"isRtlLayout() ? 'rtl' : 'ltr'\" [ngClass]=\"classes\">\r\n  <ng-list-item *ngFor=\"let singleNode of nodeChildren\"\r\n    [nodeConfiguration]='nodeConfiguration'\r\n    [node]='singleNode'\r\n    [level]=\"level + 1\"\r\n    [selectedNode]='selectedNode'\r\n    (selectedItem)=\"selectedListItem($event)\">\r\n  </ng-list-item>\r\n</div>\r\n",
                     animations: [
                         trigger('slideInOut', [
                             state('in', style({ height: '*', opacity: 0 })),
@@ -608,7 +614,7 @@ var ListItemComponent = /** @class */ (function () {
                             transition('yes => no', animate(200))
                         ])
                     ],
-                    styles: [".amml-item{line-height:48px;position:relative;cursor:pointer}.anml-data{width:100%;text-transform:capitalize;display:flex;justify-content:flex-start;height:48px}.amml-icon-fa{font-size:20px}.amml-icon,.label{line-height:48px}div[dir=ltr] .amml-icon{margin-right:16px}div[dir=ltr].amml-submenu,div[dir=rtl] .amml-icon{margin-left:16px}div[dir=rtl].amml-submenu{margin-right:16px}"]
+                    styles: [".amml-item{line-height:48px;position:relative;cursor:pointer}.anml-data{width:100%;text-transform:capitalize;display:flex;justify-content:flex-start;height:48px}.amml-icon-fa{font-size:20px}.amml-icon,.label{line-height:48px}.amml-svg-icon{line-height:57px;width:22px;height:22px}div[dir=ltr] .amml-icon{margin-right:16px}div[dir=ltr].amml-submenu,div[dir=rtl] .amml-icon{margin-left:16px}div[dir=rtl].amml-submenu{margin-right:16px}"]
                 }] }
     ];
     /** @nocollapse */

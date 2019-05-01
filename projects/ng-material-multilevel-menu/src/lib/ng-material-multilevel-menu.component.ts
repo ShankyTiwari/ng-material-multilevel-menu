@@ -33,7 +33,7 @@ export class NgMaterialMultilevelMenuComponent implements OnInit, OnChanges {
     private multilevelMenuService: MultilevelMenuService
   ) { }
   ngOnChanges() {
-    this.checkValiddata();
+    this.checkValidData();
     this.detectInvalidConfig();
   }
   ngOnInit() {
@@ -61,7 +61,7 @@ export class NgMaterialMultilevelMenuComponent implements OnInit, OnChanges {
       this.selectedListItem(foundNode);
     }
   }
-  checkValiddata(): void {
+  checkValidData(): void {
     if (this.items.length === 0) {
       console.warn(CONSTANT.ERROR_MESSAGE);
     } else {

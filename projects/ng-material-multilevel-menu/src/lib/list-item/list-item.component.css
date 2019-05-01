@@ -23,6 +23,11 @@
 .amml-icon {
   line-height: 48px;
 }
+.amml-svg-icon {
+  line-height: 57px;
+  width: 22px;
+  height: 22px;
+}
 
 div[dir="ltr"] .amml-icon {
   margin-right: 16px;
