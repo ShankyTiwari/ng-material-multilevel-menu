@@ -62,7 +62,7 @@ export const constant = {
         interfaceWithRoute: true,
         collapseOnSelect: true,
         highlightOnSelect: false,
-        rtlLayout: false
+        rtlLayout: true
     },
     appItems: [
         {
