@@ -8,16 +8,16 @@ const routes: Routes = [{
   component: PagesComponent
 }, {
   path: 'demo-one',
-  loadChildren: 'src/app/pages/demo-one/demo-one.module#DemoOneModule'
+  loadChildren: () => import('src/app/pages/demo-one/demo-one.module').then(m => m.DemoOneModule)
 }, {
   path: 'demo two',
-  loadChildren: 'src/app/pages/demo-two/demo-two.module#DemoTwoModule'
+  loadChildren: () => import('src/app/pages/demo-two/demo-two.module').then(m => m.DemoTwoModule)
 }, {
   path: 'demo/:demoNumber',
-  loadChildren: 'src/app/pages/demo-three/demo-three.module#DemoThreeModule'
+  loadChildren: () => import('src/app/pages/demo-three/demo-three.module').then(m => m.DemoThreeModule)
 }, {
   path: 'demo',
-  loadChildren: 'src/app/pages/demo-four/demo-four.module#DemoFourModule'
+  loadChildren: () => import('src/app/pages/demo-four/demo-four.module').then(m => m.DemoFourModule)
 }, {
   path: '**',
   redirectTo: '/',

@@ -1,4 +1,5 @@
-<mat-list-item matRipple [ngClass]="selectedListClasses" *ngIf="!node.hidden" (click)="expand(node)" title="{{node.label}}"
+<mat-list-item matRipple [matRippleDisabled]="node.disabled" [ngClass]="selectedListClasses" *ngIf="!node.hidden"
+  (click)="expand(node)" title="{{node.label}}"
   [ngStyle]="getListStyle()">
   <div class="anml-data" [dir]="isRtlLayout() ? 'rtl' : 'ltr'">
     <div class="icon-container" [ngSwitch]="getListIcon(node)">
@@ -27,10 +28,11 @@
 <mat-divider></mat-divider>
 
 <div *ngIf="hasItems() && expanded" [@slideInOut] [dir]="isRtlLayout() ? 'rtl' : 'ltr'" [ngClass]="classes">
-  <ng-list-item *ngFor="let singleNode of nodeChildren"
+  <ng-list-item *ngFor="let singleNode of nodeChildren | keyvalue"
     [nodeConfiguration]='nodeConfiguration'
-    [node]='singleNode'
+    [node]="singleNode.value"
     [level]="level + 1"
+    [submenuLevel]="singleNode.key"
     [selectedNode]='selectedNode'
     (selectedItem)="selectedListItem($event)">
   </ng-list-item>
