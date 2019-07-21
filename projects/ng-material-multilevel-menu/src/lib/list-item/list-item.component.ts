@@ -98,7 +98,7 @@ export class ListItemComponent implements OnChanges, OnInit {
       this.isSelected = this.nodeConfiguration.highlightOnSelect || this.selectedNode.items === undefined ? true : false;
     } else {
       this.isSelected = false;
-      if (this.nodeConfiguration.collapseOnSelect && !this.nodeConfiguration.allExpanded) {
+      if (this.nodeConfiguration.collapseOnSelect) {
         this.expanded = false;
       }
     }

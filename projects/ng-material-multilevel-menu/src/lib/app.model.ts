@@ -26,7 +26,6 @@ export interface Configuration {
     collapseOnSelect?: boolean;
     highlightOnSelect?: boolean;
     rtlLayout?: boolean;
-    allExpanded?: boolean;
 }
 
 export interface BackgroundStyle {

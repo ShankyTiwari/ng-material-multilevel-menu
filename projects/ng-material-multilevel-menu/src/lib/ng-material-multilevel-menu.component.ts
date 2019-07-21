@@ -26,7 +26,6 @@ export class NgMaterialMultilevelMenuComponent implements OnInit, OnChanges {
     collapseOnSelect: null,
     highlightOnSelect: false,
     rtlLayout: false,
-    allExpanded: null,
   };
   isInvalidConfig = true;
   constructor(
@@ -67,7 +66,7 @@ export class NgMaterialMultilevelMenuComponent implements OnInit, OnChanges {
       console.warn(CONSTANT.ERROR_MESSAGE);
     } else {
       this.items = this.items.filter(n => !n.hidden);
-      this.multilevelMenuService.addRandomId(this.items, this.nodeConfig.allExpanded);
+      this.multilevelMenuService.addRandomId(this.items);
     }
   }
   detectInvalidConfig(): void {
@@ -113,11 +112,6 @@ export class NgMaterialMultilevelMenuComponent implements OnInit, OnChanges {
         config.rtlLayout !== undefined &&
         typeof config.rtlLayout === 'boolean') {
         this.nodeConfig.rtlLayout = config.rtlLayout;
-      }
-      if (config.allExpanded !== null &&
-        config.allExpanded !== undefined &&
-        typeof config.allExpanded === 'boolean') {
-        this.nodeConfig.allExpanded = config.allExpanded;
       }
       this.checkValidData();
     }
