@@ -64,7 +64,6 @@ export const constant = {
         paddingAtStart: true,
         interfaceWithRoute: true,
         rtlLayout: false,
-        allExpanded: true,
     },
     appItems: [
         {
