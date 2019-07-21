@@ -11,6 +11,8 @@ export interface MultilevelNodes {
     data?: any;
     items?: MultilevelNodes[];
     onSelected?: Function;
+    disabled?: boolean;
+    expanded?: boolean;
 }
 
 export interface Configuration {
@@ -24,6 +26,7 @@ export interface Configuration {
     collapseOnSelect?: boolean;
     highlightOnSelect?: boolean;
     rtlLayout?: boolean;
+    allExpanded?: boolean;
 }
 
 export interface BackgroundStyle {

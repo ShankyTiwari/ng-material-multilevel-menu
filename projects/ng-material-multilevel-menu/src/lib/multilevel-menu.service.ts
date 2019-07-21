@@ -14,11 +14,14 @@ export class MultilevelMenuService {
     }
     return text;
   }
-  addRandomId(nodes: MultilevelNodes[]): void {
+  addRandomId(nodes: MultilevelNodes[], allExpanded?: boolean): void {
     nodes.forEach((node: MultilevelNodes) => {
       node.id = this.generateId();
+      if (allExpanded) {
+        node.expanded = allExpanded;
+      }
       if (node.items !== undefined) {
-        this.addRandomId(node.items);
+        this.addRandomId(node.items, allExpanded);
       }
     });
   }
