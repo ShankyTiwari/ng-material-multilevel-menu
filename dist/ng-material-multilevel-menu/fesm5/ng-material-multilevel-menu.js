@@ -1,5 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { MatIconModule, MatListModule, MatRippleModule } from '@angular/material';
+import { MatRippleModule } from '@angular/material/core';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
 import { NgModule, Injectable, Component, Input, Output, EventEmitter, defineInjectable } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { trigger, style, transition, animate, state, group } from '@angular/animations';
@@ -154,6 +156,7 @@ var CONSTANT = {
     DEFAULT_LIST_CLASS_NAME: "amml-item",
     SELECTED_LIST_CLASS_NAME: "selected-amml-item",
     ACTIVE_ITEM_CLASS_NAME: "active-amml-item",
+    DISABLED_ITEM_CLASS_NAME: "disabled-amml-item",
     DEFAULT_SELECTED_FONT_COLOR: "#1976d2",
     DEFAULT_LIST_BACKGROUND_COLOR: "transparent",
     DEFAULT_LIST_FONT_COLOR: "rgba(0,0,0,.87)",
@@ -190,7 +193,6 @@ var NgMaterialMultilevelMenuComponent = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        this.checkValidData();
         this.detectInvalidConfig();
     };
     /**
@@ -226,7 +228,9 @@ var NgMaterialMultilevelMenuComponent = /** @class */ (function () {
         if (foundNode !== undefined &&
             foundNode.link !== undefined &&
             foundNode.link !== null &&
-            foundNode.link !== '') {
+            foundNode.link !== ''
+        // && !foundNode.disabled // Prevent route redirection for disabled menu
+        ) {
             this.currentNode = foundNode;
             this.selectedListItem(foundNode);
         }
@@ -298,6 +302,7 @@ var NgMaterialMultilevelMenuComponent = /** @class */ (function () {
                 typeof config.rtlLayout === 'boolean') {
                 this.nodeConfig.rtlLayout = config.rtlLayout;
             }
+            this.checkValidData();
         }
     };
     /**
@@ -368,7 +373,7 @@ var NgMaterialMultilevelMenuComponent = /** @class */ (function () {
     NgMaterialMultilevelMenuComponent.decorators = [
         { type: Component, args: [{
                     selector: 'ng-material-multilevel-menu',
-                    template: "<div [ngClass]=\"getClassName()\" [ngStyle]=\"getGlobalStyle()\" *ngIf='items.length !== 0' [dir]=\"isRtlLayout() ? 'rtl' : 'ltr'\">\r\n  <mat-list>\r\n    <ng-list-item\r\n      *ngFor=\"let node of items\"\r\n      [nodeConfiguration]='nodeConfig'\r\n      [node]='node'\r\n      [selectedNode]='currentNode'\r\n      (selectedItem)=\"selectedListItem($event)\r\n    \">\r\n    </ng-list-item>\r\n  </mat-list>\r\n</div>",
+                    template: "<div [ngClass]=\"getClassName()\" [ngStyle]=\"getGlobalStyle()\" *ngIf='items.length !== 0' [dir]=\"isRtlLayout() ? 'rtl' : 'ltr'\">\r\n  <mat-list>\r\n    <ng-list-item\r\n      *ngFor=\"let node of items | keyvalue\"\r\n      [nodeConfiguration]='nodeConfig'\r\n      [node]='node.value'\r\n      [level]=\"1\"\r\n      [submenuLevel]=\"node.key\"\r\n      [selectedNode]='currentNode'\r\n      (selectedItem)=\"selectedListItem($event)\r\n    \">\r\n    </ng-list-item>\r\n  </mat-list>\r\n</div>",
                     styles: [".amml-item{line-height:48px;display:flex;justify-content:space-between;position:relative}.anml-data{width:100%;text-transform:capitalize;display:flex;justify-content:flex-start}.amml-icon-fa{font-size:20px}.amml-icon{line-height:48px}.active{color:#1976d2}div[dir=ltr] .amml-icon{margin-right:15px}div[dir=ltr] .amml-submenu{margin-left:16px}div[dir=rtl] .amml-icon{margin-left:15px}div[dir=rtl] .amml-submenu{margin-right:16px}"]
                 }] }
     ];
@@ -396,6 +401,7 @@ var ListItemComponent = /** @class */ (function () {
         this.router = router;
         this.multilevelMenuService = multilevelMenuService;
         this.level = 1;
+        this.submenuLevel = 0;
         this.nodeConfiguration = null;
         this.selectedItem = new EventEmitter();
         this.isSelected = false;
@@ -418,6 +424,20 @@ var ListItemComponent = /** @class */ (function () {
         if (this.selectedNode !== undefined && this.selectedNode !== null) {
             this.setSelectedClass(this.multilevelMenuService.recursiveCheckId(this.node, this.selectedNode.id));
         }
+    };
+    /**
+     * @return {?}
+     */
+    ListItemComponent.prototype.ngOnInit = /**
+     * @return {?}
+     */
+    function () {
+        this.selectedListClasses[CONSTANT.DISABLED_ITEM_CLASS_NAME] = this.node.disabled;
+        this.selectedListClasses["level-" + this.level + "-submenulevel-" + this.submenuLevel] = true;
+        if (typeof this.node.expanded === 'boolean') {
+            this.expanded = this.node.expanded;
+        }
+        this.setClasses();
     };
     /**
      * @param {?} isFound
@@ -445,6 +465,8 @@ var ListItemComponent = /** @class */ (function () {
             _a[CONSTANT.DEFAULT_LIST_CLASS_NAME] = true,
             _a[CONSTANT.SELECTED_LIST_CLASS_NAME] = this.isSelected,
             _a[CONSTANT.ACTIVE_ITEM_CLASS_NAME] = this.selectedNode.id === this.node.id,
+            _a[CONSTANT.DISABLED_ITEM_CLASS_NAME] = this.node.disabled,
+            _a["level-" + this.level + "-submenulevel-" + this.submenuLevel] = true,
             _a);
         this.setClasses();
     };
@@ -533,7 +555,7 @@ var ListItemComponent = /** @class */ (function () {
     function () {
         var _a;
         this.classes = (_a = {},
-            _a['level-' + this.level] = true,
+            _a["level-" + (this.level + 1)] = true,
             _a['amml-submenu'] = this.hasItems() && this.getPaddingAtStart(),
             _a);
     };
@@ -546,6 +568,9 @@ var ListItemComponent = /** @class */ (function () {
      * @return {?}
      */
     function (node) {
+        if (node.disabled) {
+            return;
+        }
         this.expanded = !this.expanded;
         this.firstInitializer = true;
         this.setClasses();
@@ -582,7 +607,7 @@ var ListItemComponent = /** @class */ (function () {
     ListItemComponent.decorators = [
         { type: Component, args: [{
                     selector: 'ng-list-item',
-                    template: "<mat-list-item matRipple [ngClass]=\"selectedListClasses\" *ngIf=\"!node.hidden\" (click)=\"expand(node)\" title=\"{{node.label}}\"\r\n  [ngStyle]=\"getListStyle()\">\r\n  <div class=\"anml-data\" [dir]=\"isRtlLayout() ? 'rtl' : 'ltr'\">\r\n    <div class=\"icon-container\" [ngSwitch]=\"getListIcon(node)\">\r\n      <span *ngSwitchCase=\"'faicon'\" class=\"amml-icon amml-icon-fa\">\r\n        <i [ngClass]=\"node.faIcon\"></i>\r\n      </span>\r\n      <mat-icon *ngSwitchCase=\"'icon'\" class=\"amml-icon\">\r\n        {{node.icon}}\r\n      </mat-icon>\r\n      <mat-icon *ngSwitchCase=\"'svgicon'\" svgIcon=\"{{node.svgIcon}}\" class=\"amml-icon amml-svg-icon\">\r\n      </mat-icon>\r\n      <img matListAvatar *ngSwitchCase=\"'imageicon'\" class=\"amml-icon\" src=\"{{node.imageIcon}}\" alt=\"{{node.label}}\"/>\r\n    </div>\r\n    <span class=\"label\">{{node.label}}</span>\r\n  </div>\r\n  <div class=\"amml-icon-arrow-container\" *ngIf='hasItems()'>\r\n    <mat-icon *ngIf='!isRtlLayout()' [@isExpandedLTR]=\"expanded ? 'yes' : 'no'\">\r\n      keyboard_arrow_down\r\n    </mat-icon>\r\n    <mat-icon *ngIf='isRtlLayout()'  [@isExpandedRTL]=\"expanded ? 'yes' : 'no'\">\r\n      keyboard_arrow_down\r\n    </mat-icon>\r\n  </div>\r\n</mat-list-item>\r\n\r\n<mat-divider></mat-divider>\r\n\r\n<div *ngIf=\"hasItems() && expanded\" [@slideInOut] [dir]=\"isRtlLayout() ? 'rtl' : 'ltr'\" [ngClass]=\"classes\">\r\n  <ng-list-item *ngFor=\"let singleNode of nodeChildren\"\r\n    [nodeConfiguration]='nodeConfiguration'\r\n    [node]='singleNode'\r\n    [level]=\"level + 1\"\r\n    [selectedNode]='selectedNode'\r\n    (selectedItem)=\"selectedListItem($event)\">\r\n  </ng-list-item>\r\n</div>\r\n",
+                    template: "<mat-list-item matRipple [matRippleDisabled]=\"node.disabled\" [ngClass]=\"selectedListClasses\" *ngIf=\"!node.hidden\"\r\n  (click)=\"expand(node)\" title=\"{{node.label}}\"\r\n  [ngStyle]=\"getListStyle()\">\r\n  <div class=\"anml-data\" [dir]=\"isRtlLayout() ? 'rtl' : 'ltr'\">\r\n    <div class=\"icon-container\" [ngSwitch]=\"getListIcon(node)\">\r\n      <span *ngSwitchCase=\"'faicon'\" class=\"amml-icon amml-icon-fa\">\r\n        <i [ngClass]=\"node.faIcon\"></i>\r\n      </span>\r\n      <mat-icon *ngSwitchCase=\"'icon'\" class=\"amml-icon\">\r\n        {{node.icon}}\r\n      </mat-icon>\r\n      <mat-icon *ngSwitchCase=\"'svgicon'\" svgIcon=\"{{node.svgIcon}}\" class=\"amml-icon amml-svg-icon\">\r\n      </mat-icon>\r\n      <img matListAvatar *ngSwitchCase=\"'imageicon'\" class=\"amml-icon\" src=\"{{node.imageIcon}}\" alt=\"{{node.label}}\"/>\r\n    </div>\r\n    <span class=\"label\">{{node.label}}</span>\r\n  </div>\r\n  <div class=\"amml-icon-arrow-container\" *ngIf='hasItems()'>\r\n    <mat-icon *ngIf='!isRtlLayout()' [@isExpandedLTR]=\"expanded ? 'yes' : 'no'\">\r\n      keyboard_arrow_down\r\n    </mat-icon>\r\n    <mat-icon *ngIf='isRtlLayout()'  [@isExpandedRTL]=\"expanded ? 'yes' : 'no'\">\r\n      keyboard_arrow_down\r\n    </mat-icon>\r\n  </div>\r\n</mat-list-item>\r\n\r\n<mat-divider></mat-divider>\r\n\r\n<div *ngIf=\"hasItems() && expanded\" [@slideInOut] [dir]=\"isRtlLayout() ? 'rtl' : 'ltr'\" [ngClass]=\"classes\">\r\n  <ng-list-item *ngFor=\"let singleNode of nodeChildren | keyvalue\"\r\n    [nodeConfiguration]='nodeConfiguration'\r\n    [node]=\"singleNode.value\"\r\n    [level]=\"level + 1\"\r\n    [submenuLevel]=\"singleNode.key\"\r\n    [selectedNode]='selectedNode'\r\n    (selectedItem)=\"selectedListItem($event)\">\r\n  </ng-list-item>\r\n</div>\r\n",
                     animations: [
                         trigger('slideInOut', [
                             state('in', style({ height: '*', opacity: 0 })),
@@ -614,7 +639,7 @@ var ListItemComponent = /** @class */ (function () {
                             transition('yes => no', animate(200))
                         ])
                     ],
-                    styles: [".amml-item{line-height:48px;position:relative;cursor:pointer}.anml-data{width:100%;text-transform:capitalize;display:flex;justify-content:flex-start;height:48px}.amml-icon-fa{font-size:20px}.amml-icon,.label{line-height:48px}.amml-svg-icon{line-height:57px;width:22px;height:22px}.amml-icon-arrow-container{direction:ltr;display:flex;align-items:center}div[dir=ltr] .amml-icon{margin-right:16px}div[dir=ltr].amml-submenu,div[dir=rtl] .amml-icon{margin-left:16px}div[dir=rtl].amml-submenu{margin-right:16px}"]
+                    styles: [".amml-item{line-height:48px;position:relative;cursor:pointer}.anml-data{width:100%;text-transform:capitalize;display:flex;justify-content:flex-start;height:48px}.disabled-amml-item{cursor:not-allowed;opacity:.5;text-decoration:none}.amml-icon-fa{font-size:20px}.amml-icon,.label{line-height:48px}.amml-svg-icon{line-height:57px;width:22px;height:22px}.amml-icon-arrow-container{direction:ltr;display:flex;align-items:center}div[dir=ltr] .amml-icon{margin-right:16px}div[dir=ltr].amml-submenu,div[dir=rtl] .amml-icon{margin-left:16px}div[dir=rtl].amml-submenu{margin-right:16px}"]
                 }] }
     ];
     /** @nocollapse */
@@ -625,6 +650,7 @@ var ListItemComponent = /** @class */ (function () {
     ListItemComponent.propDecorators = {
         node: [{ type: Input }],
         level: [{ type: Input }],
+        submenuLevel: [{ type: Input }],
         selectedNode: [{ type: Input }],
         nodeConfiguration: [{ type: Input }],
         selectedItem: [{ type: Output }]

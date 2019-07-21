@@ -4,6 +4,7 @@ export declare const CONSTANT: {
     DEFAULT_LIST_CLASS_NAME: string;
     SELECTED_LIST_CLASS_NAME: string;
     ACTIVE_ITEM_CLASS_NAME: string;
+    DISABLED_ITEM_CLASS_NAME: string;
     DEFAULT_SELECTED_FONT_COLOR: string;
     DEFAULT_LIST_BACKGROUND_COLOR: string;
     DEFAULT_LIST_FONT_COLOR: string;
