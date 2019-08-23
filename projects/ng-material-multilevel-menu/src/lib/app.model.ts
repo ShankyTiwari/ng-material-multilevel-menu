@@ -11,6 +11,8 @@ export interface MultilevelNodes {
     data?: any;
     items?: MultilevelNodes[];
     onSelected?: Function;
+    disabled?: boolean;
+    expanded?: boolean;
 }
 
 export interface Configuration {

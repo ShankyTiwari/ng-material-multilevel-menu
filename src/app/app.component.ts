@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
-import { MatIconRegistry } from '@angular/material';
+import { MatIconRegistry } from '@angular/material/icon';
 
 // import { MultilevelNodes } from './../../projects/ng-material-multilevel-menu/src/lib/app.model';
 import { MultilevelNodes } from 'ng-material-multilevel-menu';

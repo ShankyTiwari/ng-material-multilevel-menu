@@ -1,12 +1,13 @@
-import { OnChanges, EventEmitter } from '@angular/core';
+import { OnInit, OnChanges, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { MultilevelMenuService } from './../multilevel-menu.service';
 import { Configuration, MultilevelNodes, ListStyle } from './../app.model';
-export declare class ListItemComponent implements OnChanges {
+export declare class ListItemComponent implements OnChanges, OnInit {
     private router;
     private multilevelMenuService;
     node: MultilevelNodes;
     level: number;
+    submenuLevel: number;
     selectedNode: MultilevelNodes;
     nodeConfiguration: Configuration;
     selectedItem: EventEmitter<MultilevelNodes>;
@@ -22,6 +23,7 @@ export declare class ListItemComponent implements OnChanges {
     firstInitializer: boolean;
     constructor(router: Router, multilevelMenuService: MultilevelMenuService);
     ngOnChanges(): void;
+    ngOnInit(): void;
     setSelectedClass(isFound: boolean): void;
     getPaddingAtStart(): boolean;
     getListStyle(): ListStyle;

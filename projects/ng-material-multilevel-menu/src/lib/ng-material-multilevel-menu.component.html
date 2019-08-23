@@ -1,9 +1,11 @@
 <div [ngClass]="getClassName()" [ngStyle]="getGlobalStyle()" *ngIf='items.length !== 0' [dir]="isRtlLayout() ? 'rtl' : 'ltr'">
   <mat-list>
     <ng-list-item
-      *ngFor="let node of items"
+      *ngFor="let node of items | keyvalue"
       [nodeConfiguration]='nodeConfig'
-      [node]='node'
+      [node]='node.value'
+      [level]="1"
+      [submenuLevel]="node.key"
       [selectedNode]='currentNode'
       (selectedItem)="selectedListItem($event)
     ">

@@ -97,6 +97,7 @@ appitems = [
             {
                 label: 'Item 1.2',
                 faIcon: 'fab fa-accessible-icon',
+                disabled: true,
                 items: [
                     {
                         label: 'Item 1.2.1',
@@ -127,7 +128,8 @@ appitems = [
         {
             label: 'Item 2.1',
             link: '/item-2-1',
-            icon: 'favorite'
+            icon: 'favorite',
+            disabled: true,
         },
         {
             label: 'Item 2.2',

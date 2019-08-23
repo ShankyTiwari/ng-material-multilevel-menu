@@ -1,4 +1,4 @@
-import { Component, OnChanges, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, OnChanges, Input, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { trigger, style, transition, animate, state, group } from '@angular/animations';
 
@@ -53,9 +53,10 @@ import { CONSTANT } from './../constants';
     ])
   ]
 })
-export class ListItemComponent implements OnChanges {
+export class ListItemComponent implements OnChanges, OnInit {
   @Input() node: MultilevelNodes;
   @Input() level = 1;
+  @Input() submenuLevel = 0;
   @Input() selectedNode: MultilevelNodes;
   @Input() nodeConfiguration: Configuration = null;
   @Output() selectedItem = new EventEmitter<MultilevelNodes>();
@@ -81,6 +82,14 @@ export class ListItemComponent implements OnChanges {
       this.setSelectedClass(this.multilevelMenuService.recursiveCheckId(this.node, this.selectedNode.id));
     }
   }
+  ngOnInit() {
+    this.selectedListClasses[CONSTANT.DISABLED_ITEM_CLASS_NAME] = this.node.disabled;
+    this.selectedListClasses[`level-${this.level}-submenulevel-${this.submenuLevel}`] = true;
+    if (typeof this.node.expanded === 'boolean') {
+      this.expanded = this.node.expanded;
+    }
+    this.setClasses();
+  }
   setSelectedClass(isFound: boolean): void {
     if (isFound) {
       if (!this.firstInitializer) {
@@ -97,6 +106,8 @@ export class ListItemComponent implements OnChanges {
       [CONSTANT.DEFAULT_LIST_CLASS_NAME]: true,
       [CONSTANT.SELECTED_LIST_CLASS_NAME]: this.isSelected,
       [CONSTANT.ACTIVE_ITEM_CLASS_NAME]: this.selectedNode.id === this.node.id,
+      [CONSTANT.DISABLED_ITEM_CLASS_NAME]: this.node.disabled,
+      [`level-${this.level}-submenulevel-${this.submenuLevel}`]: true,
     };
     this.setClasses();
   }
@@ -140,11 +151,14 @@ export class ListItemComponent implements OnChanges {
   }
   setClasses(): void {
     this.classes = {
-      ['level-' + this.level]: true,
+      [`level-${this.level + 1}`]: true,
       'amml-submenu': this.hasItems() && this.getPaddingAtStart()
     };
   }
   expand(node: MultilevelNodes): void {
+    if (node.disabled) {
+      return;
+    }
     this.expanded = !this.expanded;
     this.firstInitializer = true;
     this.setClasses();

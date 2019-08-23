@@ -11,7 +11,9 @@ export const constant = {
                         {
                             label: 'Default',
                             link: '/demo-one',
-                            icon: 'favorite'
+                            icon: 'favorite',
+                            disabled: true,
+
                         },
                         {
                             label: 'Changing Colours',
@@ -25,7 +27,7 @@ export const constant = {
                         },
                         {
                             label: 'Changing Background',
-                            link: '/demo-number/12',
+                            link: '/demo',
                             icon: 'favorite_border'
                         }
                     ]
@@ -40,7 +42,8 @@ export const constant = {
                         },
                         {
                             label: 'Remote Json',
-                            icon: 'favorite_border'
+                            icon: 'favorite_border',
+                            disabled: true,
                         },
                         {
                             label: 'Dynamic arrays',
@@ -58,11 +61,9 @@ export const constant = {
         }
     ],
     sidebarConfigurations: {
-        paddingAtStart: false,
+        paddingAtStart: true,
         interfaceWithRoute: true,
-        collapseOnSelect: true,
-        highlightOnSelect: false,
-        rtlLayout: false
+        rtlLayout: false,
     },
     appItems: [
         {

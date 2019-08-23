@@ -33,7 +33,6 @@ export class NgMaterialMultilevelMenuComponent implements OnInit, OnChanges {
     private multilevelMenuService: MultilevelMenuService
   ) { }
   ngOnChanges() {
-    this.checkValidData();
     this.detectInvalidConfig();
   }
   ngOnInit() {
@@ -56,6 +55,7 @@ export class NgMaterialMultilevelMenuComponent implements OnInit, OnChanges {
       foundNode.link !== undefined &&
       foundNode.link !== null &&
       foundNode.link !== ''
+      // && !foundNode.disabled // Prevent route redirection for disabled menu
     ) {
       this.currentNode = foundNode;
       this.selectedListItem(foundNode);
@@ -113,6 +113,7 @@ export class NgMaterialMultilevelMenuComponent implements OnInit, OnChanges {
         typeof config.rtlLayout === 'boolean') {
         this.nodeConfig.rtlLayout = config.rtlLayout;
       }
+      this.checkValidData();
     }
   }
   getClassName(): string {
