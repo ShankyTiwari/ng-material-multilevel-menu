@@ -84,6 +84,13 @@ export class ListItemComponent implements OnChanges, OnInit {
   }
   ngOnInit() {
     this.selectedListClasses[CONSTANT.DISABLED_ITEM_CLASS_NAME] = this.node.disabled;
+
+    if (this.node.faIcon !== null &&
+      this.node.faIcon !== undefined &&
+      this.node.faIcon.match(/\bfa\w(?!-)/) === null) {
+      this.node.faIcon = `fas ${this.node.faIcon}`;
+    }
+
     this.selectedListClasses[`level-${this.level}-submenulevel-${this.submenuLevel}`] = true;
     if (typeof this.node.expanded === 'boolean') {
       this.expanded = this.node.expanded;
