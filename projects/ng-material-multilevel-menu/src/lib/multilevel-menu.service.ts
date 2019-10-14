@@ -53,9 +53,9 @@ export class MultilevelMenuService {
     this.recursiveCheckLink(node, link);
     return this.foundLinkObject;
   }
-  // overrides key-value pipe's default reordering (by key) by implementing dummy icomprare
+  // overrides key-value pipe's default reordering (by key) by implementing dummy comprarer function
   // https://angular.io/api/common/KeyValuePipe#description
-  kvDummyIComparerFn() {
+  kvDummyComparerFn() {
     return 0;
   }
 }
