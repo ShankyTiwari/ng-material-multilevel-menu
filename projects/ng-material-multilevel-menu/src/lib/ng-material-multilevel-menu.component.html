@@ -1,7 +1,7 @@
 <div [ngClass]="getClassName()" [ngStyle]="getGlobalStyle()" *ngIf='items.length !== 0' [dir]="isRtlLayout() ? 'rtl' : 'ltr'">
   <mat-list>
     <ng-list-item
-      *ngFor="let node of items | keyvalue: multilevelMenuService.kvDummyIComparerFn"
+      *ngFor="let node of items | keyvalue: multilevelMenuService.kvDummyComparerFn"
       [nodeConfiguration]='nodeConfig'
       [node]='node.value'
       [level]="1"
