@@ -6,4 +6,5 @@ export declare class MultilevelMenuService {
     recursiveCheckId(node: MultilevelNodes, nodeId: string): boolean;
     recursiveCheckLink(nodes: MultilevelNodes[], link: string): void;
     getMatchedObjectByUrl(node: MultilevelNodes[], link: string): MultilevelNodes;
+    kvDummyComparerFn(): number;
 }

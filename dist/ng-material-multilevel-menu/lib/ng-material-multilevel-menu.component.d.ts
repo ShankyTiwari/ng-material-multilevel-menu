@@ -1,10 +1,10 @@
-import { OnInit, OnChanges, EventEmitter } from '@angular/core';
+import { EventEmitter, OnChanges, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { BackgroundStyle, Configuration, MultilevelNodes } from './app.model';
 import { MultilevelMenuService } from './multilevel-menu.service';
-import { Configuration, MultilevelNodes, BackgroundStyle } from './app.model';
 export declare class NgMaterialMultilevelMenuComponent implements OnInit, OnChanges {
     private router;
-    private multilevelMenuService;
+    multilevelMenuService: MultilevelMenuService;
     items: MultilevelNodes[];
     configuration: Configuration;
     selectedItem: EventEmitter<MultilevelNodes>;

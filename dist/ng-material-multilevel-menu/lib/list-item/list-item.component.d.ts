@@ -1,10 +1,10 @@
-import { OnInit, OnChanges, EventEmitter } from '@angular/core';
+import { EventEmitter, OnChanges, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Configuration, ListStyle, MultilevelNodes } from './../app.model';
 import { MultilevelMenuService } from './../multilevel-menu.service';
-import { Configuration, MultilevelNodes, ListStyle } from './../app.model';
 export declare class ListItemComponent implements OnChanges, OnInit {
     private router;
-    private multilevelMenuService;
+    multilevelMenuService: MultilevelMenuService;
     node: MultilevelNodes;
     level: number;
     submenuLevel: number;
