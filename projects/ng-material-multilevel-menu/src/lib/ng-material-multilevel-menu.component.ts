@@ -1,10 +1,10 @@
-import { Component, OnInit, OnChanges, Input, Output, EventEmitter } from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router';
-
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
+import { BackgroundStyle, Configuration, MultilevelNodes } from './app.model';
+import { CONSTANT } from './constants';
 import { MultilevelMenuService } from './multilevel-menu.service';
 
-import { Configuration, MultilevelNodes, BackgroundStyle } from './app.model';
-import { CONSTANT } from './constants';
+
 
 @Component({
   selector: 'ng-material-multilevel-menu',
@@ -30,7 +30,7 @@ export class NgMaterialMultilevelMenuComponent implements OnInit, OnChanges {
   isInvalidConfig = true;
   constructor(
     private router: Router,
-    private multilevelMenuService: MultilevelMenuService
+    public multilevelMenuService: MultilevelMenuService
   ) { }
   ngOnChanges() {
     this.detectInvalidConfig();
