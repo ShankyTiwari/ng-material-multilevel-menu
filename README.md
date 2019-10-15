@@ -102,7 +102,7 @@ appitems = [
                     {
                         label: 'Item 1.2.1',
                         link: '/item-1-2-1',
-                        faIcon: 'fas fa-allergies'
+                        faIcon: 'fa-allergies' // Font awesome default prefix is fas
                     },
                     {
                         label: 'Item 1.2.2',
@@ -110,7 +110,7 @@ appitems = [
                         items: [
                             {
                                 label: 'Item 1.2.2.1',
-                                faIcon: 'fas fa-anchor',
+                                faIcon: 'fas fa-anchor',  // Still you can specify if you want to
                                 onSelected: function() {
                                     console.log('Item 1.2.2.1');
                                 }
