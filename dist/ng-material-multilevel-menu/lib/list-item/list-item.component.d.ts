@@ -28,6 +28,10 @@ export declare class ListItemComponent implements OnChanges, OnInit {
     getPaddingAtStart(): boolean;
     getListStyle(): ListStyle;
     getListIcon(node: MultilevelNodes): string;
+    getSelectedSvgIcon(): string;
+    getSelectedIcon(): string;
+    getSelectedFaIcon(): string;
+    getSelectedImageIcon(): string;
     hasItems(): boolean;
     isRtlLayout(): boolean;
     setClasses(): void;

@@ -29,6 +29,9 @@ export class AppComponent {
     iconRegistry.addSvgIcon(
       'psychology',
       sanitizer.bypassSecurityTrustResourceUrl('assets/psychology.svg'));
+    iconRegistry.addSvgIcon(
+      'activePsychology',
+      sanitizer.bypassSecurityTrustResourceUrl('assets/brain.svg'));
   }
 
   selectedItem($event) {
