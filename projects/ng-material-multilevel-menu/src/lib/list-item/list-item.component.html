@@ -4,14 +4,14 @@
   <div class="anml-data" [dir]="isRtlLayout() ? 'rtl' : 'ltr'">
     <div class="icon-container" [ngSwitch]="getListIcon(node)">
       <span *ngSwitchCase="'faicon'" class="amml-icon amml-icon-fa">
-        <i [ngClass]="node.faIcon"></i>
+        <i [ngClass]="getSelectedFaIcon()"></i>
       </span>
       <mat-icon *ngSwitchCase="'icon'" class="amml-icon">
-        {{node.icon}}
+        {{getSelectedIcon()}}
       </mat-icon>
-      <mat-icon *ngSwitchCase="'svgicon'" svgIcon="{{node.svgIcon}}" class="amml-icon amml-svg-icon">
+      <mat-icon *ngSwitchCase="'svgicon'" svgIcon="{{getSelectedSvgIcon()}}" class="amml-icon amml-svg-icon">
       </mat-icon>
-      <img matListAvatar *ngSwitchCase="'imageicon'" class="amml-icon" src="{{node.imageIcon}}" alt="{{node.label}}"/>
+      <img matListAvatar *ngSwitchCase="'imageicon'" class="amml-icon" src="{{getSelectedImageIcon()}}" alt="{{node.label}}"/>
     </div>
     <span class="label">{{node.label}}</span>
   </div>

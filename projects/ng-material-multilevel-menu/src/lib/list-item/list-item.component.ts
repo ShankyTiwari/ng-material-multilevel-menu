@@ -150,6 +150,31 @@ export class ListItemComponent implements OnChanges, OnInit {
       return ``;
     }
   }
+  getSelectedSvgIcon() {
+    if (this.isSelected && this.node.activeSvgIcon) {
+      return this.node.activeSvgIcon;
+    }
+    return this.node.svgIcon;
+  }
+  getSelectedIcon() {
+    if (this.isSelected && this.node.activeIcon) {
+      return this.node.activeIcon;
+    }
+    return this.node.icon;
+  }
+  getSelectedFaIcon() {
+    if (this.isSelected && this.node.activeFaIcon) {
+      return this.node.activeFaIcon;
+    }
+    console.log(this.node.faIcon)
+    return this.node.faIcon;
+  }
+  getSelectedImageIcon() {
+    if (this.isSelected && this.node.activeImageIcon) {
+      return this.node.activeImageIcon;
+    }
+    return this.node.imageIcon;
+  }
   hasItems(): boolean {
     return this.nodeChildren.length > 0 ? true : false;
   }
@@ -177,7 +202,7 @@ export class ListItemComponent implements OnChanges, OnInit {
       if (node.externalRedirect !== undefined && node.externalRedirect) {
         window.location.href = node.link;
       } else {
-        this.router.navigate([node.link]);
+        this.router.navigate([node.link], node.navigationExtras);
       }
     } else if (node.onSelected && typeof node.onSelected === 'function') {
       node.onSelected(node);

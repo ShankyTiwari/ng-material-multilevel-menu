@@ -1,18 +1,25 @@
+import { NavigationExtras } from '@angular/router';
+
 export interface MultilevelNodes {
-    id?: string;
-    label: string;
-    faIcon?: string;
-    icon?: string;
-    imageIcon?: string;
-    svgIcon?: string;
-    hidden?: boolean;
-    link?: string;
-    externalRedirect?: boolean;
-    data?: any;
-    items?: MultilevelNodes[];
-    onSelected?: Function;
-    disabled?: boolean;
-    expanded?: boolean;
+  id?: string;
+  label: string;
+  faIcon?: string;
+  icon?: string;
+  imageIcon?: string;
+  svgIcon?: string;
+  activeFaIcon?: string;
+  activeIcon?: string;
+  activeImageIcon?: string;
+  activeSvgIcon?: string;
+  hidden?: boolean;
+  link?: string;
+  externalRedirect?: boolean;
+  data?: any;
+  items?: MultilevelNodes[];
+  onSelected?: Function;
+  disabled?: boolean;
+  expanded?: boolean;
+  navigationExtras?: NavigationExtras;
 }
 
 export interface Configuration {

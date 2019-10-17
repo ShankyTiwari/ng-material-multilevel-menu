@@ -3,32 +3,41 @@ export const constant = {
         {
             label: 'Item 1 (with Font awesome icon)',
             svgIcon: 'psychology',
+            activeSvgIcon: 'activePsychology',
             items: [
                 {
                     label: 'Alter Configurations',
-                    faIcon: 'fab fa-500px',
+                    faIcon: 'fa fa-address-book',
+                    activeFaIcon: 'fa fa-id-card',
                     items: [
                         {
                             label: 'Default',
                             link: '/demo-one',
                             icon: 'favorite',
+                            activeIcon: 'favorite_border',
                             disabled: true,
 
                         },
                         {
                             label: 'Changing Colours',
                             link: '/demo two',
-                            icon: 'favorite_border'
+                            icon: 'favorite_border',
+                            activeIcon: 'favorite',
+                            navigationExtras: {
+                                queryParams: { order: 'popular', filter: 'new' },
+                            }
                         },
                         {
                             label: 'Changing Padding',
                             link: '/demo/12',
-                            icon: 'favorite_border'
+                            icon: 'favorite_border',
+                            activeIcon: 'favorite'
                         },
                         {
                             label: 'Changing Background',
                             link: '/demo',
-                            icon: 'favorite_border'
+                            imageIcon: '/assets/batman.jpg',
+                            activeImageIcon: '/assets/blackpanther.jpg',
                         }
                     ]
                 },
