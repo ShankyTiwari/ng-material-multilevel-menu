@@ -601,7 +601,6 @@
             if (this.isSelected && this.node.activeFaIcon) {
                 return this.node.activeFaIcon;
             }
-            console.log(this.node.faIcon);
             return this.node.faIcon;
         };
         /**
