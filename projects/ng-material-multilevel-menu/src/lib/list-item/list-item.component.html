@@ -2,17 +2,19 @@
   (click)="expand(node)" title="{{node.label}}"
   [ngStyle]="getListStyle()">
   <div class="anml-data" [dir]="isRtlLayout() ? 'rtl' : 'ltr'">
-    <div class="icon-container" [ngSwitch]="getListIcon(node)">
-      <span *ngSwitchCase="'faicon'" class="amml-icon amml-icon-fa">
-        <i [ngClass]="getSelectedFaIcon()"></i>
-      </span>
-      <mat-icon *ngSwitchCase="'icon'" class="amml-icon">
-        {{getSelectedIcon()}}
-      </mat-icon>
-      <mat-icon *ngSwitchCase="'svgicon'" svgIcon="{{getSelectedSvgIcon()}}" class="amml-icon amml-svg-icon">
-      </mat-icon>
-      <img matListAvatar *ngSwitchCase="'imageicon'" class="amml-icon" src="{{getSelectedImageIcon()}}" alt="{{node.label}}"/>
-    </div>
+    <a [routerLink]="node.link" class="menu-link"></a>
+      <div class="icon-container" [ngSwitch]="getListIcon(node)">
+        <span *ngSwitchCase="'faicon'" class="amml-icon amml-icon-fa">
+          <i [ngClass]="getSelectedFaIcon()"></i>
+        </span>
+        <mat-icon *ngSwitchCase="'icon'" class="amml-icon">
+          {{getSelectedIcon()}}
+        </mat-icon>
+        <mat-icon *ngSwitchCase="'svgicon'" svgIcon="{{getSelectedSvgIcon()}}" class="amml-icon amml-svg-icon">
+        </mat-icon>
+        <img matListAvatar *ngSwitchCase="'imageicon'" class="amml-icon" src="{{getSelectedImageIcon()}}" alt="{{node.label}}"/>
+      </div>
+    <a [routerLink]="node.link" class="menu-link"></a>
     <span class="label">{{node.label}}</span>
   </div>
   <div class="amml-icon-arrow-container" *ngIf='hasItems()'>
