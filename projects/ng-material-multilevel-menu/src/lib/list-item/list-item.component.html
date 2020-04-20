@@ -2,7 +2,7 @@
   (click)="expand(node)" title="{{node.label}}"
   [ngStyle]="getListStyle()">
   <div class="anml-data" [dir]="isRtlLayout() ? 'rtl' : 'ltr'">
-    <a [routerLink]="node.link" class="menu-link"></a>
+    <a [routerLink]="node.link" class="menu-link">
       <div class="icon-container" [ngSwitch]="getListIcon(node)">
         <span *ngSwitchCase="'faicon'" class="amml-icon amml-icon-fa">
           <i [ngClass]="getSelectedFaIcon()"></i>
@@ -14,7 +14,7 @@
         </mat-icon>
         <img matListAvatar *ngSwitchCase="'imageicon'" class="amml-icon" src="{{getSelectedImageIcon()}}" alt="{{node.label}}"/>
       </div>
-    <a [routerLink]="node.link" class="menu-link"></a>
+    </a>
     <span class="label">{{node.label}}</span>
   </div>
   <div class="amml-icon-arrow-container" *ngIf='hasItems()'>
