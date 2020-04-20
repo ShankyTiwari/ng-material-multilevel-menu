@@ -2,6 +2,7 @@ import { EventEmitter, OnChanges, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Configuration, ListStyle, MultilevelNodes } from './../app.model';
 import { MultilevelMenuService } from './../multilevel-menu.service';
+import * as i0 from "@angular/core";
 export declare class ListItemComponent implements OnChanges, OnInit {
     private router;
     multilevelMenuService: MultilevelMenuService;
@@ -37,4 +38,6 @@ export declare class ListItemComponent implements OnChanges, OnInit {
     setClasses(): void;
     expand(node: MultilevelNodes): void;
     selectedListItem(node: MultilevelNodes): void;
+    static ɵfac: i0.ɵɵFactoryDef<ListItemComponent, never>;
+    static ɵcmp: i0.ɵɵComponentDefWithMeta<ListItemComponent, "ng-list-item", never, { "node": "node"; "level": "level"; "submenuLevel": "submenuLevel"; "selectedNode": "selectedNode"; "nodeConfiguration": "nodeConfiguration"; }, { "selectedItem": "selectedItem"; }, never, never>;
 }

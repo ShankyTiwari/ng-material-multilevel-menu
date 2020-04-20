@@ -1,16 +1,13 @@
-import { CommonModule } from '@angular/common';
-import { Injectable, ɵɵdefineInjectable, Component, Input, Output, EventEmitter, NgModule } from '@angular/core';
-import { Router, NavigationEnd, RouterModule } from '@angular/router';
+import { NgIf, NgClass, NgStyle, NgSwitch, NgSwitchCase, NgForOf, KeyValuePipe, CommonModule } from '@angular/common';
+import { ɵɵdefineInjectable, ɵsetClassMetadata, Injectable, ɵɵelementStart, ɵɵelement, ɵɵelementEnd, ɵɵnextContext, ɵɵadvance, ɵɵproperty, ɵɵtext, ɵɵtextInterpolate1, ɵɵpropertyInterpolate, ɵɵsanitizeUrl, ɵɵtemplate, ɵɵgetCurrentView, ɵɵlistener, ɵɵrestoreView, ɵɵtextInterpolate, ɵɵpipe, ɵɵpipeBind2, EventEmitter, ɵɵdirectiveInject, ɵɵdefineComponent, ɵɵNgOnChangesFeature, Component, Input, Output, ɵɵdefineNgModule, ɵɵdefineInjector, ɵɵsetNgModuleScope, NgModule } from '@angular/core';
+import { Router, RouterLinkWithHref, NavigationEnd, RouterModule } from '@angular/router';
 import { trigger, state, style, transition, group, animate } from '@angular/animations';
-import { MatRippleModule } from '@angular/material/core';
-import { MatIconModule } from '@angular/material/icon';
-import { MatListModule } from '@angular/material/list';
+import { MatDivider } from '@angular/material/divider';
+import { MatListItem, MatListAvatarCssMatStyler, MatListModule, MatList } from '@angular/material/list';
+import { MatRipple, MatRippleModule } from '@angular/material/core';
+import { Dir } from '@angular/cdk/bidi';
+import { MatIcon, MatIconModule } from '@angular/material/icon';
 
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/** @type {?} */
 var CONSTANT = {
     PADDING_AT_START: true,
     DEFAULT_CLASS_NAME: "amml-container",
@@ -24,90 +21,41 @@ var CONSTANT = {
     ERROR_MESSAGE: "Invalid data for material Multilevel List Component"
 };
 
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
 var MultilevelMenuService = /** @class */ (function () {
     function MultilevelMenuService() {
     }
-    /**
-     * @return {?}
-     */
-    MultilevelMenuService.prototype.generateId = /**
-     * @return {?}
-     */
-    function () {
-        /** @type {?} */
+    MultilevelMenuService.prototype.generateId = function () {
         var text = '';
-        /** @type {?} */
         var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
         for (var i = 0; i < 20; i++) {
             text += possible.charAt(Math.floor(Math.random() * possible.length));
         }
         return text;
     };
-    /**
-     * @param {?} nodes
-     * @return {?}
-     */
-    MultilevelMenuService.prototype.addRandomId = /**
-     * @param {?} nodes
-     * @return {?}
-     */
-    function (nodes) {
+    MultilevelMenuService.prototype.addRandomId = function (nodes) {
         var _this = this;
-        nodes.forEach((/**
-         * @param {?} node
-         * @return {?}
-         */
-        function (node) {
+        nodes.forEach(function (node) {
             node.id = _this.generateId();
             if (node.items !== undefined) {
                 _this.addRandomId(node.items);
             }
-        }));
+        });
     };
-    /**
-     * @param {?} node
-     * @param {?} nodeId
-     * @return {?}
-     */
-    MultilevelMenuService.prototype.recursiveCheckId = /**
-     * @param {?} node
-     * @param {?} nodeId
-     * @return {?}
-     */
-    function (node, nodeId) {
+    MultilevelMenuService.prototype.recursiveCheckId = function (node, nodeId) {
         var _this = this;
         if (node.id === nodeId) {
             return true;
         }
         else {
             if (node.items !== undefined) {
-                return node.items.some((/**
-                 * @param {?} nestedNode
-                 * @return {?}
-                 */
-                function (nestedNode) {
+                return node.items.some(function (nestedNode) {
                     return _this.recursiveCheckId(nestedNode, nodeId);
-                }));
+                });
             }
         }
     };
-    /**
-     * @param {?} nodes
-     * @param {?} link
-     * @return {?}
-     */
-    MultilevelMenuService.prototype.recursiveCheckLink = /**
-     * @param {?} nodes
-     * @param {?} link
-     * @return {?}
-     */
-    function (nodes, link) {
+    MultilevelMenuService.prototype.recursiveCheckLink = function (nodes, link) {
         for (var nodeIndex = 0; nodeIndex < nodes.length; nodeIndex++) {
-            /** @type {?} */
             var node = nodes[nodeIndex];
             for (var key in node) {
                 if (node.hasOwnProperty(key)) {
@@ -123,49 +71,148 @@ var MultilevelMenuService = /** @class */ (function () {
             }
         }
     };
-    /**
-     * @param {?} node
-     * @param {?} link
-     * @return {?}
-     */
-    MultilevelMenuService.prototype.getMatchedObjectByUrl = /**
-     * @param {?} node
-     * @param {?} link
-     * @return {?}
-     */
-    function (node, link) {
+    MultilevelMenuService.prototype.getMatchedObjectByUrl = function (node, link) {
         this.recursiveCheckLink(node, link);
         return this.foundLinkObject;
     };
     // overrides key-value pipe's default reordering (by key) by implementing dummy comprarer function
     // https://angular.io/api/common/KeyValuePipe#description
-    // overrides key-value pipe's default reordering (by key) by implementing dummy comprarer function
-    // https://angular.io/api/common/KeyValuePipe#description
-    /**
-     * @return {?}
-     */
-    MultilevelMenuService.prototype.kvDummyComparerFn = 
-    // overrides key-value pipe's default reordering (by key) by implementing dummy comprarer function
-    // https://angular.io/api/common/KeyValuePipe#description
-    /**
-     * @return {?}
-     */
-    function () {
+    MultilevelMenuService.prototype.kvDummyComparerFn = function () {
         return 0;
     };
-    MultilevelMenuService.decorators = [
-        { type: Injectable, args: [{
-                    providedIn: 'root'
-                },] }
-    ];
-    /** @nocollapse */ MultilevelMenuService.ngInjectableDef = ɵɵdefineInjectable({ factory: function MultilevelMenuService_Factory() { return new MultilevelMenuService(); }, token: MultilevelMenuService, providedIn: "root" });
+    MultilevelMenuService.ɵfac = function MultilevelMenuService_Factory(t) { return new (t || MultilevelMenuService)(); };
+    MultilevelMenuService.ɵprov = ɵɵdefineInjectable({ token: MultilevelMenuService, factory: MultilevelMenuService.ɵfac, providedIn: 'root' });
     return MultilevelMenuService;
 }());
+/*@__PURE__*/ (function () { ɵsetClassMetadata(MultilevelMenuService, [{
+        type: Injectable,
+        args: [{
+                providedIn: 'root'
+            }]
+    }], null, null); })();
 
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
+function ListItemComponent_mat_list_item_0_span_4_Template(rf, ctx) { if (rf & 1) {
+    ɵɵelementStart(0, "span", 12);
+    ɵɵelement(1, "i", 13);
+    ɵɵelementEnd();
+} if (rf & 2) {
+    var ctx_r2 = ɵɵnextContext(2);
+    ɵɵadvance(1);
+    ɵɵproperty("ngClass", ctx_r2.getSelectedFaIcon());
+} }
+function ListItemComponent_mat_list_item_0_mat_icon_5_Template(rf, ctx) { if (rf & 1) {
+    ɵɵelementStart(0, "mat-icon", 14);
+    ɵɵtext(1);
+    ɵɵelementEnd();
+} if (rf & 2) {
+    var ctx_r3 = ɵɵnextContext(2);
+    ɵɵadvance(1);
+    ɵɵtextInterpolate1(" ", ctx_r3.getSelectedIcon(), " ");
+} }
+function ListItemComponent_mat_list_item_0_mat_icon_6_Template(rf, ctx) { if (rf & 1) {
+    ɵɵelement(0, "mat-icon", 15);
+} if (rf & 2) {
+    var ctx_r4 = ɵɵnextContext(2);
+    ɵɵpropertyInterpolate("svgIcon", ctx_r4.getSelectedSvgIcon());
+} }
+function ListItemComponent_mat_list_item_0_img_7_Template(rf, ctx) { if (rf & 1) {
+    ɵɵelement(0, "img", 16);
+} if (rf & 2) {
+    var ctx_r5 = ɵɵnextContext(2);
+    ɵɵpropertyInterpolate("src", ctx_r5.getSelectedImageIcon(), ɵɵsanitizeUrl);
+    ɵɵpropertyInterpolate("alt", ctx_r5.node.label);
+} }
+function ListItemComponent_mat_list_item_0_div_10_mat_icon_1_Template(rf, ctx) { if (rf & 1) {
+    ɵɵelementStart(0, "mat-icon");
+    ɵɵtext(1, " keyboard_arrow_down ");
+    ɵɵelementEnd();
+} if (rf & 2) {
+    var ctx_r7 = ɵɵnextContext(3);
+    ɵɵproperty("@isExpandedLTR", ctx_r7.expanded ? "yes" : "no");
+} }
+function ListItemComponent_mat_list_item_0_div_10_mat_icon_2_Template(rf, ctx) { if (rf & 1) {
+    ɵɵelementStart(0, "mat-icon");
+    ɵɵtext(1, " keyboard_arrow_down ");
+    ɵɵelementEnd();
+} if (rf & 2) {
+    var ctx_r8 = ɵɵnextContext(3);
+    ɵɵproperty("@isExpandedRTL", ctx_r8.expanded ? "yes" : "no");
+} }
+function ListItemComponent_mat_list_item_0_div_10_Template(rf, ctx) { if (rf & 1) {
+    ɵɵelementStart(0, "div", 17);
+    ɵɵtemplate(1, ListItemComponent_mat_list_item_0_div_10_mat_icon_1_Template, 2, 1, "mat-icon", 18);
+    ɵɵtemplate(2, ListItemComponent_mat_list_item_0_div_10_mat_icon_2_Template, 2, 1, "mat-icon", 18);
+    ɵɵelementEnd();
+} if (rf & 2) {
+    var ctx_r6 = ɵɵnextContext(2);
+    ɵɵadvance(1);
+    ɵɵproperty("ngIf", !ctx_r6.isRtlLayout());
+    ɵɵadvance(1);
+    ɵɵproperty("ngIf", ctx_r6.isRtlLayout());
+} }
+function ListItemComponent_mat_list_item_0_Template(rf, ctx) { if (rf & 1) {
+    var _r10 = ɵɵgetCurrentView();
+    ɵɵelementStart(0, "mat-list-item", 2);
+    ɵɵlistener("click", function ListItemComponent_mat_list_item_0_Template_mat_list_item_click_0_listener() { ɵɵrestoreView(_r10); var ctx_r9 = ɵɵnextContext(); return ctx_r9.expand(ctx_r9.node); });
+    ɵɵelementStart(1, "div", 3);
+    ɵɵelementStart(2, "a", 4);
+    ɵɵelementStart(3, "div", 5);
+    ɵɵtemplate(4, ListItemComponent_mat_list_item_0_span_4_Template, 2, 1, "span", 6);
+    ɵɵtemplate(5, ListItemComponent_mat_list_item_0_mat_icon_5_Template, 2, 1, "mat-icon", 7);
+    ɵɵtemplate(6, ListItemComponent_mat_list_item_0_mat_icon_6_Template, 1, 1, "mat-icon", 8);
+    ɵɵtemplate(7, ListItemComponent_mat_list_item_0_img_7_Template, 1, 2, "img", 9);
+    ɵɵelementEnd();
+    ɵɵelementEnd();
+    ɵɵelementStart(8, "span", 10);
+    ɵɵtext(9);
+    ɵɵelementEnd();
+    ɵɵelementEnd();
+    ɵɵtemplate(10, ListItemComponent_mat_list_item_0_div_10_Template, 3, 2, "div", 11);
+    ɵɵelementEnd();
+} if (rf & 2) {
+    var ctx_r0 = ɵɵnextContext();
+    ɵɵpropertyInterpolate("title", ctx_r0.node.label);
+    ɵɵproperty("matRippleDisabled", ctx_r0.node.disabled)("ngClass", ctx_r0.selectedListClasses)("ngStyle", ctx_r0.getListStyle());
+    ɵɵadvance(1);
+    ɵɵproperty("dir", ctx_r0.isRtlLayout() ? "rtl" : "ltr");
+    ɵɵadvance(1);
+    ɵɵproperty("routerLink", ctx_r0.node.link);
+    ɵɵadvance(1);
+    ɵɵproperty("ngSwitch", ctx_r0.getListIcon(ctx_r0.node));
+    ɵɵadvance(1);
+    ɵɵproperty("ngSwitchCase", "faicon");
+    ɵɵadvance(1);
+    ɵɵproperty("ngSwitchCase", "icon");
+    ɵɵadvance(1);
+    ɵɵproperty("ngSwitchCase", "svgicon");
+    ɵɵadvance(1);
+    ɵɵproperty("ngSwitchCase", "imageicon");
+    ɵɵadvance(2);
+    ɵɵtextInterpolate(ctx_r0.node.label);
+    ɵɵadvance(1);
+    ɵɵproperty("ngIf", ctx_r0.hasItems());
+} }
+function ListItemComponent_div_2_ng_list_item_1_Template(rf, ctx) { if (rf & 1) {
+    var _r14 = ɵɵgetCurrentView();
+    ɵɵelementStart(0, "ng-list-item", 21);
+    ɵɵlistener("selectedItem", function ListItemComponent_div_2_ng_list_item_1_Template_ng_list_item_selectedItem_0_listener($event) { ɵɵrestoreView(_r14); var ctx_r13 = ɵɵnextContext(2); return ctx_r13.selectedListItem($event); });
+    ɵɵelementEnd();
+} if (rf & 2) {
+    var singleNode_r12 = ctx.$implicit;
+    var ctx_r11 = ɵɵnextContext(2);
+    ɵɵproperty("nodeConfiguration", ctx_r11.nodeConfiguration)("node", singleNode_r12.value)("level", ctx_r11.level + 1)("submenuLevel", singleNode_r12.key)("selectedNode", ctx_r11.selectedNode);
+} }
+function ListItemComponent_div_2_Template(rf, ctx) { if (rf & 1) {
+    ɵɵelementStart(0, "div", 19);
+    ɵɵtemplate(1, ListItemComponent_div_2_ng_list_item_1_Template, 1, 5, "ng-list-item", 20);
+    ɵɵpipe(2, "keyvalue");
+    ɵɵelementEnd();
+} if (rf & 2) {
+    var ctx_r1 = ɵɵnextContext();
+    ɵɵproperty("@slideInOut", undefined)("dir", ctx_r1.isRtlLayout() ? "rtl" : "ltr")("ngClass", ctx_r1.classes);
+    ɵɵadvance(1);
+    ɵɵproperty("ngForOf", ɵɵpipeBind2(2, 4, ctx_r1.nodeChildren, ctx_r1.multilevelMenuService.kvDummyComparerFn));
+} }
 var ListItemComponent = /** @class */ (function () {
     function ListItemComponent(router, multilevelMenuService) {
         var _a;
@@ -184,29 +231,13 @@ var ListItemComponent = /** @class */ (function () {
             _a[CONSTANT.ACTIVE_ITEM_CLASS_NAME] = false,
             _a);
     }
-    /**
-     * @return {?}
-     */
-    ListItemComponent.prototype.ngOnChanges = /**
-     * @return {?}
-     */
-    function () {
-        this.nodeChildren = this.node && this.node.items ? this.node.items.filter((/**
-         * @param {?} n
-         * @return {?}
-         */
-        function (n) { return !n.hidden; })) : [];
+    ListItemComponent.prototype.ngOnChanges = function () {
+        this.nodeChildren = this.node && this.node.items ? this.node.items.filter(function (n) { return !n.hidden; }) : [];
         if (this.selectedNode !== undefined && this.selectedNode !== null) {
             this.setSelectedClass(this.multilevelMenuService.recursiveCheckId(this.node, this.selectedNode.id));
         }
     };
-    /**
-     * @return {?}
-     */
-    ListItemComponent.prototype.ngOnInit = /**
-     * @return {?}
-     */
-    function () {
+    ListItemComponent.prototype.ngOnInit = function () {
         this.selectedListClasses[CONSTANT.DISABLED_ITEM_CLASS_NAME] = this.node.disabled;
         if (this.node.faIcon !== null &&
             this.node.faIcon !== undefined &&
@@ -219,15 +250,7 @@ var ListItemComponent = /** @class */ (function () {
         }
         this.setClasses();
     };
-    /**
-     * @param {?} isFound
-     * @return {?}
-     */
-    ListItemComponent.prototype.setSelectedClass = /**
-     * @param {?} isFound
-     * @return {?}
-     */
-    function (isFound) {
+    ListItemComponent.prototype.setSelectedClass = function (isFound) {
         var _a;
         if (isFound) {
             if (!this.firstInitializer) {
@@ -250,23 +273,10 @@ var ListItemComponent = /** @class */ (function () {
             _a);
         this.setClasses();
     };
-    /**
-     * @return {?}
-     */
-    ListItemComponent.prototype.getPaddingAtStart = /**
-     * @return {?}
-     */
-    function () {
+    ListItemComponent.prototype.getPaddingAtStart = function () {
         return this.nodeConfiguration.paddingAtStart ? true : false;
     };
-    /**
-     * @return {?}
-     */
-    ListItemComponent.prototype.getListStyle = /**
-     * @return {?}
-     */
-    function () {
-        /** @type {?} */
+    ListItemComponent.prototype.getListStyle = function () {
         var styles = {
             background: CONSTANT.DEFAULT_LIST_BACKGROUND_COLOR,
             color: CONSTANT.DEFAULT_LIST_FONT_COLOR
@@ -283,15 +293,7 @@ var ListItemComponent = /** @class */ (function () {
         }
         return styles;
     };
-    /**
-     * @param {?} node
-     * @return {?}
-     */
-    ListItemComponent.prototype.getListIcon = /**
-     * @param {?} node
-     * @return {?}
-     */
-    function (node) {
+    ListItemComponent.prototype.getListIcon = function (node) {
         if (node.icon !== null && node.icon !== undefined && node.icon !== '') {
             return "icon";
         }
@@ -308,94 +310,44 @@ var ListItemComponent = /** @class */ (function () {
             return "";
         }
     };
-    /**
-     * @return {?}
-     */
-    ListItemComponent.prototype.getSelectedSvgIcon = /**
-     * @return {?}
-     */
-    function () {
+    ListItemComponent.prototype.getSelectedSvgIcon = function () {
         if (this.isSelected && this.node.activeSvgIcon) {
             return this.node.activeSvgIcon;
         }
         return this.node.svgIcon;
     };
-    /**
-     * @return {?}
-     */
-    ListItemComponent.prototype.getSelectedIcon = /**
-     * @return {?}
-     */
-    function () {
+    ListItemComponent.prototype.getSelectedIcon = function () {
         if (this.isSelected && this.node.activeIcon) {
             return this.node.activeIcon;
         }
         return this.node.icon;
     };
-    /**
-     * @return {?}
-     */
-    ListItemComponent.prototype.getSelectedFaIcon = /**
-     * @return {?}
-     */
-    function () {
+    ListItemComponent.prototype.getSelectedFaIcon = function () {
         if (this.isSelected && this.node.activeFaIcon) {
             return this.node.activeFaIcon;
         }
         return this.node.faIcon;
     };
-    /**
-     * @return {?}
-     */
-    ListItemComponent.prototype.getSelectedImageIcon = /**
-     * @return {?}
-     */
-    function () {
+    ListItemComponent.prototype.getSelectedImageIcon = function () {
         if (this.isSelected && this.node.activeImageIcon) {
             return this.node.activeImageIcon;
         }
         return this.node.imageIcon;
     };
-    /**
-     * @return {?}
-     */
-    ListItemComponent.prototype.hasItems = /**
-     * @return {?}
-     */
-    function () {
+    ListItemComponent.prototype.hasItems = function () {
         return this.nodeChildren.length > 0 ? true : false;
     };
-    /**
-     * @return {?}
-     */
-    ListItemComponent.prototype.isRtlLayout = /**
-     * @return {?}
-     */
-    function () {
+    ListItemComponent.prototype.isRtlLayout = function () {
         return this.nodeConfiguration.rtlLayout;
     };
-    /**
-     * @return {?}
-     */
-    ListItemComponent.prototype.setClasses = /**
-     * @return {?}
-     */
-    function () {
+    ListItemComponent.prototype.setClasses = function () {
         var _a;
         this.classes = (_a = {},
             _a["level-" + (this.level + 1)] = true,
             _a['amml-submenu'] = this.hasItems() && this.getPaddingAtStart(),
             _a);
     };
-    /**
-     * @param {?} node
-     * @return {?}
-     */
-    ListItemComponent.prototype.expand = /**
-     * @param {?} node
-     * @return {?}
-     */
-    function (node) {
+    ListItemComponent.prototype.expand = function (node) {
         if (node.disabled) {
             return;
         }
@@ -421,100 +373,162 @@ var ListItemComponent = /** @class */ (function () {
             this.selectedListItem(node);
         }
     };
-    /**
-     * @param {?} node
-     * @return {?}
-     */
-    ListItemComponent.prototype.selectedListItem = /**
-     * @param {?} node
-     * @return {?}
-     */
-    function (node) {
+    ListItemComponent.prototype.selectedListItem = function (node) {
         this.selectedItem.emit(node);
     };
-    ListItemComponent.decorators = [
-        { type: Component, args: [{
-                    selector: 'ng-list-item',
-                    template: "<mat-list-item matRipple [matRippleDisabled]=\"node.disabled\" [ngClass]=\"selectedListClasses\" *ngIf=\"!node.hidden\"\n  (click)=\"expand(node)\" title=\"{{node.label}}\"\n  [ngStyle]=\"getListStyle()\">\n  <div class=\"anml-data\" [dir]=\"isRtlLayout() ? 'rtl' : 'ltr'\">\n    <a [routerLink]=\"node.link\" class=\"menu-link\"></a>\n      <div class=\"icon-container\" [ngSwitch]=\"getListIcon(node)\">\n        <span *ngSwitchCase=\"'faicon'\" class=\"amml-icon amml-icon-fa\">\n          <i [ngClass]=\"getSelectedFaIcon()\"></i>\n        </span>\n        <mat-icon *ngSwitchCase=\"'icon'\" class=\"amml-icon\">\n          {{getSelectedIcon()}}\n        </mat-icon>\n        <mat-icon *ngSwitchCase=\"'svgicon'\" svgIcon=\"{{getSelectedSvgIcon()}}\" class=\"amml-icon amml-svg-icon\">\n        </mat-icon>\n        <img matListAvatar *ngSwitchCase=\"'imageicon'\" class=\"amml-icon\" src=\"{{getSelectedImageIcon()}}\" alt=\"{{node.label}}\"/>\n      </div>\n    <a [routerLink]=\"node.link\" class=\"menu-link\"></a>\n    <span class=\"label\">{{node.label}}</span>\n  </div>\n  <div class=\"amml-icon-arrow-container\" *ngIf='hasItems()'>\n    <mat-icon *ngIf='!isRtlLayout()' [@isExpandedLTR]=\"expanded ? 'yes' : 'no'\">\n      keyboard_arrow_down\n    </mat-icon>\n    <mat-icon *ngIf='isRtlLayout()'  [@isExpandedRTL]=\"expanded ? 'yes' : 'no'\">\n      keyboard_arrow_down\n    </mat-icon>\n  </div>\n</mat-list-item>\n\n<mat-divider></mat-divider>\n\n<div *ngIf=\"hasItems() && expanded\" [@slideInOut] [dir]=\"isRtlLayout() ? 'rtl' : 'ltr'\" [ngClass]=\"classes\">\n  <ng-list-item *ngFor=\"let singleNode of nodeChildren | keyvalue : multilevelMenuService.kvDummyComparerFn\"\n    [nodeConfiguration]='nodeConfiguration'\n    [node]=\"singleNode.value\"\n    [level]=\"level + 1\"\n    [submenuLevel]=\"singleNode.key\"\n    [selectedNode]='selectedNode'\n    (selectedItem)=\"selectedListItem($event)\">\n  </ng-list-item>\n</div>\n",
-                    animations: [
-                        trigger('slideInOut', [
-                            state('in', style({ height: '*', opacity: 0 })),
-                            transition(':leave', [
-                                style({ height: '*', opacity: 0.2 }),
-                                group([
-                                    animate(200, style({ height: 0 })),
-                                    animate('200ms ease-out', style({ opacity: 0 }))
-                                ])
-                            ]),
-                            transition(':enter', [
-                                style({ height: '0', opacity: 0 }),
-                                group([
-                                    animate(200, style({ height: '*' })),
-                                    animate('400ms ease-out', style({ opacity: 1 }))
-                                ])
-                            ])
-                        ]),
-                        trigger('isExpandedLTR', [
-                            state('no', style({ transform: 'rotate(-90deg)' })),
-                            state('yes', style({ transform: 'rotate(0deg)', })),
-                            transition('no => yes', animate(200)),
-                            transition('yes => no', animate(200))
-                        ]),
-                        trigger('isExpandedRTL', [
-                            state('no', style({ transform: 'rotate(90deg)' })),
-                            state('yes', style({ transform: 'rotate(0deg)', })),
-                            transition('no => yes', animate(200)),
-                            transition('yes => no', animate(200))
+    ListItemComponent.ɵfac = function ListItemComponent_Factory(t) { return new (t || ListItemComponent)(ɵɵdirectiveInject(Router), ɵɵdirectiveInject(MultilevelMenuService)); };
+    ListItemComponent.ɵcmp = ɵɵdefineComponent({ type: ListItemComponent, selectors: [["ng-list-item"]], inputs: { node: "node", level: "level", submenuLevel: "submenuLevel", selectedNode: "selectedNode", nodeConfiguration: "nodeConfiguration" }, outputs: { selectedItem: "selectedItem" }, features: [ɵɵNgOnChangesFeature], decls: 3, vars: 2, consts: [["matRipple", "", 3, "matRippleDisabled", "ngClass", "title", "ngStyle", "click", 4, "ngIf"], [3, "dir", "ngClass", 4, "ngIf"], ["matRipple", "", 3, "matRippleDisabled", "ngClass", "title", "ngStyle", "click"], [1, "anml-data", 3, "dir"], [1, "menu-link", 3, "routerLink"], [1, "icon-container", 3, "ngSwitch"], ["class", "amml-icon amml-icon-fa", 4, "ngSwitchCase"], ["class", "amml-icon", 4, "ngSwitchCase"], ["class", "amml-icon amml-svg-icon", 3, "svgIcon", 4, "ngSwitchCase"], ["matListAvatar", "", "class", "amml-icon", 3, "src", "alt", 4, "ngSwitchCase"], [1, "label"], ["class", "amml-icon-arrow-container", 4, "ngIf"], [1, "amml-icon", "amml-icon-fa"], [3, "ngClass"], [1, "amml-icon"], [1, "amml-icon", "amml-svg-icon", 3, "svgIcon"], ["matListAvatar", "", 1, "amml-icon", 3, "src", "alt"], [1, "amml-icon-arrow-container"], [4, "ngIf"], [3, "dir", "ngClass"], [3, "nodeConfiguration", "node", "level", "submenuLevel", "selectedNode", "selectedItem", 4, "ngFor", "ngForOf"], [3, "nodeConfiguration", "node", "level", "submenuLevel", "selectedNode", "selectedItem"]], template: function ListItemComponent_Template(rf, ctx) { if (rf & 1) {
+            ɵɵtemplate(0, ListItemComponent_mat_list_item_0_Template, 11, 13, "mat-list-item", 0);
+            ɵɵelement(1, "mat-divider");
+            ɵɵtemplate(2, ListItemComponent_div_2_Template, 3, 7, "div", 1);
+        } if (rf & 2) {
+            ɵɵproperty("ngIf", !ctx.node.hidden);
+            ɵɵadvance(2);
+            ɵɵproperty("ngIf", ctx.hasItems() && ctx.expanded);
+        } }, directives: [NgIf, MatDivider, MatListItem, MatRipple, NgClass, NgStyle, Dir, RouterLinkWithHref, NgSwitch, NgSwitchCase, MatIcon, MatListAvatarCssMatStyler, NgForOf, ListItemComponent], pipes: [KeyValuePipe], styles: [".amml-item[_ngcontent-%COMP%]{line-height:48px;position:relative;cursor:pointer}.anml-data[_ngcontent-%COMP%]{width:100%;text-transform:capitalize;display:flex;justify-content:flex-start;height:48px}.disabled-amml-item[_ngcontent-%COMP%]{cursor:not-allowed;opacity:.5;text-decoration:none}.amml-icon-fa[_ngcontent-%COMP%]{font-size:20px}.amml-icon[_ngcontent-%COMP%], .label[_ngcontent-%COMP%]{line-height:48px}.amml-svg-icon[_ngcontent-%COMP%]{line-height:57px;width:22px;height:22px}.amml-icon-arrow-container[_ngcontent-%COMP%]{direction:ltr;display:flex;align-items:center}div[dir=ltr][_ngcontent-%COMP%]   .amml-icon[_ngcontent-%COMP%]{margin-right:16px}div[dir=ltr].amml-submenu[_ngcontent-%COMP%], div[dir=rtl][_ngcontent-%COMP%]   .amml-icon[_ngcontent-%COMP%]{margin-left:16px}div[dir=rtl].amml-submenu[_ngcontent-%COMP%]{margin-right:16px}"], data: { animation: [
+                trigger('slideInOut', [
+                    state('in', style({ height: '*', opacity: 0 })),
+                    transition(':leave', [
+                        style({ height: '*', opacity: 0.2 }),
+                        group([
+                            animate(200, style({ height: 0 })),
+                            animate('200ms ease-out', style({ opacity: 0 }))
                         ])
-                    ],
-                    styles: [".amml-item{line-height:48px;position:relative;cursor:pointer}.anml-data{width:100%;text-transform:capitalize;display:-webkit-box;display:flex;-webkit-box-pack:start;justify-content:flex-start;height:48px}.disabled-amml-item{cursor:not-allowed;opacity:.5;text-decoration:none}.amml-icon-fa{font-size:20px}.amml-icon,.label{line-height:48px}.amml-svg-icon{line-height:57px;width:22px;height:22px}.amml-icon-arrow-container{direction:ltr;display:-webkit-box;display:flex;-webkit-box-align:center;align-items:center}div[dir=ltr] .amml-icon{margin-right:16px}div[dir=ltr].amml-submenu,div[dir=rtl] .amml-icon{margin-left:16px}div[dir=rtl].amml-submenu{margin-right:16px}"]
-                }] }
-    ];
-    /** @nocollapse */
-    ListItemComponent.ctorParameters = function () { return [
-        { type: Router },
-        { type: MultilevelMenuService }
-    ]; };
-    ListItemComponent.propDecorators = {
-        node: [{ type: Input }],
-        level: [{ type: Input }],
-        submenuLevel: [{ type: Input }],
-        selectedNode: [{ type: Input }],
-        nodeConfiguration: [{ type: Input }],
-        selectedItem: [{ type: Output }]
-    };
+                    ]),
+                    transition(':enter', [
+                        style({ height: '0', opacity: 0 }),
+                        group([
+                            animate(200, style({ height: '*' })),
+                            animate('400ms ease-out', style({ opacity: 1 }))
+                        ])
+                    ])
+                ]),
+                trigger('isExpandedLTR', [
+                    state('no', style({ transform: 'rotate(-90deg)' })),
+                    state('yes', style({ transform: 'rotate(0deg)', })),
+                    transition('no => yes', animate(200)),
+                    transition('yes => no', animate(200))
+                ]),
+                trigger('isExpandedRTL', [
+                    state('no', style({ transform: 'rotate(90deg)' })),
+                    state('yes', style({ transform: 'rotate(0deg)', })),
+                    transition('no => yes', animate(200)),
+                    transition('yes => no', animate(200))
+                ])
+            ] } });
     return ListItemComponent;
 }());
+/*@__PURE__*/ (function () { ɵsetClassMetadata(ListItemComponent, [{
+        type: Component,
+        args: [{
+                selector: 'ng-list-item',
+                templateUrl: './list-item.component.html',
+                styleUrls: ['./list-item.component.css'],
+                animations: [
+                    trigger('slideInOut', [
+                        state('in', style({ height: '*', opacity: 0 })),
+                        transition(':leave', [
+                            style({ height: '*', opacity: 0.2 }),
+                            group([
+                                animate(200, style({ height: 0 })),
+                                animate('200ms ease-out', style({ opacity: 0 }))
+                            ])
+                        ]),
+                        transition(':enter', [
+                            style({ height: '0', opacity: 0 }),
+                            group([
+                                animate(200, style({ height: '*' })),
+                                animate('400ms ease-out', style({ opacity: 1 }))
+                            ])
+                        ])
+                    ]),
+                    trigger('isExpandedLTR', [
+                        state('no', style({ transform: 'rotate(-90deg)' })),
+                        state('yes', style({ transform: 'rotate(0deg)', })),
+                        transition('no => yes', animate(200)),
+                        transition('yes => no', animate(200))
+                    ]),
+                    trigger('isExpandedRTL', [
+                        state('no', style({ transform: 'rotate(90deg)' })),
+                        state('yes', style({ transform: 'rotate(0deg)', })),
+                        transition('no => yes', animate(200)),
+                        transition('yes => no', animate(200))
+                    ])
+                ]
+            }]
+    }], function () { return [{ type: Router }, { type: MultilevelMenuService }]; }, { node: [{
+            type: Input
+        }], level: [{
+            type: Input
+        }], submenuLevel: [{
+            type: Input
+        }], selectedNode: [{
+            type: Input
+        }], nodeConfiguration: [{
+            type: Input
+        }], selectedItem: [{
+            type: Output
+        }] }); })();
 
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
 var MaterialsModule = /** @class */ (function () {
     function MaterialsModule() {
     }
-    MaterialsModule.decorators = [
-        { type: NgModule, args: [{
-                    imports: [
-                        MatIconModule,
-                        MatListModule,
-                        MatRippleModule,
-                    ],
-                    declarations: [],
-                    exports: [
-                        MatIconModule,
-                        MatListModule,
-                        MatRippleModule,
-                    ]
-                },] }
-    ];
+    MaterialsModule.ɵmod = ɵɵdefineNgModule({ type: MaterialsModule });
+    MaterialsModule.ɵinj = ɵɵdefineInjector({ factory: function MaterialsModule_Factory(t) { return new (t || MaterialsModule)(); }, imports: [[
+                MatIconModule,
+                MatListModule,
+                MatRippleModule,
+            ],
+            MatIconModule,
+            MatListModule,
+            MatRippleModule] });
     return MaterialsModule;
 }());
+(function () { (typeof ngJitMode === "undefined" || ngJitMode) && ɵɵsetNgModuleScope(MaterialsModule, { imports: [MatIconModule,
+        MatListModule,
+        MatRippleModule], exports: [MatIconModule,
+        MatListModule,
+        MatRippleModule] }); })();
+/*@__PURE__*/ (function () { ɵsetClassMetadata(MaterialsModule, [{
+        type: NgModule,
+        args: [{
+                imports: [
+                    MatIconModule,
+                    MatListModule,
+                    MatRippleModule,
+                ],
+                declarations: [],
+                exports: [
+                    MatIconModule,
+                    MatListModule,
+                    MatRippleModule,
+                ]
+            }]
+    }], null, null); })();
 
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
+function NgMaterialMultilevelMenuComponent_div_0_ng_list_item_2_Template(rf, ctx) { if (rf & 1) {
+    var _r4 = ɵɵgetCurrentView();
+    ɵɵelementStart(0, "ng-list-item", 3);
+    ɵɵlistener("selectedItem", function NgMaterialMultilevelMenuComponent_div_0_ng_list_item_2_Template_ng_list_item_selectedItem_0_listener($event) { ɵɵrestoreView(_r4); var ctx_r3 = ɵɵnextContext(2); return ctx_r3.selectedListItem($event); });
+    ɵɵelementEnd();
+} if (rf & 2) {
+    var node_r2 = ctx.$implicit;
+    var ctx_r1 = ɵɵnextContext(2);
+    ɵɵproperty("nodeConfiguration", ctx_r1.nodeConfig)("node", node_r2.value)("level", 1)("submenuLevel", node_r2.key)("selectedNode", ctx_r1.currentNode);
+} }
+function NgMaterialMultilevelMenuComponent_div_0_Template(rf, ctx) { if (rf & 1) {
+    ɵɵelementStart(0, "div", 1);
+    ɵɵelementStart(1, "mat-list");
+    ɵɵtemplate(2, NgMaterialMultilevelMenuComponent_div_0_ng_list_item_2_Template, 1, 5, "ng-list-item", 2);
+    ɵɵpipe(3, "keyvalue");
+    ɵɵelementEnd();
+    ɵɵelementEnd();
+} if (rf & 2) {
+    var ctx_r0 = ɵɵnextContext();
+    ɵɵproperty("ngClass", ctx_r0.getClassName())("ngStyle", ctx_r0.getGlobalStyle())("dir", ctx_r0.isRtlLayout() ? "rtl" : "ltr");
+    ɵɵadvance(2);
+    ɵɵproperty("ngForOf", ɵɵpipeBind2(3, 4, ctx_r0.items, ctx_r0.multilevelMenuService.kvDummyComparerFn));
+} }
 var NgMaterialMultilevelMenuComponent = /** @class */ (function () {
     function NgMaterialMultilevelMenuComponent(router, multilevelMenuService) {
         this.router = router;
@@ -534,48 +548,23 @@ var NgMaterialMultilevelMenuComponent = /** @class */ (function () {
         };
         this.isInvalidConfig = true;
     }
-    /**
-     * @return {?}
-     */
-    NgMaterialMultilevelMenuComponent.prototype.ngOnChanges = /**
-     * @return {?}
-     */
-    function () {
+    NgMaterialMultilevelMenuComponent.prototype.ngOnChanges = function () {
         this.detectInvalidConfig();
     };
-    /**
-     * @return {?}
-     */
-    NgMaterialMultilevelMenuComponent.prototype.ngOnInit = /**
-     * @return {?}
-     */
-    function () {
+    NgMaterialMultilevelMenuComponent.prototype.ngOnInit = function () {
         var _this = this;
         if (this.configuration !== null && this.configuration !== undefined && this.configuration !== '' &&
             this.configuration.interfaceWithRoute !== null && this.configuration.interfaceWithRoute) {
             this.router.events
-                .subscribe((/**
-             * @param {?} event
-             * @return {?}
-             */
-            function (event) {
+                .subscribe(function (event) {
                 if (event instanceof NavigationEnd) {
                     _this.updateNodeByURL(event.url);
                 }
-            }));
+            });
             this.updateNodeByURL(this.router.url);
         }
     };
-    /**
-     * @param {?} url
-     * @return {?}
-     */
-    NgMaterialMultilevelMenuComponent.prototype.updateNodeByURL = /**
-     * @param {?} url
-     * @return {?}
-     */
-    function (url) {
-        /** @type {?} */
+    NgMaterialMultilevelMenuComponent.prototype.updateNodeByURL = function (url) {
         var foundNode = this.multilevelMenuService.getMatchedObjectByUrl(this.items, url);
         if (foundNode !== undefined &&
             foundNode.link !== undefined &&
@@ -587,38 +576,21 @@ var NgMaterialMultilevelMenuComponent = /** @class */ (function () {
             this.selectedListItem(foundNode);
         }
     };
-    /**
-     * @return {?}
-     */
-    NgMaterialMultilevelMenuComponent.prototype.checkValidData = /**
-     * @return {?}
-     */
-    function () {
+    NgMaterialMultilevelMenuComponent.prototype.checkValidData = function () {
         if (this.items.length === 0) {
             console.warn(CONSTANT.ERROR_MESSAGE);
         }
         else {
-            this.items = this.items.filter((/**
-             * @param {?} n
-             * @return {?}
-             */
-            function (n) { return !n.hidden; }));
+            this.items = this.items.filter(function (n) { return !n.hidden; });
             this.multilevelMenuService.addRandomId(this.items);
         }
     };
-    /**
-     * @return {?}
-     */
-    NgMaterialMultilevelMenuComponent.prototype.detectInvalidConfig = /**
-     * @return {?}
-     */
-    function () {
+    NgMaterialMultilevelMenuComponent.prototype.detectInvalidConfig = function () {
         if (this.configuration === null || this.configuration === undefined || this.configuration === '') {
             this.isInvalidConfig = true;
         }
         else {
             this.isInvalidConfig = false;
-            /** @type {?} */
             var config = this.configuration;
             if (config.paddingAtStart !== undefined && config.paddingAtStart !== null && typeof config.paddingAtStart === 'boolean') {
                 this.nodeConfig.paddingAtStart = config.paddingAtStart;
@@ -661,13 +633,7 @@ var NgMaterialMultilevelMenuComponent = /** @class */ (function () {
             this.checkValidData();
         }
     };
-    /**
-     * @return {?}
-     */
-    NgMaterialMultilevelMenuComponent.prototype.getClassName = /**
-     * @return {?}
-     */
-    function () {
+    NgMaterialMultilevelMenuComponent.prototype.getClassName = function () {
         if (this.isInvalidConfig) {
             return CONSTANT.DEFAULT_CLASS_NAME;
         }
@@ -680,15 +646,8 @@ var NgMaterialMultilevelMenuComponent = /** @class */ (function () {
             }
         }
     };
-    /**
-     * @return {?}
-     */
-    NgMaterialMultilevelMenuComponent.prototype.getGlobalStyle = /**
-     * @return {?}
-     */
-    function () {
+    NgMaterialMultilevelMenuComponent.prototype.getGlobalStyle = function () {
         if (!this.isInvalidConfig) {
-            /** @type {?} */
             var styles = {
                 background: null
             };
@@ -700,24 +659,10 @@ var NgMaterialMultilevelMenuComponent = /** @class */ (function () {
             return styles;
         }
     };
-    /**
-     * @return {?}
-     */
-    NgMaterialMultilevelMenuComponent.prototype.isRtlLayout = /**
-     * @return {?}
-     */
-    function () {
+    NgMaterialMultilevelMenuComponent.prototype.isRtlLayout = function () {
         return this.nodeConfig.rtlLayout;
     };
-    /**
-     * @param {?} event
-     * @return {?}
-     */
-    NgMaterialMultilevelMenuComponent.prototype.selectedListItem = /**
-     * @param {?} event
-     * @return {?}
-     */
-    function (event) {
+    NgMaterialMultilevelMenuComponent.prototype.selectedListItem = function (event) {
         this.currentNode = event;
         if (event.items === undefined && (!event.onSelected || typeof event.onSelected !== 'function')) {
             this.selectedItem.emit(event);
@@ -726,47 +671,65 @@ var NgMaterialMultilevelMenuComponent = /** @class */ (function () {
             this.selectedLabel.emit(event);
         }
     };
-    NgMaterialMultilevelMenuComponent.decorators = [
-        { type: Component, args: [{
-                    selector: 'ng-material-multilevel-menu',
-                    template: "<div [ngClass]=\"getClassName()\" [ngStyle]=\"getGlobalStyle()\" *ngIf='items.length !== 0' [dir]=\"isRtlLayout() ? 'rtl' : 'ltr'\">\n  <mat-list>\n    <ng-list-item\n      *ngFor=\"let node of items | keyvalue: multilevelMenuService.kvDummyComparerFn\"\n      [nodeConfiguration]='nodeConfig'\n      [node]='node.value'\n      [level]=\"1\"\n      [submenuLevel]=\"node.key\"\n      [selectedNode]='currentNode'\n      (selectedItem)=\"selectedListItem($event)\n    \">\n    </ng-list-item>\n  </mat-list>\n</div>\n",
-                    styles: [".amml-item{line-height:48px;display:-webkit-box;display:flex;-webkit-box-pack:justify;justify-content:space-between;position:relative}.anml-data{width:100%;text-transform:capitalize;display:-webkit-box;display:flex;-webkit-box-pack:start;justify-content:flex-start}.amml-icon-fa{font-size:20px}.amml-icon{line-height:48px}.active{color:#1976d2}div[dir=ltr] .amml-icon{margin-right:15px}div[dir=ltr] .amml-submenu{margin-left:16px}div[dir=rtl] .amml-icon{margin-left:15px}div[dir=rtl] .amml-submenu{margin-right:16px}"]
-                }] }
-    ];
-    /** @nocollapse */
-    NgMaterialMultilevelMenuComponent.ctorParameters = function () { return [
-        { type: Router },
-        { type: MultilevelMenuService }
-    ]; };
-    NgMaterialMultilevelMenuComponent.propDecorators = {
-        items: [{ type: Input }],
-        configuration: [{ type: Input }],
-        selectedItem: [{ type: Output }],
-        selectedLabel: [{ type: Output }]
-    };
+    NgMaterialMultilevelMenuComponent.ɵfac = function NgMaterialMultilevelMenuComponent_Factory(t) { return new (t || NgMaterialMultilevelMenuComponent)(ɵɵdirectiveInject(Router), ɵɵdirectiveInject(MultilevelMenuService)); };
+    NgMaterialMultilevelMenuComponent.ɵcmp = ɵɵdefineComponent({ type: NgMaterialMultilevelMenuComponent, selectors: [["ng-material-multilevel-menu"]], inputs: { items: "items", configuration: "configuration" }, outputs: { selectedItem: "selectedItem", selectedLabel: "selectedLabel" }, features: [ɵɵNgOnChangesFeature], decls: 1, vars: 1, consts: [[3, "ngClass", "ngStyle", "dir", 4, "ngIf"], [3, "ngClass", "ngStyle", "dir"], [3, "nodeConfiguration", "node", "level", "submenuLevel", "selectedNode", "selectedItem", 4, "ngFor", "ngForOf"], [3, "nodeConfiguration", "node", "level", "submenuLevel", "selectedNode", "selectedItem"]], template: function NgMaterialMultilevelMenuComponent_Template(rf, ctx) { if (rf & 1) {
+            ɵɵtemplate(0, NgMaterialMultilevelMenuComponent_div_0_Template, 4, 7, "div", 0);
+        } if (rf & 2) {
+            ɵɵproperty("ngIf", ctx.items.length !== 0);
+        } }, directives: [NgIf, NgClass, NgStyle, Dir, MatList, NgForOf, ListItemComponent], pipes: [KeyValuePipe], styles: [".amml-item[_ngcontent-%COMP%]{line-height:48px;display:flex;justify-content:space-between;position:relative}.anml-data[_ngcontent-%COMP%]{width:100%;text-transform:capitalize;display:flex;justify-content:flex-start}.amml-icon-fa[_ngcontent-%COMP%]{font-size:20px}.amml-icon[_ngcontent-%COMP%]{line-height:48px}.active[_ngcontent-%COMP%]{color:#1976d2}div[dir=ltr][_ngcontent-%COMP%]   .amml-icon[_ngcontent-%COMP%]{margin-right:15px}div[dir=ltr][_ngcontent-%COMP%]   .amml-submenu[_ngcontent-%COMP%]{margin-left:16px}div[dir=rtl][_ngcontent-%COMP%]   .amml-icon[_ngcontent-%COMP%]{margin-left:15px}div[dir=rtl][_ngcontent-%COMP%]   .amml-submenu[_ngcontent-%COMP%]{margin-right:16px}"] });
     return NgMaterialMultilevelMenuComponent;
 }());
+/*@__PURE__*/ (function () { ɵsetClassMetadata(NgMaterialMultilevelMenuComponent, [{
+        type: Component,
+        args: [{
+                selector: 'ng-material-multilevel-menu',
+                templateUrl: './ng-material-multilevel-menu.component.html',
+                styleUrls: ['./ng-material-multilevel-menu.component.css'],
+            }]
+    }], function () { return [{ type: Router }, { type: MultilevelMenuService }]; }, { items: [{
+            type: Input
+        }], configuration: [{
+            type: Input
+        }], selectedItem: [{
+            type: Output
+        }], selectedLabel: [{
+            type: Output
+        }] }); })();
 
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
 var NgMaterialMultilevelMenuModule = /** @class */ (function () {
     function NgMaterialMultilevelMenuModule() {
     }
-    NgMaterialMultilevelMenuModule.decorators = [
-        { type: NgModule, args: [{
-                    imports: [
-                        CommonModule,
-                        MaterialsModule,
-                        RouterModule,
-                    ],
-                    declarations: [NgMaterialMultilevelMenuComponent, ListItemComponent],
-                    exports: [NgMaterialMultilevelMenuComponent]
-                },] }
-    ];
+    NgMaterialMultilevelMenuModule.ɵmod = ɵɵdefineNgModule({ type: NgMaterialMultilevelMenuModule });
+    NgMaterialMultilevelMenuModule.ɵinj = ɵɵdefineInjector({ factory: function NgMaterialMultilevelMenuModule_Factory(t) { return new (t || NgMaterialMultilevelMenuModule)(); }, imports: [[
+                CommonModule,
+                MaterialsModule,
+                RouterModule,
+            ]] });
     return NgMaterialMultilevelMenuModule;
 }());
+(function () { (typeof ngJitMode === "undefined" || ngJitMode) && ɵɵsetNgModuleScope(NgMaterialMultilevelMenuModule, { declarations: [NgMaterialMultilevelMenuComponent, ListItemComponent], imports: [CommonModule,
+        MaterialsModule,
+        RouterModule], exports: [NgMaterialMultilevelMenuComponent] }); })();
+/*@__PURE__*/ (function () { ɵsetClassMetadata(NgMaterialMultilevelMenuModule, [{
+        type: NgModule,
+        args: [{
+                imports: [
+                    CommonModule,
+                    MaterialsModule,
+                    RouterModule,
+                ],
+                declarations: [NgMaterialMultilevelMenuComponent, ListItemComponent],
+                exports: [NgMaterialMultilevelMenuComponent]
+            }]
+    }], null, null); })();
 
-export { NgMaterialMultilevelMenuModule, MaterialsModule as ɵa, NgMaterialMultilevelMenuComponent as ɵb, MultilevelMenuService as ɵc, ListItemComponent as ɵd };
+/*
+ * Public API Surface of ng-material-multilevel-menu
+ */
+
+/**
+ * Generated bundle index. Do not edit.
+ */
+
+export { NgMaterialMultilevelMenuComponent, NgMaterialMultilevelMenuModule };
 //# sourceMappingURL=ng-material-multilevel-menu.js.map
