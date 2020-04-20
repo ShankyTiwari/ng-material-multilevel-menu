@@ -13,6 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "aot": true,
             "outputPath": "dist/ng-material-multilevel-menu-angular-project",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -29,6 +30,12 @@
           },
           "configurations": {
             "production": {
+              "budgets": [
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ],
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
@@ -132,7 +139,8 @@
           "configurations": {
             "production": {
               "project": "projects/ng-material-multilevel-menu/ng-package.prod.json"
-            }
+            ,              "tsConfig": "projects/ng-material-multilevel-menu/tsconfig.lib.prod.json"
+}
           }
         },
         "test": {
