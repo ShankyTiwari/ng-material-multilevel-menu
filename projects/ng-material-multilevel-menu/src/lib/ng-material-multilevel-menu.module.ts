@@ -1,14 +1,16 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MaterialsModule } from './materials.module';
+import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
 
-import { NgMaterialMultilevelMenuComponent } from './ng-material-multilevel-menu.component';
 import { ListItemComponent } from './list-item/list-item.component';
+import { MaterialsModule } from './materials.module';
+import { NgMaterialMultilevelMenuComponent } from './ng-material-multilevel-menu.component';
 
 @NgModule({
   imports: [
     CommonModule,
-    MaterialsModule
+    MaterialsModule,
+    RouterModule,
   ],
   declarations: [NgMaterialMultilevelMenuComponent, ListItemComponent],
   exports: [NgMaterialMultilevelMenuComponent]

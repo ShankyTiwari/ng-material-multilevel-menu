@@ -1,6 +1,6 @@
 {
   "name": "ng-material-multilevel-menu",
-  "version": "4.11.3",
+  "version": "3.0.2",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ShankyTiwari/ng-material-multilevel-menu.git"
@@ -18,7 +18,6 @@
   "bugs": {
     "url": "https://github.com/ShankyTiwari/ng-material-multilevel-menu/issues"
   },
-  "homepage": "http://plugins.codershood.info/",
   "peerDependencies": {
     "@angular/common": ">= 6.0.0-rc.0 || >= 6.0.0",
     "@angular/core": ">= 6.0.0-rc.0 || >= 6.0.0"
