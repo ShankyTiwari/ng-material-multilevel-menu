@@ -22,7 +22,7 @@
   font-size: 20px;
 }
 
-.label{
+.label {
   line-height: 48px;
 }
 
@@ -51,4 +51,12 @@ div[dir="rtl"] .amml-icon {
 }
 div[dir="rtl"].amml-submenu {
   margin-right: 16px;
+}
+
+.menu-link {
+  text-decoration: none;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  color: inherit;
 }

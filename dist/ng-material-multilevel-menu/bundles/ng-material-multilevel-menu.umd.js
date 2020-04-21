@@ -1,8 +1,222 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/common'), require('@angular/core'), require('@angular/router'), require('@angular/animations'), require('@angular/material/divider'), require('@angular/material/list'), require('@angular/material/core'), require('@angular/cdk/bidi'), require('@angular/material/icon')) :
-    typeof define === 'function' && define.amd ? define('ng-material-multilevel-menu', ['exports', '@angular/common', '@angular/core', '@angular/router', '@angular/animations', '@angular/material/divider', '@angular/material/list', '@angular/material/core', '@angular/cdk/bidi', '@angular/material/icon'], factory) :
-    (global = global || self, factory(global['ng-material-multilevel-menu'] = {}, global.ng.common, global.ng.core, global.ng.router, global.ng.animations, global.ng.material.divider, global.ng.material.list, global.ng.material.core, global.ng.cdk.bidi, global.ng.material.icon));
-}(this, (function (exports, common, core, router, animations, divider, list, core$1, bidi, icon) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/common'), require('@angular/core'), require('@angular/router'), require('@angular/animations'), require('@angular/material/core'), require('@angular/material/icon'), require('@angular/material/list')) :
+    typeof define === 'function' && define.amd ? define('ng-material-multilevel-menu', ['exports', '@angular/common', '@angular/core', '@angular/router', '@angular/animations', '@angular/material/core', '@angular/material/icon', '@angular/material/list'], factory) :
+    (global = global || self, factory(global['ng-material-multilevel-menu'] = {}, global.ng.common, global.ng.core, global.ng.router, global.ng.animations, global.ng.material.core, global.ng.material.icon, global.ng.material.list));
+}(this, (function (exports, common, core, router, animations, core$1, icon, list) { 'use strict';
+
+    /*! *****************************************************************************
+    Copyright (c) Microsoft Corporation. All rights reserved.
+    Licensed under the Apache License, Version 2.0 (the "License"); you may not use
+    this file except in compliance with the License. You may obtain a copy of the
+    License at http://www.apache.org/licenses/LICENSE-2.0
+
+    THIS CODE IS PROVIDED ON AN *AS IS* BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY IMPLIED
+    WARRANTIES OR CONDITIONS OF TITLE, FITNESS FOR A PARTICULAR PURPOSE,
+    MERCHANTABLITY OR NON-INFRINGEMENT.
+
+    See the Apache Version 2.0 License for specific language governing permissions
+    and limitations under the License.
+    ***************************************************************************** */
+    /* global Reflect, Promise */
+
+    var extendStatics = function(d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+
+    function __extends(d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    }
+
+    var __assign = function() {
+        __assign = Object.assign || function __assign(t) {
+            for (var s, i = 1, n = arguments.length; i < n; i++) {
+                s = arguments[i];
+                for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+            }
+            return t;
+        };
+        return __assign.apply(this, arguments);
+    };
+
+    function __rest(s, e) {
+        var t = {};
+        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
+            t[p] = s[p];
+        if (s != null && typeof Object.getOwnPropertySymbols === "function")
+            for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
+                if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
+                    t[p[i]] = s[p[i]];
+            }
+        return t;
+    }
+
+    function __decorate(decorators, target, key, desc) {
+        var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+        if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+        else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+        return c > 3 && r && Object.defineProperty(target, key, r), r;
+    }
+
+    function __param(paramIndex, decorator) {
+        return function (target, key) { decorator(target, key, paramIndex); }
+    }
+
+    function __metadata(metadataKey, metadataValue) {
+        if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(metadataKey, metadataValue);
+    }
+
+    function __awaiter(thisArg, _arguments, P, generator) {
+        function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+        return new (P || (P = Promise))(function (resolve, reject) {
+            function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+            function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+            function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+            step((generator = generator.apply(thisArg, _arguments || [])).next());
+        });
+    }
+
+    function __generator(thisArg, body) {
+        var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+        return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+        function verb(n) { return function (v) { return step([n, v]); }; }
+        function step(op) {
+            if (f) throw new TypeError("Generator is already executing.");
+            while (_) try {
+                if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+                if (y = 0, t) op = [op[0] & 2, t.value];
+                switch (op[0]) {
+                    case 0: case 1: t = op; break;
+                    case 4: _.label++; return { value: op[1], done: false };
+                    case 5: _.label++; y = op[1]; op = [0]; continue;
+                    case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                    default:
+                        if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                        if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                        if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                        if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                        if (t[2]) _.ops.pop();
+                        _.trys.pop(); continue;
+                }
+                op = body.call(thisArg, _);
+            } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+            if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+        }
+    }
+
+    function __exportStar(m, exports) {
+        for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
+    }
+
+    function __values(o) {
+        var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
+        if (m) return m.call(o);
+        if (o && typeof o.length === "number") return {
+            next: function () {
+                if (o && i >= o.length) o = void 0;
+                return { value: o && o[i++], done: !o };
+            }
+        };
+        throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
+    }
+
+    function __read(o, n) {
+        var m = typeof Symbol === "function" && o[Symbol.iterator];
+        if (!m) return o;
+        var i = m.call(o), r, ar = [], e;
+        try {
+            while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
+        }
+        catch (error) { e = { error: error }; }
+        finally {
+            try {
+                if (r && !r.done && (m = i["return"])) m.call(i);
+            }
+            finally { if (e) throw e.error; }
+        }
+        return ar;
+    }
+
+    function __spread() {
+        for (var ar = [], i = 0; i < arguments.length; i++)
+            ar = ar.concat(__read(arguments[i]));
+        return ar;
+    }
+
+    function __spreadArrays() {
+        for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
+        for (var r = Array(s), k = 0, i = 0; i < il; i++)
+            for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
+                r[k] = a[j];
+        return r;
+    };
+
+    function __await(v) {
+        return this instanceof __await ? (this.v = v, this) : new __await(v);
+    }
+
+    function __asyncGenerator(thisArg, _arguments, generator) {
+        if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
+        var g = generator.apply(thisArg, _arguments || []), i, q = [];
+        return i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i;
+        function verb(n) { if (g[n]) i[n] = function (v) { return new Promise(function (a, b) { q.push([n, v, a, b]) > 1 || resume(n, v); }); }; }
+        function resume(n, v) { try { step(g[n](v)); } catch (e) { settle(q[0][3], e); } }
+        function step(r) { r.value instanceof __await ? Promise.resolve(r.value.v).then(fulfill, reject) : settle(q[0][2], r); }
+        function fulfill(value) { resume("next", value); }
+        function reject(value) { resume("throw", value); }
+        function settle(f, v) { if (f(v), q.shift(), q.length) resume(q[0][0], q[0][1]); }
+    }
+
+    function __asyncDelegator(o) {
+        var i, p;
+        return i = {}, verb("next"), verb("throw", function (e) { throw e; }), verb("return"), i[Symbol.iterator] = function () { return this; }, i;
+        function verb(n, f) { i[n] = o[n] ? function (v) { return (p = !p) ? { value: __await(o[n](v)), done: n === "return" } : f ? f(v) : v; } : f; }
+    }
+
+    function __asyncValues(o) {
+        if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
+        var m = o[Symbol.asyncIterator], i;
+        return m ? m.call(o) : (o = typeof __values === "function" ? __values(o) : o[Symbol.iterator](), i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i);
+        function verb(n) { i[n] = o[n] && function (v) { return new Promise(function (resolve, reject) { v = o[n](v), settle(resolve, reject, v.done, v.value); }); }; }
+        function settle(resolve, reject, d, v) { Promise.resolve(v).then(function(v) { resolve({ value: v, done: d }); }, reject); }
+    }
+
+    function __makeTemplateObject(cooked, raw) {
+        if (Object.defineProperty) { Object.defineProperty(cooked, "raw", { value: raw }); } else { cooked.raw = raw; }
+        return cooked;
+    };
+
+    function __importStar(mod) {
+        if (mod && mod.__esModule) return mod;
+        var result = {};
+        if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
+        result.default = mod;
+        return result;
+    }
+
+    function __importDefault(mod) {
+        return (mod && mod.__esModule) ? mod : { default: mod };
+    }
+
+    function __classPrivateFieldGet(receiver, privateMap) {
+        if (!privateMap.has(receiver)) {
+            throw new TypeError("attempted to get private field on non-instance");
+        }
+        return privateMap.get(receiver);
+    }
+
+    function __classPrivateFieldSet(receiver, privateMap, value) {
+        if (!privateMap.has(receiver)) {
+            throw new TypeError("attempted to set private field on non-instance");
+        }
+        privateMap.set(receiver, value);
+        return value;
+    }
 
     var CONSTANT = {
         PADDING_AT_START: true,
@@ -76,139 +290,15 @@
         MultilevelMenuService.prototype.kvDummyComparerFn = function () {
             return 0;
         };
-        MultilevelMenuService.ɵfac = function MultilevelMenuService_Factory(t) { return new (t || MultilevelMenuService)(); };
-        MultilevelMenuService.ɵprov = core.ɵɵdefineInjectable({ token: MultilevelMenuService, factory: MultilevelMenuService.ɵfac, providedIn: 'root' });
+        MultilevelMenuService.ɵprov = core.ɵɵdefineInjectable({ factory: function MultilevelMenuService_Factory() { return new MultilevelMenuService(); }, token: MultilevelMenuService, providedIn: "root" });
+        MultilevelMenuService = __decorate([
+            core.Injectable({
+                providedIn: 'root'
+            })
+        ], MultilevelMenuService);
         return MultilevelMenuService;
     }());
-    /*@__PURE__*/ (function () { core.ɵsetClassMetadata(MultilevelMenuService, [{
-            type: core.Injectable,
-            args: [{
-                    providedIn: 'root'
-                }]
-        }], null, null); })();
 
-    function ListItemComponent_mat_list_item_0_span_4_Template(rf, ctx) { if (rf & 1) {
-        core.ɵɵelementStart(0, "span", 12);
-        core.ɵɵelement(1, "i", 13);
-        core.ɵɵelementEnd();
-    } if (rf & 2) {
-        var ctx_r2 = core.ɵɵnextContext(2);
-        core.ɵɵadvance(1);
-        core.ɵɵproperty("ngClass", ctx_r2.getSelectedFaIcon());
-    } }
-    function ListItemComponent_mat_list_item_0_mat_icon_5_Template(rf, ctx) { if (rf & 1) {
-        core.ɵɵelementStart(0, "mat-icon", 14);
-        core.ɵɵtext(1);
-        core.ɵɵelementEnd();
-    } if (rf & 2) {
-        var ctx_r3 = core.ɵɵnextContext(2);
-        core.ɵɵadvance(1);
-        core.ɵɵtextInterpolate1(" ", ctx_r3.getSelectedIcon(), " ");
-    } }
-    function ListItemComponent_mat_list_item_0_mat_icon_6_Template(rf, ctx) { if (rf & 1) {
-        core.ɵɵelement(0, "mat-icon", 15);
-    } if (rf & 2) {
-        var ctx_r4 = core.ɵɵnextContext(2);
-        core.ɵɵpropertyInterpolate("svgIcon", ctx_r4.getSelectedSvgIcon());
-    } }
-    function ListItemComponent_mat_list_item_0_img_7_Template(rf, ctx) { if (rf & 1) {
-        core.ɵɵelement(0, "img", 16);
-    } if (rf & 2) {
-        var ctx_r5 = core.ɵɵnextContext(2);
-        core.ɵɵpropertyInterpolate("src", ctx_r5.getSelectedImageIcon(), core.ɵɵsanitizeUrl);
-        core.ɵɵpropertyInterpolate("alt", ctx_r5.node.label);
-    } }
-    function ListItemComponent_mat_list_item_0_div_10_mat_icon_1_Template(rf, ctx) { if (rf & 1) {
-        core.ɵɵelementStart(0, "mat-icon");
-        core.ɵɵtext(1, " keyboard_arrow_down ");
-        core.ɵɵelementEnd();
-    } if (rf & 2) {
-        var ctx_r7 = core.ɵɵnextContext(3);
-        core.ɵɵproperty("@isExpandedLTR", ctx_r7.expanded ? "yes" : "no");
-    } }
-    function ListItemComponent_mat_list_item_0_div_10_mat_icon_2_Template(rf, ctx) { if (rf & 1) {
-        core.ɵɵelementStart(0, "mat-icon");
-        core.ɵɵtext(1, " keyboard_arrow_down ");
-        core.ɵɵelementEnd();
-    } if (rf & 2) {
-        var ctx_r8 = core.ɵɵnextContext(3);
-        core.ɵɵproperty("@isExpandedRTL", ctx_r8.expanded ? "yes" : "no");
-    } }
-    function ListItemComponent_mat_list_item_0_div_10_Template(rf, ctx) { if (rf & 1) {
-        core.ɵɵelementStart(0, "div", 17);
-        core.ɵɵtemplate(1, ListItemComponent_mat_list_item_0_div_10_mat_icon_1_Template, 2, 1, "mat-icon", 18);
-        core.ɵɵtemplate(2, ListItemComponent_mat_list_item_0_div_10_mat_icon_2_Template, 2, 1, "mat-icon", 18);
-        core.ɵɵelementEnd();
-    } if (rf & 2) {
-        var ctx_r6 = core.ɵɵnextContext(2);
-        core.ɵɵadvance(1);
-        core.ɵɵproperty("ngIf", !ctx_r6.isRtlLayout());
-        core.ɵɵadvance(1);
-        core.ɵɵproperty("ngIf", ctx_r6.isRtlLayout());
-    } }
-    function ListItemComponent_mat_list_item_0_Template(rf, ctx) { if (rf & 1) {
-        var _r10 = core.ɵɵgetCurrentView();
-        core.ɵɵelementStart(0, "mat-list-item", 2);
-        core.ɵɵlistener("click", function ListItemComponent_mat_list_item_0_Template_mat_list_item_click_0_listener() { core.ɵɵrestoreView(_r10); var ctx_r9 = core.ɵɵnextContext(); return ctx_r9.expand(ctx_r9.node); });
-        core.ɵɵelementStart(1, "div", 3);
-        core.ɵɵelementStart(2, "a", 4);
-        core.ɵɵelementStart(3, "div", 5);
-        core.ɵɵtemplate(4, ListItemComponent_mat_list_item_0_span_4_Template, 2, 1, "span", 6);
-        core.ɵɵtemplate(5, ListItemComponent_mat_list_item_0_mat_icon_5_Template, 2, 1, "mat-icon", 7);
-        core.ɵɵtemplate(6, ListItemComponent_mat_list_item_0_mat_icon_6_Template, 1, 1, "mat-icon", 8);
-        core.ɵɵtemplate(7, ListItemComponent_mat_list_item_0_img_7_Template, 1, 2, "img", 9);
-        core.ɵɵelementEnd();
-        core.ɵɵelementEnd();
-        core.ɵɵelementStart(8, "span", 10);
-        core.ɵɵtext(9);
-        core.ɵɵelementEnd();
-        core.ɵɵelementEnd();
-        core.ɵɵtemplate(10, ListItemComponent_mat_list_item_0_div_10_Template, 3, 2, "div", 11);
-        core.ɵɵelementEnd();
-    } if (rf & 2) {
-        var ctx_r0 = core.ɵɵnextContext();
-        core.ɵɵpropertyInterpolate("title", ctx_r0.node.label);
-        core.ɵɵproperty("matRippleDisabled", ctx_r0.node.disabled)("ngClass", ctx_r0.selectedListClasses)("ngStyle", ctx_r0.getListStyle());
-        core.ɵɵadvance(1);
-        core.ɵɵproperty("dir", ctx_r0.isRtlLayout() ? "rtl" : "ltr");
-        core.ɵɵadvance(1);
-        core.ɵɵproperty("routerLink", ctx_r0.node.link);
-        core.ɵɵadvance(1);
-        core.ɵɵproperty("ngSwitch", ctx_r0.getListIcon(ctx_r0.node));
-        core.ɵɵadvance(1);
-        core.ɵɵproperty("ngSwitchCase", "faicon");
-        core.ɵɵadvance(1);
-        core.ɵɵproperty("ngSwitchCase", "icon");
-        core.ɵɵadvance(1);
-        core.ɵɵproperty("ngSwitchCase", "svgicon");
-        core.ɵɵadvance(1);
-        core.ɵɵproperty("ngSwitchCase", "imageicon");
-        core.ɵɵadvance(2);
-        core.ɵɵtextInterpolate(ctx_r0.node.label);
-        core.ɵɵadvance(1);
-        core.ɵɵproperty("ngIf", ctx_r0.hasItems());
-    } }
-    function ListItemComponent_div_2_ng_list_item_1_Template(rf, ctx) { if (rf & 1) {
-        var _r14 = core.ɵɵgetCurrentView();
-        core.ɵɵelementStart(0, "ng-list-item", 21);
-        core.ɵɵlistener("selectedItem", function ListItemComponent_div_2_ng_list_item_1_Template_ng_list_item_selectedItem_0_listener($event) { core.ɵɵrestoreView(_r14); var ctx_r13 = core.ɵɵnextContext(2); return ctx_r13.selectedListItem($event); });
-        core.ɵɵelementEnd();
-    } if (rf & 2) {
-        var singleNode_r12 = ctx.$implicit;
-        var ctx_r11 = core.ɵɵnextContext(2);
-        core.ɵɵproperty("nodeConfiguration", ctx_r11.nodeConfiguration)("node", singleNode_r12.value)("level", ctx_r11.level + 1)("submenuLevel", singleNode_r12.key)("selectedNode", ctx_r11.selectedNode);
-    } }
-    function ListItemComponent_div_2_Template(rf, ctx) { if (rf & 1) {
-        core.ɵɵelementStart(0, "div", 19);
-        core.ɵɵtemplate(1, ListItemComponent_div_2_ng_list_item_1_Template, 1, 5, "ng-list-item", 20);
-        core.ɵɵpipe(2, "keyvalue");
-        core.ɵɵelementEnd();
-    } if (rf & 2) {
-        var ctx_r1 = core.ɵɵnextContext();
-        core.ɵɵproperty("@slideInOut", undefined)("dir", ctx_r1.isRtlLayout() ? "rtl" : "ltr")("ngClass", ctx_r1.classes);
-        core.ɵɵadvance(1);
-        core.ɵɵproperty("ngForOf", core.ɵɵpipeBind2(2, 4, ctx_r1.nodeChildren, ctx_r1.multilevelMenuService.kvDummyComparerFn));
-    } }
     var ListItemComponent = /** @class */ (function () {
         function ListItemComponent(router, multilevelMenuService) {
             var _a;
@@ -372,16 +462,39 @@
         ListItemComponent.prototype.selectedListItem = function (node) {
             this.selectedItem.emit(node);
         };
-        ListItemComponent.ɵfac = function ListItemComponent_Factory(t) { return new (t || ListItemComponent)(core.ɵɵdirectiveInject(router.Router), core.ɵɵdirectiveInject(MultilevelMenuService)); };
-        ListItemComponent.ɵcmp = core.ɵɵdefineComponent({ type: ListItemComponent, selectors: [["ng-list-item"]], inputs: { node: "node", level: "level", submenuLevel: "submenuLevel", selectedNode: "selectedNode", nodeConfiguration: "nodeConfiguration" }, outputs: { selectedItem: "selectedItem" }, features: [core.ɵɵNgOnChangesFeature], decls: 3, vars: 2, consts: [["matRipple", "", 3, "matRippleDisabled", "ngClass", "title", "ngStyle", "click", 4, "ngIf"], [3, "dir", "ngClass", 4, "ngIf"], ["matRipple", "", 3, "matRippleDisabled", "ngClass", "title", "ngStyle", "click"], [1, "anml-data", 3, "dir"], [1, "menu-link", 3, "routerLink"], [1, "icon-container", 3, "ngSwitch"], ["class", "amml-icon amml-icon-fa", 4, "ngSwitchCase"], ["class", "amml-icon", 4, "ngSwitchCase"], ["class", "amml-icon amml-svg-icon", 3, "svgIcon", 4, "ngSwitchCase"], ["matListAvatar", "", "class", "amml-icon", 3, "src", "alt", 4, "ngSwitchCase"], [1, "label"], ["class", "amml-icon-arrow-container", 4, "ngIf"], [1, "amml-icon", "amml-icon-fa"], [3, "ngClass"], [1, "amml-icon"], [1, "amml-icon", "amml-svg-icon", 3, "svgIcon"], ["matListAvatar", "", 1, "amml-icon", 3, "src", "alt"], [1, "amml-icon-arrow-container"], [4, "ngIf"], [3, "dir", "ngClass"], [3, "nodeConfiguration", "node", "level", "submenuLevel", "selectedNode", "selectedItem", 4, "ngFor", "ngForOf"], [3, "nodeConfiguration", "node", "level", "submenuLevel", "selectedNode", "selectedItem"]], template: function ListItemComponent_Template(rf, ctx) { if (rf & 1) {
-                core.ɵɵtemplate(0, ListItemComponent_mat_list_item_0_Template, 11, 13, "mat-list-item", 0);
-                core.ɵɵelement(1, "mat-divider");
-                core.ɵɵtemplate(2, ListItemComponent_div_2_Template, 3, 7, "div", 1);
-            } if (rf & 2) {
-                core.ɵɵproperty("ngIf", !ctx.node.hidden);
-                core.ɵɵadvance(2);
-                core.ɵɵproperty("ngIf", ctx.hasItems() && ctx.expanded);
-            } }, directives: [common.NgIf, divider.MatDivider, list.MatListItem, core$1.MatRipple, common.NgClass, common.NgStyle, bidi.Dir, router.RouterLinkWithHref, common.NgSwitch, common.NgSwitchCase, icon.MatIcon, list.MatListAvatarCssMatStyler, common.NgForOf, ListItemComponent], pipes: [common.KeyValuePipe], styles: [".amml-item[_ngcontent-%COMP%]{line-height:48px;position:relative;cursor:pointer}.anml-data[_ngcontent-%COMP%]{width:100%;text-transform:capitalize;display:flex;justify-content:flex-start;height:48px}.disabled-amml-item[_ngcontent-%COMP%]{cursor:not-allowed;opacity:.5;text-decoration:none}.amml-icon-fa[_ngcontent-%COMP%]{font-size:20px}.amml-icon[_ngcontent-%COMP%], .label[_ngcontent-%COMP%]{line-height:48px}.amml-svg-icon[_ngcontent-%COMP%]{line-height:57px;width:22px;height:22px}.amml-icon-arrow-container[_ngcontent-%COMP%]{direction:ltr;display:flex;align-items:center}div[dir=ltr][_ngcontent-%COMP%]   .amml-icon[_ngcontent-%COMP%]{margin-right:16px}div[dir=ltr].amml-submenu[_ngcontent-%COMP%], div[dir=rtl][_ngcontent-%COMP%]   .amml-icon[_ngcontent-%COMP%]{margin-left:16px}div[dir=rtl].amml-submenu[_ngcontent-%COMP%]{margin-right:16px}"], data: { animation: [
+        ListItemComponent.ctorParameters = function () { return [
+            { type: router.Router },
+            { type: MultilevelMenuService }
+        ]; };
+        __decorate([
+            core.Input(),
+            __metadata("design:type", Object)
+        ], ListItemComponent.prototype, "node", void 0);
+        __decorate([
+            core.Input(),
+            __metadata("design:type", Object)
+        ], ListItemComponent.prototype, "level", void 0);
+        __decorate([
+            core.Input(),
+            __metadata("design:type", Object)
+        ], ListItemComponent.prototype, "submenuLevel", void 0);
+        __decorate([
+            core.Input(),
+            __metadata("design:type", Object)
+        ], ListItemComponent.prototype, "selectedNode", void 0);
+        __decorate([
+            core.Input(),
+            __metadata("design:type", Object)
+        ], ListItemComponent.prototype, "nodeConfiguration", void 0);
+        __decorate([
+            core.Output(),
+            __metadata("design:type", Object)
+        ], ListItemComponent.prototype, "selectedItem", void 0);
+        ListItemComponent = __decorate([
+            core.Component({
+                selector: 'ng-list-item',
+                template: "<mat-list-item matRipple [matRippleDisabled]=\"node.disabled\" [ngClass]=\"selectedListClasses\" *ngIf=\"!node.hidden\"\n  (click)=\"expand(node)\" title=\"{{node.label}}\"\n  [ngStyle]=\"getListStyle()\">\n  <div class=\"anml-data\" [dir]=\"isRtlLayout() ? 'rtl' : 'ltr'\">\n    <a [routerLink]=\"node.link\" class=\"menu-link\">\n      <div class=\"icon-container\" [ngSwitch]=\"getListIcon(node)\">\n        <span *ngSwitchCase=\"'faicon'\" class=\"amml-icon amml-icon-fa\">\n          <i [ngClass]=\"getSelectedFaIcon()\"></i>\n        </span>\n        <mat-icon *ngSwitchCase=\"'icon'\" class=\"amml-icon\">\n          {{getSelectedIcon()}}\n        </mat-icon>\n        <mat-icon *ngSwitchCase=\"'svgicon'\" svgIcon=\"{{getSelectedSvgIcon()}}\" class=\"amml-icon amml-svg-icon\">\n        </mat-icon>\n        <img matListAvatar *ngSwitchCase=\"'imageicon'\" class=\"amml-icon\" src=\"{{getSelectedImageIcon()}}\" alt=\"{{node.label}}\"/>\n      </div>\n    </a>\n    <span class=\"label\">{{node.label}}</span>\n  </div>\n  <div class=\"amml-icon-arrow-container\" *ngIf='hasItems()'>\n    <mat-icon *ngIf='!isRtlLayout()' [@isExpandedLTR]=\"expanded ? 'yes' : 'no'\">\n      keyboard_arrow_down\n    </mat-icon>\n    <mat-icon *ngIf='isRtlLayout()'  [@isExpandedRTL]=\"expanded ? 'yes' : 'no'\">\n      keyboard_arrow_down\n    </mat-icon>\n  </div>\n</mat-list-item>\n\n<mat-divider></mat-divider>\n\n<div *ngIf=\"hasItems() && expanded\" [@slideInOut] [dir]=\"isRtlLayout() ? 'rtl' : 'ltr'\" [ngClass]=\"classes\">\n  <ng-list-item *ngFor=\"let singleNode of nodeChildren | keyvalue : multilevelMenuService.kvDummyComparerFn\"\n    [nodeConfiguration]='nodeConfiguration'\n    [node]=\"singleNode.value\"\n    [level]=\"level + 1\"\n    [submenuLevel]=\"singleNode.key\"\n    [selectedNode]='selectedNode'\n    (selectedItem)=\"selectedListItem($event)\">\n  </ng-list-item>\n</div>\n",
+                animations: [
                     animations.trigger('slideInOut', [
                         animations.state('in', animations.style({ height: '*', opacity: 0 })),
                         animations.transition(':leave', [
@@ -411,120 +524,36 @@
                         animations.transition('no => yes', animations.animate(200)),
                         animations.transition('yes => no', animations.animate(200))
                     ])
-                ] } });
+                ],
+                styles: [".amml-item{line-height:48px;position:relative;cursor:pointer}.anml-data{width:100%;text-transform:capitalize;display:flex;justify-content:flex-start;height:48px}.disabled-amml-item{cursor:not-allowed;opacity:.5;text-decoration:none}.amml-icon-fa{font-size:20px}.amml-icon,.label{line-height:48px}.amml-svg-icon{line-height:57px;width:22px;height:22px}.amml-icon-arrow-container{direction:ltr;display:flex;align-items:center}div[dir=ltr] .amml-icon{margin-right:16px}div[dir=ltr].amml-submenu,div[dir=rtl] .amml-icon{margin-left:16px}div[dir=rtl].amml-submenu{margin-right:16px}"]
+            }),
+            __metadata("design:paramtypes", [router.Router,
+                MultilevelMenuService])
+        ], ListItemComponent);
         return ListItemComponent;
     }());
-    /*@__PURE__*/ (function () { core.ɵsetClassMetadata(ListItemComponent, [{
-            type: core.Component,
-            args: [{
-                    selector: 'ng-list-item',
-                    templateUrl: './list-item.component.html',
-                    styleUrls: ['./list-item.component.css'],
-                    animations: [
-                        animations.trigger('slideInOut', [
-                            animations.state('in', animations.style({ height: '*', opacity: 0 })),
-                            animations.transition(':leave', [
-                                animations.style({ height: '*', opacity: 0.2 }),
-                                animations.group([
-                                    animations.animate(200, animations.style({ height: 0 })),
-                                    animations.animate('200ms ease-out', animations.style({ opacity: 0 }))
-                                ])
-                            ]),
-                            animations.transition(':enter', [
-                                animations.style({ height: '0', opacity: 0 }),
-                                animations.group([
-                                    animations.animate(200, animations.style({ height: '*' })),
-                                    animations.animate('400ms ease-out', animations.style({ opacity: 1 }))
-                                ])
-                            ])
-                        ]),
-                        animations.trigger('isExpandedLTR', [
-                            animations.state('no', animations.style({ transform: 'rotate(-90deg)' })),
-                            animations.state('yes', animations.style({ transform: 'rotate(0deg)', })),
-                            animations.transition('no => yes', animations.animate(200)),
-                            animations.transition('yes => no', animations.animate(200))
-                        ]),
-                        animations.trigger('isExpandedRTL', [
-                            animations.state('no', animations.style({ transform: 'rotate(90deg)' })),
-                            animations.state('yes', animations.style({ transform: 'rotate(0deg)', })),
-                            animations.transition('no => yes', animations.animate(200)),
-                            animations.transition('yes => no', animations.animate(200))
-                        ])
-                    ]
-                }]
-        }], function () { return [{ type: router.Router }, { type: MultilevelMenuService }]; }, { node: [{
-                type: core.Input
-            }], level: [{
-                type: core.Input
-            }], submenuLevel: [{
-                type: core.Input
-            }], selectedNode: [{
-                type: core.Input
-            }], nodeConfiguration: [{
-                type: core.Input
-            }], selectedItem: [{
-                type: core.Output
-            }] }); })();
 
     var MaterialsModule = /** @class */ (function () {
         function MaterialsModule() {
         }
-        MaterialsModule.ɵmod = core.ɵɵdefineNgModule({ type: MaterialsModule });
-        MaterialsModule.ɵinj = core.ɵɵdefineInjector({ factory: function MaterialsModule_Factory(t) { return new (t || MaterialsModule)(); }, imports: [[
+        MaterialsModule = __decorate([
+            core.NgModule({
+                imports: [
                     icon.MatIconModule,
                     list.MatListModule,
                     core$1.MatRippleModule,
                 ],
-                icon.MatIconModule,
-                list.MatListModule,
-                core$1.MatRippleModule] });
+                declarations: [],
+                exports: [
+                    icon.MatIconModule,
+                    list.MatListModule,
+                    core$1.MatRippleModule,
+                ]
+            })
+        ], MaterialsModule);
         return MaterialsModule;
     }());
-    (function () { (typeof ngJitMode === "undefined" || ngJitMode) && core.ɵɵsetNgModuleScope(MaterialsModule, { imports: [icon.MatIconModule,
-            list.MatListModule,
-            core$1.MatRippleModule], exports: [icon.MatIconModule,
-            list.MatListModule,
-            core$1.MatRippleModule] }); })();
-    /*@__PURE__*/ (function () { core.ɵsetClassMetadata(MaterialsModule, [{
-            type: core.NgModule,
-            args: [{
-                    imports: [
-                        icon.MatIconModule,
-                        list.MatListModule,
-                        core$1.MatRippleModule,
-                    ],
-                    declarations: [],
-                    exports: [
-                        icon.MatIconModule,
-                        list.MatListModule,
-                        core$1.MatRippleModule,
-                    ]
-                }]
-        }], null, null); })();
 
-    function NgMaterialMultilevelMenuComponent_div_0_ng_list_item_2_Template(rf, ctx) { if (rf & 1) {
-        var _r4 = core.ɵɵgetCurrentView();
-        core.ɵɵelementStart(0, "ng-list-item", 3);
-        core.ɵɵlistener("selectedItem", function NgMaterialMultilevelMenuComponent_div_0_ng_list_item_2_Template_ng_list_item_selectedItem_0_listener($event) { core.ɵɵrestoreView(_r4); var ctx_r3 = core.ɵɵnextContext(2); return ctx_r3.selectedListItem($event); });
-        core.ɵɵelementEnd();
-    } if (rf & 2) {
-        var node_r2 = ctx.$implicit;
-        var ctx_r1 = core.ɵɵnextContext(2);
-        core.ɵɵproperty("nodeConfiguration", ctx_r1.nodeConfig)("node", node_r2.value)("level", 1)("submenuLevel", node_r2.key)("selectedNode", ctx_r1.currentNode);
-    } }
-    function NgMaterialMultilevelMenuComponent_div_0_Template(rf, ctx) { if (rf & 1) {
-        core.ɵɵelementStart(0, "div", 1);
-        core.ɵɵelementStart(1, "mat-list");
-        core.ɵɵtemplate(2, NgMaterialMultilevelMenuComponent_div_0_ng_list_item_2_Template, 1, 5, "ng-list-item", 2);
-        core.ɵɵpipe(3, "keyvalue");
-        core.ɵɵelementEnd();
-        core.ɵɵelementEnd();
-    } if (rf & 2) {
-        var ctx_r0 = core.ɵɵnextContext();
-        core.ɵɵproperty("ngClass", ctx_r0.getClassName())("ngStyle", ctx_r0.getGlobalStyle())("dir", ctx_r0.isRtlLayout() ? "rtl" : "ltr");
-        core.ɵɵadvance(2);
-        core.ɵɵproperty("ngForOf", core.ɵɵpipeBind2(3, 4, ctx_r0.items, ctx_r0.multilevelMenuService.kvDummyComparerFn));
-    } }
     var NgMaterialMultilevelMenuComponent = /** @class */ (function () {
         function NgMaterialMultilevelMenuComponent(router, multilevelMenuService) {
             this.router = router;
@@ -667,60 +696,60 @@
                 this.selectedLabel.emit(event);
             }
         };
-        NgMaterialMultilevelMenuComponent.ɵfac = function NgMaterialMultilevelMenuComponent_Factory(t) { return new (t || NgMaterialMultilevelMenuComponent)(core.ɵɵdirectiveInject(router.Router), core.ɵɵdirectiveInject(MultilevelMenuService)); };
-        NgMaterialMultilevelMenuComponent.ɵcmp = core.ɵɵdefineComponent({ type: NgMaterialMultilevelMenuComponent, selectors: [["ng-material-multilevel-menu"]], inputs: { items: "items", configuration: "configuration" }, outputs: { selectedItem: "selectedItem", selectedLabel: "selectedLabel" }, features: [core.ɵɵNgOnChangesFeature], decls: 1, vars: 1, consts: [[3, "ngClass", "ngStyle", "dir", 4, "ngIf"], [3, "ngClass", "ngStyle", "dir"], [3, "nodeConfiguration", "node", "level", "submenuLevel", "selectedNode", "selectedItem", 4, "ngFor", "ngForOf"], [3, "nodeConfiguration", "node", "level", "submenuLevel", "selectedNode", "selectedItem"]], template: function NgMaterialMultilevelMenuComponent_Template(rf, ctx) { if (rf & 1) {
-                core.ɵɵtemplate(0, NgMaterialMultilevelMenuComponent_div_0_Template, 4, 7, "div", 0);
-            } if (rf & 2) {
-                core.ɵɵproperty("ngIf", ctx.items.length !== 0);
-            } }, directives: [common.NgIf, common.NgClass, common.NgStyle, bidi.Dir, list.MatList, common.NgForOf, ListItemComponent], pipes: [common.KeyValuePipe], styles: [".amml-item[_ngcontent-%COMP%]{line-height:48px;display:flex;justify-content:space-between;position:relative}.anml-data[_ngcontent-%COMP%]{width:100%;text-transform:capitalize;display:flex;justify-content:flex-start}.amml-icon-fa[_ngcontent-%COMP%]{font-size:20px}.amml-icon[_ngcontent-%COMP%]{line-height:48px}.active[_ngcontent-%COMP%]{color:#1976d2}div[dir=ltr][_ngcontent-%COMP%]   .amml-icon[_ngcontent-%COMP%]{margin-right:15px}div[dir=ltr][_ngcontent-%COMP%]   .amml-submenu[_ngcontent-%COMP%]{margin-left:16px}div[dir=rtl][_ngcontent-%COMP%]   .amml-icon[_ngcontent-%COMP%]{margin-left:15px}div[dir=rtl][_ngcontent-%COMP%]   .amml-submenu[_ngcontent-%COMP%]{margin-right:16px}"] });
+        NgMaterialMultilevelMenuComponent.ctorParameters = function () { return [
+            { type: router.Router },
+            { type: MultilevelMenuService }
+        ]; };
+        __decorate([
+            core.Input(),
+            __metadata("design:type", Array)
+        ], NgMaterialMultilevelMenuComponent.prototype, "items", void 0);
+        __decorate([
+            core.Input(),
+            __metadata("design:type", Object)
+        ], NgMaterialMultilevelMenuComponent.prototype, "configuration", void 0);
+        __decorate([
+            core.Output(),
+            __metadata("design:type", Object)
+        ], NgMaterialMultilevelMenuComponent.prototype, "selectedItem", void 0);
+        __decorate([
+            core.Output(),
+            __metadata("design:type", Object)
+        ], NgMaterialMultilevelMenuComponent.prototype, "selectedLabel", void 0);
+        NgMaterialMultilevelMenuComponent = __decorate([
+            core.Component({
+                selector: 'ng-material-multilevel-menu',
+                template: "<div [ngClass]=\"getClassName()\" [ngStyle]=\"getGlobalStyle()\" *ngIf='items.length !== 0' [dir]=\"isRtlLayout() ? 'rtl' : 'ltr'\">\n  <mat-list>\n    <ng-list-item\n      *ngFor=\"let node of items | keyvalue: multilevelMenuService.kvDummyComparerFn\"\n      [nodeConfiguration]='nodeConfig'\n      [node]='node.value'\n      [level]=\"1\"\n      [submenuLevel]=\"node.key\"\n      [selectedNode]='currentNode'\n      (selectedItem)=\"selectedListItem($event)\n    \">\n    </ng-list-item>\n  </mat-list>\n</div>\n",
+                styles: [".amml-item{line-height:48px;display:flex;justify-content:space-between;position:relative}.anml-data{width:100%;text-transform:capitalize;display:flex;justify-content:flex-start}.amml-icon-fa{font-size:20px}.amml-icon{line-height:48px}.active{color:#1976d2}div[dir=ltr] .amml-icon{margin-right:15px}div[dir=ltr] .amml-submenu{margin-left:16px}div[dir=rtl] .amml-icon{margin-left:15px}div[dir=rtl] .amml-submenu{margin-right:16px}"]
+            }),
+            __metadata("design:paramtypes", [router.Router,
+                MultilevelMenuService])
+        ], NgMaterialMultilevelMenuComponent);
         return NgMaterialMultilevelMenuComponent;
     }());
-    /*@__PURE__*/ (function () { core.ɵsetClassMetadata(NgMaterialMultilevelMenuComponent, [{
-            type: core.Component,
-            args: [{
-                    selector: 'ng-material-multilevel-menu',
-                    templateUrl: './ng-material-multilevel-menu.component.html',
-                    styleUrls: ['./ng-material-multilevel-menu.component.css'],
-                }]
-        }], function () { return [{ type: router.Router }, { type: MultilevelMenuService }]; }, { items: [{
-                type: core.Input
-            }], configuration: [{
-                type: core.Input
-            }], selectedItem: [{
-                type: core.Output
-            }], selectedLabel: [{
-                type: core.Output
-            }] }); })();
 
     var NgMaterialMultilevelMenuModule = /** @class */ (function () {
         function NgMaterialMultilevelMenuModule() {
         }
-        NgMaterialMultilevelMenuModule.ɵmod = core.ɵɵdefineNgModule({ type: NgMaterialMultilevelMenuModule });
-        NgMaterialMultilevelMenuModule.ɵinj = core.ɵɵdefineInjector({ factory: function NgMaterialMultilevelMenuModule_Factory(t) { return new (t || NgMaterialMultilevelMenuModule)(); }, imports: [[
+        NgMaterialMultilevelMenuModule = __decorate([
+            core.NgModule({
+                imports: [
                     common.CommonModule,
                     MaterialsModule,
                     router.RouterModule,
-                ]] });
+                ],
+                declarations: [NgMaterialMultilevelMenuComponent, ListItemComponent],
+                exports: [NgMaterialMultilevelMenuComponent]
+            })
+        ], NgMaterialMultilevelMenuModule);
         return NgMaterialMultilevelMenuModule;
     }());
-    (function () { (typeof ngJitMode === "undefined" || ngJitMode) && core.ɵɵsetNgModuleScope(NgMaterialMultilevelMenuModule, { declarations: [NgMaterialMultilevelMenuComponent, ListItemComponent], imports: [common.CommonModule,
-            MaterialsModule,
-            router.RouterModule], exports: [NgMaterialMultilevelMenuComponent] }); })();
-    /*@__PURE__*/ (function () { core.ɵsetClassMetadata(NgMaterialMultilevelMenuModule, [{
-            type: core.NgModule,
-            args: [{
-                    imports: [
-                        common.CommonModule,
-                        MaterialsModule,
-                        router.RouterModule,
-                    ],
-                    declarations: [NgMaterialMultilevelMenuComponent, ListItemComponent],
-                    exports: [NgMaterialMultilevelMenuComponent]
-                }]
-        }], null, null); })();
 
     exports.NgMaterialMultilevelMenuComponent = NgMaterialMultilevelMenuComponent;
     exports.NgMaterialMultilevelMenuModule = NgMaterialMultilevelMenuModule;
+    exports.ɵa = MaterialsModule;
+    exports.ɵb = MultilevelMenuService;
+    exports.ɵc = ListItemComponent;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 
