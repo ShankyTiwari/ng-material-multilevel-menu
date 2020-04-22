@@ -1,6 +1,6 @@
 <mat-list-item matRipple [matRippleDisabled]="node.disabled" [ngClass]="selectedListClasses" *ngIf="!node.hidden"
   (click)="expand(node)" title="{{node.label}}" [ngStyle]="getListStyle()">
-  <a [routerLink]="node.link" class="menu-link">
+  <ng-link [link]="node.link" [isLinkExternal]="node?.externalRedirect">
     <div class="anml-data" [dir]="isRtlLayout() ? 'rtl' : 'ltr'">
       <div class="icon-container" [ngSwitch]="getListIcon(node)">
         <span *ngSwitchCase="'faicon'" class="amml-icon amml-icon-fa">
@@ -16,7 +16,7 @@
       </div>
       <span class="label">{{node.label}}</span>
     </div>
-  </a>
+  </ng-link>
   <div class="amml-icon-arrow-container" *ngIf='hasItems()'>
     <mat-icon *ngIf='!isRtlLayout()' [@isExpandedLTR]="expanded ? 'yes' : 'no'">
       keyboard_arrow_down

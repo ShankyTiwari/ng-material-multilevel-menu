@@ -1,0 +1,11 @@
+<a *ngIf="isLinkExternal" [href]="link">
+  <ng-container *ngTemplateOutlet="tempOutlet"></ng-container>
+</a>
+
+<a *ngIf="!isLinkExternal" [routerLink]="link">
+  <ng-container *ngTemplateOutlet="tempOutlet"></ng-container>
+</a>
+
+<ng-template #tempOutlet>
+  <ng-content></ng-content>
+</ng-template>
