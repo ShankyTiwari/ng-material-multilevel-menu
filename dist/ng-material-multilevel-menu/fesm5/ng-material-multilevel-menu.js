@@ -1,11 +1,35 @@
 import { __decorate, __metadata } from 'tslib';
 import { CommonModule } from '@angular/common';
-import { ɵɵdefineInjectable, Injectable, EventEmitter, Input, Output, Component, NgModule } from '@angular/core';
+import { Input, Component, ɵɵdefineInjectable, Injectable, EventEmitter, Output, NgModule } from '@angular/core';
 import { Router, NavigationEnd, RouterModule } from '@angular/router';
 import { trigger, state, style, transition, group, animate } from '@angular/animations';
 import { MatRippleModule } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
+
+var LinkComponent = /** @class */ (function () {
+    function LinkComponent() {
+    }
+    LinkComponent.prototype.ngOnInit = function () {
+    };
+    __decorate([
+        Input(),
+        __metadata("design:type", Boolean)
+    ], LinkComponent.prototype, "isLinkExternal", void 0);
+    __decorate([
+        Input(),
+        __metadata("design:type", String)
+    ], LinkComponent.prototype, "link", void 0);
+    LinkComponent = __decorate([
+        Component({
+            selector: 'ng-link',
+            template: "<a *ngIf=\"isLinkExternal\" [href]=\"link\">\n  <ng-container *ngTemplateOutlet=\"tempOutlet\"></ng-container>\n</a>\n\n<a *ngIf=\"!isLinkExternal\" [routerLink]=\"link\">\n  <ng-container *ngTemplateOutlet=\"tempOutlet\"></ng-container>\n</a>\n\n<ng-template #tempOutlet>\n  <ng-content></ng-content>\n</ng-template>\n",
+            styles: [":host{width:100%}a{text-decoration:none;color:inherit}"]
+        }),
+        __metadata("design:paramtypes", [])
+    ], LinkComponent);
+    return LinkComponent;
+}());
 
 var CONSTANT = {
     PADDING_AT_START: true,
@@ -282,7 +306,7 @@ var ListItemComponent = /** @class */ (function () {
     ListItemComponent = __decorate([
         Component({
             selector: 'ng-list-item',
-            template: "<mat-list-item matRipple [matRippleDisabled]=\"node.disabled\" [ngClass]=\"selectedListClasses\" *ngIf=\"!node.hidden\"\n  (click)=\"expand(node)\" title=\"{{node.label}}\" [ngStyle]=\"getListStyle()\">\n  <a [routerLink]=\"node.link\" class=\"menu-link\">\n    <div class=\"anml-data\" [dir]=\"isRtlLayout() ? 'rtl' : 'ltr'\">\n      <div class=\"icon-container\" [ngSwitch]=\"getListIcon(node)\">\n        <span *ngSwitchCase=\"'faicon'\" class=\"amml-icon amml-icon-fa\">\n          <i [ngClass]=\"getSelectedFaIcon()\"></i>\n        </span>\n        <mat-icon *ngSwitchCase=\"'icon'\" class=\"amml-icon\">\n          {{getSelectedIcon()}}\n        </mat-icon>\n        <mat-icon *ngSwitchCase=\"'svgicon'\" svgIcon=\"{{getSelectedSvgIcon()}}\" class=\"amml-icon amml-svg-icon\">\n        </mat-icon>\n        <img matListAvatar *ngSwitchCase=\"'imageicon'\" class=\"amml-icon\" src=\"{{getSelectedImageIcon()}}\"\n          alt=\"{{node.label}}\" />\n      </div>\n      <span class=\"label\">{{node.label}}</span>\n    </div>\n  </a>\n  <div class=\"amml-icon-arrow-container\" *ngIf='hasItems()'>\n    <mat-icon *ngIf='!isRtlLayout()' [@isExpandedLTR]=\"expanded ? 'yes' : 'no'\">\n      keyboard_arrow_down\n    </mat-icon>\n    <mat-icon *ngIf='isRtlLayout()' [@isExpandedRTL]=\"expanded ? 'yes' : 'no'\">\n      keyboard_arrow_down\n    </mat-icon>\n  </div>\n</mat-list-item>\n\n<mat-divider></mat-divider>\n\n<div *ngIf=\"hasItems() && expanded\" [@slideInOut] [dir]=\"isRtlLayout() ? 'rtl' : 'ltr'\" [ngClass]=\"classes\">\n  <ng-list-item *ngFor=\"let singleNode of nodeChildren | keyvalue : multilevelMenuService.kvDummyComparerFn\"\n    [nodeConfiguration]='nodeConfiguration' [node]=\"singleNode.value\" [level]=\"level + 1\"\n    [submenuLevel]=\"singleNode.key\" [selectedNode]='selectedNode' (selectedItem)=\"selectedListItem($event)\">\n  </ng-list-item>\n</div>\n",
+            template: "<mat-list-item matRipple [matRippleDisabled]=\"node.disabled\" [ngClass]=\"selectedListClasses\" *ngIf=\"!node.hidden\"\n  (click)=\"expand(node)\" title=\"{{node.label}}\" [ngStyle]=\"getListStyle()\">\n  <ng-link [link]=\"node.link\" [isLinkExternal]=\"node?.externalRedirect\">\n    <div class=\"anml-data\" [dir]=\"isRtlLayout() ? 'rtl' : 'ltr'\">\n      <div class=\"icon-container\" [ngSwitch]=\"getListIcon(node)\">\n        <span *ngSwitchCase=\"'faicon'\" class=\"amml-icon amml-icon-fa\">\n          <i [ngClass]=\"getSelectedFaIcon()\"></i>\n        </span>\n        <mat-icon *ngSwitchCase=\"'icon'\" class=\"amml-icon\">\n          {{getSelectedIcon()}}\n        </mat-icon>\n        <mat-icon *ngSwitchCase=\"'svgicon'\" svgIcon=\"{{getSelectedSvgIcon()}}\" class=\"amml-icon amml-svg-icon\">\n        </mat-icon>\n        <img matListAvatar *ngSwitchCase=\"'imageicon'\" class=\"amml-icon\" src=\"{{getSelectedImageIcon()}}\"\n          alt=\"{{node.label}}\" />\n      </div>\n      <span class=\"label\">{{node.label}}</span>\n    </div>\n  </ng-link>\n  <div class=\"amml-icon-arrow-container\" *ngIf='hasItems()'>\n    <mat-icon *ngIf='!isRtlLayout()' [@isExpandedLTR]=\"expanded ? 'yes' : 'no'\">\n      keyboard_arrow_down\n    </mat-icon>\n    <mat-icon *ngIf='isRtlLayout()' [@isExpandedRTL]=\"expanded ? 'yes' : 'no'\">\n      keyboard_arrow_down\n    </mat-icon>\n  </div>\n</mat-list-item>\n\n<mat-divider></mat-divider>\n\n<div *ngIf=\"hasItems() && expanded\" [@slideInOut] [dir]=\"isRtlLayout() ? 'rtl' : 'ltr'\" [ngClass]=\"classes\">\n  <ng-list-item *ngFor=\"let singleNode of nodeChildren | keyvalue : multilevelMenuService.kvDummyComparerFn\"\n    [nodeConfiguration]='nodeConfiguration' [node]=\"singleNode.value\" [level]=\"level + 1\"\n    [submenuLevel]=\"singleNode.key\" [selectedNode]='selectedNode' (selectedItem)=\"selectedListItem($event)\">\n  </ng-list-item>\n</div>\n",
             animations: [
                 trigger('slideInOut', [
                     state('in', style({ height: '*', opacity: 0 })),
@@ -314,7 +338,7 @@ var ListItemComponent = /** @class */ (function () {
                     transition('yes => no', animate(200))
                 ])
             ],
-            styles: [".amml-item{line-height:48px;position:relative;cursor:pointer}.anml-data{width:100%;text-transform:capitalize;display:flex;justify-content:flex-start;height:48px}.disabled-amml-item{cursor:not-allowed;opacity:.5;text-decoration:none}.amml-icon-fa{font-size:20px}.amml-icon,.label{line-height:48px}.amml-svg-icon{line-height:57px;width:22px;height:22px}.amml-icon-arrow-container{direction:ltr;display:flex;align-items:center}div[dir=ltr] .amml-icon{margin-right:16px}div[dir=ltr].amml-submenu,div[dir=rtl] .amml-icon{margin-left:16px}div[dir=rtl].amml-submenu{margin-right:16px}.menu-link{text-decoration:none;width:100%;display:flex;align-items:center;color:inherit}"]
+            styles: [".amml-item{line-height:48px;position:relative;cursor:pointer}.anml-data{width:100%;text-transform:capitalize;display:flex;justify-content:flex-start;height:48px}.disabled-amml-item{cursor:not-allowed;opacity:.5;text-decoration:none}.amml-icon-fa{font-size:20px}.amml-icon,.label{line-height:48px}.amml-svg-icon{line-height:57px;width:22px;height:22px}.amml-icon-arrow-container{direction:ltr;display:flex;align-items:center}div[dir=ltr] .amml-icon{margin-right:16px}div[dir=ltr].amml-submenu,div[dir=rtl] .amml-icon{margin-left:16px}div[dir=rtl].amml-submenu{margin-right:16px}"]
         }),
         __metadata("design:paramtypes", [Router,
             MultilevelMenuService])
@@ -527,7 +551,11 @@ var NgMaterialMultilevelMenuModule = /** @class */ (function () {
                 MaterialsModule,
                 RouterModule,
             ],
-            declarations: [NgMaterialMultilevelMenuComponent, ListItemComponent],
+            declarations: [
+                NgMaterialMultilevelMenuComponent,
+                ListItemComponent,
+                LinkComponent
+            ],
             exports: [NgMaterialMultilevelMenuComponent]
         })
     ], NgMaterialMultilevelMenuModule);
@@ -542,5 +570,5 @@ var NgMaterialMultilevelMenuModule = /** @class */ (function () {
  * Generated bundle index. Do not edit.
  */
 
-export { NgMaterialMultilevelMenuComponent, NgMaterialMultilevelMenuModule, MaterialsModule as ɵa, MultilevelMenuService as ɵb, ListItemComponent as ɵc };
+export { NgMaterialMultilevelMenuComponent, NgMaterialMultilevelMenuModule, MaterialsModule as ɵa, MultilevelMenuService as ɵb, ListItemComponent as ɵc, LinkComponent as ɵd };
 //# sourceMappingURL=ng-material-multilevel-menu.js.map
