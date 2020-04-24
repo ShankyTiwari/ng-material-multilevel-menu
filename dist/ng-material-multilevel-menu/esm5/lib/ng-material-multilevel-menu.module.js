@@ -1,39 +1,28 @@
+import { __decorate } from "tslib";
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ListItemComponent } from './list-item/list-item.component';
 import { MaterialsModule } from './materials.module';
 import { NgMaterialMultilevelMenuComponent } from './ng-material-multilevel-menu.component';
-import * as i0 from "@angular/core";
 var NgMaterialMultilevelMenuModule = /** @class */ (function () {
     function NgMaterialMultilevelMenuModule() {
     }
-    NgMaterialMultilevelMenuModule.ɵmod = i0.ɵɵdefineNgModule({ type: NgMaterialMultilevelMenuModule });
-    NgMaterialMultilevelMenuModule.ɵinj = i0.ɵɵdefineInjector({ factory: function NgMaterialMultilevelMenuModule_Factory(t) { return new (t || NgMaterialMultilevelMenuModule)(); }, imports: [[
+    NgMaterialMultilevelMenuModule = __decorate([
+        NgModule({
+            imports: [
                 CommonModule,
                 MaterialsModule,
                 RouterModule,
-            ]] });
+            ],
+            declarations: [
+                NgMaterialMultilevelMenuComponent,
+                ListItemComponent,
+            ],
+            exports: [NgMaterialMultilevelMenuComponent]
+        })
+    ], NgMaterialMultilevelMenuModule);
     return NgMaterialMultilevelMenuModule;
 }());
 export { NgMaterialMultilevelMenuModule };
-(function () { (typeof ngJitMode === "undefined" || ngJitMode) && i0.ɵɵsetNgModuleScope(NgMaterialMultilevelMenuModule, { declarations: [NgMaterialMultilevelMenuComponent,
-        ListItemComponent], imports: [CommonModule,
-        MaterialsModule,
-        RouterModule], exports: [NgMaterialMultilevelMenuComponent] }); })();
-/*@__PURE__*/ (function () { i0.ɵsetClassMetadata(NgMaterialMultilevelMenuModule, [{
-        type: NgModule,
-        args: [{
-                imports: [
-                    CommonModule,
-                    MaterialsModule,
-                    RouterModule,
-                ],
-                declarations: [
-                    NgMaterialMultilevelMenuComponent,
-                    ListItemComponent,
-                ],
-                exports: [NgMaterialMultilevelMenuComponent]
-            }]
-    }], null, null); })();
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoibmctbWF0ZXJpYWwtbXVsdGlsZXZlbC1tZW51Lm1vZHVsZS5qcyIsInNvdXJjZVJvb3QiOiJuZzovL25nLW1hdGVyaWFsLW11bHRpbGV2ZWwtbWVudS8iLCJzb3VyY2VzIjpbImxpYi9uZy1tYXRlcmlhbC1tdWx0aWxldmVsLW1lbnUubW9kdWxlLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBLE9BQU8sRUFBRSxZQUFZLEVBQUUsTUFBTSxpQkFBaUIsQ0FBQztBQUMvQyxPQUFPLEVBQUUsUUFBUSxFQUFFLE1BQU0sZUFBZSxDQUFDO0FBQ3pDLE9BQU8sRUFBRSxZQUFZLEVBQUUsTUFBTSxpQkFBaUIsQ0FBQztBQUUvQyxPQUFPLEVBQUUsaUJBQWlCLEVBQUUsTUFBTSxpQ0FBaUMsQ0FBQztBQUNwRSxPQUFPLEVBQUUsZUFBZSxFQUFFLE1BQU0sb0JBQW9CLENBQUM7QUFDckQsT0FBTyxFQUFFLGlDQUFpQyxFQUFFLE1BQU0seUNBQXlDLENBQUM7O0FBRTVGO0lBQUE7S0FZK0M7c0VBQWxDLDhCQUE4QjsrSUFBOUIsOEJBQThCLGtCQVhoQztnQkFDUCxZQUFZO2dCQUNaLGVBQWU7Z0JBQ2YsWUFBWTthQUNiO3lDQWJIO0NBb0IrQyxBQVovQyxJQVkrQztTQUFsQyw4QkFBOEI7d0ZBQTlCLDhCQUE4QixtQkFMdkMsaUNBQWlDO1FBQ2pDLGlCQUFpQixhQU5qQixZQUFZO1FBQ1osZUFBZTtRQUNmLFlBQVksYUFNSixpQ0FBaUM7a0RBRWhDLDhCQUE4QjtjQVoxQyxRQUFRO2VBQUM7Z0JBQ1IsT0FBTyxFQUFFO29CQUNQLFlBQVk7b0JBQ1osZUFBZTtvQkFDZixZQUFZO2lCQUNiO2dCQUNELFlBQVksRUFBRTtvQkFDWixpQ0FBaUM7b0JBQ2pDLGlCQUFpQjtpQkFDbEI7Z0JBQ0QsT0FBTyxFQUFFLENBQUMsaUNBQWlDLENBQUM7YUFDN0MiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgeyBDb21tb25Nb2R1bGUgfSBmcm9tICdAYW5ndWxhci9jb21tb24nO1xyXG5pbXBvcnQgeyBOZ01vZHVsZSB9IGZyb20gJ0Bhbmd1bGFyL2NvcmUnO1xyXG5pbXBvcnQgeyBSb3V0ZXJNb2R1bGUgfSBmcm9tICdAYW5ndWxhci9yb3V0ZXInO1xyXG5cclxuaW1wb3J0IHsgTGlzdEl0ZW1Db21wb25lbnQgfSBmcm9tICcuL2xpc3QtaXRlbS9saXN0LWl0ZW0uY29tcG9uZW50JztcclxuaW1wb3J0IHsgTWF0ZXJpYWxzTW9kdWxlIH0gZnJvbSAnLi9tYXRlcmlhbHMubW9kdWxlJztcclxuaW1wb3J0IHsgTmdNYXRlcmlhbE11bHRpbGV2ZWxNZW51Q29tcG9uZW50IH0gZnJvbSAnLi9uZy1tYXRlcmlhbC1tdWx0aWxldmVsLW1lbnUuY29tcG9uZW50JztcclxuXHJcbkBOZ01vZHVsZSh7XHJcbiAgaW1wb3J0czogW1xyXG4gICAgQ29tbW9uTW9kdWxlLFxyXG4gICAgTWF0ZXJpYWxzTW9kdWxlLFxyXG4gICAgUm91dGVyTW9kdWxlLFxyXG4gIF0sXHJcbiAgZGVjbGFyYXRpb25zOiBbXHJcbiAgICBOZ01hdGVyaWFsTXVsdGlsZXZlbE1lbnVDb21wb25lbnQsXHJcbiAgICBMaXN0SXRlbUNvbXBvbmVudCxcclxuICBdLFxyXG4gIGV4cG9ydHM6IFtOZ01hdGVyaWFsTXVsdGlsZXZlbE1lbnVDb21wb25lbnRdXHJcbn0pXHJcbmV4cG9ydCBjbGFzcyBOZ01hdGVyaWFsTXVsdGlsZXZlbE1lbnVNb2R1bGUgeyB9XHJcbiJdfQ==
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoibmctbWF0ZXJpYWwtbXVsdGlsZXZlbC1tZW51Lm1vZHVsZS5qcyIsInNvdXJjZVJvb3QiOiJuZzovL25nLW1hdGVyaWFsLW11bHRpbGV2ZWwtbWVudS8iLCJzb3VyY2VzIjpbImxpYi9uZy1tYXRlcmlhbC1tdWx0aWxldmVsLW1lbnUubW9kdWxlLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7QUFBQSxPQUFPLEVBQUUsWUFBWSxFQUFFLE1BQU0saUJBQWlCLENBQUM7QUFDL0MsT0FBTyxFQUFFLFFBQVEsRUFBRSxNQUFNLGVBQWUsQ0FBQztBQUN6QyxPQUFPLEVBQUUsWUFBWSxFQUFFLE1BQU0saUJBQWlCLENBQUM7QUFFL0MsT0FBTyxFQUFFLGlCQUFpQixFQUFFLE1BQU0saUNBQWlDLENBQUM7QUFDcEUsT0FBTyxFQUFFLGVBQWUsRUFBRSxNQUFNLG9CQUFvQixDQUFDO0FBQ3JELE9BQU8sRUFBRSxpQ0FBaUMsRUFBRSxNQUFNLHlDQUF5QyxDQUFDO0FBYzVGO0lBQUE7SUFBOEMsQ0FBQztJQUFsQyw4QkFBOEI7UUFaMUMsUUFBUSxDQUFDO1lBQ1IsT0FBTyxFQUFFO2dCQUNQLFlBQVk7Z0JBQ1osZUFBZTtnQkFDZixZQUFZO2FBQ2I7WUFDRCxZQUFZLEVBQUU7Z0JBQ1osaUNBQWlDO2dCQUNqQyxpQkFBaUI7YUFDbEI7WUFDRCxPQUFPLEVBQUUsQ0FBQyxpQ0FBaUMsQ0FBQztTQUM3QyxDQUFDO09BQ1csOEJBQThCLENBQUk7SUFBRCxxQ0FBQztDQUFBLEFBQS9DLElBQStDO1NBQWxDLDhCQUE4QiIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCB7IENvbW1vbk1vZHVsZSB9IGZyb20gJ0Bhbmd1bGFyL2NvbW1vbic7XHJcbmltcG9ydCB7IE5nTW9kdWxlIH0gZnJvbSAnQGFuZ3VsYXIvY29yZSc7XHJcbmltcG9ydCB7IFJvdXRlck1vZHVsZSB9IGZyb20gJ0Bhbmd1bGFyL3JvdXRlcic7XHJcblxyXG5pbXBvcnQgeyBMaXN0SXRlbUNvbXBvbmVudCB9IGZyb20gJy4vbGlzdC1pdGVtL2xpc3QtaXRlbS5jb21wb25lbnQnO1xyXG5pbXBvcnQgeyBNYXRlcmlhbHNNb2R1bGUgfSBmcm9tICcuL21hdGVyaWFscy5tb2R1bGUnO1xyXG5pbXBvcnQgeyBOZ01hdGVyaWFsTXVsdGlsZXZlbE1lbnVDb21wb25lbnQgfSBmcm9tICcuL25nLW1hdGVyaWFsLW11bHRpbGV2ZWwtbWVudS5jb21wb25lbnQnO1xyXG5cclxuQE5nTW9kdWxlKHtcclxuICBpbXBvcnRzOiBbXHJcbiAgICBDb21tb25Nb2R1bGUsXHJcbiAgICBNYXRlcmlhbHNNb2R1bGUsXHJcbiAgICBSb3V0ZXJNb2R1bGUsXHJcbiAgXSxcclxuICBkZWNsYXJhdGlvbnM6IFtcclxuICAgIE5nTWF0ZXJpYWxNdWx0aWxldmVsTWVudUNvbXBvbmVudCxcclxuICAgIExpc3RJdGVtQ29tcG9uZW50LFxyXG4gIF0sXHJcbiAgZXhwb3J0czogW05nTWF0ZXJpYWxNdWx0aWxldmVsTWVudUNvbXBvbmVudF1cclxufSlcclxuZXhwb3J0IGNsYXNzIE5nTWF0ZXJpYWxNdWx0aWxldmVsTWVudU1vZHVsZSB7IH1cclxuIl19

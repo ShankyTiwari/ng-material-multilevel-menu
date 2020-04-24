@@ -113,8 +113,8 @@ export class NgMaterialMultilevelMenuComponent implements OnInit, OnChanges {
         typeof config.rtlLayout === 'boolean') {
         this.nodeConfig.rtlLayout = config.rtlLayout;
       }
-      this.checkValidData();
     }
+    this.checkValidData();
   }
   getClassName(): string {
     if (this.isInvalidConfig) {
