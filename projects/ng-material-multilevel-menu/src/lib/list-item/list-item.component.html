@@ -22,7 +22,7 @@
 </div>
 
 <ng-template #linkTemplate>
-  <a class="anml-link" *ngIf="node.externalRedirect" [href]="node.link">
+  <a class="anml-link" *ngIf="node.externalRedirect" [href]="node.link" [target]="getHrefTargetType()">
     <ng-container *ngTemplateOutlet="linkLabelOutlet"></ng-container>
   </a>
   <a class="anml-link" *ngIf="!node.externalRedirect" [routerLink]="node.link">

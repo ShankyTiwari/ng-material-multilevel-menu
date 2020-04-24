@@ -174,6 +174,12 @@ export class ListItemComponent implements OnChanges, OnInit {
     }
     return this.node.imageIcon;
   }
+  getHrefTargetType() {
+    if (this.node.hrefTargetType) {
+      return this.node.hrefTargetType;
+    }
+    return CONSTANT.DEFAULT_HREF_TARGET_TYPE;
+  }
   hasItems(): boolean {
     return this.nodeChildren.length > 0 ? true : false;
   }
@@ -198,11 +204,7 @@ export class ListItemComponent implements OnChanges, OnInit {
       && node.link !== undefined
       && node.link
     ) {
-      if (node.externalRedirect !== undefined && node.externalRedirect) {
-        window.location.href = node.link;
-      } else {
-        this.router.navigate([node.link], node.navigationExtras);
-      }
+      this.router.navigate([node.link], node.navigationExtras);
     } else if (node.onSelected && typeof node.onSelected === 'function') {
       node.onSelected(node);
       this.selectedListItem(node);

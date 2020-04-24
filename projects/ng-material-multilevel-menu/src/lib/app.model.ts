@@ -14,6 +14,7 @@ export interface MultilevelNodes {
   hidden?: boolean;
   link?: string;
   externalRedirect?: boolean;
+  hrefTargetType?: string;
   data?: any;
   items?: MultilevelNodes[];
   onSelected?: Function;
