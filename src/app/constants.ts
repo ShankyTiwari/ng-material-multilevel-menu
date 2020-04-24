@@ -66,7 +66,8 @@ export const constant = {
             label: 'NPM',
             icon: 'info_outline',
             link: 'https://www.npmjs.com/package/ng-material-multilevel-menu',
-            externalRedirect: true
+            externalRedirect: true,
+            hrefTargetType: '_blank'
         }
     ],
     sidebarConfigurations: {

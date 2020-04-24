@@ -4,35 +4,46 @@
   cursor: pointer;
 }
 
-.anml-data {
+.anml-link {
   width: 100%;
-  text-transform: capitalize;
   display: flex;
   justify-content: flex-start;
+  text-transform: capitalize;
+  text-decoration: none;
+  color: inherit;
+}
+
+.anml-data {
+  width: 100%;
   height: 48px;
+  display: flex;
+  justify-content: flex-start;
 }
 
 .disabled-amml-item {
-  cursor: not-allowed;
   opacity: 0.5;
   text-decoration: none;
+  pointer-events: none;
+}
+
+.icon-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .amml-icon-fa {
   font-size: 20px;
 }
 
-.label{
+.label {
   line-height: 48px;
 }
 
-.amml-icon {
-  line-height: 48px;
-}
 .amml-svg-icon {
-  line-height: 57px;
   width: 22px;
   height: 22px;
+  margin-top: -12px;
 }
 .amml-icon-arrow-container {
   direction: ltr;

@@ -8,6 +8,7 @@ import { MatRipple, MatRippleModule } from '@angular/material/core';
 import { Dir } from '@angular/cdk/bidi';
 import { MatIcon, MatIconModule } from '@angular/material/icon';
 
+import * as ɵngcc0 from '@angular/core';
 const CONSTANT = {
     PADDING_AT_START: true,
     DEFAULT_CLASS_NAME: `amml-container`,
@@ -412,6 +413,8 @@ class ListItemComponent {
         this.selectedItem.emit(node);
     }
 }
+ListItemComponent.ɵfac = function ListItemComponent_Factory(t) { ɵngcc0.ɵɵinvalidFactory(); };
+ListItemComponent.ɵdir = ɵngcc0.ɵɵdefineDirective({ type: ListItemComponent, features: [ɵngcc0.ɵɵNgOnChangesFeature] });
 ListItemComponent.ɵfac = function ListItemComponent_Factory(t) { return new (t || ListItemComponent)(ɵɵdirectiveInject(Router), ɵɵdirectiveInject(MultilevelMenuService)); };
 ListItemComponent.ɵcmp = ɵɵdefineComponent({ type: ListItemComponent, selectors: [["ng-list-item"]], inputs: { node: "node", level: "level", submenuLevel: "submenuLevel", selectedNode: "selectedNode", nodeConfiguration: "nodeConfiguration" }, outputs: { selectedItem: "selectedItem" }, features: [ɵɵNgOnChangesFeature], decls: 7, vars: 2, consts: [["matRipple", "", 3, "title", "matRippleDisabled", "ngClass", "ngStyle", "click", 4, "ngIf"], [3, "dir", "ngClass", 4, "ngIf"], ["linkTemplate", ""], ["linkLabelOutlet", ""], ["matRipple", "", 3, "title", "matRippleDisabled", "ngClass", "ngStyle", "click"], [4, "ngTemplateOutlet"], [3, "dir", "ngClass"], [3, "nodeConfiguration", "node", "level", "submenuLevel", "selectedNode", "selectedItem", 4, "ngFor", "ngForOf"], [3, "nodeConfiguration", "node", "level", "submenuLevel", "selectedNode", "selectedItem"], ["class", "anml-link", 3, "href", 4, "ngIf"], ["class", "anml-link", 3, "routerLink", 4, "ngIf"], [1, "anml-link", 3, "href"], [1, "anml-link", 3, "routerLink"], [1, "anml-data", 3, "dir"], [1, "icon-container", 3, "ngSwitch"], ["class", "amml-icon amml-icon-fa", 4, "ngSwitchCase"], ["class", "amml-icon", 4, "ngSwitchCase"], ["class", "amml-icon amml-svg-icon", 3, "svgIcon", 4, "ngSwitchCase"], ["matListAvatar", "", "class", "amml-icon", 3, "src", "alt", 4, "ngSwitchCase"], [1, "label"], ["class", "amml-icon-arrow-container", 4, "ngIf"], [1, "amml-icon", "amml-icon-fa"], [3, "ngClass"], [1, "amml-icon"], [1, "amml-icon", "amml-svg-icon", 3, "svgIcon"], ["matListAvatar", "", 1, "amml-icon", 3, "src", "alt"], [1, "amml-icon-arrow-container"], [4, "ngIf"]], template: function ListItemComponent_Template(rf, ctx) { if (rf & 1) {
         ɵɵtemplate(0, ListItemComponent_mat_list_item_0_Template, 2, 5, "mat-list-item", 0);
@@ -454,6 +457,7 @@ ListItemComponent.ɵcmp = ɵɵdefineComponent({ type: ListItemComponent, selecto
                 transition('yes => no', animate(200))
             ])
         ] } });
+
 /*@__PURE__*/ (function () { ɵsetClassMetadata(ListItemComponent, [{
         type: Component,
         args: [{
@@ -704,12 +708,15 @@ class NgMaterialMultilevelMenuComponent {
         }
     }
 }
+NgMaterialMultilevelMenuComponent.ɵfac = function NgMaterialMultilevelMenuComponent_Factory(t) { ɵngcc0.ɵɵinvalidFactory(); };
+NgMaterialMultilevelMenuComponent.ɵdir = ɵngcc0.ɵɵdefineDirective({ type: NgMaterialMultilevelMenuComponent, features: [ɵngcc0.ɵɵNgOnChangesFeature] });
 NgMaterialMultilevelMenuComponent.ɵfac = function NgMaterialMultilevelMenuComponent_Factory(t) { return new (t || NgMaterialMultilevelMenuComponent)(ɵɵdirectiveInject(Router), ɵɵdirectiveInject(MultilevelMenuService)); };
 NgMaterialMultilevelMenuComponent.ɵcmp = ɵɵdefineComponent({ type: NgMaterialMultilevelMenuComponent, selectors: [["ng-material-multilevel-menu"]], inputs: { items: "items", configuration: "configuration" }, outputs: { selectedItem: "selectedItem", selectedLabel: "selectedLabel" }, features: [ɵɵNgOnChangesFeature], decls: 1, vars: 1, consts: [[3, "ngClass", "ngStyle", "dir", 4, "ngIf"], [3, "ngClass", "ngStyle", "dir"], [3, "nodeConfiguration", "node", "level", "submenuLevel", "selectedNode", "selectedItem", 4, "ngFor", "ngForOf"], [3, "nodeConfiguration", "node", "level", "submenuLevel", "selectedNode", "selectedItem"]], template: function NgMaterialMultilevelMenuComponent_Template(rf, ctx) { if (rf & 1) {
         ɵɵtemplate(0, NgMaterialMultilevelMenuComponent_div_0_Template, 4, 7, "div", 0);
     } if (rf & 2) {
         ɵɵproperty("ngIf", ctx.items.length !== 0);
     } }, directives: [NgIf, NgClass, NgStyle, Dir, MatList, NgForOf, ListItemComponent], pipes: [KeyValuePipe], styles: [".amml-item[_ngcontent-%COMP%]{line-height:48px;display:flex;justify-content:space-between;position:relative}.anml-data[_ngcontent-%COMP%]{width:100%;text-transform:capitalize;display:flex;justify-content:flex-start}.amml-icon-fa[_ngcontent-%COMP%]{font-size:20px}.amml-icon[_ngcontent-%COMP%]{line-height:48px}.active[_ngcontent-%COMP%]{color:#1976d2}div[dir=ltr][_ngcontent-%COMP%]   .amml-icon[_ngcontent-%COMP%]{margin-right:15px}div[dir=ltr][_ngcontent-%COMP%]   .amml-submenu[_ngcontent-%COMP%]{margin-left:16px}div[dir=rtl][_ngcontent-%COMP%]   .amml-icon[_ngcontent-%COMP%]{margin-left:15px}div[dir=rtl][_ngcontent-%COMP%]   .amml-submenu[_ngcontent-%COMP%]{margin-right:16px}"] });
+
 /*@__PURE__*/ (function () { ɵsetClassMetadata(NgMaterialMultilevelMenuComponent, [{
         type: Component,
         args: [{
@@ -764,4 +771,5 @@ NgMaterialMultilevelMenuModule.ɵinj = ɵɵdefineInjector({ factory: function Ng
  */
 
 export { NgMaterialMultilevelMenuComponent, NgMaterialMultilevelMenuModule };
+
 //# sourceMappingURL=ng-material-multilevel-menu.js.map

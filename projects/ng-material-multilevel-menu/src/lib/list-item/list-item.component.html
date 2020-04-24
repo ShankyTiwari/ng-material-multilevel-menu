@@ -1,6 +1,36 @@
-<mat-list-item matRipple [matRippleDisabled]="node.disabled" [ngClass]="selectedListClasses" *ngIf="!node.hidden"
-  (click)="expand(node)" title="{{node.label}}"
-  [ngStyle]="getListStyle()">
+<mat-list-item matRipple 
+  *ngIf="!node.hidden"
+  title="{{node.label}}"
+  [matRippleDisabled]="node.disabled" 
+  [ngClass]="selectedListClasses"
+  [ngStyle]="getListStyle()"
+  (click)="expand(node)">
+  <ng-container *ngTemplateOutlet="linkTemplate"></ng-container>
+</mat-list-item>
+
+<mat-divider></mat-divider>
+
+<div *ngIf="hasItems() && expanded" [@slideInOut] [dir]="isRtlLayout() ? 'rtl' : 'ltr'" [ngClass]="classes">
+  <ng-list-item *ngFor="let singleNode of nodeChildren | keyvalue : multilevelMenuService.kvDummyComparerFn"
+    [nodeConfiguration]='nodeConfiguration' 
+    [node]="singleNode.value" 
+    [level]="level + 1"
+    [submenuLevel]="singleNode.key"
+    [selectedNode]='selectedNode' 
+    (selectedItem)="selectedListItem($event)">
+  </ng-list-item>
+</div>
+
+<ng-template #linkTemplate>
+  <a class="anml-link" *ngIf="node.externalRedirect" [href]="node.link" [target]="getHrefTargetType()">
+    <ng-container *ngTemplateOutlet="linkLabelOutlet"></ng-container>
+  </a>
+  <a class="anml-link" *ngIf="!node.externalRedirect" [routerLink]="node.link">
+    <ng-container *ngTemplateOutlet="linkLabelOutlet"></ng-container>
+  </a>
+</ng-template>
+
+<ng-template #linkLabelOutlet>
   <div class="anml-data" [dir]="isRtlLayout() ? 'rtl' : 'ltr'">
     <div class="icon-container" [ngSwitch]="getListIcon(node)">
       <span *ngSwitchCase="'faicon'" class="amml-icon amml-icon-fa">
@@ -11,7 +41,8 @@
       </mat-icon>
       <mat-icon *ngSwitchCase="'svgicon'" svgIcon="{{getSelectedSvgIcon()}}" class="amml-icon amml-svg-icon">
       </mat-icon>
-      <img matListAvatar *ngSwitchCase="'imageicon'" class="amml-icon" src="{{getSelectedImageIcon()}}" alt="{{node.label}}"/>
+      <img matListAvatar *ngSwitchCase="'imageicon'" class="amml-icon" src="{{getSelectedImageIcon()}}"
+        alt="{{node.label}}" />
     </div>
     <span class="label">{{node.label}}</span>
   </div>
@@ -19,21 +50,8 @@
     <mat-icon *ngIf='!isRtlLayout()' [@isExpandedLTR]="expanded ? 'yes' : 'no'">
       keyboard_arrow_down
     </mat-icon>
-    <mat-icon *ngIf='isRtlLayout()'  [@isExpandedRTL]="expanded ? 'yes' : 'no'">
+    <mat-icon *ngIf='isRtlLayout()' [@isExpandedRTL]="expanded ? 'yes' : 'no'">
       keyboard_arrow_down
     </mat-icon>
   </div>
-</mat-list-item>
-
-<mat-divider></mat-divider>
-
-<div *ngIf="hasItems() && expanded" [@slideInOut] [dir]="isRtlLayout() ? 'rtl' : 'ltr'" [ngClass]="classes">
-  <ng-list-item *ngFor="let singleNode of nodeChildren | keyvalue : multilevelMenuService.kvDummyComparerFn"
-    [nodeConfiguration]='nodeConfiguration'
-    [node]="singleNode.value"
-    [level]="level + 1"
-    [submenuLevel]="singleNode.key"
-    [selectedNode]='selectedNode'
-    (selectedItem)="selectedListItem($event)">
-  </ng-list-item>
-</div>
+</ng-template>
