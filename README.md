@@ -83,7 +83,8 @@ appitems = [
         label: 'NPM',
         imageIcon: '/assets/batman.jpg',
         link: 'https://www.npmjs.com/package/ng-material-multilevel-menu',
-        externalRedirect: true
+        externalRedirect: true,
+        hrefTargetType: '_blank' // _blank|_self|_parent|_top|framename
     },
     {
         label: 'Item 1 (with Font awesome icon)',

@@ -32,6 +32,7 @@ export declare class ListItemComponent implements OnChanges, OnInit {
     getSelectedIcon(): string;
     getSelectedFaIcon(): string;
     getSelectedImageIcon(): string;
+    getHrefTargetType(): string;
     hasItems(): boolean;
     isRtlLayout(): boolean;
     setClasses(): void;
