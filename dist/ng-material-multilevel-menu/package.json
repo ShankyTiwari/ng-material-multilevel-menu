@@ -7,7 +7,7 @@
   },
   "keywords": [
     "Angular2",
-    "Angular4",
+    "Angular9",
     "Angular",
     "multilevel-list",
     "material-list",
@@ -18,6 +18,7 @@
   "bugs": {
     "url": "https://github.com/ShankyTiwari/ng-material-multilevel-menu/issues"
   },
+  "homepage": "http://plugins.codershood.info/",
   "peerDependencies": {
     "@angular/common": ">= 6.0.0-rc.0 || >= 6.0.0",
     "@angular/core": ">= 6.0.0-rc.0 || >= 6.0.0",
