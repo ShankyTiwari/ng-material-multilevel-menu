@@ -42,7 +42,7 @@ export class NgMaterialMultilevelMenuComponent implements OnInit, OnChanges {
       this.router.events
         .subscribe((event) => {
           if (event instanceof NavigationEnd) {
-            this.updateNodeByURL(event.url);
+            this.updateNodeByURL(event.urlAfterRedirects);
           }
         });
       this.updateNodeByURL(this.router.url);

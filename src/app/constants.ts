@@ -1,6 +1,13 @@
 export const constant = {
     sidebarDemoLinks: [
         {
+            label: 'Home',
+            link: '/',
+            icon: 'favorite',
+            activeIcon: 'favorite_border',
+
+        },
+        {
             label: 'Item 1 (with Font awesome icon)',
             svgIcon: 'psychology',
             activeSvgIcon: 'activePsychology',
