@@ -196,7 +196,12 @@ export class ListItemComponent implements OnChanges, OnInit {
   }
   setExpandCollapseStatus(): void {
     if (this.nodeExpandCollapseStatus !== null && this.nodeExpandCollapseStatus !== undefined ) {
-      this.expanded = this.nodeExpandCollapseStatus === ExpandCollapseStatusEnum.expand;
+      if (this.nodeExpandCollapseStatus === ExpandCollapseStatusEnum.expand) {
+        this.expanded = true;
+      }
+      if (this.nodeExpandCollapseStatus === ExpandCollapseStatusEnum.collapse) {
+        this.expanded = false;
+      }
     }
   }
   expand(node: MultilevelNodes): void {
