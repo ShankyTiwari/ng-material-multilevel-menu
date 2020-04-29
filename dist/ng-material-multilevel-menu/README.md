@@ -70,6 +70,7 @@ In your HTML: Use the ```<ng-material-multilevel-menu>``` wherever you like in y
     [configuration]='config' 
     [items]='appitems'
     (selectedItem)="selectedItem($event)" 
+    [expandCollapseStatus]="expandCollapseStatus"
     (selectedLabel)="selectedLabel($event)">
 </ng-material-multilevel-menu>
 ```
@@ -161,19 +162,21 @@ appitems = [
 ```
 
 ## API
-Using ```configuration```, You can customise the appearance of the list.
-* ```paddingAtStart: boolean``` => *[optional]* If you don't want padding at the start of the list item, then you can give ```false```. The default value will be ```true```.
-* ```interfaceWithRoute: boolean``` => *[required]* only if you want to use Angular Routing with this menu.
-* ```highlightOnSelect: boolean``` => *[optional]* If you want to highlight the clicked item in the list, then you can do that by making it ```true```. The default value will be ```false```.
-* ```collapseOnSelect: boolean;``` => *[optional]* You have the option to collapse another parent when clicked on the current parent. The default value will be ```false```. 
-* ```rtlLayout: boolean;``` => *[optional]* whether display is Right To Left. The default value will be ```false```. 
-* ```classname: string;``` => *[optional]* You can give your own custom class name in order to modify the list appearance. 
-* ```listBackgroundColor: string;``` => *[optional]* You can apply custom color to the background of the list.
-* ```fontColor: string;``` => *[optional]* Changes the color of Text and icons inside the list.
-* ```backgroundColor: string;``` => *[optional]* This will change the background color list container.
-* ```selectedListFontColor: string;``` => *[optional]* This will change the font color of selected list item.
+- Using ```configuration```, You can customise the appearance of the list.
+    * ```paddingAtStart: boolean``` => *[optional]* If you don't want padding at the start of the list item, then you can give ```false```. The default value will be ```true```.
+    * ```interfaceWithRoute: boolean``` => *[required]* only if you want to use Angular Routing with this menu.
+    * ```highlightOnSelect: boolean``` => *[optional]* If you want to highlight the clicked item in the list, then you can do that by making it ```true```. The default value will be ```false```.
+    * ```collapseOnSelect: boolean;``` => *[optional]* You have the option to collapse another parent when clicked on the current parent. The default value will be ```false```. 
+    * ```rtlLayout: boolean;``` => *[optional]* whether display is Right To Left. The default value will be ```false```. 
+    * ```classname: string;``` => *[optional]* You can give your own custom class name in order to modify the list appearance. 
+    * ```listBackgroundColor: string;``` => *[optional]* You can apply custom color to the background of the list.
+    * ```fontColor: string;``` => *[optional]* Changes the color of Text and icons inside the list.
+    * ```backgroundColor: string;``` => *[optional]* This will change the background color list container.
+    * ```selectedListFontColor: string;``` => *[optional]* This will change the font color of selected list item.
 
-Below is example how you can apply diffent background and Font colors,
+- Using ```expandCollapseStatus```, You can expand all the menu and Collapse all the menus. Below is example how you can do that,
+
+Below is example how you can apply different background and Font colors,
 ```typescript
 config = {
     paddingAtStart: true,
@@ -187,7 +190,12 @@ config = {
     collapseOnSelect: true,
     rtlLayout: false
 };
+
+expandCollapseStatus = 'expand'; // expand|collapse
+
 ```
+
+
 
 ## Default classes
 * ```selected-amml-item```: This class will be applied to currently selected link and it's father links.

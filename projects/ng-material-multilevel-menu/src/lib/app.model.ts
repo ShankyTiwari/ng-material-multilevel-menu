@@ -44,3 +44,8 @@ export interface ListStyle {
     background: string;
     color: string;
 }
+
+export enum ExpandCollapseStatusEnum {
+    expand = 'expand',
+    collapse = 'collapse',
+}

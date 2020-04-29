@@ -17,7 +17,7 @@ export class AppComponent {
   appitems: MultilevelNodes[] = CONSTANT.sidebarDemoLinks;
   config = CONSTANT.sidebarConfigurations;
   displayList = false;
-
+  expandCollapseStatus: string = null;
   constructor(
     private iconRegistry: MatIconRegistry,
     private sanitizer: DomSanitizer,
@@ -48,4 +48,9 @@ export class AppComponent {
       this.displayList = true;
     }, 100);
   }
+
+  setExpandCollapseStatus(type) {
+    this.expandCollapseStatus = type;
+  }
+
 }
