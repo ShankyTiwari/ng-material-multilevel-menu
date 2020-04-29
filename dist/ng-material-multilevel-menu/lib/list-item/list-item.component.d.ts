@@ -1,6 +1,6 @@
 import { EventEmitter, OnChanges, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Configuration, ListStyle, MultilevelNodes } from './../app.model';
+import { Configuration, ListStyle, MultilevelNodes, ExpandCollapseStatusEnum } from './../app.model';
 import { MultilevelMenuService } from './../multilevel-menu.service';
 export declare class ListItemComponent implements OnChanges, OnInit {
     private router;
@@ -10,6 +10,7 @@ export declare class ListItemComponent implements OnChanges, OnInit {
     submenuLevel: number;
     selectedNode: MultilevelNodes;
     nodeConfiguration: Configuration;
+    nodeExpandCollapseStatus: ExpandCollapseStatusEnum;
     selectedItem: EventEmitter<MultilevelNodes>;
     isSelected: boolean;
     nodeChildren: MultilevelNodes[];
@@ -36,6 +37,7 @@ export declare class ListItemComponent implements OnChanges, OnInit {
     hasItems(): boolean;
     isRtlLayout(): boolean;
     setClasses(): void;
+    setExpandCollapseStatus(): void;
     expand(node: MultilevelNodes): void;
     selectedListItem(node: MultilevelNodes): void;
 }
