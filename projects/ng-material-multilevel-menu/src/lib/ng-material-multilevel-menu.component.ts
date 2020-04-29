@@ -1,10 +1,8 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-import { BackgroundStyle, Configuration, MultilevelNodes } from './app.model';
+import { BackgroundStyle, Configuration, MultilevelNodes, ExpandCollapseStatusEnum } from './app.model';
 import { CONSTANT } from './constants';
 import { MultilevelMenuService } from './multilevel-menu.service';
-
-
 
 @Component({
   selector: 'ng-material-multilevel-menu',
@@ -14,6 +12,7 @@ import { MultilevelMenuService } from './multilevel-menu.service';
 export class NgMaterialMultilevelMenuComponent implements OnInit, OnChanges {
   @Input() items: MultilevelNodes[];
   @Input() configuration: Configuration = null;
+  @Input() expandCollapseStatus: ExpandCollapseStatusEnum = null;
   @Output() selectedItem = new EventEmitter<MultilevelNodes>();
   @Output() selectedLabel = new EventEmitter<MultilevelNodes>();
   currentNode: MultilevelNodes;
@@ -28,12 +27,14 @@ export class NgMaterialMultilevelMenuComponent implements OnInit, OnChanges {
     rtlLayout: false,
   };
   isInvalidConfig = true;
+  nodeExpandCollapseStatus: ExpandCollapseStatusEnum = null;
   constructor(
     private router: Router,
     public multilevelMenuService: MultilevelMenuService
   ) { }
   ngOnChanges() {
     this.detectInvalidConfig();
+    this.detectExpandCollapseStatus();
   }
   ngOnInit() {
     if (
@@ -115,6 +116,12 @@ export class NgMaterialMultilevelMenuComponent implements OnInit, OnChanges {
       }
     }
     this.checkValidData();
+  }
+  detectExpandCollapseStatus(): void {
+    if (this.expandCollapseStatus !== null &&
+      this.expandCollapseStatus !== undefined) {
+      this.nodeExpandCollapseStatus = this.expandCollapseStatus;
+    }
   }
   getClassName(): string {
     if (this.isInvalidConfig) {

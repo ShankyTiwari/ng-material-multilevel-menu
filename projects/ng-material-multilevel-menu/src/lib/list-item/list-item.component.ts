@@ -1,7 +1,7 @@
 import { animate, group, state, style, transition, trigger } from '@angular/animations';
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
-import { Configuration, ListStyle, MultilevelNodes } from './../app.model';
+import { Configuration, ListStyle, MultilevelNodes, ExpandCollapseStatusEnum } from './../app.model';
 import { CONSTANT } from './../constants';
 import { MultilevelMenuService } from './../multilevel-menu.service';
 
@@ -59,6 +59,7 @@ export class ListItemComponent implements OnChanges, OnInit {
   @Input() submenuLevel = 0;
   @Input() selectedNode: MultilevelNodes;
   @Input() nodeConfiguration: Configuration = null;
+  @Input() nodeExpandCollapseStatus: ExpandCollapseStatusEnum = null;
   @Output() selectedItem = new EventEmitter<MultilevelNodes>();
   isSelected = false;
   nodeChildren: MultilevelNodes[];
@@ -81,6 +82,7 @@ export class ListItemComponent implements OnChanges, OnInit {
     if (this.selectedNode !== undefined && this.selectedNode !== null) {
       this.setSelectedClass(this.multilevelMenuService.recursiveCheckId(this.node, this.selectedNode.id));
     }
+    this.setExpandCollapseStatus();
   }
   ngOnInit() {
     this.selectedListClasses[CONSTANT.DISABLED_ITEM_CLASS_NAME] = this.node.disabled;
@@ -191,6 +193,11 @@ export class ListItemComponent implements OnChanges, OnInit {
       [`level-${this.level + 1}`]: true,
       'amml-submenu': this.hasItems() && this.getPaddingAtStart()
     };
+  }
+  setExpandCollapseStatus(): void {
+    if (this.nodeExpandCollapseStatus !== null && this.nodeExpandCollapseStatus !== undefined ) {
+      this.expanded = this.nodeExpandCollapseStatus === ExpandCollapseStatusEnum.expand;
+    }
   }
   expand(node: MultilevelNodes): void {
     if (node.disabled) {
