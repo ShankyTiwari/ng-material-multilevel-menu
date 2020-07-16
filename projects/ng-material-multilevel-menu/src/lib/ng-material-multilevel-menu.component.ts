@@ -24,6 +24,7 @@ export class NgMaterialMultilevelMenuComponent implements OnInit, OnChanges {
     interfaceWithRoute: null,
     collapseOnSelect: null,
     highlightOnSelect: false,
+    useDividers: true,
     rtlLayout: false,
   };
   isInvalidConfig = true;
@@ -108,6 +109,11 @@ export class NgMaterialMultilevelMenuComponent implements OnInit, OnChanges {
         config.highlightOnSelect !== undefined &&
         typeof config.highlightOnSelect === 'boolean') {
         this.nodeConfig.highlightOnSelect = config.highlightOnSelect;
+      }
+      if (config.useDividers !== null &&
+        config.useDividers !== undefined &&
+        typeof config.useDividers === 'boolean') {
+        this.nodeConfig.useDividers = config.useDividers;
       }
       if (config.rtlLayout !== null &&
         config.rtlLayout !== undefined &&

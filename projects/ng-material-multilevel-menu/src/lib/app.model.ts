@@ -33,6 +33,7 @@ export interface Configuration {
     interfaceWithRoute?: boolean;
     collapseOnSelect?: boolean;
     highlightOnSelect?: boolean;
+    useDividers?: boolean;
     rtlLayout?: boolean;
 }
 

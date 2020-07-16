@@ -8,7 +8,7 @@
   <ng-container *ngTemplateOutlet="linkTemplate"></ng-container>
 </mat-list-item>
 
-<mat-divider></mat-divider>
+<mat-divider *ngIf="nodeConfiguration.useDividers"></mat-divider>
 
 <div *ngIf="hasItems() && expanded" [@slideInOut] [dir]="isRtlLayout() ? 'rtl' : 'ltr'" [ngClass]="classes">
   <ng-list-item *ngFor="let singleNode of nodeChildren | keyvalue : multilevelMenuService.kvDummyComparerFn"
