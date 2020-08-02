@@ -166,6 +166,7 @@ appitems = [
     * ```paddingAtStart: boolean``` => *[optional]* If you don't want padding at the start of the list item, then you can give ```false```. The default value will be ```true```.
     * ```interfaceWithRoute: boolean``` => *[required]* only if you want to use Angular Routing with this menu.
     * ```highlightOnSelect: boolean``` => *[optional]* If you want to highlight the clicked item in the list, then you can do that by making it ```true```. The default value will be ```false```.
+    * ```useDividers: boolean``` => *[optional]* If you want to the list to have dividers. The default value will be ```true```.
     * ```collapseOnSelect: boolean;``` => *[optional]* You have the option to collapse another parent when clicked on the current parent. The default value will be ```false```. 
     * ```rtlLayout: boolean;``` => *[optional]* whether display is Right To Left. The default value will be ```false```. 
     * ```classname: string;``` => *[optional]* You can give your own custom class name in order to modify the list appearance. 
@@ -188,6 +189,7 @@ config = {
     selectedListFontColor: `red`,
     highlightOnSelect: true,
     collapseOnSelect: true,
+    useDividers: false,
     rtlLayout: false
 };
 
