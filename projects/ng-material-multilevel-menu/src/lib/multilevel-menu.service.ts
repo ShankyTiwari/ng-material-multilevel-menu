@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { MultilevelNodes } from './app.model';
+import * as UrlPattern from 'url-pattern';
 
 @Injectable({
   providedIn: 'root'
@@ -34,11 +35,12 @@ export class MultilevelMenuService {
     }
   }
   recursiveCheckLink(nodes: MultilevelNodes[], link: string): void {
+  const pattern = new UrlPattern(link);
     for (let nodeIndex = 0; nodeIndex < nodes.length; nodeIndex++) {
       const node = nodes[nodeIndex];
       for (const key in node) {
         if (node.hasOwnProperty(key)) {
-          if (encodeURI(node.link) === link) {
+          if (pattern.match(encodeURI(node.link))) {
             this.foundLinkObject = node;
           } else {
             if (node.items !== undefined) {
