@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { NgMaterialMultilevelMenuComponent } from './ng-material-multilevel-menu.component';
 
@@ -6,7 +6,7 @@ describe('NgMaterialMultilevelMenuComponent', () => {
   let component: NgMaterialMultilevelMenuComponent;
   let fixture: ComponentFixture<NgMaterialMultilevelMenuComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ NgMaterialMultilevelMenuComponent ]
     })
