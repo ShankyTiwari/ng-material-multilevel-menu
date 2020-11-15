@@ -1,222 +1,8 @@
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/common'), require('@angular/core'), require('@angular/router'), require('@angular/animations'), require('@angular/material/core'), require('@angular/material/icon'), require('@angular/material/list')) :
     typeof define === 'function' && define.amd ? define('ng-material-multilevel-menu', ['exports', '@angular/common', '@angular/core', '@angular/router', '@angular/animations', '@angular/material/core', '@angular/material/icon', '@angular/material/list'], factory) :
-    (global = global || self, factory(global['ng-material-multilevel-menu'] = {}, global.ng.common, global.ng.core, global.ng.router, global.ng.animations, global.ng.material.core, global.ng.material.icon, global.ng.material.list));
-}(this, (function (exports, common, core, router, animations, core$1, icon, list) { 'use strict';
-
-    /*! *****************************************************************************
-    Copyright (c) Microsoft Corporation. All rights reserved.
-    Licensed under the Apache License, Version 2.0 (the "License"); you may not use
-    this file except in compliance with the License. You may obtain a copy of the
-    License at http://www.apache.org/licenses/LICENSE-2.0
-
-    THIS CODE IS PROVIDED ON AN *AS IS* BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-    KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY IMPLIED
-    WARRANTIES OR CONDITIONS OF TITLE, FITNESS FOR A PARTICULAR PURPOSE,
-    MERCHANTABLITY OR NON-INFRINGEMENT.
-
-    See the Apache Version 2.0 License for specific language governing permissions
-    and limitations under the License.
-    ***************************************************************************** */
-    /* global Reflect, Promise */
-
-    var extendStatics = function(d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-
-    function __extends(d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    }
-
-    var __assign = function() {
-        __assign = Object.assign || function __assign(t) {
-            for (var s, i = 1, n = arguments.length; i < n; i++) {
-                s = arguments[i];
-                for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
-            }
-            return t;
-        };
-        return __assign.apply(this, arguments);
-    };
-
-    function __rest(s, e) {
-        var t = {};
-        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
-            t[p] = s[p];
-        if (s != null && typeof Object.getOwnPropertySymbols === "function")
-            for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
-                if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
-                    t[p[i]] = s[p[i]];
-            }
-        return t;
-    }
-
-    function __decorate(decorators, target, key, desc) {
-        var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-        if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-        else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-        return c > 3 && r && Object.defineProperty(target, key, r), r;
-    }
-
-    function __param(paramIndex, decorator) {
-        return function (target, key) { decorator(target, key, paramIndex); }
-    }
-
-    function __metadata(metadataKey, metadataValue) {
-        if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(metadataKey, metadataValue);
-    }
-
-    function __awaiter(thisArg, _arguments, P, generator) {
-        function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-        return new (P || (P = Promise))(function (resolve, reject) {
-            function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-            function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-            function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-            step((generator = generator.apply(thisArg, _arguments || [])).next());
-        });
-    }
-
-    function __generator(thisArg, body) {
-        var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
-        return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
-        function verb(n) { return function (v) { return step([n, v]); }; }
-        function step(op) {
-            if (f) throw new TypeError("Generator is already executing.");
-            while (_) try {
-                if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
-                if (y = 0, t) op = [op[0] & 2, t.value];
-                switch (op[0]) {
-                    case 0: case 1: t = op; break;
-                    case 4: _.label++; return { value: op[1], done: false };
-                    case 5: _.label++; y = op[1]; op = [0]; continue;
-                    case 7: op = _.ops.pop(); _.trys.pop(); continue;
-                    default:
-                        if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
-                        if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
-                        if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
-                        if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
-                        if (t[2]) _.ops.pop();
-                        _.trys.pop(); continue;
-                }
-                op = body.call(thisArg, _);
-            } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
-            if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
-        }
-    }
-
-    function __exportStar(m, exports) {
-        for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
-    }
-
-    function __values(o) {
-        var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
-        if (m) return m.call(o);
-        if (o && typeof o.length === "number") return {
-            next: function () {
-                if (o && i >= o.length) o = void 0;
-                return { value: o && o[i++], done: !o };
-            }
-        };
-        throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
-    }
-
-    function __read(o, n) {
-        var m = typeof Symbol === "function" && o[Symbol.iterator];
-        if (!m) return o;
-        var i = m.call(o), r, ar = [], e;
-        try {
-            while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
-        }
-        catch (error) { e = { error: error }; }
-        finally {
-            try {
-                if (r && !r.done && (m = i["return"])) m.call(i);
-            }
-            finally { if (e) throw e.error; }
-        }
-        return ar;
-    }
-
-    function __spread() {
-        for (var ar = [], i = 0; i < arguments.length; i++)
-            ar = ar.concat(__read(arguments[i]));
-        return ar;
-    }
-
-    function __spreadArrays() {
-        for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
-        for (var r = Array(s), k = 0, i = 0; i < il; i++)
-            for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
-                r[k] = a[j];
-        return r;
-    };
-
-    function __await(v) {
-        return this instanceof __await ? (this.v = v, this) : new __await(v);
-    }
-
-    function __asyncGenerator(thisArg, _arguments, generator) {
-        if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
-        var g = generator.apply(thisArg, _arguments || []), i, q = [];
-        return i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i;
-        function verb(n) { if (g[n]) i[n] = function (v) { return new Promise(function (a, b) { q.push([n, v, a, b]) > 1 || resume(n, v); }); }; }
-        function resume(n, v) { try { step(g[n](v)); } catch (e) { settle(q[0][3], e); } }
-        function step(r) { r.value instanceof __await ? Promise.resolve(r.value.v).then(fulfill, reject) : settle(q[0][2], r); }
-        function fulfill(value) { resume("next", value); }
-        function reject(value) { resume("throw", value); }
-        function settle(f, v) { if (f(v), q.shift(), q.length) resume(q[0][0], q[0][1]); }
-    }
-
-    function __asyncDelegator(o) {
-        var i, p;
-        return i = {}, verb("next"), verb("throw", function (e) { throw e; }), verb("return"), i[Symbol.iterator] = function () { return this; }, i;
-        function verb(n, f) { i[n] = o[n] ? function (v) { return (p = !p) ? { value: __await(o[n](v)), done: n === "return" } : f ? f(v) : v; } : f; }
-    }
-
-    function __asyncValues(o) {
-        if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
-        var m = o[Symbol.asyncIterator], i;
-        return m ? m.call(o) : (o = typeof __values === "function" ? __values(o) : o[Symbol.iterator](), i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i);
-        function verb(n) { i[n] = o[n] && function (v) { return new Promise(function (resolve, reject) { v = o[n](v), settle(resolve, reject, v.done, v.value); }); }; }
-        function settle(resolve, reject, d, v) { Promise.resolve(v).then(function(v) { resolve({ value: v, done: d }); }, reject); }
-    }
-
-    function __makeTemplateObject(cooked, raw) {
-        if (Object.defineProperty) { Object.defineProperty(cooked, "raw", { value: raw }); } else { cooked.raw = raw; }
-        return cooked;
-    };
-
-    function __importStar(mod) {
-        if (mod && mod.__esModule) return mod;
-        var result = {};
-        if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
-        result.default = mod;
-        return result;
-    }
-
-    function __importDefault(mod) {
-        return (mod && mod.__esModule) ? mod : { default: mod };
-    }
-
-    function __classPrivateFieldGet(receiver, privateMap) {
-        if (!privateMap.has(receiver)) {
-            throw new TypeError("attempted to get private field on non-instance");
-        }
-        return privateMap.get(receiver);
-    }
-
-    function __classPrivateFieldSet(receiver, privateMap, value) {
-        if (!privateMap.has(receiver)) {
-            throw new TypeError("attempted to set private field on non-instance");
-        }
-        privateMap.set(receiver, value);
-        return value;
-    }
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global['ng-material-multilevel-menu'] = {}, global.ng.common, global.ng.core, global.ng.router, global.ng.animations, global.ng.material.core, global.ng.material.icon, global.ng.material.list));
+}(this, (function (exports, common, i0, router, animations, core, icon, list) { 'use strict';
 
     (function (ExpandCollapseStatusEnum) {
         ExpandCollapseStatusEnum["expand"] = "expand";
@@ -296,14 +82,14 @@
         MultilevelMenuService.prototype.kvDummyComparerFn = function () {
             return 0;
         };
-        MultilevelMenuService.ɵprov = core.ɵɵdefineInjectable({ factory: function MultilevelMenuService_Factory() { return new MultilevelMenuService(); }, token: MultilevelMenuService, providedIn: "root" });
-        MultilevelMenuService = __decorate([
-            core.Injectable({
-                providedIn: 'root'
-            })
-        ], MultilevelMenuService);
         return MultilevelMenuService;
     }());
+    MultilevelMenuService.ɵprov = i0.ɵɵdefineInjectable({ factory: function MultilevelMenuService_Factory() { return new MultilevelMenuService(); }, token: MultilevelMenuService, providedIn: "root" });
+    MultilevelMenuService.decorators = [
+        { type: i0.Injectable, args: [{
+                    providedIn: 'root'
+                },] }
+    ];
 
     var ListItemComponent = /** @class */ (function () {
         function ListItemComponent(router, multilevelMenuService) {
@@ -314,7 +100,7 @@
             this.submenuLevel = 0;
             this.nodeConfiguration = null;
             this.nodeExpandCollapseStatus = null;
-            this.selectedItem = new core.EventEmitter();
+            this.selectedItem = new i0.EventEmitter();
             this.isSelected = false;
             this.expanded = false;
             this.firstInitializer = false;
@@ -481,101 +267,80 @@
         ListItemComponent.prototype.selectedListItem = function (node) {
             this.selectedItem.emit(node);
         };
-        ListItemComponent.ctorParameters = function () { return [
-            { type: router.Router },
-            { type: MultilevelMenuService }
-        ]; };
-        __decorate([
-            core.Input(),
-            __metadata("design:type", Object)
-        ], ListItemComponent.prototype, "node", void 0);
-        __decorate([
-            core.Input(),
-            __metadata("design:type", Object)
-        ], ListItemComponent.prototype, "level", void 0);
-        __decorate([
-            core.Input(),
-            __metadata("design:type", Object)
-        ], ListItemComponent.prototype, "submenuLevel", void 0);
-        __decorate([
-            core.Input(),
-            __metadata("design:type", Object)
-        ], ListItemComponent.prototype, "selectedNode", void 0);
-        __decorate([
-            core.Input(),
-            __metadata("design:type", Object)
-        ], ListItemComponent.prototype, "nodeConfiguration", void 0);
-        __decorate([
-            core.Input(),
-            __metadata("design:type", String)
-        ], ListItemComponent.prototype, "nodeExpandCollapseStatus", void 0);
-        __decorate([
-            core.Output(),
-            __metadata("design:type", Object)
-        ], ListItemComponent.prototype, "selectedItem", void 0);
-        ListItemComponent = __decorate([
-            core.Component({
-                selector: 'ng-list-item',
-                template: "<mat-list-item matRipple \r\n  *ngIf=\"!node.hidden\"\r\n  title=\"{{node.label}}\"\r\n  [matRippleDisabled]=\"node.disabled\" \r\n  [ngClass]=\"selectedListClasses\"\r\n  [ngStyle]=\"getListStyle()\"\r\n  (click)=\"expand(node)\">\r\n  <ng-container *ngTemplateOutlet=\"linkTemplate\"></ng-container>\r\n</mat-list-item>\r\n\r\n<mat-divider></mat-divider>\r\n\r\n<div *ngIf=\"hasItems() && expanded\" [@slideInOut] [dir]=\"isRtlLayout() ? 'rtl' : 'ltr'\" [ngClass]=\"classes\">\r\n  <ng-list-item *ngFor=\"let singleNode of nodeChildren | keyvalue : multilevelMenuService.kvDummyComparerFn\"\r\n    [nodeConfiguration]='nodeConfiguration' \r\n    [node]=\"singleNode.value\" \r\n    [level]=\"level + 1\"\r\n    [submenuLevel]=\"singleNode.key\"\r\n    [selectedNode]='selectedNode' \r\n    [nodeExpandCollapseStatus]='nodeExpandCollapseStatus'\r\n    (selectedItem)=\"selectedListItem($event)\">\r\n  </ng-list-item>\r\n</div>\r\n\r\n<ng-template #linkTemplate>\r\n  <a class=\"anml-link\" *ngIf=\"node.externalRedirect\" [href]=\"node.link\" [target]=\"getHrefTargetType()\">\r\n    <ng-container *ngTemplateOutlet=\"linkLabelOutlet\"></ng-container>\r\n  </a>\r\n  <a class=\"anml-link\" *ngIf=\"!node.externalRedirect\" [routerLink]=\"node.link\">\r\n    <ng-container *ngTemplateOutlet=\"linkLabelOutlet\"></ng-container>\r\n  </a>\r\n</ng-template>\r\n\r\n<ng-template #linkLabelOutlet>\r\n  <div class=\"anml-data\" [dir]=\"isRtlLayout() ? 'rtl' : 'ltr'\">\r\n    <div class=\"icon-container\" [ngSwitch]=\"getListIcon(node)\">\r\n      <span *ngSwitchCase=\"'faicon'\" class=\"amml-icon amml-icon-fa\">\r\n        <i [ngClass]=\"getSelectedFaIcon()\"></i>\r\n      </span>\r\n      <mat-icon *ngSwitchCase=\"'icon'\" class=\"amml-icon\">\r\n        {{getSelectedIcon()}}\r\n      </mat-icon>\r\n      <mat-icon *ngSwitchCase=\"'svgicon'\" svgIcon=\"{{getSelectedSvgIcon()}}\" class=\"amml-icon amml-svg-icon\">\r\n      </mat-icon>\r\n      <img matListAvatar *ngSwitchCase=\"'imageicon'\" class=\"amml-icon\" src=\"{{getSelectedImageIcon()}}\"\r\n        alt=\"{{node.label}}\" />\r\n    </div>\r\n    <span class=\"label\">{{node.label}}</span>\r\n  </div>\r\n  <div class=\"amml-icon-arrow-container\" *ngIf='hasItems()'>\r\n    <mat-icon *ngIf='!isRtlLayout()' [@isExpandedLTR]=\"expanded ? 'yes' : 'no'\">\r\n      keyboard_arrow_down\r\n    </mat-icon>\r\n    <mat-icon *ngIf='isRtlLayout()' [@isExpandedRTL]=\"expanded ? 'yes' : 'no'\">\r\n      keyboard_arrow_down\r\n    </mat-icon>\r\n  </div>\r\n</ng-template>",
-                animations: [
-                    animations.trigger('slideInOut', [
-                        animations.state('in', animations.style({ height: '*', opacity: 0 })),
-                        animations.transition(':leave', [
-                            animations.style({ height: '*', opacity: 0.2 }),
-                            animations.group([
-                                animations.animate(200, animations.style({ height: 0 })),
-                                animations.animate('200ms ease-out', animations.style({ opacity: 0 }))
-                            ])
-                        ]),
-                        animations.transition(':enter', [
-                            animations.style({ height: '0', opacity: 0 }),
-                            animations.group([
-                                animations.animate(200, animations.style({ height: '*' })),
-                                animations.animate('400ms ease-out', animations.style({ opacity: 1 }))
-                            ])
-                        ])
-                    ]),
-                    animations.trigger('isExpandedLTR', [
-                        animations.state('no', animations.style({ transform: 'rotate(-90deg)' })),
-                        animations.state('yes', animations.style({ transform: 'rotate(0deg)', })),
-                        animations.transition('no => yes', animations.animate(200)),
-                        animations.transition('yes => no', animations.animate(200))
-                    ]),
-                    animations.trigger('isExpandedRTL', [
-                        animations.state('no', animations.style({ transform: 'rotate(90deg)' })),
-                        animations.state('yes', animations.style({ transform: 'rotate(0deg)', })),
-                        animations.transition('no => yes', animations.animate(200)),
-                        animations.transition('yes => no', animations.animate(200))
-                    ])
-                ],
-                styles: [".amml-item{line-height:48px;position:relative;cursor:pointer}.anml-link{width:100%;display:flex;justify-content:flex-start;text-transform:capitalize;text-decoration:none;color:inherit}.anml-data{width:100%;height:48px;display:flex;justify-content:flex-start}.disabled-amml-item{opacity:.5;text-decoration:none;pointer-events:none}.icon-container{display:flex;flex-direction:column;justify-content:center}.amml-icon-fa{font-size:20px}.label{line-height:48px;font-weight:400}.amml-svg-icon{width:22px;height:22px;margin-top:-12px}.amml-icon-arrow-container{direction:ltr;display:flex;align-items:center}div[dir=ltr] .amml-icon{margin-right:16px}div[dir=ltr].amml-submenu,div[dir=rtl] .amml-icon{margin-left:16px}div[dir=rtl].amml-submenu{margin-right:16px}"]
-            }),
-            __metadata("design:paramtypes", [router.Router,
-                MultilevelMenuService])
-        ], ListItemComponent);
         return ListItemComponent;
     }());
+    ListItemComponent.decorators = [
+        { type: i0.Component, args: [{
+                    selector: 'ng-list-item',
+                    template: "<mat-list-item matRipple \n  *ngIf=\"!node.hidden\"\n  title=\"{{node.label}}\"\n  [matRippleDisabled]=\"node.disabled\" \n  [ngClass]=\"selectedListClasses\"\n  [ngStyle]=\"getListStyle()\"\n  (click)=\"expand(node)\">\n  <ng-container *ngTemplateOutlet=\"linkTemplate\"></ng-container>\n</mat-list-item>\n\n<mat-divider *ngIf=\"nodeConfiguration.useDividers\"></mat-divider>\n\n<div *ngIf=\"hasItems() && expanded\" [@slideInOut] [dir]=\"isRtlLayout() ? 'rtl' : 'ltr'\" [ngClass]=\"classes\">\n  <ng-list-item *ngFor=\"let singleNode of nodeChildren | keyvalue : multilevelMenuService.kvDummyComparerFn\"\n    [nodeConfiguration]='nodeConfiguration' \n    [node]=\"singleNode.value\" \n    [level]=\"level + 1\"\n    [submenuLevel]=\"singleNode.key\"\n    [selectedNode]='selectedNode' \n    [nodeExpandCollapseStatus]='nodeExpandCollapseStatus'\n    (selectedItem)=\"selectedListItem($event)\">\n  </ng-list-item>\n</div>\n\n<ng-template #linkTemplate>\n  <a class=\"anml-link\" *ngIf=\"node.externalRedirect\" [href]=\"node.link\" [target]=\"getHrefTargetType()\">\n    <ng-container *ngTemplateOutlet=\"linkLabelOutlet\"></ng-container>\n  </a>\n  <a class=\"anml-link\" *ngIf=\"!node.externalRedirect\" [routerLink]=\"node.link\">\n    <ng-container *ngTemplateOutlet=\"linkLabelOutlet\"></ng-container>\n  </a>\n</ng-template>\n\n<ng-template #linkLabelOutlet>\n  <div class=\"anml-data\" [dir]=\"isRtlLayout() ? 'rtl' : 'ltr'\">\n    <div class=\"icon-container\" [ngSwitch]=\"getListIcon(node)\">\n      <span *ngSwitchCase=\"'faicon'\" class=\"amml-icon amml-icon-fa\">\n        <i [ngClass]=\"getSelectedFaIcon()\"></i>\n      </span>\n      <mat-icon *ngSwitchCase=\"'icon'\" class=\"amml-icon\">\n        {{getSelectedIcon()}}\n      </mat-icon>\n      <mat-icon *ngSwitchCase=\"'svgicon'\" svgIcon=\"{{getSelectedSvgIcon()}}\" class=\"amml-icon amml-svg-icon\">\n      </mat-icon>\n      <img matListAvatar *ngSwitchCase=\"'imageicon'\" class=\"amml-icon\" src=\"{{getSelectedImageIcon()}}\"\n        alt=\"{{node.label}}\" />\n    </div>\n    <span class=\"label\">{{node.label}}</span>\n  </div>\n  <div class=\"amml-icon-arrow-container\" *ngIf='hasItems()'>\n    <mat-icon *ngIf='!isRtlLayout()' [@isExpandedLTR]=\"expanded ? 'yes' : 'no'\">\n      keyboard_arrow_down\n    </mat-icon>\n    <mat-icon *ngIf='isRtlLayout()' [@isExpandedRTL]=\"expanded ? 'yes' : 'no'\">\n      keyboard_arrow_down\n    </mat-icon>\n  </div>\n</ng-template>",
+                    animations: [
+                        animations.trigger('slideInOut', [
+                            animations.state('in', animations.style({ height: '*', opacity: 0 })),
+                            animations.transition(':leave', [
+                                animations.style({ height: '*', opacity: 0.2 }),
+                                animations.group([
+                                    animations.animate(200, animations.style({ height: 0 })),
+                                    animations.animate('200ms ease-out', animations.style({ opacity: 0 }))
+                                ])
+                            ]),
+                            animations.transition(':enter', [
+                                animations.style({ height: '0', opacity: 0 }),
+                                animations.group([
+                                    animations.animate(200, animations.style({ height: '*' })),
+                                    animations.animate('400ms ease-out', animations.style({ opacity: 1 }))
+                                ])
+                            ])
+                        ]),
+                        animations.trigger('isExpandedLTR', [
+                            animations.state('no', animations.style({ transform: 'rotate(-90deg)' })),
+                            animations.state('yes', animations.style({ transform: 'rotate(0deg)', })),
+                            animations.transition('no => yes', animations.animate(200)),
+                            animations.transition('yes => no', animations.animate(200))
+                        ]),
+                        animations.trigger('isExpandedRTL', [
+                            animations.state('no', animations.style({ transform: 'rotate(90deg)' })),
+                            animations.state('yes', animations.style({ transform: 'rotate(0deg)', })),
+                            animations.transition('no => yes', animations.animate(200)),
+                            animations.transition('yes => no', animations.animate(200))
+                        ])
+                    ],
+                    styles: [".amml-item{cursor:pointer;line-height:48px;position:relative}.anml-link{color:inherit;text-decoration:none;text-transform:capitalize}.anml-data,.anml-link{display:flex;justify-content:flex-start;width:100%}.anml-data{height:48px}.disabled-amml-item{opacity:.5;pointer-events:none;text-decoration:none}.icon-container{display:flex;flex-direction:column;justify-content:center}.amml-icon-fa{font-size:20px}.label{font-weight:400;line-height:48px}.amml-svg-icon{height:22px;margin-top:-12px;width:22px}.amml-icon-arrow-container{align-items:center;direction:ltr;display:flex}div[dir=ltr] .amml-icon{margin-right:16px}div[dir=ltr].amml-submenu,div[dir=rtl] .amml-icon{margin-left:16px}div[dir=rtl].amml-submenu{margin-right:16px}"]
+                },] }
+    ];
+    ListItemComponent.ctorParameters = function () { return [
+        { type: router.Router },
+        { type: MultilevelMenuService }
+    ]; };
+    ListItemComponent.propDecorators = {
+        node: [{ type: i0.Input }],
+        level: [{ type: i0.Input }],
+        submenuLevel: [{ type: i0.Input }],
+        selectedNode: [{ type: i0.Input }],
+        nodeConfiguration: [{ type: i0.Input }],
+        nodeExpandCollapseStatus: [{ type: i0.Input }],
+        selectedItem: [{ type: i0.Output }]
+    };
 
     var MaterialsModule = /** @class */ (function () {
         function MaterialsModule() {
         }
-        MaterialsModule = __decorate([
-            core.NgModule({
-                imports: [
-                    icon.MatIconModule,
-                    list.MatListModule,
-                    core$1.MatRippleModule,
-                ],
-                declarations: [],
-                exports: [
-                    icon.MatIconModule,
-                    list.MatListModule,
-                    core$1.MatRippleModule,
-                ]
-            })
-        ], MaterialsModule);
         return MaterialsModule;
     }());
+    MaterialsModule.decorators = [
+        { type: i0.NgModule, args: [{
+                    imports: [
+                        icon.MatIconModule,
+                        list.MatListModule,
+                        core.MatRippleModule,
+                    ],
+                    declarations: [],
+                    exports: [
+                        icon.MatIconModule,
+                        list.MatListModule,
+                        core.MatRippleModule,
+                    ]
+                },] }
+    ];
 
     var NgMaterialMultilevelMenuComponent = /** @class */ (function () {
         function NgMaterialMultilevelMenuComponent(router, multilevelMenuService) {
@@ -583,8 +348,8 @@
             this.multilevelMenuService = multilevelMenuService;
             this.configuration = null;
             this.expandCollapseStatus = null;
-            this.selectedItem = new core.EventEmitter();
-            this.selectedLabel = new core.EventEmitter();
+            this.selectedItem = new i0.EventEmitter();
+            this.selectedLabel = new i0.EventEmitter();
             this.nodeConfig = {
                 paddingAtStart: true,
                 listBackgroundColor: null,
@@ -593,6 +358,7 @@
                 interfaceWithRoute: null,
                 collapseOnSelect: null,
                 highlightOnSelect: false,
+                useDividers: true,
                 rtlLayout: false,
             };
             this.isInvalidConfig = true;
@@ -676,6 +442,11 @@
                     typeof config.highlightOnSelect === 'boolean') {
                     this.nodeConfig.highlightOnSelect = config.highlightOnSelect;
                 }
+                if (config.useDividers !== null &&
+                    config.useDividers !== undefined &&
+                    typeof config.useDividers === 'boolean') {
+                    this.nodeConfig.useDividers = config.useDividers;
+                }
                 if (config.rtlLayout !== null &&
                     config.rtlLayout !== undefined &&
                     typeof config.rtlLayout === 'boolean') {
@@ -728,61 +499,54 @@
                 this.selectedLabel.emit(event);
             }
         };
-        NgMaterialMultilevelMenuComponent.ctorParameters = function () { return [
-            { type: router.Router },
-            { type: MultilevelMenuService }
-        ]; };
-        __decorate([
-            core.Input(),
-            __metadata("design:type", Array)
-        ], NgMaterialMultilevelMenuComponent.prototype, "items", void 0);
-        __decorate([
-            core.Input(),
-            __metadata("design:type", Object)
-        ], NgMaterialMultilevelMenuComponent.prototype, "configuration", void 0);
-        __decorate([
-            core.Input(),
-            __metadata("design:type", String)
-        ], NgMaterialMultilevelMenuComponent.prototype, "expandCollapseStatus", void 0);
-        __decorate([
-            core.Output(),
-            __metadata("design:type", Object)
-        ], NgMaterialMultilevelMenuComponent.prototype, "selectedItem", void 0);
-        __decorate([
-            core.Output(),
-            __metadata("design:type", Object)
-        ], NgMaterialMultilevelMenuComponent.prototype, "selectedLabel", void 0);
-        NgMaterialMultilevelMenuComponent = __decorate([
-            core.Component({
-                selector: 'ng-material-multilevel-menu',
-                template: "<div [ngClass]=\"getClassName()\" [ngStyle]=\"getGlobalStyle()\" *ngIf='items.length !== 0' [dir]=\"isRtlLayout() ? 'rtl' : 'ltr'\">\r\n  <mat-list>\r\n    <ng-list-item\r\n      *ngFor=\"let node of items | keyvalue: multilevelMenuService.kvDummyComparerFn\"\r\n      [nodeConfiguration]='nodeConfig'\r\n      [node]='node.value'\r\n      [level]=\"1\"\r\n      [submenuLevel]=\"node.key\"\r\n      [selectedNode]='currentNode'\r\n      [nodeExpandCollapseStatus]='nodeExpandCollapseStatus'\r\n      (selectedItem)=\"selectedListItem($event)\r\n    \">\r\n    </ng-list-item>\r\n  </mat-list>\r\n</div>\r\n",
-                styles: [".amml-item{line-height:48px;display:flex;justify-content:space-between;position:relative}.anml-data{width:100%;text-transform:capitalize;display:flex;justify-content:flex-start}.amml-icon-fa{font-size:20px}.amml-icon{line-height:48px}.active{color:#1976d2}div[dir=ltr] .amml-icon{margin-right:15px}div[dir=ltr] .amml-submenu{margin-left:16px}div[dir=rtl] .amml-icon{margin-left:15px}div[dir=rtl] .amml-submenu{margin-right:16px}"]
-            }),
-            __metadata("design:paramtypes", [router.Router,
-                MultilevelMenuService])
-        ], NgMaterialMultilevelMenuComponent);
         return NgMaterialMultilevelMenuComponent;
     }());
+    NgMaterialMultilevelMenuComponent.decorators = [
+        { type: i0.Component, args: [{
+                    selector: 'ng-material-multilevel-menu',
+                    template: "<div [ngClass]=\"getClassName()\" [ngStyle]=\"getGlobalStyle()\" *ngIf='items.length !== 0' [dir]=\"isRtlLayout() ? 'rtl' : 'ltr'\">\n  <mat-list>\n    <ng-list-item\n      *ngFor=\"let node of items | keyvalue: multilevelMenuService.kvDummyComparerFn\"\n      [nodeConfiguration]='nodeConfig'\n      [node]='node.value'\n      [level]=\"1\"\n      [submenuLevel]=\"node.key\"\n      [selectedNode]='currentNode'\n      [nodeExpandCollapseStatus]='nodeExpandCollapseStatus'\n      (selectedItem)=\"selectedListItem($event)\n    \">\n    </ng-list-item>\n  </mat-list>\n</div>\n",
+                    styles: [".amml-item{display:flex;justify-content:space-between;line-height:48px;position:relative}.anml-data{display:flex;justify-content:flex-start;text-transform:capitalize;width:100%}.amml-icon-fa{font-size:20px}.amml-icon{line-height:48px}.active{color:#1976d2}div[dir=ltr] .amml-icon{margin-right:15px}div[dir=ltr] .amml-submenu{margin-left:16px}div[dir=rtl] .amml-icon{margin-left:15px}div[dir=rtl] .amml-submenu{margin-right:16px}"]
+                },] }
+    ];
+    NgMaterialMultilevelMenuComponent.ctorParameters = function () { return [
+        { type: router.Router },
+        { type: MultilevelMenuService }
+    ]; };
+    NgMaterialMultilevelMenuComponent.propDecorators = {
+        items: [{ type: i0.Input }],
+        configuration: [{ type: i0.Input }],
+        expandCollapseStatus: [{ type: i0.Input }],
+        selectedItem: [{ type: i0.Output }],
+        selectedLabel: [{ type: i0.Output }]
+    };
 
     var NgMaterialMultilevelMenuModule = /** @class */ (function () {
         function NgMaterialMultilevelMenuModule() {
         }
-        NgMaterialMultilevelMenuModule = __decorate([
-            core.NgModule({
-                imports: [
-                    common.CommonModule,
-                    MaterialsModule,
-                    router.RouterModule,
-                ],
-                declarations: [
-                    NgMaterialMultilevelMenuComponent,
-                    ListItemComponent,
-                ],
-                exports: [NgMaterialMultilevelMenuComponent]
-            })
-        ], NgMaterialMultilevelMenuModule);
         return NgMaterialMultilevelMenuModule;
     }());
+    NgMaterialMultilevelMenuModule.decorators = [
+        { type: i0.NgModule, args: [{
+                    imports: [
+                        common.CommonModule,
+                        MaterialsModule,
+                        router.RouterModule,
+                    ],
+                    declarations: [
+                        NgMaterialMultilevelMenuComponent,
+                        ListItemComponent,
+                    ],
+                    exports: [NgMaterialMultilevelMenuComponent]
+                },] }
+    ];
+
+    /*
+     * Public API Surface of ng-material-multilevel-menu
+     */
+
+    /**
+     * Generated bundle index. Do not edit.
+     */
 
     exports.NgMaterialMultilevelMenuComponent = NgMaterialMultilevelMenuComponent;
     exports.NgMaterialMultilevelMenuModule = NgMaterialMultilevelMenuModule;
