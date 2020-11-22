@@ -16,6 +16,7 @@ export class NgMaterialMultilevelMenuComponent implements OnInit, OnChanges, OnD
   @Output() selectedItem = new EventEmitter<MultilevelNodes>();
   @Output() selectedLabel = new EventEmitter<MultilevelNodes>();
   expandCollapseStatusSubscription: Subscription = null;
+  selectMenuByIDSubscription: Subscription = null;
   currentNode: MultilevelNodes;
   nodeConfig: Configuration = {
     paddingAtStart: true,
@@ -62,7 +63,9 @@ export class NgMaterialMultilevelMenuComponent implements OnInit, OnChanges, OnD
       // && !foundNode.disabled // Prevent route redirection for disabled menu
     ) {
       this.currentNode = foundNode;
-      this.selectedListItem(foundNode);
+      if(foundNode.dontEmit !== undefined && foundNode.dontEmit !== null && !foundNode.dontEmit) {
+        this.selectedListItem(foundNode);
+      }
     }
   }
   checkValidData(): void {
@@ -133,7 +136,7 @@ export class NgMaterialMultilevelMenuComponent implements OnInit, OnChanges, OnD
     });
   }
   initSelectedMenuID(): void {
-    this.expandCollapseStatusSubscription = this.multilevelMenuService.selectedMenuID$.subscribe( (selectedMenuID: string) => {
+    this.selectMenuByIDSubscription = this.multilevelMenuService.selectedMenuID$.subscribe( (selectedMenuID: string) => {
       if(selectedMenuID) {
         const foundNode = this.multilevelMenuService.getMatchedObjectById(this.items, selectedMenuID);
         console.log(selectedMenuID, foundNode)
@@ -174,6 +177,9 @@ export class NgMaterialMultilevelMenuComponent implements OnInit, OnChanges, OnD
   selectedListItem(event: MultilevelNodes): void {
     this.nodeExpandCollapseStatus = ExpandCollapseStatusEnum.neutral;
     this.currentNode = event;
+    if(event.dontEmit !== undefined && event.dontEmit !== null && event.dontEmit) {
+      return;
+    }
     if (event.items === undefined && (!event.onSelected || typeof event.onSelected !== 'function') ) {
       this.selectedItem.emit(event);
     } else {
@@ -182,5 +188,6 @@ export class NgMaterialMultilevelMenuComponent implements OnInit, OnChanges, OnD
   }
   ngOnDestroy() {
     this.expandCollapseStatusSubscription.unsubscribe();
+    this.selectMenuByIDSubscription.unsubscribe();
   }
 }

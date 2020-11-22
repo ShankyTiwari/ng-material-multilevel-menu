@@ -21,6 +21,7 @@ export interface MultilevelNodes {
   disabled?: boolean;
   expanded?: boolean;
   navigationExtras?: NavigationExtras;
+  dontEmit: true;
 }
 
 export interface Configuration {

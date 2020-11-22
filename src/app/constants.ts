@@ -30,6 +30,7 @@ export const constant = {
                             link: '/demo two',
                             icon: 'favorite_border',
                             activeIcon: 'favorite',
+                            dontEmit: true,
                             navigationExtras: {
                                 queryParams: { order: 'popular', filter: 'new' },
                             }
@@ -98,6 +99,7 @@ export const constant = {
                                     label: 'Item 2.2',
                                     faIcon: 'fas fa-anchor', 
                                     activeFaIcon: 'fab fa-accusoft',
+                                    dontEmit: true,
                                 }
                             ]
                         },
@@ -117,5 +119,6 @@ export const constant = {
         paddingAtStart: true,
         interfaceWithRoute: true,
         rtlLayout: false,
+        collapseOnSelect: true,
     }
 };
