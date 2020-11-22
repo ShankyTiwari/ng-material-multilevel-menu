@@ -6,7 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { MaterialsModule } from './modules/materials.module';
 import { AppRoutingModule } from './app-routing.module';
 
-import { NgMaterialMultilevelMenuModule } from './../../projects/ng-material-multilevel-menu/src/lib/ng-material-multilevel-menu.module';
+import { NgMaterialMultilevelMenuModule } from './../../projects/ng-material-multilevel-menu/src/public_api';
 
 // import { NgMaterialMultilevelMenuModule } from 'ng-material-multilevel-menu';
 

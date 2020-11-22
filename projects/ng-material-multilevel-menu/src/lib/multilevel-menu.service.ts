@@ -1,12 +1,17 @@
 import { Injectable } from '@angular/core';
-import { MultilevelNodes } from './app.model';
+import { Observable, Subject } from 'rxjs';
+
+import { MultilevelNodes, ExpandCollapseStatusEnum } from './app.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MultilevelMenuService {
   foundLinkObject: MultilevelNodes;
-  generateId(): string {
+  expandCollapseStatus: Subject<any> = new Subject<any>();
+  expandCollapseStatus$: Observable<any> = this.expandCollapseStatus.asObservable();
+
+  private generateId(): string {
     let text = '';
     const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     for (let i = 0; i < 20; i++) {
@@ -33,7 +38,7 @@ export class MultilevelMenuService {
       }
     }
   }
-  recursiveCheckLink(nodes: MultilevelNodes[], link: string): void {
+  private recursiveCheckLink(nodes: MultilevelNodes[], link: string): void {
     for (let nodeIndex = 0; nodeIndex < nodes.length; nodeIndex++) {
       const node = nodes[nodeIndex];
       for (const key in node) {
@@ -57,5 +62,8 @@ export class MultilevelMenuService {
   // https://angular.io/api/common/KeyValuePipe#description
   kvDummyComparerFn() {
     return 0;
+  }
+  setMenuExapandCollpaseStatus(status: ExpandCollapseStatusEnum): void {
+    this.expandCollapseStatus.next(status ? status : ExpandCollapseStatusEnum.neutral);
   }
 }

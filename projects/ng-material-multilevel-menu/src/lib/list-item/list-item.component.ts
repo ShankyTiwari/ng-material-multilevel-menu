@@ -208,6 +208,7 @@ export class ListItemComponent implements OnChanges, OnInit {
     if (node.disabled) {
       return;
     }
+    this.nodeExpandCollapseStatus = ExpandCollapseStatusEnum.neutral;
     this.expanded = !this.expanded;
     this.firstInitializer = true;
     this.setClasses();

@@ -12,7 +12,6 @@ import { MultilevelMenuService } from './multilevel-menu.service';
 export class NgMaterialMultilevelMenuComponent implements OnInit, OnChanges {
   @Input() items: MultilevelNodes[];
   @Input() configuration: Configuration = null;
-  @Input() expandCollapseStatus: ExpandCollapseStatusEnum = null;
   @Output() selectedItem = new EventEmitter<MultilevelNodes>();
   @Output() selectedLabel = new EventEmitter<MultilevelNodes>();
   currentNode: MultilevelNodes;
@@ -28,14 +27,14 @@ export class NgMaterialMultilevelMenuComponent implements OnInit, OnChanges {
     rtlLayout: false,
   };
   isInvalidConfig = true;
-  nodeExpandCollapseStatus: ExpandCollapseStatusEnum = null;
+  nodeExpandCollapseStatus: ExpandCollapseStatusEnum = ExpandCollapseStatusEnum.neutral;
   constructor(
     private router: Router,
     public multilevelMenuService: MultilevelMenuService
   ) { }
   ngOnChanges() {
     this.detectInvalidConfig();
-    this.detectExpandCollapseStatus();
+    this.initExpandCollapseStatus();
   }
   ngOnInit() {
     if (
@@ -123,11 +122,12 @@ export class NgMaterialMultilevelMenuComponent implements OnInit, OnChanges {
     }
     this.checkValidData();
   }
-  detectExpandCollapseStatus(): void {
-    if (this.expandCollapseStatus !== null &&
-      this.expandCollapseStatus !== undefined) {
-      this.nodeExpandCollapseStatus = this.expandCollapseStatus;
-    }
+  initExpandCollapseStatus(): void {
+    this.multilevelMenuService.expandCollapseStatus$.subscribe( (expandCollapseStatus: ExpandCollapseStatusEnum) => {
+      this.nodeExpandCollapseStatus = expandCollapseStatus ? expandCollapseStatus : ExpandCollapseStatusEnum.neutral;
+    }, () => {
+      this.nodeExpandCollapseStatus = ExpandCollapseStatusEnum.neutral;
+    });
   }
   getClassName(): string {
     if (this.isInvalidConfig) {
@@ -157,6 +157,7 @@ export class NgMaterialMultilevelMenuComponent implements OnInit, OnChanges {
     return this.nodeConfig.rtlLayout;
   }
   selectedListItem(event: MultilevelNodes): void {
+    this.nodeExpandCollapseStatus = ExpandCollapseStatusEnum.neutral;
     this.currentNode = event;
     if (event.items === undefined && (!event.onSelected || typeof event.onSelected !== 'function') ) {
       this.selectedItem.emit(event);

@@ -49,4 +49,5 @@ export interface ListStyle {
 export enum ExpandCollapseStatusEnum {
     expand = 'expand',
     collapse = 'collapse',
+    neutral = 'neutral',
 }

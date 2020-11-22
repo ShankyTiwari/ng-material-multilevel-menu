@@ -70,6 +70,42 @@ export const constant = {
             ]
         },
         {
+            label: 'Item 2',
+            faIcon: 'fas fa-anchor', 
+            items: [
+                {
+                    label: 'Item 2.1',
+                    faIcon: 'fab fa-accusoft',
+                    activeFaIcon: 'fab fa-accusoft',
+                    disabled: true,
+                },
+                {
+                    label: 'Item 2.2',
+                    faIcon: 'fas fa-anchor', 
+                    activeFaIcon: 'fab fa-accusoft',
+                    items: [
+                        {
+                            label: 'Item 2',
+                            faIcon: 'fas fa-anchor', 
+                            items: [
+                                {
+                                    label: 'Item 2.1',
+                                    faIcon: 'fab fa-accusoft',
+                                    activeFaIcon: 'fab fa-accusoft',
+                                    disabled: true,
+                                },
+                                {
+                                    label: 'Item 2.2',
+                                    faIcon: 'fas fa-anchor', 
+                                    activeFaIcon: 'fab fa-accusoft',
+                                }
+                            ]
+                        },
+                    ]
+                }
+            ]
+        },
+        {
             label: 'NPM',
             icon: 'info_outline',
             link: 'https://www.npmjs.com/package/ng-material-multilevel-menu',

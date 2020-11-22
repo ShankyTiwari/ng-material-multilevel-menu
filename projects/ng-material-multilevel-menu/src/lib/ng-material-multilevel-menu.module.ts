@@ -18,4 +18,4 @@ import { NgMaterialMultilevelMenuComponent } from './ng-material-multilevel-menu
   ],
   exports: [NgMaterialMultilevelMenuComponent]
 })
-export class NgMaterialMultilevelMenuModule { }
+export class NgMaterialMultilevelMenuModule {}
