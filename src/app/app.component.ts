@@ -3,8 +3,7 @@ import { Router } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MatIconRegistry } from '@angular/material/icon';
 
-// import { MultilevelNodes } from './../../projects/ng-material-multilevel-menu/src/lib/app.model';
-import { MultilevelNodes } from 'ng-material-multilevel-menu';
+import { MultilevelNodes, MultilevelMenuService } from './../../projects/ng-material-multilevel-menu/src/public_api';
 
 import { constant as CONSTANT } from './constants';
 
@@ -17,11 +16,12 @@ export class AppComponent {
   appitems: MultilevelNodes[] = CONSTANT.sidebarDemoLinks;
   config = CONSTANT.sidebarConfigurations;
   displayList = false;
-  expandCollapseStatus: string = null;
+  menuId = null;
   constructor(
     private iconRegistry: MatIconRegistry,
     private sanitizer: DomSanitizer,
-    private router: Router
+    private router: Router,
+    private multilevelMenuService: MultilevelMenuService
   ) {
     setTimeout(() => {
       this.displayList = true;
@@ -50,7 +50,11 @@ export class AppComponent {
   }
 
   setExpandCollapseStatus(type) {
-    this.expandCollapseStatus = type;
+    this.multilevelMenuService.setMenuExapandCollpaseStatus(type);
   }
 
+  selectMenuID(){
+    console.log(this.menuId);
+    this.multilevelMenuService.selectMenuByID(this.menuId);
+  }
 }

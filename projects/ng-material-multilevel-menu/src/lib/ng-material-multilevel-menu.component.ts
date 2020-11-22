@@ -1,5 +1,6 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, OnDestroy, Output } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
+import { Subject, Subscription } from 'rxjs';
 import { BackgroundStyle, Configuration, MultilevelNodes, ExpandCollapseStatusEnum } from './app.model';
 import { CONSTANT } from './constants';
 import { MultilevelMenuService } from './multilevel-menu.service';
@@ -9,12 +10,13 @@ import { MultilevelMenuService } from './multilevel-menu.service';
   templateUrl: './ng-material-multilevel-menu.component.html',
   styleUrls: ['./ng-material-multilevel-menu.component.css'],
 })
-export class NgMaterialMultilevelMenuComponent implements OnInit, OnChanges {
+export class NgMaterialMultilevelMenuComponent implements OnInit, OnChanges, OnDestroy {
   @Input() items: MultilevelNodes[];
   @Input() configuration: Configuration = null;
-  @Input() expandCollapseStatus: ExpandCollapseStatusEnum = null;
   @Output() selectedItem = new EventEmitter<MultilevelNodes>();
   @Output() selectedLabel = new EventEmitter<MultilevelNodes>();
+  expandCollapseStatusSubscription: Subscription = null;
+  selectMenuByIDSubscription: Subscription = null;
   currentNode: MultilevelNodes;
   nodeConfig: Configuration = {
     paddingAtStart: true,
@@ -28,14 +30,15 @@ export class NgMaterialMultilevelMenuComponent implements OnInit, OnChanges {
     rtlLayout: false,
   };
   isInvalidConfig = true;
-  nodeExpandCollapseStatus: ExpandCollapseStatusEnum = null;
+  nodeExpandCollapseStatus: ExpandCollapseStatusEnum = ExpandCollapseStatusEnum.neutral;
   constructor(
     private router: Router,
     public multilevelMenuService: MultilevelMenuService
   ) { }
   ngOnChanges() {
     this.detectInvalidConfig();
-    this.detectExpandCollapseStatus();
+    this.initExpandCollapseStatus();
+    this.initSelectedMenuID();
   }
   ngOnInit() {
     if (
@@ -60,7 +63,9 @@ export class NgMaterialMultilevelMenuComponent implements OnInit, OnChanges {
       // && !foundNode.disabled // Prevent route redirection for disabled menu
     ) {
       this.currentNode = foundNode;
-      this.selectedListItem(foundNode);
+      if(foundNode.dontEmit !== undefined && foundNode.dontEmit !== null && !foundNode.dontEmit) {
+        this.selectedListItem(foundNode);
+      }
     }
   }
   checkValidData(): void {
@@ -123,11 +128,24 @@ export class NgMaterialMultilevelMenuComponent implements OnInit, OnChanges {
     }
     this.checkValidData();
   }
-  detectExpandCollapseStatus(): void {
-    if (this.expandCollapseStatus !== null &&
-      this.expandCollapseStatus !== undefined) {
-      this.nodeExpandCollapseStatus = this.expandCollapseStatus;
-    }
+  initExpandCollapseStatus(): void {
+    this.expandCollapseStatusSubscription = this.multilevelMenuService.expandCollapseStatus$.subscribe( (expandCollapseStatus: ExpandCollapseStatusEnum) => {
+      this.nodeExpandCollapseStatus = expandCollapseStatus ? expandCollapseStatus : ExpandCollapseStatusEnum.neutral;
+    }, () => {
+      this.nodeExpandCollapseStatus = ExpandCollapseStatusEnum.neutral;
+    });
+  }
+  initSelectedMenuID(): void {
+    this.selectMenuByIDSubscription = this.multilevelMenuService.selectedMenuID$.subscribe( (selectedMenuID: string) => {
+      if(selectedMenuID) {
+        const foundNode = this.multilevelMenuService.getMatchedObjectById(this.items, selectedMenuID);
+        console.log(selectedMenuID, foundNode)
+        if (foundNode !== undefined) {
+          this.currentNode = foundNode;
+          // this.selectedListItem(foundNode);
+        }
+      }
+    });
   }
   getClassName(): string {
     if (this.isInvalidConfig) {
@@ -157,11 +175,19 @@ export class NgMaterialMultilevelMenuComponent implements OnInit, OnChanges {
     return this.nodeConfig.rtlLayout;
   }
   selectedListItem(event: MultilevelNodes): void {
+    this.nodeExpandCollapseStatus = ExpandCollapseStatusEnum.neutral;
     this.currentNode = event;
+    if(event.dontEmit !== undefined && event.dontEmit !== null && event.dontEmit) {
+      return;
+    }
     if (event.items === undefined && (!event.onSelected || typeof event.onSelected !== 'function') ) {
       this.selectedItem.emit(event);
     } else {
       this.selectedLabel.emit(event);
     }
+  }
+  ngOnDestroy() {
+    this.expandCollapseStatusSubscription.unsubscribe();
+    this.selectMenuByIDSubscription.unsubscribe();
   }
 }

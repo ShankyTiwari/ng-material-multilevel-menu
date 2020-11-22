@@ -30,6 +30,7 @@ export const constant = {
                             link: '/demo two',
                             icon: 'favorite_border',
                             activeIcon: 'favorite',
+                            dontEmit: true,
                             navigationExtras: {
                                 queryParams: { order: 'popular', filter: 'new' },
                             }
@@ -70,6 +71,43 @@ export const constant = {
             ]
         },
         {
+            label: 'Item 2',
+            faIcon: 'fas fa-anchor', 
+            items: [
+                {
+                    label: 'Item 2.1',
+                    faIcon: 'fab fa-accusoft',
+                    activeFaIcon: 'fab fa-accusoft',
+                    disabled: true,
+                },
+                {
+                    label: 'Item 2.2',
+                    faIcon: 'fas fa-anchor', 
+                    activeFaIcon: 'fab fa-accusoft',
+                    items: [
+                        {
+                            label: 'Item 2',
+                            faIcon: 'fas fa-anchor', 
+                            items: [
+                                {
+                                    label: 'Item 2.1',
+                                    faIcon: 'fab fa-accusoft',
+                                    activeFaIcon: 'fab fa-accusoft',
+                                    disabled: true,
+                                },
+                                {
+                                    label: 'Item 2.2',
+                                    faIcon: 'fas fa-anchor', 
+                                    activeFaIcon: 'fab fa-accusoft',
+                                    dontEmit: true,
+                                }
+                            ]
+                        },
+                    ]
+                }
+            ]
+        },
+        {
             label: 'NPM',
             icon: 'info_outline',
             link: 'https://www.npmjs.com/package/ng-material-multilevel-menu',
@@ -81,5 +119,6 @@ export const constant = {
         paddingAtStart: true,
         interfaceWithRoute: true,
         rtlLayout: false,
+        collapseOnSelect: true,
     }
 };
