@@ -1,3 +1,7 @@
+.amml-container .mat-list-base {
+  padding-top: unset;
+}
+
 .amml-item {
   line-height: 48px;
   display: flex;
