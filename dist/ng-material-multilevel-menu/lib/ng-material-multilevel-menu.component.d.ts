@@ -1,15 +1,17 @@
-import { EventEmitter, OnChanges, OnInit } from '@angular/core';
+import { EventEmitter, OnChanges, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { BackgroundStyle, Configuration, MultilevelNodes, ExpandCollapseStatusEnum } from './app.model';
 import { MultilevelMenuService } from './multilevel-menu.service';
-export declare class NgMaterialMultilevelMenuComponent implements OnInit, OnChanges {
+export declare class NgMaterialMultilevelMenuComponent implements OnInit, OnChanges, OnDestroy {
     private router;
     multilevelMenuService: MultilevelMenuService;
     items: MultilevelNodes[];
     configuration: Configuration;
-    expandCollapseStatus: ExpandCollapseStatusEnum;
     selectedItem: EventEmitter<MultilevelNodes>;
     selectedLabel: EventEmitter<MultilevelNodes>;
+    expandCollapseStatusSubscription: Subscription;
+    selectMenuByIDSubscription: Subscription;
     currentNode: MultilevelNodes;
     nodeConfig: Configuration;
     isInvalidConfig: boolean;
@@ -20,9 +22,11 @@ export declare class NgMaterialMultilevelMenuComponent implements OnInit, OnChan
     updateNodeByURL(url: string): void;
     checkValidData(): void;
     detectInvalidConfig(): void;
-    detectExpandCollapseStatus(): void;
+    initExpandCollapseStatus(): void;
+    initSelectedMenuID(): void;
     getClassName(): string;
     getGlobalStyle(): BackgroundStyle;
     isRtlLayout(): boolean;
     selectedListItem(event: MultilevelNodes): void;
+    ngOnDestroy(): void;
 }

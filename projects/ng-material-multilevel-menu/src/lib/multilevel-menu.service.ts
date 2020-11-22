@@ -2,10 +2,6 @@ import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 
 import { MultilevelNodes, ExpandCollapseStatusEnum } from './app.model';
-
-@Injectable({
-  providedIn: 'root'
-})
 export class MultilevelMenuService {
   foundLinkObject: MultilevelNodes;
   expandCollapseStatus: Subject<ExpandCollapseStatusEnum> = new Subject<ExpandCollapseStatusEnum>();

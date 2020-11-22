@@ -2,6 +2,12 @@
 
 Material Multi-Level Menu for Angular Projects.
 
+# Breaking Change
+> In version 5.0.0, the `@Input` called `expandCollapseStatus` have been removed in favor [major bug](https://github.com/ShankyTiwari/ng-material-multilevel-menu/issues/131), please use the
+`MultilevelMenuService`. You can find out the implementation of the same here.
+>Thanks, 
+
+
 ## Why ng-material-multilevel-menu?
 
 The main goal of this package is to deliver a slim and Skinny Material Multi-Level Menu for Angular Projects. That can fit into any kind of projects with no muss, no fuss. Within few lines, you will get an animation ready multilevel list that just works.
@@ -175,8 +181,6 @@ appitems = [
     * ```backgroundColor: string;``` => *[optional]* This will change the background color list container.
     * ```selectedListFontColor: string;``` => *[optional]* This will change the font color of selected list item.
 
-- Using ```expandCollapseStatus```, You can expand all the menu and Collapse all the menus. Below is example how you can do that,
-
 Below is example how you can apply different background and Font colors,
 ```typescript
 config = {
@@ -193,8 +197,40 @@ config = {
     rtlLayout: false
 };
 
-expandCollapseStatus = 'expand'; // expand|collapse
+```
 
+## Misc
+
+### 1. Exapand/ Collapse all Menu
+You can expand all the menu and Collapse all the menus. Below is example how you can do that,
+```typescript
+import { MultilevelMenuService, ExpandCollapseStatusEnum } from 'ng-material-multilevel-menu';
+
+export class AppComponent {
+    constructor(
+        private multilevelMenuService: MultilevelMenuService
+    ) {}
+
+    setExpandCollapseStatus(type: ExpandCollapseStatusEnum) {
+        this.multilevelMenuService.setMenuExapandCollpaseStatus(type);
+    }
+}
+```
+### 2. Select Menu By ID
+You can expand all the menu and Collapse all the menus. Below is example how you can do that,
+```typescript
+import { MultilevelMenuService } from 'ng-material-multilevel-menu';
+
+export class AppComponent {
+    constructor(
+        private multilevelMenuService: MultilevelMenuService
+    ) {}
+
+    selectMenuID(MenuID){
+        this.multilevelMenuService.selectMenuByID(MenuID);
+    }
+
+}
 ```
 
 

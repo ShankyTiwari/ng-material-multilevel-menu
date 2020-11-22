@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { ɵɵdefineInjectable, Injectable, EventEmitter, Component, Input, Output, NgModule } from '@angular/core';
+import { EventEmitter, Component, Input, Output, NgModule } from '@angular/core';
 import { Router, NavigationEnd, RouterModule } from '@angular/router';
 import { trigger, state, style, transition, group, animate } from '@angular/animations';
+import { Subject } from 'rxjs';
 import { MatRippleModule } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
@@ -10,6 +11,7 @@ var ExpandCollapseStatusEnum;
 (function (ExpandCollapseStatusEnum) {
     ExpandCollapseStatusEnum["expand"] = "expand";
     ExpandCollapseStatusEnum["collapse"] = "collapse";
+    ExpandCollapseStatusEnum["neutral"] = "neutral";
 })(ExpandCollapseStatusEnum || (ExpandCollapseStatusEnum = {}));
 
 const CONSTANT = {
@@ -27,6 +29,12 @@ const CONSTANT = {
 };
 
 class MultilevelMenuService {
+    constructor() {
+        this.expandCollapseStatus = new Subject();
+        this.expandCollapseStatus$ = this.expandCollapseStatus.asObservable();
+        this.selectedMenuID = new Subject();
+        this.selectedMenuID$ = this.selectedMenuID.asObservable();
+    }
     generateId() {
         let text = '';
         const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -55,7 +63,7 @@ class MultilevelMenuService {
             }
         }
     }
-    recursiveCheckLink(nodes, link) {
+    findNodeRecursively({ nodes, link, id }) {
         for (let nodeIndex = 0; nodeIndex < nodes.length; nodeIndex++) {
             const node = nodes[nodeIndex];
             for (const key in node) {
@@ -63,17 +71,29 @@ class MultilevelMenuService {
                     if (encodeURI(node.link) === link) {
                         this.foundLinkObject = node;
                     }
+                    else if (node.id === id) {
+                        this.foundLinkObject = node;
+                    }
                     else {
                         if (node.items !== undefined) {
-                            this.recursiveCheckLink(node.items, link);
+                            this.findNodeRecursively({
+                                nodes: node.items,
+                                link: link ? link : null,
+                                id: id ? id : null
+                            });
                         }
                     }
                 }
             }
         }
     }
-    getMatchedObjectByUrl(node, link) {
-        this.recursiveCheckLink(node, link);
+    getMatchedObjectByUrl(nodes, link) {
+        this.findNodeRecursively({ nodes, link });
+        return this.foundLinkObject;
+    }
+    getMatchedObjectById(nodes, id) {
+        console.log(nodes, id);
+        this.findNodeRecursively({ nodes, id });
         return this.foundLinkObject;
     }
     // overrides key-value pipe's default reordering (by key) by implementing dummy comprarer function
@@ -81,13 +101,14 @@ class MultilevelMenuService {
     kvDummyComparerFn() {
         return 0;
     }
+    setMenuExapandCollpaseStatus(status) {
+        this.expandCollapseStatus.next(status ? status : ExpandCollapseStatusEnum.neutral);
+    }
+    selectMenuByID(menuID) {
+        this.selectedMenuID.next(menuID);
+        return this.foundLinkObject;
+    }
 }
-MultilevelMenuService.ɵprov = ɵɵdefineInjectable({ factory: function MultilevelMenuService_Factory() { return new MultilevelMenuService(); }, token: MultilevelMenuService, providedIn: "root" });
-MultilevelMenuService.decorators = [
-    { type: Injectable, args: [{
-                providedIn: 'root'
-            },] }
-];
 
 class ListItemComponent {
     constructor(router, multilevelMenuService) {
@@ -242,6 +263,7 @@ class ListItemComponent {
         if (node.disabled) {
             return;
         }
+        this.nodeExpandCollapseStatus = ExpandCollapseStatusEnum.neutral;
         this.expanded = !this.expanded;
         this.firstInitializer = true;
         this.setClasses();
@@ -338,9 +360,10 @@ class NgMaterialMultilevelMenuComponent {
         this.router = router;
         this.multilevelMenuService = multilevelMenuService;
         this.configuration = null;
-        this.expandCollapseStatus = null;
         this.selectedItem = new EventEmitter();
         this.selectedLabel = new EventEmitter();
+        this.expandCollapseStatusSubscription = null;
+        this.selectMenuByIDSubscription = null;
         this.nodeConfig = {
             paddingAtStart: true,
             listBackgroundColor: null,
@@ -353,11 +376,12 @@ class NgMaterialMultilevelMenuComponent {
             rtlLayout: false,
         };
         this.isInvalidConfig = true;
-        this.nodeExpandCollapseStatus = null;
+        this.nodeExpandCollapseStatus = ExpandCollapseStatusEnum.neutral;
     }
     ngOnChanges() {
         this.detectInvalidConfig();
-        this.detectExpandCollapseStatus();
+        this.initExpandCollapseStatus();
+        this.initSelectedMenuID();
     }
     ngOnInit() {
         if (this.configuration !== null && this.configuration !== undefined && this.configuration !== '' &&
@@ -380,7 +404,9 @@ class NgMaterialMultilevelMenuComponent {
         // && !foundNode.disabled // Prevent route redirection for disabled menu
         ) {
             this.currentNode = foundNode;
-            this.selectedListItem(foundNode);
+            if (foundNode.dontEmit !== undefined && foundNode.dontEmit !== null && !foundNode.dontEmit) {
+                this.selectedListItem(foundNode);
+            }
         }
     }
     checkValidData() {
@@ -445,11 +471,24 @@ class NgMaterialMultilevelMenuComponent {
         }
         this.checkValidData();
     }
-    detectExpandCollapseStatus() {
-        if (this.expandCollapseStatus !== null &&
-            this.expandCollapseStatus !== undefined) {
-            this.nodeExpandCollapseStatus = this.expandCollapseStatus;
-        }
+    initExpandCollapseStatus() {
+        this.expandCollapseStatusSubscription = this.multilevelMenuService.expandCollapseStatus$.subscribe((expandCollapseStatus) => {
+            this.nodeExpandCollapseStatus = expandCollapseStatus ? expandCollapseStatus : ExpandCollapseStatusEnum.neutral;
+        }, () => {
+            this.nodeExpandCollapseStatus = ExpandCollapseStatusEnum.neutral;
+        });
+    }
+    initSelectedMenuID() {
+        this.selectMenuByIDSubscription = this.multilevelMenuService.selectedMenuID$.subscribe((selectedMenuID) => {
+            if (selectedMenuID) {
+                const foundNode = this.multilevelMenuService.getMatchedObjectById(this.items, selectedMenuID);
+                console.log(selectedMenuID, foundNode);
+                if (foundNode !== undefined) {
+                    this.currentNode = foundNode;
+                    // this.selectedListItem(foundNode);
+                }
+            }
+        });
     }
     getClassName() {
         if (this.isInvalidConfig) {
@@ -481,13 +520,21 @@ class NgMaterialMultilevelMenuComponent {
         return this.nodeConfig.rtlLayout;
     }
     selectedListItem(event) {
+        this.nodeExpandCollapseStatus = ExpandCollapseStatusEnum.neutral;
         this.currentNode = event;
+        if (event.dontEmit !== undefined && event.dontEmit !== null && event.dontEmit) {
+            return;
+        }
         if (event.items === undefined && (!event.onSelected || typeof event.onSelected !== 'function')) {
             this.selectedItem.emit(event);
         }
         else {
             this.selectedLabel.emit(event);
         }
+    }
+    ngOnDestroy() {
+        this.expandCollapseStatusSubscription.unsubscribe();
+        this.selectMenuByIDSubscription.unsubscribe();
     }
 }
 NgMaterialMultilevelMenuComponent.decorators = [
@@ -504,7 +551,6 @@ NgMaterialMultilevelMenuComponent.ctorParameters = () => [
 NgMaterialMultilevelMenuComponent.propDecorators = {
     items: [{ type: Input }],
     configuration: [{ type: Input }],
-    expandCollapseStatus: [{ type: Input }],
     selectedItem: [{ type: Output }],
     selectedLabel: [{ type: Output }]
 };
@@ -534,5 +580,5 @@ NgMaterialMultilevelMenuModule.decorators = [
  * Generated bundle index. Do not edit.
  */
 
-export { ExpandCollapseStatusEnum, NgMaterialMultilevelMenuComponent, NgMaterialMultilevelMenuModule, MaterialsModule as ɵa, MultilevelMenuService as ɵb, ListItemComponent as ɵc };
+export { ExpandCollapseStatusEnum, MultilevelMenuService, NgMaterialMultilevelMenuComponent, NgMaterialMultilevelMenuModule, MaterialsModule as ɵa, ListItemComponent as ɵb };
 //# sourceMappingURL=ng-material-multilevel-menu.js.map
