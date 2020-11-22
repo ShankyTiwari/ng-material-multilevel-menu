@@ -45,7 +45,7 @@
       <img matListAvatar *ngSwitchCase="'imageicon'" class="amml-icon" src="{{getSelectedImageIcon()}}"
         alt="{{node.label}}" />
     </div>
-    <span class="label">{{node.label}}</span>
+    <span class="label">{{node.label}} {{node.id}}</span>
   </div>
   <div class="amml-icon-arrow-container" *ngIf='hasItems()'>
     <mat-icon *ngIf='!isRtlLayout()' [@isExpandedLTR]="expanded ? 'yes' : 'no'">

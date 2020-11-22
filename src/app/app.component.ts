@@ -16,6 +16,7 @@ export class AppComponent {
   appitems: MultilevelNodes[] = CONSTANT.sidebarDemoLinks;
   config = CONSTANT.sidebarConfigurations;
   displayList = false;
+  menuId = null;
   constructor(
     private iconRegistry: MatIconRegistry,
     private sanitizer: DomSanitizer,
@@ -52,4 +53,8 @@ export class AppComponent {
     this.multilevelMenuService.setMenuExapandCollpaseStatus(type);
   }
 
+  selectMenuID(){
+    console.log(this.menuId);
+    this.multilevelMenuService.selectMenuByID(this.menuId);
+  }
 }

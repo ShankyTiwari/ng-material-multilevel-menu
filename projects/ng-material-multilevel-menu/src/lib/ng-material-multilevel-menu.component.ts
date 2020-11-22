@@ -1,5 +1,6 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, OnDestroy, Output } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
+import { Subject, Subscription } from 'rxjs';
 import { BackgroundStyle, Configuration, MultilevelNodes, ExpandCollapseStatusEnum } from './app.model';
 import { CONSTANT } from './constants';
 import { MultilevelMenuService } from './multilevel-menu.service';
@@ -9,11 +10,12 @@ import { MultilevelMenuService } from './multilevel-menu.service';
   templateUrl: './ng-material-multilevel-menu.component.html',
   styleUrls: ['./ng-material-multilevel-menu.component.css'],
 })
-export class NgMaterialMultilevelMenuComponent implements OnInit, OnChanges {
+export class NgMaterialMultilevelMenuComponent implements OnInit, OnChanges, OnDestroy {
   @Input() items: MultilevelNodes[];
   @Input() configuration: Configuration = null;
   @Output() selectedItem = new EventEmitter<MultilevelNodes>();
   @Output() selectedLabel = new EventEmitter<MultilevelNodes>();
+  expandCollapseStatusSubscription: Subscription = null;
   currentNode: MultilevelNodes;
   nodeConfig: Configuration = {
     paddingAtStart: true,
@@ -35,6 +37,7 @@ export class NgMaterialMultilevelMenuComponent implements OnInit, OnChanges {
   ngOnChanges() {
     this.detectInvalidConfig();
     this.initExpandCollapseStatus();
+    this.initSelectedMenuID();
   }
   ngOnInit() {
     if (
@@ -123,10 +126,22 @@ export class NgMaterialMultilevelMenuComponent implements OnInit, OnChanges {
     this.checkValidData();
   }
   initExpandCollapseStatus(): void {
-    this.multilevelMenuService.expandCollapseStatus$.subscribe( (expandCollapseStatus: ExpandCollapseStatusEnum) => {
+    this.expandCollapseStatusSubscription = this.multilevelMenuService.expandCollapseStatus$.subscribe( (expandCollapseStatus: ExpandCollapseStatusEnum) => {
       this.nodeExpandCollapseStatus = expandCollapseStatus ? expandCollapseStatus : ExpandCollapseStatusEnum.neutral;
     }, () => {
       this.nodeExpandCollapseStatus = ExpandCollapseStatusEnum.neutral;
+    });
+  }
+  initSelectedMenuID(): void {
+    this.expandCollapseStatusSubscription = this.multilevelMenuService.selectedMenuID$.subscribe( (selectedMenuID: string) => {
+      if(selectedMenuID) {
+        const foundNode = this.multilevelMenuService.getMatchedObjectById(this.items, selectedMenuID);
+        console.log(selectedMenuID, foundNode)
+        if (foundNode !== undefined) {
+          this.currentNode = foundNode;
+          // this.selectedListItem(foundNode);
+        }
+      }
     });
   }
   getClassName(): string {
@@ -164,5 +179,8 @@ export class NgMaterialMultilevelMenuComponent implements OnInit, OnChanges {
     } else {
       this.selectedLabel.emit(event);
     }
+  }
+  ngOnDestroy() {
+    this.expandCollapseStatusSubscription.unsubscribe();
   }
 }
