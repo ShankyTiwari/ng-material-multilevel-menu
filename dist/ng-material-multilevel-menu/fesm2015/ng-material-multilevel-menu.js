@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ɵɵdefineInjectable, Injectable, EventEmitter, Component, Input, Output, NgModule } from '@angular/core';
+import { EventEmitter, Component, Input, Output, NgModule } from '@angular/core';
 import { Router, NavigationEnd, RouterModule } from '@angular/router';
 import { trigger, state, style, transition, group, animate } from '@angular/animations';
 import { Subject } from 'rxjs';
@@ -109,12 +109,6 @@ class MultilevelMenuService {
         return this.foundLinkObject;
     }
 }
-MultilevelMenuService.ɵprov = ɵɵdefineInjectable({ factory: function MultilevelMenuService_Factory() { return new MultilevelMenuService(); }, token: MultilevelMenuService, providedIn: "root" });
-MultilevelMenuService.decorators = [
-    { type: Injectable, args: [{
-                providedIn: 'root'
-            },] }
-];
 
 class ListItemComponent {
     constructor(router, multilevelMenuService) {

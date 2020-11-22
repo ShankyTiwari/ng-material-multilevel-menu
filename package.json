@@ -1,6 +1,6 @@
 {
   "name": "ng-material-multilevel-menu-angular-project",
-  "version": "4.12.4",
+  "version": "5.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",

@@ -20,7 +20,7 @@ export interface MultilevelNodes {
     disabled?: boolean;
     expanded?: boolean;
     navigationExtras?: NavigationExtras;
-    dontEmit: true;
+    dontEmit?: boolean;
 }
 export interface Configuration {
     classname?: string;
