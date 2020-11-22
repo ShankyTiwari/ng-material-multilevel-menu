@@ -1,10 +1,11 @@
 {
   "name": "ng-material-multilevel-menu",
-  "version": "4.12.0",
+  "version": "4.12.3",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ShankyTiwari/ng-material-multilevel-menu.git"
   },
+  "homepage": "http://plugins.codershood.info/",
   "keywords": [
     "Angular2",
     "Angular4",
