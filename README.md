@@ -3,7 +3,7 @@
 Material Multi-Level Menu for Angular Projects.
 
 # Breaking Change
-> In version 5.0.0, the `@Input` called `expandCollapseStatus` have been removed in favor [major bug](https://github.com/ShankyTiwari/ng-material-multilevel-menu/issues/131), please use the
+> From version 5.0.0, the `@Input` called `expandCollapseStatus` have been removed in favor [major bug](https://github.com/ShankyTiwari/ng-material-multilevel-menu/issues/131), please use the
 `MultilevelMenuService`. You can find out the implementation of the same [here](https://github.com/ShankyTiwari/ng-material-multilevel-menu-demo/blob/master/src/app/pages/more-configuration/expand-collapse/expand-collapse.component.ts#L73).
 >Thanks, 
 
