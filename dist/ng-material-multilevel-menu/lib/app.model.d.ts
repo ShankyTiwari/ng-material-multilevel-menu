@@ -20,6 +20,7 @@ export interface MultilevelNodes {
     disabled?: boolean;
     expanded?: boolean;
     navigationExtras?: NavigationExtras;
+    dontEmit: true;
 }
 export interface Configuration {
     classname?: string;
@@ -43,5 +44,6 @@ export interface ListStyle {
 }
 export declare enum ExpandCollapseStatusEnum {
     expand = "expand",
-    collapse = "collapse"
+    collapse = "collapse",
+    neutral = "neutral"
 }

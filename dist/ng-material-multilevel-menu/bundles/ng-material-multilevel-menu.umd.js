@@ -1,12 +1,13 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/common'), require('@angular/core'), require('@angular/router'), require('@angular/animations'), require('@angular/material/core'), require('@angular/material/icon'), require('@angular/material/list')) :
-    typeof define === 'function' && define.amd ? define('ng-material-multilevel-menu', ['exports', '@angular/common', '@angular/core', '@angular/router', '@angular/animations', '@angular/material/core', '@angular/material/icon', '@angular/material/list'], factory) :
-    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global['ng-material-multilevel-menu'] = {}, global.ng.common, global.ng.core, global.ng.router, global.ng.animations, global.ng.material.core, global.ng.material.icon, global.ng.material.list));
-}(this, (function (exports, common, i0, router, animations, core, icon, list) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/common'), require('@angular/core'), require('@angular/router'), require('@angular/animations'), require('rxjs'), require('@angular/material/core'), require('@angular/material/icon'), require('@angular/material/list')) :
+    typeof define === 'function' && define.amd ? define('ng-material-multilevel-menu', ['exports', '@angular/common', '@angular/core', '@angular/router', '@angular/animations', 'rxjs', '@angular/material/core', '@angular/material/icon', '@angular/material/list'], factory) :
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global['ng-material-multilevel-menu'] = {}, global.ng.common, global.ng.core, global.ng.router, global.ng.animations, global.rxjs, global.ng.material.core, global.ng.material.icon, global.ng.material.list));
+}(this, (function (exports, common, i0, router, animations, rxjs, core, icon, list) { 'use strict';
 
     (function (ExpandCollapseStatusEnum) {
         ExpandCollapseStatusEnum["expand"] = "expand";
         ExpandCollapseStatusEnum["collapse"] = "collapse";
+        ExpandCollapseStatusEnum["neutral"] = "neutral";
     })(exports.ExpandCollapseStatusEnum || (exports.ExpandCollapseStatusEnum = {}));
 
     var CONSTANT = {
@@ -25,6 +26,10 @@
 
     var MultilevelMenuService = /** @class */ (function () {
         function MultilevelMenuService() {
+            this.expandCollapseStatus = new rxjs.Subject();
+            this.expandCollapseStatus$ = this.expandCollapseStatus.asObservable();
+            this.selectedMenuID = new rxjs.Subject();
+            this.selectedMenuID$ = this.selectedMenuID.asObservable();
         }
         MultilevelMenuService.prototype.generateId = function () {
             var text = '';
@@ -56,7 +61,8 @@
                 }
             }
         };
-        MultilevelMenuService.prototype.recursiveCheckLink = function (nodes, link) {
+        MultilevelMenuService.prototype.findNodeRecursively = function (_a) {
+            var nodes = _a.nodes, link = _a.link, id = _a.id;
             for (var nodeIndex = 0; nodeIndex < nodes.length; nodeIndex++) {
                 var node = nodes[nodeIndex];
                 for (var key in node) {
@@ -64,23 +70,42 @@
                         if (encodeURI(node.link) === link) {
                             this.foundLinkObject = node;
                         }
+                        else if (node.id === id) {
+                            this.foundLinkObject = node;
+                        }
                         else {
                             if (node.items !== undefined) {
-                                this.recursiveCheckLink(node.items, link);
+                                this.findNodeRecursively({
+                                    nodes: node.items,
+                                    link: link ? link : null,
+                                    id: id ? id : null
+                                });
                             }
                         }
                     }
                 }
             }
         };
-        MultilevelMenuService.prototype.getMatchedObjectByUrl = function (node, link) {
-            this.recursiveCheckLink(node, link);
+        MultilevelMenuService.prototype.getMatchedObjectByUrl = function (nodes, link) {
+            this.findNodeRecursively({ nodes: nodes, link: link });
+            return this.foundLinkObject;
+        };
+        MultilevelMenuService.prototype.getMatchedObjectById = function (nodes, id) {
+            console.log(nodes, id);
+            this.findNodeRecursively({ nodes: nodes, id: id });
             return this.foundLinkObject;
         };
         // overrides key-value pipe's default reordering (by key) by implementing dummy comprarer function
         // https://angular.io/api/common/KeyValuePipe#description
         MultilevelMenuService.prototype.kvDummyComparerFn = function () {
             return 0;
+        };
+        MultilevelMenuService.prototype.setMenuExapandCollpaseStatus = function (status) {
+            this.expandCollapseStatus.next(status ? status : exports.ExpandCollapseStatusEnum.neutral);
+        };
+        MultilevelMenuService.prototype.selectMenuByID = function (menuID) {
+            this.selectedMenuID.next(menuID);
+            return this.foundLinkObject;
         };
         return MultilevelMenuService;
     }());
@@ -247,6 +272,7 @@
             if (node.disabled) {
                 return;
             }
+            this.nodeExpandCollapseStatus = exports.ExpandCollapseStatusEnum.neutral;
             this.expanded = !this.expanded;
             this.firstInitializer = true;
             this.setClasses();
@@ -347,9 +373,10 @@
             this.router = router;
             this.multilevelMenuService = multilevelMenuService;
             this.configuration = null;
-            this.expandCollapseStatus = null;
             this.selectedItem = new i0.EventEmitter();
             this.selectedLabel = new i0.EventEmitter();
+            this.expandCollapseStatusSubscription = null;
+            this.selectMenuByIDSubscription = null;
             this.nodeConfig = {
                 paddingAtStart: true,
                 listBackgroundColor: null,
@@ -362,11 +389,12 @@
                 rtlLayout: false,
             };
             this.isInvalidConfig = true;
-            this.nodeExpandCollapseStatus = null;
+            this.nodeExpandCollapseStatus = exports.ExpandCollapseStatusEnum.neutral;
         }
         NgMaterialMultilevelMenuComponent.prototype.ngOnChanges = function () {
             this.detectInvalidConfig();
-            this.detectExpandCollapseStatus();
+            this.initExpandCollapseStatus();
+            this.initSelectedMenuID();
         };
         NgMaterialMultilevelMenuComponent.prototype.ngOnInit = function () {
             var _this = this;
@@ -390,7 +418,9 @@
             // && !foundNode.disabled // Prevent route redirection for disabled menu
             ) {
                 this.currentNode = foundNode;
-                this.selectedListItem(foundNode);
+                if (foundNode.dontEmit !== undefined && foundNode.dontEmit !== null && !foundNode.dontEmit) {
+                    this.selectedListItem(foundNode);
+                }
             }
         };
         NgMaterialMultilevelMenuComponent.prototype.checkValidData = function () {
@@ -455,11 +485,26 @@
             }
             this.checkValidData();
         };
-        NgMaterialMultilevelMenuComponent.prototype.detectExpandCollapseStatus = function () {
-            if (this.expandCollapseStatus !== null &&
-                this.expandCollapseStatus !== undefined) {
-                this.nodeExpandCollapseStatus = this.expandCollapseStatus;
-            }
+        NgMaterialMultilevelMenuComponent.prototype.initExpandCollapseStatus = function () {
+            var _this = this;
+            this.expandCollapseStatusSubscription = this.multilevelMenuService.expandCollapseStatus$.subscribe(function (expandCollapseStatus) {
+                _this.nodeExpandCollapseStatus = expandCollapseStatus ? expandCollapseStatus : exports.ExpandCollapseStatusEnum.neutral;
+            }, function () {
+                _this.nodeExpandCollapseStatus = exports.ExpandCollapseStatusEnum.neutral;
+            });
+        };
+        NgMaterialMultilevelMenuComponent.prototype.initSelectedMenuID = function () {
+            var _this = this;
+            this.selectMenuByIDSubscription = this.multilevelMenuService.selectedMenuID$.subscribe(function (selectedMenuID) {
+                if (selectedMenuID) {
+                    var foundNode = _this.multilevelMenuService.getMatchedObjectById(_this.items, selectedMenuID);
+                    console.log(selectedMenuID, foundNode);
+                    if (foundNode !== undefined) {
+                        _this.currentNode = foundNode;
+                        // this.selectedListItem(foundNode);
+                    }
+                }
+            });
         };
         NgMaterialMultilevelMenuComponent.prototype.getClassName = function () {
             if (this.isInvalidConfig) {
@@ -491,13 +536,21 @@
             return this.nodeConfig.rtlLayout;
         };
         NgMaterialMultilevelMenuComponent.prototype.selectedListItem = function (event) {
+            this.nodeExpandCollapseStatus = exports.ExpandCollapseStatusEnum.neutral;
             this.currentNode = event;
+            if (event.dontEmit !== undefined && event.dontEmit !== null && event.dontEmit) {
+                return;
+            }
             if (event.items === undefined && (!event.onSelected || typeof event.onSelected !== 'function')) {
                 this.selectedItem.emit(event);
             }
             else {
                 this.selectedLabel.emit(event);
             }
+        };
+        NgMaterialMultilevelMenuComponent.prototype.ngOnDestroy = function () {
+            this.expandCollapseStatusSubscription.unsubscribe();
+            this.selectMenuByIDSubscription.unsubscribe();
         };
         return NgMaterialMultilevelMenuComponent;
     }());
@@ -515,7 +568,6 @@
     NgMaterialMultilevelMenuComponent.propDecorators = {
         items: [{ type: i0.Input }],
         configuration: [{ type: i0.Input }],
-        expandCollapseStatus: [{ type: i0.Input }],
         selectedItem: [{ type: i0.Output }],
         selectedLabel: [{ type: i0.Output }]
     };
@@ -548,11 +600,11 @@
      * Generated bundle index. Do not edit.
      */
 
+    exports.MultilevelMenuService = MultilevelMenuService;
     exports.NgMaterialMultilevelMenuComponent = NgMaterialMultilevelMenuComponent;
     exports.NgMaterialMultilevelMenuModule = NgMaterialMultilevelMenuModule;
     exports.ɵa = MaterialsModule;
-    exports.ɵb = MultilevelMenuService;
-    exports.ɵc = ListItemComponent;
+    exports.ɵb = ListItemComponent;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 
