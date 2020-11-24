@@ -1,11 +1,10 @@
+import { Component, Input, OnChanges, OnInit, Output, EventEmitter, TemplateRef, ElementRef } from '@angular/core';
 import { animate, group, state, style, transition, trigger } from '@angular/animations';
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
+
 import { Configuration, ListStyle, MultilevelNodes, ExpandCollapseStatusEnum } from './../app.model';
 import { CONSTANT } from './../constants';
 import { MultilevelMenuService } from './../multilevel-menu.service';
-
-
 
 @Component({
   selector: 'ng-list-item',
@@ -60,13 +59,18 @@ export class ListItemComponent implements OnChanges, OnInit {
   @Input() selectedNode: MultilevelNodes;
   @Input() nodeConfiguration: Configuration = null;
   @Input() nodeExpandCollapseStatus: ExpandCollapseStatusEnum = null;
+  @Input() listTemplate: TemplateRef<ElementRef> = null;
+
   @Output() selectedItem = new EventEmitter<MultilevelNodes>();
+
   isSelected = false;
+  expanded = false;
+  firstInitializer = false;
+  
   nodeChildren: MultilevelNodes[];
   classes: { [index: string]: boolean };
   selectedListClasses: { [index: string]: boolean };
-  expanded = false;
-  firstInitializer = false;
+  
   constructor(
     private router: Router,
     public multilevelMenuService: MultilevelMenuService
@@ -79,6 +83,8 @@ export class ListItemComponent implements OnChanges, OnInit {
   }
   ngOnChanges() {
     this.nodeChildren = this.node && this.node.items ? this.node.items.filter(n => !n.hidden) : [];
+    this.node.hasChilden = this.hasItems();
+
     if (this.selectedNode !== undefined && this.selectedNode !== null) {
       this.setSelectedClass(this.multilevelMenuService.recursiveCheckId(this.node, this.selectedNode.id));
     }
@@ -108,6 +114,7 @@ export class ListItemComponent implements OnChanges, OnInit {
     } else {
       this.isSelected = false;
       if (this.nodeConfiguration.collapseOnSelect) {
+        this.node.expanded = false;
         this.expanded = false;
       }
     }
@@ -198,18 +205,26 @@ export class ListItemComponent implements OnChanges, OnInit {
     if (this.nodeExpandCollapseStatus !== null && this.nodeExpandCollapseStatus !== undefined ) {
       if (this.nodeExpandCollapseStatus === ExpandCollapseStatusEnum.expand) {
         this.expanded = true;
+        if (this.nodeConfiguration.customTemplate) {
+          this.node.expanded = true;
+        }
       }
       if (this.nodeExpandCollapseStatus === ExpandCollapseStatusEnum.collapse) {
         this.expanded = false;
+        if (this.nodeConfiguration.customTemplate) {
+          this.node.expanded = false;
+        }
       }
     }
   }
   expand(node: MultilevelNodes): void {
+    console.log(node)
     if (node.disabled) {
       return;
     }
     this.nodeExpandCollapseStatus = ExpandCollapseStatusEnum.neutral;
     this.expanded = !this.expanded;
+    this.node.expanded =  this.expanded;
     this.firstInitializer = true;
     this.setClasses();
     if (this.nodeConfiguration.interfaceWithRoute !== null

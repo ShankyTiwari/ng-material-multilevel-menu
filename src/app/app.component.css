@@ -16,3 +16,36 @@
   padding: 2%;
   background-color: rgb(240, 240, 240);
 }
+
+
+.my-cool-menu-item {
+  display: flex;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-bottom: solid 1px rgba(0,0,0,.12);
+  height: 48px;
+}
+
+.my-cool-menu-item .title-and-image {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.my-cool-menu-item .title-and-image .icon-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-right: 5px;
+}
+
+.my-cool-menu-item .title-and-image .label-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.my-cool-menu-item .icon-arrow-container {
+  display: flex;
+  align-items: center;
+}

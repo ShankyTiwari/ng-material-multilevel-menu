@@ -8,8 +8,9 @@
       [submenuLevel]="node.key"
       [selectedNode]='currentNode'
       [nodeExpandCollapseStatus]='nodeExpandCollapseStatus'
-      (selectedItem)="selectedListItem($event)
-    ">
+      (selectedItem)="selectedListItem($event)"
+      [listTemplate] = "listTemplate"
+    >
     </ng-list-item>
   </mat-list>
 </div>

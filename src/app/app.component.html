@@ -1,12 +1,30 @@
 <mat-drawer-container class="container">
   <mat-drawer mode="side" opened class="sibebar-content">
-      <ng-material-multilevel-menu 
-        *ngIf="displayList"
-        [configuration]='config' 
-        [items]='appitems' 
-        [expandCollapseStatus]="expandCollapseStatus"
-        (selectedItem)="selectedItem($event)"
-      ></ng-material-multilevel-menu>
+    <ng-material-multilevel-menu 
+      *ngIf="displayList"
+      [configuration]='config' 
+      [items]='appitems' 
+      [expandCollapseStatus]="expandCollapseStatus"
+      (selectedItem)="selectedItem($event)"
+    >
+      <ng-template #listTemplate let-item="item">
+        <div class="my-cool-menu-item">
+          <div class="title-and-image">
+            <div class="icon-container">
+              <span [ngClass]="getClass(item)"></span>
+            </div>
+            <div class="label-container">
+              <span>{{item.label}}</span>
+            </div>
+          </div>
+          <div class="icon-arrow-container" *ngIf='item.hasChilden'>
+            <mat-icon [@isExpandedRTL]="item.expanded ? 'yes' : 'no'">
+              keyboard_arrow_down
+            </mat-icon>
+          </div>
+        </div>
+      </ng-template>
+    </ng-material-multilevel-menu>
   </mat-drawer>
   <mat-drawer-content class="content">
       <router-outlet></router-outlet>

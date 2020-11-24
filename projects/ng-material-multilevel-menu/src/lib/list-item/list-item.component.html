@@ -1,15 +1,20 @@
-<mat-list-item matRipple 
-  *ngIf="!node.hidden"
-  title="{{node.label}}"
-  [matRippleDisabled]="node.disabled" 
+<!-- 
+  Base Template rendering condition starts
+-->
+<div *ngIf="nodeConfiguration.customTemplate && !node.hidden;else baseTemplate"
   [ngClass]="selectedListClasses"
   [ngStyle]="getListStyle()"
-  (click)="expand(node)">
-  <ng-container *ngTemplateOutlet="linkTemplate"></ng-container>
-</mat-list-item>
+  (click)="expand(node)"
+>
+  <ng-container [ngTemplateOutlet]="listTemplate" [ngTemplateOutletContext]="{item: node}"></ng-container>
+</div>
+<!-- 
+  Base Template rendering condition ends
+-->
 
-<mat-divider *ngIf="nodeConfiguration.useDividers"></mat-divider>
-
+<!-- 
+  Recursive Template calls begins
+-->
 <div *ngIf="hasItems() && expanded" [@slideInOut] [dir]="isRtlLayout() ? 'rtl' : 'ltr'" [ngClass]="classes">
   <ng-list-item *ngFor="let singleNode of nodeChildren | keyvalue : multilevelMenuService.kvDummyComparerFn"
     [nodeConfiguration]='nodeConfiguration' 
@@ -18,9 +23,30 @@
     [submenuLevel]="singleNode.key"
     [selectedNode]='selectedNode' 
     [nodeExpandCollapseStatus]='nodeExpandCollapseStatus'
-    (selectedItem)="selectedListItem($event)">
+    (selectedItem)="selectedListItem($event)"
+    [listTemplate]="listTemplate"
+  >
   </ng-list-item>
 </div>
+<!-- 
+  Recursive Template calls ends
+-->
+
+<!-- 
+  Base Template starts from here 
+-->
+<ng-template #baseTemplate>
+  <mat-list-item matRipple 
+    *ngIf="!node.hidden"
+    title="{{node.label}}"
+    [matRippleDisabled]="node.disabled" 
+    [ngClass]="selectedListClasses"
+    [ngStyle]="getListStyle()"
+    (click)="expand(node)">
+    <ng-container *ngTemplateOutlet="linkTemplate"></ng-container>
+  </mat-list-item>
+  <mat-divider *ngIf="nodeConfiguration.useDividers"></mat-divider>
+</ng-template>
 
 <ng-template #linkTemplate>
   <a class="anml-link" *ngIf="node.externalRedirect" [href]="node.link" [target]="getHrefTargetType()">

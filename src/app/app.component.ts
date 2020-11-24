@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { animate, state, style, transition, trigger } from '@angular/animations';
+
 import { DomSanitizer } from '@angular/platform-browser';
 import { MatIconRegistry } from '@angular/material/icon';
 
@@ -10,7 +12,20 @@ import { constant as CONSTANT } from './constants';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  animations: [
+    trigger('isExpandedRTL', [
+      state('no', style({ transform: 'rotate(-90deg)' })),
+      state('yes', style({ transform: 'rotate(0deg)', })),
+
+      transition('no => yes',
+        animate(200)
+      ),
+      transition('yes => no',
+        animate(200)
+      )
+    ]),
+  ]
 })
 export class AppComponent {
   appitems: MultilevelNodes[] = CONSTANT.sidebarDemoLinks;
@@ -56,5 +71,10 @@ export class AppComponent {
   selectMenuID(){
     console.log(this.menuId);
     this.multilevelMenuService.selectMenuByID(this.menuId);
+  }
+  getClass(item) {
+    return {
+      [item.faIcon]: true
+    }
   }
 }

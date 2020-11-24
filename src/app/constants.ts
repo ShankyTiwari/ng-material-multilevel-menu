@@ -115,10 +115,77 @@ export const constant = {
             hrefTargetType: '_blank'
         }
     ],
+    customTemplateLinks: [
+        {
+            label: 'Item 1',
+            faIcon: 'fas fa-anchor', 
+            items: [
+                {
+                    label: 'Item 1.1',
+                    faIcon: 'fab fa-accusoft',
+                    activeFaIcon: 'fab fa-accusoft',
+                },
+                {
+                    label: 'Item 1.2',
+                    faIcon: 'fas fa-anchor', 
+                    activeFaIcon: 'fab fa-accusoft',
+                    items: [
+                        {
+                            label: 'Item 1.2.1',
+                            faIcon: 'fas fa-anchor', 
+                            items: [
+                                {
+                                    label: 'Item 1.2.1.1',
+                                    faIcon: 'fab fa-accusoft',
+                                    activeFaIcon: 'fab fa-accusoft',
+                                },
+                                {
+                                    label: 'Item 1.2.1.2',
+                                    faIcon: 'fas fa-anchor', 
+                                    activeFaIcon: 'fab fa-accusoft',
+                                }
+                            ]
+                        },
+                    ]
+                },
+                {
+                    label: 'Item 1.3',
+                    faIcon: 'fas fa-anchor', 
+                    activeFaIcon: 'fab fa-accusoft',
+                    items: [
+                        {
+                            label: 'Item 1.3.1',
+                            faIcon: 'fas fa-anchor', 
+                            items: [
+                                {
+                                    label: 'Item 1.3.1.1',
+                                    faIcon: 'fab fa-accusoft',
+                                    activeFaIcon: 'fab fa-accusoft',
+                                },
+                                {
+                                    label: 'Item 1.3.1.2',
+                                    faIcon: 'fas fa-anchor', 
+                                    activeFaIcon: 'fab fa-accusoft',
+                                }
+                            ]
+                        },
+                    ]
+                }
+            ]
+        },
+        {
+            label: 'NPM',
+            faIcon: 'fas fa-anchor',
+            link: 'https://www.npmjs.com/package/ng-material-multilevel-menu',
+            externalRedirect: true,
+            hrefTargetType: '_blank'
+        }
+    ],
     sidebarConfigurations: {
         paddingAtStart: true,
         interfaceWithRoute: true,
         rtlLayout: false,
         collapseOnSelect: true,
+        customTemplate: true,
     }
 };

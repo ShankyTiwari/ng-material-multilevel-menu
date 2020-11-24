@@ -1,6 +1,6 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, OnDestroy, Output } from '@angular/core';
+import { Component, OnChanges, OnInit, OnDestroy, Output, EventEmitter, Input, ContentChild, TemplateRef, ElementRef } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-import { Subject, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { BackgroundStyle, Configuration, MultilevelNodes, ExpandCollapseStatusEnum } from './app.model';
 import { CONSTANT } from './constants';
 import { MultilevelMenuService } from './multilevel-menu.service';
@@ -15,9 +15,12 @@ export class NgMaterialMultilevelMenuComponent implements OnInit, OnChanges, OnD
   @Input() configuration: Configuration = null;
   @Output() selectedItem = new EventEmitter<MultilevelNodes>();
   @Output() selectedLabel = new EventEmitter<MultilevelNodes>();
+  @ContentChild('listTemplate', {static: true}) listTemplate: TemplateRef<ElementRef>;
+
   expandCollapseStatusSubscription: Subscription = null;
   selectMenuByIDSubscription: Subscription = null;
-  currentNode: MultilevelNodes;
+  currentNode: MultilevelNodes = null;
+
   nodeConfig: Configuration = {
     paddingAtStart: true,
     listBackgroundColor: null,
@@ -28,9 +31,11 @@ export class NgMaterialMultilevelMenuComponent implements OnInit, OnChanges, OnD
     highlightOnSelect: false,
     useDividers: true,
     rtlLayout: false,
+    customTemplate: false,
   };
   isInvalidConfig = true;
   nodeExpandCollapseStatus: ExpandCollapseStatusEnum = ExpandCollapseStatusEnum.neutral;
+
   constructor(
     private router: Router,
     public multilevelMenuService: MultilevelMenuService
@@ -125,6 +130,12 @@ export class NgMaterialMultilevelMenuComponent implements OnInit, OnChanges, OnD
         typeof config.rtlLayout === 'boolean') {
         this.nodeConfig.rtlLayout = config.rtlLayout;
       }
+      if (config.customTemplate !== null &&
+        config.customTemplate !== undefined &&
+        typeof config.customTemplate === 'boolean') {
+        this.nodeConfig.customTemplate = config.customTemplate;
+      }
+      
     }
     this.checkValidData();
   }
