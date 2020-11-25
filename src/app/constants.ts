@@ -182,10 +182,10 @@ export const constant = {
         }
     ],
     sidebarConfigurations: {
-        paddingAtStart: true,
+        paddingAtStart: false,
         interfaceWithRoute: true,
-        rtlLayout: false,
-        collapseOnSelect: true,
+        // rtlLayout: true,
+        // collapseOnSelect: true,
         customTemplate: true,
     }
 };

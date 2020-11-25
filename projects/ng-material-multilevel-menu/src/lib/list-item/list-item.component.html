@@ -6,7 +6,7 @@
   [ngStyle]="getListStyle()"
   (click)="expand(node)"
 >
-  <ng-container [ngTemplateOutlet]="listTemplate" [ngTemplateOutletContext]="{item: node}"></ng-container>
+  <ng-container [ngTemplateOutlet]="listTemplate" [ngTemplateOutletContext]="{item: node, configuration: nodeConfiguration}"></ng-container>
 </div>
 <!-- 
   Base Template rendering condition ends
@@ -15,7 +15,7 @@
 <!-- 
   Recursive Template calls begins
 -->
-<div *ngIf="hasItems() && expanded" [@slideInOut] [dir]="isRtlLayout() ? 'rtl' : 'ltr'" [ngClass]="classes">
+<div *ngIf="hasItems() && expanded" [@SlideInOut] [dir]="isRtlLayout() ? 'rtl' : 'ltr'" [ngClass]="classes">
   <ng-list-item *ngFor="let singleNode of nodeChildren | keyvalue : multilevelMenuService.kvDummyComparerFn"
     [nodeConfiguration]='nodeConfiguration' 
     [node]="singleNode.value" 
@@ -74,10 +74,10 @@
     <span class="label">{{node.label}}</span>
   </div>
   <div class="amml-icon-arrow-container" *ngIf='hasItems()'>
-    <mat-icon *ngIf='!isRtlLayout()' [@isExpandedLTR]="expanded ? 'yes' : 'no'">
+    <mat-icon *ngIf='!isRtlLayout()' [@ExpandedLTR]="expanded ? 'yes' : 'no'">
       keyboard_arrow_down
     </mat-icon>
-    <mat-icon *ngIf='isRtlLayout()' [@isExpandedRTL]="expanded ? 'yes' : 'no'">
+    <mat-icon *ngIf='isRtlLayout()' [@ExpandedRTL]="expanded ? 'yes' : 'no'">
       keyboard_arrow_down
     </mat-icon>
   </div>

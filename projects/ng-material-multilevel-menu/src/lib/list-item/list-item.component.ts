@@ -1,56 +1,15 @@
 import { Component, Input, OnChanges, OnInit, Output, EventEmitter, TemplateRef, ElementRef } from '@angular/core';
-import { animate, group, state, style, transition, trigger } from '@angular/animations';
 import { Router } from '@angular/router';
 
 import { Configuration, ListStyle, MultilevelNodes, ExpandCollapseStatusEnum } from './../app.model';
 import { CONSTANT } from './../constants';
 import { MultilevelMenuService } from './../multilevel-menu.service';
-
+import { SlideInOut, ExpandedLTR, ExpandedRTL  } from './../animation';
 @Component({
   selector: 'ng-list-item',
   templateUrl: './list-item.component.html',
   styleUrls: ['./list-item.component.css'],
-  animations: [
-    trigger('slideInOut', [
-      state('in', style({ height: '*', opacity: 0 })),
-      transition(':leave', [
-        style({ height: '*', opacity: 0.2 }),
-        group([
-          animate(200, style({ height: 0 })),
-          animate('200ms ease-out', style({ opacity: 0 }))
-        ])
-      ]),
-      transition(':enter', [
-        style({ height: '0', opacity: 0 }),
-        group([
-          animate(200, style({ height: '*' })),
-          animate('400ms ease-out', style({ opacity: 1 }))
-        ])
-      ])
-    ]),
-    trigger('isExpandedLTR', [
-      state('no', style({ transform: 'rotate(-90deg)' })),
-      state('yes', style({ transform: 'rotate(0deg)', })),
-
-      transition('no => yes',
-        animate(200)
-      ),
-      transition('yes => no',
-        animate(200)
-      )
-    ]),
-    trigger('isExpandedRTL', [
-      state('no', style({ transform: 'rotate(90deg)' })),
-      state('yes', style({ transform: 'rotate(0deg)', })),
-
-      transition('no => yes',
-        animate(200)
-      ),
-      transition('yes => no',
-        animate(200)
-      )
-    ])
-  ]
+  animations: [SlideInOut, ExpandedLTR, ExpandedRTL]
 })
 export class ListItemComponent implements OnChanges, OnInit {
   @Input() node: MultilevelNodes;

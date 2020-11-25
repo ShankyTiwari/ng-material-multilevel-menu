@@ -5,7 +5,8 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { DomSanitizer } from '@angular/platform-browser';
 import { MatIconRegistry } from '@angular/material/icon';
 
-import { MultilevelNodes, MultilevelMenuService } from './../../projects/ng-material-multilevel-menu/src/public_api';
+import { MultilevelNodes, MultilevelMenuService, ExpandedRTL, ExpandedLTR } from './../../projects/ng-material-multilevel-menu/src/public_api';
+
 
 import { constant as CONSTANT } from './constants';
 
@@ -13,19 +14,7 @@ import { constant as CONSTANT } from './constants';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  animations: [
-    trigger('isExpandedRTL', [
-      state('no', style({ transform: 'rotate(-90deg)' })),
-      state('yes', style({ transform: 'rotate(0deg)', })),
-
-      transition('no => yes',
-        animate(200)
-      ),
-      transition('yes => no',
-        animate(200)
-      )
-    ]),
-  ]
+  animations: [ExpandedRTL, ExpandedLTR]
 })
 export class AppComponent {
   appitems: MultilevelNodes[] = CONSTANT.sidebarDemoLinks;
