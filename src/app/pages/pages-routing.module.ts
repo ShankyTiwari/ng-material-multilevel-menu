@@ -5,23 +5,28 @@ import { PagesComponent } from './pages.component';
 
 const routes: Routes = [{
   path: '',
-  component: PagesComponent
-}, {
-  path: 'demo-one',
-  loadChildren: () => import('src/app/pages/demo-one/demo-one.module').then(m => m.DemoOneModule)
-}, {
-  path: 'demo two',
-  loadChildren: () => import('src/app/pages/demo-two/demo-two.module').then(m => m.DemoTwoModule)
-}, {
-  path: 'demo/:demoNumber',
-  loadChildren: () => import('src/app/pages/demo-three/demo-three.module').then(m => m.DemoThreeModule)
-}, {
-  path: 'demo',
-  loadChildren: () => import('src/app/pages/demo-four/demo-four.module').then(m => m.DemoFourModule)
-}, {
-  path: '**',
-  redirectTo: '/',
-  pathMatch: 'full'
+  component: PagesComponent,
+  children: [{
+      path: '',
+      redirectTo: 'home',
+      pathMatch: 'full',
+    },
+    {
+      path: 'home',
+      loadChildren: () => import("./home/home.module").then((m) => m.HomeModule),
+    },
+    {
+      path: 'layout-variations',
+      loadChildren: () => import("./layout-variations/layout-variations.module").then((m) => m.LayoutVariationsModule),
+    },
+    {
+      path: 'more-configuration',
+      loadChildren: () => import("./more-configuration/more-configuration.module").then((m) => m.MoreConfigurationModule),
+    },
+    {
+      path: '**',
+      redirectTo: 'home'
+    }]
 }];
 
 @NgModule({

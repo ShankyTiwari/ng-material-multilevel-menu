@@ -1,15 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
 
 import { MaterialsModule } from './modules/materials.module';
-import { AppRoutingModule } from './app-routing.module';
-
 import { NgMaterialMultilevelMenuModule, MultilevelMenuService } from './../../projects/ng-material-multilevel-menu/src/public_api';
 
-// import { NgMaterialMultilevelMenuModule } from 'ng-material-multilevel-menu';
+import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
 
@@ -19,12 +15,10 @@ import { AppComponent } from './app.component';
   ],
   imports: [
     BrowserModule,
-    FormsModule,
     BrowserAnimationsModule,
-    HttpClientModule,
+    NgMaterialMultilevelMenuModule,
     AppRoutingModule,
-    MaterialsModule,
-    NgMaterialMultilevelMenuModule
+    MaterialsModule
   ],
   providers: [MultilevelMenuService],
   bootstrap: [AppComponent]

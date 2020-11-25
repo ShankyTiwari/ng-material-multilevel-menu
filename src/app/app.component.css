@@ -1,58 +1,53 @@
-.container {
-  display: flex;
-  flex-direction: column;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
+.heading {
+  text-align: center;
+  margin: auto;
+  border-bottom: solid 0.5px rgba(0, 0, 0, 0.2);
+  padding-bottom: 20px;;
 }
 
-.sibebar-content {
-  width: 30vw;
-}
-
-.content {
-  padding: 2%;
-  background-color: rgb(240, 240, 240);
-}
-
-
-.my-cool-menu-item {
-  display: flex;
-  padding-left: 10px;
-  padding-right: 10px;
-  border-bottom: solid 1px rgba(0,0,0,.12);
-  height: 48px;
-}
-
-.my-cool-menu-item .title-and-image {
+.container{
   width: 100%;
+  height: 100vh;
+  margin: auto;
   display: flex;
   justify-content: flex-start;
 }
-
-.my-cool-menu-item .title-and-image .icon-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+.menu{
+  width: 20%;
+  height: 100%;
+  border-right: solid 0.5px rgba(0, 0, 0, 0.2);
 }
 
-div[dir=rtl] .icon-container {
-  padding-left: 5px;
+.demos {
+  width: 60%;
+  margin: 0 auto;
 }
 
-div[dir=ltr] .icon-container {
-  padding-right: 5px;
+.footer {
+  width: 100%;
+  background: #fff;
+  height: 250px;
+  border-top: solid 0.5px rgba(0, 0, 0, 0.2);
 }
 
-.my-cool-menu-item .title-and-image .label-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+.credit {
+  text-align: center;
+  padding-top: 2%;
+  color: rgba(105, 105, 105, 0.56);
 }
 
-.my-cool-menu-item .icon-arrow-container {
-  display: flex;
-  align-items: center;
+a {
+  color: rgba(82, 82, 82, 0.7215686274509804);
+  text-decoration: underline;
+}
+
+.contact {
+  text-align: center;
+  padding-top: 2%;
+  color: rgba(105, 105, 105, 0.56);
+  box-shadow: 0px -4px 19px -9px rgba(0, 0, 0, .2);
+}
+
+.plugin-button {
+  color: #000;
 }

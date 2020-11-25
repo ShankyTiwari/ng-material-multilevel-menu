@@ -3,11 +3,14 @@ import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [{
   path: '',
-  loadChildren: () => import('src/app/pages/pages.module').then(m => m.PagesModule)
+  redirectTo: '/pages/home',
+  pathMatch: 'full',
 }, {
-  path: '',
-  redirectTo: '/',
-  pathMatch: 'full'
+  path: 'pages',
+  loadChildren: () => import("./pages/pages.module").then((m) => m.PagesModule),
+}, {
+  path: '**',
+  redirectTo: '/pages/home',
 }];
 
 @NgModule({

@@ -1,69 +1,86 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { animate, state, style, transition, trigger } from '@angular/animations';
-
-import { DomSanitizer } from '@angular/platform-browser';
-import { MatIconRegistry } from '@angular/material/icon';
-
-import { MultilevelNodes, MultilevelMenuService, ExpandedRTL, ExpandedLTR } from './../../projects/ng-material-multilevel-menu/src/public_api';
-
-
-import { constant as CONSTANT } from './constants';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  animations: [ExpandedRTL, ExpandedLTR]
 })
-export class AppComponent {
-  appitems: MultilevelNodes[] = CONSTANT.sidebarDemoLinks;
-  config = CONSTANT.sidebarConfigurations;
-  displayList = false;
-  menuId = null;
-  constructor(
-    private iconRegistry: MatIconRegistry,
-    private sanitizer: DomSanitizer,
-    private router: Router,
-    private multilevelMenuService: MultilevelMenuService
-  ) {
-    setTimeout(() => {
-      this.displayList = true;
-    }, 100);
-    iconRegistry.addSvgIcon(
-      'psychology',
-      sanitizer.bypassSecurityTrustResourceUrl('assets/psychology.svg'));
-    iconRegistry.addSvgIcon(
-      'activePsychology',
-      sanitizer.bypassSecurityTrustResourceUrl('assets/brain.svg'));
+export class AppComponent implements OnInit {
+  selectedData = null;
+  showHome = true;
+  expandCollapseStatus: string = null;
+
+  appItems = [
+    {
+      label: 'Home',
+      link: '/pages/home',
+    },
+    {
+      label: 'Layout Variations',
+      items: [
+        {
+          label: 'Default',
+          link: '/pages/layout-variations/demo-one',
+        },
+        {
+          label: 'Work with Colours',
+          link: '/pages/layout-variations/demo-two',
+        },
+        {
+          label: 'Change background',
+          link: '/pages/layout-variations/demo-three',
+        },
+        {
+          label: 'Use Images in the list',
+          link: '/pages/layout-variations/demo-four',
+        },
+        {
+          label: 'RLT Demo',
+          link: '/pages/layout-variations/demo-five',
+        },
+      ],
+    },
+    {
+      label: 'Configurations',
+      items: [
+        {
+          label: 'Add/Remove Padding',
+          link: '/pages/more-configuration/disable-padding',
+        },
+        {
+          label: 'Enable/Disable Routing',
+          link: '/pages/more-configuration/disable-routing',
+        },
+        {
+          label: 'Expand Collapse Menu' ,
+          link: '/pages/more-configuration/expand-collapse'
+        }
+      ],
+    },
+  ];
+
+  config = {
+    paddingAtStart: true,
+    interfaceWithRoute: true,
+    collapseOnSelect: true,
+    highlightOnSelect: true,
+  };
+
+  selectedItem(selectedData) {
+    console.log(selectedData);
+    this.selectedData = selectedData;
   }
 
-  selectedItem($event) {
-    console.log($event);
+  constructor() {}
+
+  ngOnInit() {
   }
 
-  selectedLabel($event) {
-    console.log($event);
-  }
-
-  redirect(link) {
-    this.router.navigate([link]);
-    setTimeout(() => {
-      this.displayList = true;
-    }, 100);
+  redirect(path) {
+    window.location.href = path;
   }
 
   setExpandCollapseStatus(type) {
-    this.multilevelMenuService.setMenuExapandCollpaseStatus(type);
-  }
-
-  selectMenuID(){
-    console.log(this.menuId);
-    this.multilevelMenuService.selectMenuByID(this.menuId);
-  }
-  getClass(item) {
-    return {
-      [item.faIcon]: true
-    }
+    this.expandCollapseStatus = type;
   }
 }
