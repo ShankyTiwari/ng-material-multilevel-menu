@@ -22,6 +22,6 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('h1').textContent).toContain('Welcome to ng-material-multilevel-menu-angular-project!');
+    expect(compiled.querySelector('h1').textContent).toContain('Welcome to md-test-app!');
   }));
 });

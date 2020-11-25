@@ -1,63 +1,36 @@
-<mat-drawer-container class="container">
-  <mat-drawer mode="side" opened class="sibebar-content">
-    <ng-material-multilevel-menu 
-      *ngIf="displayList"
-      [configuration]='config' 
-      [items]='appitems' 
-      [expandCollapseStatus]="expandCollapseStatus"
-      (selectedItem)="selectedItem($event)"
-    >
-      <ng-template #listTemplate let-item="item" let-configuration="configuration">
-        <div class="my-cool-menu-item" [dir]="configuration.rtlLayout  ? 'rtl' : 'ltr'">
-          <div class="title-and-image">
-            <div class="icon-container">
-              <span [ngClass]="getClass(item)"></span>
-            </div>
-            <div class="label-container">
-              <span>{{item.label}}</span>
-            </div>
-          </div>
-          <div class="icon-arrow-container" *ngIf='item.hasChilden'>
-            <mat-icon *ngIf="!configuration.rtlLayout" [@ExpandedLTR]="item.expanded ? 'yes' : 'no'">
-              keyboard_arrow_down
-            </mat-icon>
-            <mat-icon *ngIf="configuration.rtlLayout" [@ExpandedRTL]="item.expanded ? 'yes' : 'no'">
-              keyboard_arrow_down
-            </mat-icon>
-          </div>
+<div class="container">
+    <div class="menu">
+        <ng-material-multilevel-menu 
+          [configuration]='config' 
+          [items]='appItems'
+          (selectedItem)="selectedItem($event)">
+        </ng-material-multilevel-menu>
+    </div>
+    <div class="demos">
+        <div class="heading">
+            <h1>ng-material-multilevel-menu</h1>
+            <span class="short-desc">Material Multi-Level Menu for Angular Projects</span>
         </div>
-      </ng-template>
-    </ng-material-multilevel-menu>
-  </mat-drawer>
-  <mat-drawer-content class="content">
-      <router-outlet></router-outlet>
-      <button (click)="redirect('/demo-one')">1</button>
-      <br>
-      <button (click)="redirect('/demo two')">2</button>
-      <br>
-      <button (click)="redirect('/demo/12')">3</button>
-      <br>
-      <button (click)="redirect('/demo')">4</button>
-      <br>
-      <hr />
-      <button (click)="setExpandCollapseStatus('expand')">Expand All</button> &nbsp; <button (click)="setExpandCollapseStatus('collapse')">Collapse All</button>
-      <br>
-      <hr />
-      <input [(ngModel)]="menuId" type="text" placeholder="Enter the Menu Id here">
-      <button (click)="selectMenuID()">Select Menu {{menuId}}</button>
-      <br>
-      <br>
-      <hr />
-      <div>SVG Icons made by <a href="https://www.freepik.com/" title="Freepik">Freepik</a> from <a
-          href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a
-          href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0
-          BY</a>
-      </div>
-      <div>SVG Icons made by <a href="https://www.flaticon.com/authors/itim2101" title="itim2101">itim2101</a> from <a
-          href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a
-          href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0
-          BY</a>
-      </div>
-      
-  </mat-drawer-content>
-</mat-drawer-container>
+        <router-outlet></router-outlet>
+    </div>
+</div>
+<div class="footer">
+  <div class="credit">
+    <h2>Developed and Maintained by
+      <a href="https://twitter.com/TiwariShanky" target="_blank">@TiwariShanky</a>
+    </h2>
+    <br />
+    <!-- <h3><a href="http://www.codershood.info" target="_blank">WWW.CODERSHOOD.INFO</a></h3> -->
+  </div>
+  <div class="contact">
+    <button class="plugin-button" mat-button color="primary" (click)="redirect('http://www.codershood.info/contact/')">
+      Contact
+    </button>
+    <button class="plugin-button" mat-button color="primary" (click)="redirect('http://www.codershood.info/')">
+      Blog
+    </button>
+    <button class="plugin-button" mat-button color="primary" (click)="redirect('https://github.com/ShankyTiwari')">
+      Github
+    </button>
+  </div>
+</div>
