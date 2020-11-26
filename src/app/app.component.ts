@@ -45,6 +45,10 @@ export class AppComponent implements OnInit {
           label: 'RLT Demo',
           link: '/pages/layout-variations/demo-five',
         },
+        {
+          label: 'Custom Templates',
+          link: '/pages/layout-variations/demo-six',
+        },
       ],
     },
     {

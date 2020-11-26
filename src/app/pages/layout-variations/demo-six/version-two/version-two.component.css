@@ -1,0 +1,7 @@
+.module-demo {
+    position: relative;
+    margin: auto;
+    width: 600px;
+    margin-top: 20px;
+}
+/* Since you are writing your own HTML, hence you have to write it's corresponding CSS as well. */

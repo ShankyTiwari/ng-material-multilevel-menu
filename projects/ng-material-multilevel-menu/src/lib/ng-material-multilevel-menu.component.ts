@@ -34,6 +34,7 @@ export class NgMaterialMultilevelMenuComponent implements OnInit, OnChanges, OnD
     customTemplate: false,
   };
   isInvalidConfig = true;
+  isInvalidData = true;
   nodeExpandCollapseStatus: ExpandCollapseStatusEnum = ExpandCollapseStatusEnum.neutral;
 
   constructor(
@@ -74,11 +75,12 @@ export class NgMaterialMultilevelMenuComponent implements OnInit, OnChanges, OnD
     }
   }
   checkValidData(): void {
-    if (this.items.length === 0) {
+    if (this.items === undefined || (Array.isArray(this.items) && this.items.length === 0)) {
       console.warn(CONSTANT.ERROR_MESSAGE);
     } else {
       this.items = this.items.filter(n => !n.hidden);
       this.multilevelMenuService.addRandomId(this.items);
+      this.isInvalidData = false;
     }
   }
   detectInvalidConfig(): void {
