@@ -152,10 +152,9 @@ export class NgMaterialMultilevelMenuComponent implements OnInit, OnChanges, OnD
     this.selectMenuByIDSubscription = this.multilevelMenuService.selectedMenuID$.subscribe( (selectedMenuID: string) => {
       if(selectedMenuID) {
         const foundNode = this.multilevelMenuService.getMatchedObjectById(this.items, selectedMenuID);
-        console.log(selectedMenuID, foundNode)
         if (foundNode !== undefined) {
           this.currentNode = foundNode;
-          // this.selectedListItem(foundNode);
+          this.selectedListItem(foundNode);
         }
       }
     });

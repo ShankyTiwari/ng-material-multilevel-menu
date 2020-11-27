@@ -79,6 +79,14 @@ export class AppComponent implements OnInit {
         {
           label: 'Expand Collapse Menu' ,
           link: '/pages/more-configuration/expand-collapse'
+        },
+        {
+          label: `Don't Emit` ,
+          link: '/pages/more-configuration/dont-emit'
+        },
+        {
+          label: `Select Menu By ID` ,
+          link: '/pages/more-configuration/select-by-id'
         }
       ],
     },

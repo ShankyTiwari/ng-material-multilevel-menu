@@ -1,0 +1,35 @@
+.module-demo {
+    position: relative;
+    margin: auto;
+    width: 600px;
+}
+
+h2 {
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+
+.input-box {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    display: flex;
+}
+
+.input-box input {
+    padding: 10px 5px;
+    margin-right: 10px;
+    flex: 1;
+}
+
+.input-box button {
+    border: solid 1px #3f51b5;
+}
+
+.switch-demo {
+    display: flex;
+    flex-direction: flex-start;
+    justify-content: space-between;
+    padding-top: 10%;
+    width: 600px;
+    margin: auto;
+}
