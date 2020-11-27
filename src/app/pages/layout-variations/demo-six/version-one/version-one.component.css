@@ -4,6 +4,15 @@
     width: 600px;
     margin-top: 20px;
 }
+
+.switch-demo {
+    display: flex;
+    flex-direction: flex-start;
+    justify-content: space-between;
+    padding-top: 10%;
+    margin-bottom: 200px;
+}
+
 /* Since you are writing your own HTML, hence you have to write it's corresponding CSS as well. */
 
 .my-cool-menu-item {

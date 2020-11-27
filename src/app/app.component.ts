@@ -48,6 +48,20 @@ export class AppComponent implements OnInit {
         {
           label: 'Custom Templates',
           link: '/pages/layout-variations/demo-six',
+          items: [
+            {
+              label: 'Version 1',
+              link: '/pages/layout-variations/demo-six/version-one',
+            },
+            {
+              label: 'Version 2',
+              link: '/pages/layout-variations/demo-six/version-two',
+            },
+            {
+              label: 'Version 3',
+              link: '/pages/layout-variations/demo-six/version-three',
+            }
+          ],
         },
       ],
     },

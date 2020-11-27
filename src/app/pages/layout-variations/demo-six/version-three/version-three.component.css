@@ -1,0 +1,62 @@
+.module-demo {
+    position: relative;
+    margin: auto;
+    width: 600px;
+    margin-top: 20px;
+}
+
+.switch-demo {
+    display: flex;
+    flex-direction: flex-start;
+    justify-content: space-between;
+    padding-top: 10%;
+    margin-bottom: 200px;
+}
+
+/* Since you are writing your own HTML, hence you have to write it's corresponding CSS as well. */
+.version-two ::ng-deep .amml-menu-container {
+    background-color: #fafafa;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+
+.my-cool-menu-item {
+    display: flex;
+    padding-left: 5px;
+    padding-right: 10px;
+}
+
+.my-cool-menu-item .title-and-image {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    margin-top: 15px;
+    padding: 10px 15px;
+    border-radius: 20px;
+    border: solid 1px rgb(0 0 0 / 12%);
+}
+
+
+.my-cool-menu-item .title-and-image .label-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.my-cool-menu-item .title-and-image .label-container .label {
+    line-height: 48px;
+}
+
+.my-cool-menu-item .title-and-image .label-container .active {
+    font-weight: 600;
+}
+
+.my-cool-menu-item .title-and-image .description {
+    padding-bottom: 10px;
+}
+
+.my-cool-menu-item .icon-arrow-container {
+    display: flex;
+    align-items: center;
+}

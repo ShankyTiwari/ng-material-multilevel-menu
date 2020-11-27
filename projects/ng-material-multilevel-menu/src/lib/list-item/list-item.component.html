@@ -1,32 +1,34 @@
-<!-- 
-  Base Template rendering condition starts
--->
-<div *ngIf="nodeConfiguration.customTemplate && !node.hidden;else baseTemplate"
-  [ngClass]="selectedListClasses"
-  [ngStyle]="getListStyle()"
-  (click)="expand(node)"
->
-  <ng-container [ngTemplateOutlet]="listTemplate" [ngTemplateOutletContext]="{item: node, configuration: nodeConfiguration}"></ng-container>
-</div>
-<!-- 
-  Base Template rendering condition ends
--->
-
-<!-- 
-  Recursive Template calls begins
--->
-<div *ngIf="hasItems() && expanded" [@SlideInOut] [dir]="isRtlLayout() ? 'rtl' : 'ltr'" [ngClass]="classes">
-  <ng-list-item *ngFor="let singleNode of nodeChildren | keyvalue : multilevelMenuService.kvDummyComparerFn"
-    [nodeConfiguration]='nodeConfiguration' 
-    [node]="singleNode.value" 
-    [level]="level + 1"
-    [submenuLevel]="singleNode.key"
-    [selectedNode]='selectedNode' 
-    [nodeExpandCollapseStatus]='nodeExpandCollapseStatus'
-    (selectedItem)="selectedListItem($event)"
-    [listTemplate]="listTemplate"
+<div class="amml-menu-container">
+  <!-- 
+    Base Template rendering condition starts
+  -->
+  <div *ngIf="nodeConfiguration.customTemplate && !node.hidden;else baseTemplate"
+    [ngClass]="selectedListClasses"
+    [ngStyle]="getListStyle()"
+    (click)="expand(node)"
   >
-  </ng-list-item>
+    <ng-container [ngTemplateOutlet]="listTemplate" [ngTemplateOutletContext]="{item: node, configuration: nodeConfiguration}"></ng-container>
+  </div>
+  <!-- 
+    Base Template rendering condition ends
+  -->
+
+  <!-- 
+    Recursive Template calls begins
+  -->
+  <div *ngIf="hasItems() && expanded" [@SlideInOut] [dir]="isRtlLayout() ? 'rtl' : 'ltr'" [ngClass]="classes">
+    <ng-list-item *ngFor="let singleNode of nodeChildren | keyvalue : multilevelMenuService.kvDummyComparerFn"
+      [nodeConfiguration]='nodeConfiguration' 
+      [node]="singleNode.value" 
+      [level]="level + 1"
+      [submenuLevel]="singleNode.key"
+      [selectedNode]='selectedNode' 
+      [nodeExpandCollapseStatus]='nodeExpandCollapseStatus'
+      (selectedItem)="selectedListItem($event)"
+      [listTemplate]="listTemplate"
+    >
+    </ng-list-item>
+  </div>
 </div>
 <!-- 
   Recursive Template calls ends

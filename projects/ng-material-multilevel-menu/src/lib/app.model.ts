@@ -23,6 +23,7 @@ export interface MultilevelNodes {
   navigationExtras?: NavigationExtras;
   dontEmit?: boolean;
   hasChilden?: boolean;
+  isSelected?: boolean;
 }
 
 export interface Configuration {

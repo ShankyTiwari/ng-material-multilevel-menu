@@ -5,7 +5,11 @@ import { DemoSixComponent } from './demo-six.component';
 const routes: Routes = [{
   path: '',
   component: DemoSixComponent,
-  children: [
+  children: [{
+      path: '',
+      redirectTo: 'version-one',
+      pathMatch: 'full',
+    },
     {
       path: 'version-one',
       loadChildren: () => import("./version-one/version-one.module").then((m) => m.VersionOneModule),

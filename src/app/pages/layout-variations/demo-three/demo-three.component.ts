@@ -65,9 +65,9 @@ export class DemoThreeComponent implements OnInit {
   config = {
     paddingAtStart: false,
     classname: 'my-custom-list',
-    listBackgroundColor: `rgb(120, 120, 120)`,
+    listBackgroundColor: `rgb(2, 4, 76)`,
     fontColor: `#a5a5a5`,
-    backgroundColor: `rgb(120, 120, 120)`,
+    backgroundColor: `rgb(2, 4, 76)`,
     selectedListFontColor: `#fff`,
   };
 

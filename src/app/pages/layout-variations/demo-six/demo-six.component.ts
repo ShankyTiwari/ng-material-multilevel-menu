@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ThemePalette} from '@angular/material/core';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 
 @Component({
   selector: 'app-demo-six',
@@ -31,6 +31,12 @@ export class DemoSixComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.router.events.subscribe((routerEvent) => {
+      if (routerEvent instanceof NavigationEnd) {
+        const urlSplited = routerEvent.url.split('/');
+        this.activeLink = urlSplited[urlSplited.length - 1];
+      }
+    });
   }
 
 }

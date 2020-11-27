@@ -84,6 +84,7 @@ export class ListItemComponent implements OnChanges, OnInit {
       [CONSTANT.DISABLED_ITEM_CLASS_NAME]: this.node.disabled,
       [`level-${this.level}-submenulevel-${this.submenuLevel}`]: true,
     };
+    this.node.isSelected = this.isSelected;
     this.setClasses();
   }
   getPaddingAtStart(): boolean {
@@ -157,7 +158,8 @@ export class ListItemComponent implements OnChanges, OnInit {
   setClasses(): void {
     this.classes = {
       [`level-${this.level + 1}`]: true,
-      'amml-submenu': this.hasItems() && this.getPaddingAtStart()
+      [CONSTANT.SUBMENU_ITEM_CLASS_NAME]: this.hasItems() && this.getPaddingAtStart(),
+      [CONSTANT.HAS_SUBMENU_ITEM_CLASS_NAME]: this.hasItems()
     };
   }
   setExpandCollapseStatus(): void {
@@ -177,7 +179,6 @@ export class ListItemComponent implements OnChanges, OnInit {
     }
   }
   expand(node: MultilevelNodes): void {
-    console.log(node)
     if (node.disabled) {
       return;
     }
