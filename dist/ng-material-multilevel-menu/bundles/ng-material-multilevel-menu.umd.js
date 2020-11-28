@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/common'), require('@angular/core'), require('@angular/router'), require('@angular/animations'), require('rxjs'), require('@angular/material/core'), require('@angular/material/icon'), require('@angular/material/list')) :
-    typeof define === 'function' && define.amd ? define('ng-material-multilevel-menu', ['exports', '@angular/common', '@angular/core', '@angular/router', '@angular/animations', 'rxjs', '@angular/material/core', '@angular/material/icon', '@angular/material/list'], factory) :
-    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global['ng-material-multilevel-menu'] = {}, global.ng.common, global.ng.core, global.ng.router, global.ng.animations, global.rxjs, global.ng.material.core, global.ng.material.icon, global.ng.material.list));
-}(this, (function (exports, common, core, router, animations, rxjs, core$1, icon, list) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/common'), require('@angular/core'), require('@angular/router'), require('rxjs'), require('@angular/animations'), require('@angular/material/core'), require('@angular/material/icon'), require('@angular/material/list')) :
+    typeof define === 'function' && define.amd ? define('ng-material-multilevel-menu', ['exports', '@angular/common', '@angular/core', '@angular/router', 'rxjs', '@angular/animations', '@angular/material/core', '@angular/material/icon', '@angular/material/list'], factory) :
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global['ng-material-multilevel-menu'] = {}, global.ng.common, global.ng.core, global.ng.router, global.rxjs, global.ng.animations, global.ng.material.core, global.ng.material.icon, global.ng.material.list));
+}(this, (function (exports, common, core, router, rxjs, animations, core$1, icon, list) { 'use strict';
 
     (function (ExpandCollapseStatusEnum) {
         ExpandCollapseStatusEnum["expand"] = "expand";
@@ -17,6 +17,8 @@
         SELECTED_LIST_CLASS_NAME: "selected-amml-item",
         ACTIVE_ITEM_CLASS_NAME: "active-amml-item",
         DISABLED_ITEM_CLASS_NAME: "disabled-amml-item",
+        SUBMENU_ITEM_CLASS_NAME: "amml-submenu",
+        HAS_SUBMENU_ITEM_CLASS_NAME: "has-amml-submenu",
         DEFAULT_SELECTED_FONT_COLOR: "#1976d2",
         DEFAULT_LIST_BACKGROUND_COLOR: "transparent",
         DEFAULT_LIST_FONT_COLOR: "rgba(0,0,0,.87)",
@@ -91,7 +93,6 @@
             return this.foundLinkObject;
         };
         MultilevelMenuService.prototype.getMatchedObjectById = function (nodes, id) {
-            console.log(nodes, id);
             this.findNodeRecursively({ nodes: nodes, id: id });
             return this.foundLinkObject;
         };
@@ -110,6 +111,36 @@
         return MultilevelMenuService;
     }());
 
+    var SlideInOut = animations.trigger('SlideInOut', [
+        animations.state('in', animations.style({ height: '*', opacity: 0 })),
+        animations.transition(':leave', [
+            animations.style({ height: '*', opacity: 0.2 }),
+            animations.group([
+                animations.animate(200, animations.style({ height: 0 })),
+                animations.animate('200ms ease-out', animations.style({ opacity: 0 }))
+            ])
+        ]),
+        animations.transition(':enter', [
+            animations.style({ height: '0', opacity: 0 }),
+            animations.group([
+                animations.animate(200, animations.style({ height: '*' })),
+                animations.animate('400ms ease-out', animations.style({ opacity: 1 }))
+            ])
+        ])
+    ]);
+    var ExpandedLTR = animations.trigger('ExpandedLTR', [
+        animations.state('no', animations.style({ transform: 'rotate(-90deg)' })),
+        animations.state('yes', animations.style({ transform: 'rotate(0deg)', })),
+        animations.transition('no => yes', animations.animate(200)),
+        animations.transition('yes => no', animations.animate(200))
+    ]);
+    var ExpandedRTL = animations.trigger('ExpandedRTL', [
+        animations.state('no', animations.style({ transform: 'rotate(90deg)' })),
+        animations.state('yes', animations.style({ transform: 'rotate(0deg)', })),
+        animations.transition('no => yes', animations.animate(200)),
+        animations.transition('yes => no', animations.animate(200))
+    ]);
+
     var ListItemComponent = /** @class */ (function () {
         function ListItemComponent(router, multilevelMenuService) {
             var _a;
@@ -119,6 +150,7 @@
             this.submenuLevel = 0;
             this.nodeConfiguration = null;
             this.nodeExpandCollapseStatus = null;
+            this.listTemplate = null;
             this.selectedItem = new core.EventEmitter();
             this.isSelected = false;
             this.expanded = false;
@@ -131,6 +163,7 @@
         }
         ListItemComponent.prototype.ngOnChanges = function () {
             this.nodeChildren = this.node && this.node.items ? this.node.items.filter(function (n) { return !n.hidden; }) : [];
+            this.node.hasChilden = this.hasItems();
             if (this.selectedNode !== undefined && this.selectedNode !== null) {
                 this.setSelectedClass(this.multilevelMenuService.recursiveCheckId(this.node, this.selectedNode.id));
             }
@@ -160,6 +193,7 @@
             else {
                 this.isSelected = false;
                 if (this.nodeConfiguration.collapseOnSelect) {
+                    this.node.expanded = false;
                     this.expanded = false;
                 }
             }
@@ -170,6 +204,7 @@
                 _a[CONSTANT.DISABLED_ITEM_CLASS_NAME] = this.node.disabled,
                 _a["level-" + this.level + "-submenulevel-" + this.submenuLevel] = true,
                 _a);
+            this.node.isSelected = this.isSelected;
             this.setClasses();
         };
         ListItemComponent.prototype.getPaddingAtStart = function () {
@@ -249,16 +284,23 @@
             var _a;
             this.classes = (_a = {},
                 _a["level-" + (this.level + 1)] = true,
-                _a['amml-submenu'] = this.hasItems() && this.getPaddingAtStart(),
+                _a[CONSTANT.SUBMENU_ITEM_CLASS_NAME] = this.hasItems() && this.getPaddingAtStart(),
+                _a[CONSTANT.HAS_SUBMENU_ITEM_CLASS_NAME] = this.hasItems(),
                 _a);
         };
         ListItemComponent.prototype.setExpandCollapseStatus = function () {
             if (this.nodeExpandCollapseStatus !== null && this.nodeExpandCollapseStatus !== undefined) {
                 if (this.nodeExpandCollapseStatus === exports.ExpandCollapseStatusEnum.expand) {
                     this.expanded = true;
+                    if (this.nodeConfiguration.customTemplate) {
+                        this.node.expanded = true;
+                    }
                 }
                 if (this.nodeExpandCollapseStatus === exports.ExpandCollapseStatusEnum.collapse) {
                     this.expanded = false;
+                    if (this.nodeConfiguration.customTemplate) {
+                        this.node.expanded = false;
+                    }
                 }
             }
         };
@@ -268,6 +310,7 @@
             }
             this.nodeExpandCollapseStatus = exports.ExpandCollapseStatusEnum.neutral;
             this.expanded = !this.expanded;
+            this.node.expanded = this.expanded;
             this.firstInitializer = true;
             this.setClasses();
             if (this.nodeConfiguration.interfaceWithRoute !== null
@@ -292,39 +335,9 @@
     ListItemComponent.decorators = [
         { type: core.Component, args: [{
                     selector: 'ng-list-item',
-                    template: "<mat-list-item matRipple \n  *ngIf=\"!node.hidden\"\n  title=\"{{node.label}}\"\n  [matRippleDisabled]=\"node.disabled\" \n  [ngClass]=\"selectedListClasses\"\n  [ngStyle]=\"getListStyle()\"\n  (click)=\"expand(node)\">\n  <ng-container *ngTemplateOutlet=\"linkTemplate\"></ng-container>\n</mat-list-item>\n\n<mat-divider *ngIf=\"nodeConfiguration.useDividers\"></mat-divider>\n\n<div *ngIf=\"hasItems() && expanded\" [@slideInOut] [dir]=\"isRtlLayout() ? 'rtl' : 'ltr'\" [ngClass]=\"classes\">\n  <ng-list-item *ngFor=\"let singleNode of nodeChildren | keyvalue : multilevelMenuService.kvDummyComparerFn\"\n    [nodeConfiguration]='nodeConfiguration' \n    [node]=\"singleNode.value\" \n    [level]=\"level + 1\"\n    [submenuLevel]=\"singleNode.key\"\n    [selectedNode]='selectedNode' \n    [nodeExpandCollapseStatus]='nodeExpandCollapseStatus'\n    (selectedItem)=\"selectedListItem($event)\">\n  </ng-list-item>\n</div>\n\n<ng-template #linkTemplate>\n  <a class=\"anml-link\" *ngIf=\"node.externalRedirect\" [href]=\"node.link\" [target]=\"getHrefTargetType()\">\n    <ng-container *ngTemplateOutlet=\"linkLabelOutlet\"></ng-container>\n  </a>\n  <a class=\"anml-link\" *ngIf=\"!node.externalRedirect\" [routerLink]=\"node.link\">\n    <ng-container *ngTemplateOutlet=\"linkLabelOutlet\"></ng-container>\n  </a>\n</ng-template>\n\n<ng-template #linkLabelOutlet>\n  <div class=\"anml-data\" [dir]=\"isRtlLayout() ? 'rtl' : 'ltr'\">\n    <div class=\"icon-container\" [ngSwitch]=\"getListIcon(node)\">\n      <span *ngSwitchCase=\"'faicon'\" class=\"amml-icon amml-icon-fa\">\n        <i [ngClass]=\"getSelectedFaIcon()\"></i>\n      </span>\n      <mat-icon *ngSwitchCase=\"'icon'\" class=\"amml-icon\">\n        {{getSelectedIcon()}}\n      </mat-icon>\n      <mat-icon *ngSwitchCase=\"'svgicon'\" svgIcon=\"{{getSelectedSvgIcon()}}\" class=\"amml-icon amml-svg-icon\">\n      </mat-icon>\n      <img matListAvatar *ngSwitchCase=\"'imageicon'\" class=\"amml-icon\" src=\"{{getSelectedImageIcon()}}\"\n        alt=\"{{node.label}}\" />\n    </div>\n    <span class=\"label\">{{node.label}}</span>\n  </div>\n  <div class=\"amml-icon-arrow-container\" *ngIf='hasItems()'>\n    <mat-icon *ngIf='!isRtlLayout()' [@isExpandedLTR]=\"expanded ? 'yes' : 'no'\">\n      keyboard_arrow_down\n    </mat-icon>\n    <mat-icon *ngIf='isRtlLayout()' [@isExpandedRTL]=\"expanded ? 'yes' : 'no'\">\n      keyboard_arrow_down\n    </mat-icon>\n  </div>\n</ng-template>",
-                    animations: [
-                        animations.trigger('slideInOut', [
-                            animations.state('in', animations.style({ height: '*', opacity: 0 })),
-                            animations.transition(':leave', [
-                                animations.style({ height: '*', opacity: 0.2 }),
-                                animations.group([
-                                    animations.animate(200, animations.style({ height: 0 })),
-                                    animations.animate('200ms ease-out', animations.style({ opacity: 0 }))
-                                ])
-                            ]),
-                            animations.transition(':enter', [
-                                animations.style({ height: '0', opacity: 0 }),
-                                animations.group([
-                                    animations.animate(200, animations.style({ height: '*' })),
-                                    animations.animate('400ms ease-out', animations.style({ opacity: 1 }))
-                                ])
-                            ])
-                        ]),
-                        animations.trigger('isExpandedLTR', [
-                            animations.state('no', animations.style({ transform: 'rotate(-90deg)' })),
-                            animations.state('yes', animations.style({ transform: 'rotate(0deg)', })),
-                            animations.transition('no => yes', animations.animate(200)),
-                            animations.transition('yes => no', animations.animate(200))
-                        ]),
-                        animations.trigger('isExpandedRTL', [
-                            animations.state('no', animations.style({ transform: 'rotate(90deg)' })),
-                            animations.state('yes', animations.style({ transform: 'rotate(0deg)', })),
-                            animations.transition('no => yes', animations.animate(200)),
-                            animations.transition('yes => no', animations.animate(200))
-                        ])
-                    ],
-                    styles: [".amml-item{cursor:pointer;line-height:48px;position:relative}.anml-link{color:inherit;text-decoration:none;text-transform:capitalize}.anml-data,.anml-link{display:flex;justify-content:flex-start;width:100%}.anml-data{height:48px}.disabled-amml-item{opacity:.5;pointer-events:none;text-decoration:none}.icon-container{display:flex;flex-direction:column;justify-content:center}.amml-icon-fa{font-size:20px}.label{font-weight:400;line-height:48px}.amml-svg-icon{height:22px;margin-top:-12px;width:22px}.amml-icon-arrow-container{align-items:center;direction:ltr;display:flex}div[dir=ltr] .amml-icon{margin-right:16px}div[dir=ltr].amml-submenu,div[dir=rtl] .amml-icon{margin-left:16px}div[dir=rtl].amml-submenu{margin-right:16px}"]
+                    template: "<div class=\"amml-menu-container\">\n  <!-- \n    Base Template rendering condition starts\n  -->\n  <div *ngIf=\"nodeConfiguration.customTemplate && !node.hidden;else baseTemplate\"\n    [ngClass]=\"selectedListClasses\"\n    [ngStyle]=\"getListStyle()\"\n    (click)=\"expand(node)\"\n  >\n    <ng-container [ngTemplateOutlet]=\"listTemplate\" [ngTemplateOutletContext]=\"{item: node, configuration: nodeConfiguration}\"></ng-container>\n  </div>\n  <!-- \n    Base Template rendering condition ends\n  -->\n\n  <!-- \n    Recursive Template calls begins\n  -->\n  <div *ngIf=\"hasItems() && expanded\" [@SlideInOut] [dir]=\"isRtlLayout() ? 'rtl' : 'ltr'\" [ngClass]=\"classes\">\n    <ng-list-item *ngFor=\"let singleNode of nodeChildren | keyvalue : multilevelMenuService.kvDummyComparerFn\"\n      [nodeConfiguration]='nodeConfiguration' \n      [node]=\"singleNode.value\" \n      [level]=\"level + 1\"\n      [submenuLevel]=\"singleNode.key\"\n      [selectedNode]='selectedNode' \n      [nodeExpandCollapseStatus]='nodeExpandCollapseStatus'\n      (selectedItem)=\"selectedListItem($event)\"\n      [listTemplate]=\"listTemplate\"\n    >\n    </ng-list-item>\n  </div>\n</div>\n<!-- \n  Recursive Template calls ends\n-->\n\n<!-- \n  Base Template starts from here \n-->\n<ng-template #baseTemplate>\n  <mat-list-item matRipple \n    *ngIf=\"!node.hidden\"\n    title=\"{{node.label}}\"\n    [matRippleDisabled]=\"node.disabled\" \n    [ngClass]=\"selectedListClasses\"\n    [ngStyle]=\"getListStyle()\"\n    (click)=\"expand(node)\">\n    <ng-container *ngTemplateOutlet=\"linkTemplate\"></ng-container>\n  </mat-list-item>\n  <mat-divider *ngIf=\"nodeConfiguration.useDividers\"></mat-divider>\n</ng-template>\n\n<ng-template #linkTemplate>\n  <a class=\"anml-link\" *ngIf=\"node.externalRedirect\" [href]=\"node.link\" [target]=\"getHrefTargetType()\">\n    <ng-container *ngTemplateOutlet=\"linkLabelOutlet\"></ng-container>\n  </a>\n  <a class=\"anml-link\" *ngIf=\"!node.externalRedirect\" [routerLink]=\"node.link\">\n    <ng-container *ngTemplateOutlet=\"linkLabelOutlet\"></ng-container>\n  </a>\n</ng-template>\n\n<ng-template #linkLabelOutlet>\n  <div class=\"anml-data\" [dir]=\"isRtlLayout() ? 'rtl' : 'ltr'\">\n    <div class=\"icon-container\" [ngSwitch]=\"getListIcon(node)\">\n      <span *ngSwitchCase=\"'faicon'\" class=\"amml-icon amml-icon-fa\">\n        <i [ngClass]=\"getSelectedFaIcon()\"></i>\n      </span>\n      <mat-icon *ngSwitchCase=\"'icon'\" class=\"amml-icon\">\n        {{getSelectedIcon()}}\n      </mat-icon>\n      <mat-icon *ngSwitchCase=\"'svgicon'\" svgIcon=\"{{getSelectedSvgIcon()}}\" class=\"amml-icon amml-svg-icon\">\n      </mat-icon>\n      <img matListAvatar *ngSwitchCase=\"'imageicon'\" class=\"amml-icon\" src=\"{{getSelectedImageIcon()}}\"\n        alt=\"{{node.label}}\" />\n    </div>\n    <span class=\"label\">{{node.label}}</span>\n  </div>\n  <div class=\"amml-icon-arrow-container\" *ngIf='hasItems()'>\n    <mat-icon *ngIf='!isRtlLayout()' [@ExpandedLTR]=\"expanded ? 'yes' : 'no'\">\n      keyboard_arrow_down\n    </mat-icon>\n    <mat-icon *ngIf='isRtlLayout()' [@ExpandedRTL]=\"expanded ? 'yes' : 'no'\">\n      keyboard_arrow_down\n    </mat-icon>\n  </div>\n</ng-template>",
+                    animations: [SlideInOut, ExpandedLTR, ExpandedRTL],
+                    styles: [".amml-item{cursor:pointer;position:relative}.anml-link{color:inherit;text-decoration:none;text-transform:capitalize}.anml-data,.anml-link{display:flex;justify-content:flex-start;width:100%}.anml-data{height:48px}.disabled-amml-item{opacity:.5;pointer-events:none;text-decoration:none}.icon-container{display:flex;flex-direction:column;justify-content:center}.amml-icon-fa{font-size:20px}.label{font-weight:400;line-height:48px}.amml-svg-icon{height:22px;margin-top:-12px;width:22px}.amml-icon-arrow-container{align-items:center;direction:ltr;display:flex}div[dir=ltr] .amml-icon{margin-right:16px}div[dir=ltr].amml-submenu,div[dir=rtl] .amml-icon{margin-left:16px}div[dir=rtl].amml-submenu{margin-right:16px}"]
                 },] }
     ];
     ListItemComponent.ctorParameters = function () { return [
@@ -338,6 +351,7 @@
         selectedNode: [{ type: core.Input }],
         nodeConfiguration: [{ type: core.Input }],
         nodeExpandCollapseStatus: [{ type: core.Input }],
+        listTemplate: [{ type: core.Input }],
         selectedItem: [{ type: core.Output }]
     };
 
@@ -371,6 +385,7 @@
             this.selectedLabel = new core.EventEmitter();
             this.expandCollapseStatusSubscription = null;
             this.selectMenuByIDSubscription = null;
+            this.currentNode = null;
             this.nodeConfig = {
                 paddingAtStart: true,
                 listBackgroundColor: null,
@@ -381,8 +396,10 @@
                 highlightOnSelect: false,
                 useDividers: true,
                 rtlLayout: false,
+                customTemplate: false,
             };
             this.isInvalidConfig = true;
+            this.isInvalidData = true;
             this.nodeExpandCollapseStatus = exports.ExpandCollapseStatusEnum.neutral;
         }
         NgMaterialMultilevelMenuComponent.prototype.ngOnChanges = function () {
@@ -418,12 +435,13 @@
             }
         };
         NgMaterialMultilevelMenuComponent.prototype.checkValidData = function () {
-            if (this.items.length === 0) {
+            if (this.items === undefined || (Array.isArray(this.items) && this.items.length === 0)) {
                 console.warn(CONSTANT.ERROR_MESSAGE);
             }
             else {
                 this.items = this.items.filter(function (n) { return !n.hidden; });
                 this.multilevelMenuService.addRandomId(this.items);
+                this.isInvalidData = false;
             }
         };
         NgMaterialMultilevelMenuComponent.prototype.detectInvalidConfig = function () {
@@ -476,6 +494,11 @@
                     typeof config.rtlLayout === 'boolean') {
                     this.nodeConfig.rtlLayout = config.rtlLayout;
                 }
+                if (config.customTemplate !== null &&
+                    config.customTemplate !== undefined &&
+                    typeof config.customTemplate === 'boolean') {
+                    this.nodeConfig.customTemplate = config.customTemplate;
+                }
             }
             this.checkValidData();
         };
@@ -492,10 +515,9 @@
             this.selectMenuByIDSubscription = this.multilevelMenuService.selectedMenuID$.subscribe(function (selectedMenuID) {
                 if (selectedMenuID) {
                     var foundNode = _this.multilevelMenuService.getMatchedObjectById(_this.items, selectedMenuID);
-                    console.log(selectedMenuID, foundNode);
                     if (foundNode !== undefined) {
                         _this.currentNode = foundNode;
-                        // this.selectedListItem(foundNode);
+                        _this.selectedListItem(foundNode);
                     }
                 }
             });
@@ -551,7 +573,7 @@
     NgMaterialMultilevelMenuComponent.decorators = [
         { type: core.Component, args: [{
                     selector: 'ng-material-multilevel-menu',
-                    template: "<div [ngClass]=\"getClassName()\" [ngStyle]=\"getGlobalStyle()\" *ngIf='items.length !== 0' [dir]=\"isRtlLayout() ? 'rtl' : 'ltr'\">\n  <mat-list>\n    <ng-list-item\n      *ngFor=\"let node of items | keyvalue: multilevelMenuService.kvDummyComparerFn\"\n      [nodeConfiguration]='nodeConfig'\n      [node]='node.value'\n      [level]=\"1\"\n      [submenuLevel]=\"node.key\"\n      [selectedNode]='currentNode'\n      [nodeExpandCollapseStatus]='nodeExpandCollapseStatus'\n      (selectedItem)=\"selectedListItem($event)\n    \">\n    </ng-list-item>\n  </mat-list>\n</div>\n",
+                    template: "<div [ngClass]=\"getClassName()\" [ngStyle]=\"getGlobalStyle()\" *ngIf='!isInvalidData && items.length !== 0' [dir]=\"isRtlLayout() ? 'rtl' : 'ltr'\">\n  <mat-list>\n    <ng-list-item\n      *ngFor=\"let node of items | keyvalue: multilevelMenuService.kvDummyComparerFn\"\n      [nodeConfiguration]='nodeConfig'\n      [node]='node.value'\n      [level]=\"1\"\n      [submenuLevel]=\"node.key\"\n      [selectedNode]='currentNode'\n      [nodeExpandCollapseStatus]='nodeExpandCollapseStatus'\n      (selectedItem)=\"selectedListItem($event)\"\n      [listTemplate] = \"listTemplate\"\n    >\n    </ng-list-item>\n  </mat-list>\n</div>\n",
                     styles: [".amml-container .mat-list-base{padding-top:unset}.amml-item{display:flex;justify-content:space-between;line-height:48px;position:relative}.anml-data{display:flex;justify-content:flex-start;text-transform:capitalize;width:100%}.amml-icon-fa{font-size:20px}.amml-icon{line-height:48px}.active{color:#1976d2}div[dir=ltr] .amml-icon{margin-right:15px}div[dir=ltr] .amml-submenu{margin-left:16px}div[dir=rtl] .amml-icon{margin-left:15px}div[dir=rtl] .amml-submenu{margin-right:16px}"]
                 },] }
     ];
@@ -563,7 +585,8 @@
         items: [{ type: core.Input }],
         configuration: [{ type: core.Input }],
         selectedItem: [{ type: core.Output }],
-        selectedLabel: [{ type: core.Output }]
+        selectedLabel: [{ type: core.Output }],
+        listTemplate: [{ type: core.ContentChild, args: ['listTemplate', { static: true },] }]
     };
 
     var NgMaterialMultilevelMenuModule = /** @class */ (function () {
@@ -594,9 +617,12 @@
      * Generated bundle index. Do not edit.
      */
 
+    exports.ExpandedLTR = ExpandedLTR;
+    exports.ExpandedRTL = ExpandedRTL;
     exports.MultilevelMenuService = MultilevelMenuService;
     exports.NgMaterialMultilevelMenuComponent = NgMaterialMultilevelMenuComponent;
     exports.NgMaterialMultilevelMenuModule = NgMaterialMultilevelMenuModule;
+    exports.SlideInOut = SlideInOut;
     exports.ɵa = MaterialsModule;
     exports.ɵb = ListItemComponent;
 

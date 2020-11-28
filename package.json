@@ -1,6 +1,6 @@
 {
   "name": "ng-material-multilevel-menu-angular-project",
-  "version": "5.0.1",
+  "version": "5.5.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -9,7 +9,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
-  "homepage": "http://plugins.codershood.info/",
+  "homepage": "https://multilevel-menu-demo.web.app/pages/home",
   "private": false,
   "dependencies": {
     "@angular/animations": "^11.0.0",
