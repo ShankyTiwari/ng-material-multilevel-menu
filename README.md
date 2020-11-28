@@ -23,7 +23,7 @@ Check the Material Multi-Level Menu in action, [click here](http://plugins.coder
 4. Seamlessly work with Angular routing, if provided.
 5. RTL supported ([thanks to StavM](https://github.com/StavM)).
 6. Supports Custom List Templates
-    1. [Demos]()
+    1. [Demos](https://multilevel-menu-demo.web.app/pages/layout-variations/demo-six/version-one)
     2. [Documentation](#3-building-custom-templates)
 
 ## Installation
@@ -239,7 +239,7 @@ export class AppComponent {
 ### 3. Building Custom Templates
 In this section, you will find useful information if you are planning to write your own templates.
 
-1. First and very important is `MultilevelNodes` interface, every menu item implements this interface. Make sure you look into each property of this interface when building custom menu templates. For example properties like `isSelected`, `hasChilden`, `expanded`, `disabled`, `items`, `label`, and so on are extremely helpful, have look into some demos here.
+1. First and very important is `MultilevelNodes` interface, every menu item implements this interface. Make sure you look into each property of this interface when building custom menu templates. For example properties like `isSelected`, `hasChilden`, `expanded`, `disabled`, `items`, `label`, and so on are extremely helpful, have look into some demos [here](https://multilevel-menu-demo.web.app/pages/layout-variations/demo-six/version-one).
 2. You actually don't have to write *Slide-In*/ *Slide-Out*, *Arrow Rotation* animation. The module exports these animations out of the box, so you can import them as use it as shown below.
 **demo.component.ts:**
 ```typescript
