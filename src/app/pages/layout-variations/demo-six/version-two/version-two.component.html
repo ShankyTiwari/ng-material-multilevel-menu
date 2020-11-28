@@ -1,0 +1,23 @@
+<div class="module-demo version-two">
+  <ng-material-multilevel-menu [items]='appitems' [configuration]='config' (selectedItem)="selectedItem($event)">
+      <ng-template #listTemplate let-item="item" let-configuration="configuration">
+          <div class="my-cool-menu-item">
+            <div class="title-and-image">
+              <div class="label-container">
+                <span [ngClass]="{'weight':item.isSelected}">{{item.label}} </span>
+              </div>
+              <div class="strip-container" [@highlight]="item.isSelected ? 'yes' : 'no'"></div>
+            </div>
+            <div class="icon-arrow-container" *ngIf='item.hasChilden'>
+              <mat-icon [@ExpandedLTR]="item.expanded ? 'yes' : 'no'">
+                keyboard_arrow_down
+              </mat-icon>
+            </div>
+          </div>
+      </ng-template>
+  </ng-material-multilevel-menu>
+</div>
+<div class="switch-demo">
+  <a class="prev-demo" mat-button [routerLink]="['/pages/layout-variations/demo-six/version-one']">Previous Demo</a>
+  <a class="next-demo" mat-button [routerLink]="['/pages/layout-variations/demo-six/version-three']">Next Demo</a>
+</div>

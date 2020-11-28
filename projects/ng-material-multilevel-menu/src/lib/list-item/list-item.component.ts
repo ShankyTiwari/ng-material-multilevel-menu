@@ -1,57 +1,15 @@
-import { animate, group, state, style, transition, trigger } from '@angular/animations';
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, Output, EventEmitter, TemplateRef, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
+
 import { Configuration, ListStyle, MultilevelNodes, ExpandCollapseStatusEnum } from './../app.model';
 import { CONSTANT } from './../constants';
 import { MultilevelMenuService } from './../multilevel-menu.service';
-
-
-
+import { SlideInOut, ExpandedLTR, ExpandedRTL  } from './../animation';
 @Component({
   selector: 'ng-list-item',
   templateUrl: './list-item.component.html',
   styleUrls: ['./list-item.component.css'],
-  animations: [
-    trigger('slideInOut', [
-      state('in', style({ height: '*', opacity: 0 })),
-      transition(':leave', [
-        style({ height: '*', opacity: 0.2 }),
-        group([
-          animate(200, style({ height: 0 })),
-          animate('200ms ease-out', style({ opacity: 0 }))
-        ])
-      ]),
-      transition(':enter', [
-        style({ height: '0', opacity: 0 }),
-        group([
-          animate(200, style({ height: '*' })),
-          animate('400ms ease-out', style({ opacity: 1 }))
-        ])
-      ])
-    ]),
-    trigger('isExpandedLTR', [
-      state('no', style({ transform: 'rotate(-90deg)' })),
-      state('yes', style({ transform: 'rotate(0deg)', })),
-
-      transition('no => yes',
-        animate(200)
-      ),
-      transition('yes => no',
-        animate(200)
-      )
-    ]),
-    trigger('isExpandedRTL', [
-      state('no', style({ transform: 'rotate(90deg)' })),
-      state('yes', style({ transform: 'rotate(0deg)', })),
-
-      transition('no => yes',
-        animate(200)
-      ),
-      transition('yes => no',
-        animate(200)
-      )
-    ])
-  ]
+  animations: [SlideInOut, ExpandedLTR, ExpandedRTL]
 })
 export class ListItemComponent implements OnChanges, OnInit {
   @Input() node: MultilevelNodes;
@@ -60,13 +18,18 @@ export class ListItemComponent implements OnChanges, OnInit {
   @Input() selectedNode: MultilevelNodes;
   @Input() nodeConfiguration: Configuration = null;
   @Input() nodeExpandCollapseStatus: ExpandCollapseStatusEnum = null;
+  @Input() listTemplate: TemplateRef<ElementRef> = null;
+
   @Output() selectedItem = new EventEmitter<MultilevelNodes>();
+
   isSelected = false;
+  expanded = false;
+  firstInitializer = false;
+  
   nodeChildren: MultilevelNodes[];
   classes: { [index: string]: boolean };
   selectedListClasses: { [index: string]: boolean };
-  expanded = false;
-  firstInitializer = false;
+  
   constructor(
     private router: Router,
     public multilevelMenuService: MultilevelMenuService
@@ -79,6 +42,8 @@ export class ListItemComponent implements OnChanges, OnInit {
   }
   ngOnChanges() {
     this.nodeChildren = this.node && this.node.items ? this.node.items.filter(n => !n.hidden) : [];
+    this.node.hasChilden = this.hasItems();
+
     if (this.selectedNode !== undefined && this.selectedNode !== null) {
       this.setSelectedClass(this.multilevelMenuService.recursiveCheckId(this.node, this.selectedNode.id));
     }
@@ -108,6 +73,7 @@ export class ListItemComponent implements OnChanges, OnInit {
     } else {
       this.isSelected = false;
       if (this.nodeConfiguration.collapseOnSelect) {
+        this.node.expanded = false;
         this.expanded = false;
       }
     }
@@ -118,6 +84,7 @@ export class ListItemComponent implements OnChanges, OnInit {
       [CONSTANT.DISABLED_ITEM_CLASS_NAME]: this.node.disabled,
       [`level-${this.level}-submenulevel-${this.submenuLevel}`]: true,
     };
+    this.node.isSelected = this.isSelected;
     this.setClasses();
   }
   getPaddingAtStart(): boolean {
@@ -191,16 +158,23 @@ export class ListItemComponent implements OnChanges, OnInit {
   setClasses(): void {
     this.classes = {
       [`level-${this.level + 1}`]: true,
-      'amml-submenu': this.hasItems() && this.getPaddingAtStart()
+      [CONSTANT.SUBMENU_ITEM_CLASS_NAME]: this.hasItems() && this.getPaddingAtStart(),
+      [CONSTANT.HAS_SUBMENU_ITEM_CLASS_NAME]: this.hasItems()
     };
   }
   setExpandCollapseStatus(): void {
     if (this.nodeExpandCollapseStatus !== null && this.nodeExpandCollapseStatus !== undefined ) {
       if (this.nodeExpandCollapseStatus === ExpandCollapseStatusEnum.expand) {
         this.expanded = true;
+        if (this.nodeConfiguration.customTemplate) {
+          this.node.expanded = true;
+        }
       }
       if (this.nodeExpandCollapseStatus === ExpandCollapseStatusEnum.collapse) {
         this.expanded = false;
+        if (this.nodeConfiguration.customTemplate) {
+          this.node.expanded = false;
+        }
       }
     }
   }
@@ -210,6 +184,7 @@ export class ListItemComponent implements OnChanges, OnInit {
     }
     this.nodeExpandCollapseStatus = ExpandCollapseStatusEnum.neutral;
     this.expanded = !this.expanded;
+    this.node.expanded =  this.expanded;
     this.firstInitializer = true;
     this.setClasses();
     if (this.nodeConfiguration.interfaceWithRoute !== null

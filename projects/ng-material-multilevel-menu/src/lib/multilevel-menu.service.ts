@@ -64,7 +64,6 @@ export class MultilevelMenuService {
     return this.foundLinkObject;
   }
   getMatchedObjectById(nodes: MultilevelNodes[], id: string): MultilevelNodes {
-    console.log(nodes, id)
     this.findNodeRecursively({nodes, id});
     return this.foundLinkObject;
   }

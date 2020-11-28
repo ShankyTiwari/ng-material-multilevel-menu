@@ -1,9 +1,16 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 
+import { DomSanitizer } from '@angular/platform-browser';
+import { MatIconRegistry } from '@angular/material/icon';
+
+import { MultilevelNodes, MultilevelMenuService, ExpandedRTL, ExpandedLTR } from './../../projects/ng-material-multilevel-menu/src/public_api';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
+  animations: [ExpandedRTL, ExpandedLTR]
 })
 export class AppComponent implements OnInit {
   selectedData = null;
@@ -38,6 +45,24 @@ export class AppComponent implements OnInit {
           label: 'RLT Demo',
           link: '/pages/layout-variations/demo-five',
         },
+        {
+          label: 'Custom Templates',
+          link: '/pages/layout-variations/demo-six',
+          items: [
+            {
+              label: 'Version 1',
+              link: '/pages/layout-variations/demo-six/version-one',
+            },
+            {
+              label: 'Version 2',
+              link: '/pages/layout-variations/demo-six/version-two',
+            },
+            {
+              label: 'Version 3',
+              link: '/pages/layout-variations/demo-six/version-three',
+            }
+          ],
+        },
       ],
     },
     {
@@ -54,6 +79,14 @@ export class AppComponent implements OnInit {
         {
           label: 'Expand Collapse Menu' ,
           link: '/pages/more-configuration/expand-collapse'
+        },
+        {
+          label: `Don't Emit` ,
+          link: '/pages/more-configuration/dont-emit'
+        },
+        {
+          label: `Select Menu By ID` ,
+          link: '/pages/more-configuration/select-by-id'
         }
       ],
     },
@@ -82,5 +115,10 @@ export class AppComponent implements OnInit {
 
   setExpandCollapseStatus(type) {
     this.expandCollapseStatus = type;
+  }
+  getClass(item) {
+    return {
+      [item.faIcon]: true
+    }
   }
 }

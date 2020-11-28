@@ -26,6 +26,10 @@ const routes: Routes = [{
     {
       path: 'demo-five',
       loadChildren: () => import("./demo-five/demo-five.module").then((m) => m.DemoFiveModule),
+    },
+    {
+      path: 'demo-six',
+      loadChildren: () => import("./demo-six/demo-six.module").then((m) => m.DemoSixModule),
     }
   ]
 }, {

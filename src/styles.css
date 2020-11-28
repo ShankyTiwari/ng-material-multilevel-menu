@@ -1,3 +1,37 @@
 /* You can add global styles to this file, and also import other style files */
 @import 'https://fonts.googleapis.com/icon?family=Material+Icons';
 @import 'https://rawgit.com/angular/material2-builds/master/prebuilt-themes/indigo-pink.css';
+
+body {
+    font-family: 'Raleway', sans-serif;
+    margin: 0;
+}
+
+
+.my-custom-class-2 .selected-amml-item {
+    background-color: #fff !important;
+}
+
+.my-custom-list .level-1 {
+    background: rgb(2, 4, 76);
+}
+
+.my-custom-list .level-1 .amml-item {
+    background: rgb(2, 4, 76) !important;
+}
+
+.my-custom-list .level-2 {
+    background: rgb(4, 8, 142) !important;
+}
+
+.my-custom-list .level-2 .amml-item {
+    background: rgb(4, 8, 142) !important;
+}
+
+.my-custom-list .level-3 {
+    background: rgb(44, 51, 230, 69%) !important;
+}
+
+.my-custom-list .level-3 .amml-item {
+    background: rgb(44, 51, 230, 69%) !important;
+}

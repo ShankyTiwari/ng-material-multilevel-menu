@@ -20,6 +20,14 @@ const routes: Routes = [{
       loadChildren: () => import("./expand-collapse/expand-collapse.module").then((m) => m.ExpandCollapseModule),
     },
     {
+      path: 'dont-emit',
+      loadChildren: () => import("./dont-emit/dont-emit.module").then((m) => m.DontEmitModule),
+    },
+    {
+      path: 'select-by-id',
+      loadChildren: () => import("./select-by-id/select-by-id.module").then((m) => m.SelectByIdModule),
+    },
+    {
       path: '**',
       redirectTo: 'demo-one',
     }

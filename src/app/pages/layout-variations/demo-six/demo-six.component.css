@@ -1,0 +1,16 @@
+.information {
+    width: 600px;
+    margin: auto;
+    padding: 5%;
+}
+
+.module-demo {
+    position: relative;
+    margin: auto;
+    width: 600px;
+}
+
+h2 {
+    margin-top: 2%;
+    margin-bottom: 2%;
+}

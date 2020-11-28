@@ -22,6 +22,8 @@ export interface MultilevelNodes {
   expanded?: boolean;
   navigationExtras?: NavigationExtras;
   dontEmit?: boolean;
+  hasChilden?: boolean;
+  isSelected?: boolean;
 }
 
 export interface Configuration {
@@ -36,6 +38,7 @@ export interface Configuration {
     highlightOnSelect?: boolean;
     useDividers?: boolean;
     rtlLayout?: boolean;
+    customTemplate?: boolean;
 }
 
 export interface BackgroundStyle {

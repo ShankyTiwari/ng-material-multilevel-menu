@@ -1,0 +1,17 @@
+<div class="module-demo">
+    By default, the method <code><strong>selectedItem()</strong></code> will emit the node which is currently selected either via routing or by a click. But there is an option to stop listening to this event if you want. 
+    <br/>
+    You can add one more property called <code><strong>dontEmit</strong></code> in the node object as shown below.<br/>
+    <pre>
+        {{codeSnippet}}
+    </pre>
+    This property will apply to the current node only, it won't apply to its children nodes. The default behavior will be the same if you won't provide the <code><strong>dontEmit</strong></code> property.
+    <br/>
+    See <a href="https://github.com/ShankyTiwari/ng-material-multilevel-menu/issues/133">#133</a> for more information.
+</div>
+
+<div class="switch-demo">
+    <a class="prev-demo" mat-button [routerLink]="['/pages/more-configuration/expand-collapse']">Previous Demo</a>
+    <a class="next-demo" mat-button [routerLink]="['/pages/more-configuration/select-by-id']">Next Demo</a>
+</div>
+  

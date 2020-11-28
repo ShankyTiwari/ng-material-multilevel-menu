@@ -22,6 +22,9 @@ Check the Material Multi-Level Menu in action, [click here](http://plugins.coder
 3. Use images as icons in the list.
 4. Seamlessly work with Angular routing, if provided.
 5. RTL supported ([thanks to StavM](https://github.com/StavM)).
+6. Supports Custom List Templates
+    1. [Demos]()
+    2. [Documentation]()
 
 ## Installation
 You can use either the npm or yarn command-line tool to install packages. Use whichever is appropriate for your project in the examples below.
@@ -233,6 +236,139 @@ export class AppComponent {
 }
 ```
 
+### 3. Building Custom Templates
+In this section, you will find useful information if you are planning to write your own templates.
+
+1. First and very important is `MultilevelNodes` interface, every menu item implements this interface. Make sure you look into each property of this interface when building custom menu templates. For example properties like `isSelected`, `hasChilden`, `expanded`, `disabled`, `items`, `label`, and so on are extremely helpful, have look into some demos here.
+2. You actually don't have to write *Slide-In*/ *Slide-Out*, *Arrow Rotation* animation. The module exports these animations out of the box, so you can import them as use it as shown below.
+**demo.component.ts:**
+```typescript
+import {SlideInOut, ExpandedRTL, ExpandedLTR } from 'ng-material-multilevel-menu';
+
+@Component({
+    selector: 'app-demo',
+    templateUrl: './demo.component.html',
+    styleUrls: ['./demo.component.css'],
+    animations: [
+      SlideInOut,
+      ExpandedLTR,
+      ExpandedRTL,
+    ]
+})
+```
+3. You have decided to write a custom template, then you have to write the corresponding CSS for the same.
+4. Below is a very simple example of the custom menu templates,
+
+**demo.component.html:**
+```html
+ <ng-material-multilevel-menu [items]='appitems' [configuration]='config' (selectedItem)="selectedItem($event)">
+    <ng-template #listTemplate let-item="item" let-configuration="configuration">
+        <div class="my-cool-menu-item" [dir]="configuration.rtlLayout  ? 'rtl' : 'ltr'">
+            <div class="title-and-image">
+                <div class="icon-container">
+                    <span [ngClass]="getClass(item)"></span>
+                </div>
+                <div class="label-container">
+                    <span>{{item.label}}</span>
+                </div>
+            </div>
+            <div class="icon-arrow-container" *ngIf='item.hasChilden'>
+                <mat-icon *ngIf="!configuration.rtlLayout" [@ExpandedLTR]="item.expanded ? 'yes' : 'no'">
+                    keyboard_arrow_down
+                </mat-icon>
+                <mat-icon *ngIf="configuration.rtlLayout" [@ExpandedRTL]="item.expanded ? 'yes' : 'no'">
+                    keyboard_arrow_down
+                </mat-icon>
+            </div>
+        </div>
+    </ng-template>
+</ng-material-multilevel-menu>
+```
+
+**demo.component.ts:**
+```typescript
+import { Component } from '@angular/core';
+
+import { MultilevelNodes, Configuration, ExpandedRTL, ExpandedLTR } from 'ng-material-multilevel-menu';
+
+@Component({
+    selector: 'app-demo',
+    templateUrl: './demo.component.html',
+    styleUrls: ['./demo.component.css'],
+    animations: [ExpandedRTL, ExpandedLTR]
+})
+export class DemoComponent  {
+    appitems: MultilevelNodes[] = [
+        ...
+        {
+        label: 'Item 3',
+        faIcon: 'fas fa-anchor',
+        }
+        ...
+    ];
+
+    config: Configuration = {
+        rtlLayout: true,
+        customTemplate: true,
+    }
+
+    constructor() { }
+
+    getClass(item) {
+        return {
+            [item.faIcon]: true
+        }
+    }
+
+    selectedItem($event) {
+        console.log($event);
+    }
+}
+```
+
+**demo.component.css:**
+```css
+
+.my-cool-menu-item {
+    display: flex;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-bottom: solid 1px rgba(0,0,0,.12);
+    height: 48px;
+}
+
+.my-cool-menu-item .title-and-image {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.my-cool-menu-item .title-and-image .icon-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+div[dir=rtl] .icon-container {
+    padding-left: 5px;
+}
+
+div[dir=ltr] .icon-container {
+    padding-right: 5px;
+}
+
+.my-cool-menu-item .title-and-image .label-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.my-cool-menu-item .icon-arrow-container {
+    display: flex;
+    align-items: center;
+}
+```
+	
 
 
 ## Default classes

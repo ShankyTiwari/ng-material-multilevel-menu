@@ -1,4 +1,4 @@
-<div [ngClass]="getClassName()" [ngStyle]="getGlobalStyle()" *ngIf='items.length !== 0' [dir]="isRtlLayout() ? 'rtl' : 'ltr'">
+<div [ngClass]="getClassName()" [ngStyle]="getGlobalStyle()" *ngIf='!isInvalidData && items.length !== 0' [dir]="isRtlLayout() ? 'rtl' : 'ltr'">
   <mat-list>
     <ng-list-item
       *ngFor="let node of items | keyvalue: multilevelMenuService.kvDummyComparerFn"
@@ -8,8 +8,9 @@
       [submenuLevel]="node.key"
       [selectedNode]='currentNode'
       [nodeExpandCollapseStatus]='nodeExpandCollapseStatus'
-      (selectedItem)="selectedListItem($event)
-    ">
+      (selectedItem)="selectedListItem($event)"
+      [listTemplate] = "listTemplate"
+    >
     </ng-list-item>
   </mat-list>
 </div>

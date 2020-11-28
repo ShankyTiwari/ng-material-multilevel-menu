@@ -1,0 +1,13 @@
+<div class="module-demo">
+    <h2>Change the colour of selected Items</h2>
+    <div class="input-box">
+        <input [(ngModel)]="menuId" type="text" placeholder="Enter the Menu Id here">
+        <button mat-button color="primary" (click)="selectMenuID()">Select Menu</button>
+    </div>
+    <ng-material-multilevel-menu [configuration]='config' [items]='appitems' (selectedItem)="selectedItem($event)"></ng-material-multilevel-menu>
+</div>
+
+<div class="switch-demo">
+    <a class="prev-demo" mat-button [routerLink]="['/pages/more-configuration/dont-emit']">Previous Demo</a>
+    <a class="next-demo" mat-button [routerLink]="['/pages/home']">Go Home</a>
+</div>

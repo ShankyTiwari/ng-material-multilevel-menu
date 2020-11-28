@@ -1,0 +1,15 @@
+<div class="information">
+    You can use use your own html templates to create List, the below demos will demostrate the same.
+</div>
+
+<div class="module-demo">
+  <nav class="tab-links" mat-tab-nav-bar [backgroundColor]="background">
+      <a mat-tab-link *ngFor="let singleLink of links"
+          (click)="showDemo(singleLink.link)"
+          [active]="activeLink == singleLink.link"> {{singleLink.name}}
+      </a>
+  </nav>
+  <div class="demo">
+      <router-outlet></router-outlet>
+  </div>
+</div>
