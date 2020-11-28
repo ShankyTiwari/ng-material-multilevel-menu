@@ -24,7 +24,7 @@ Check the Material Multi-Level Menu in action, [click here](http://plugins.coder
 5. RTL supported ([thanks to StavM](https://github.com/StavM)).
 6. Supports Custom List Templates
     1. [Demos]()
-    2. [Documentation]()
+    2. [Documentation](#3-building-custom-templates)
 
 ## Installation
 You can use either the npm or yarn command-line tool to install packages. Use whichever is appropriate for your project in the examples below.
