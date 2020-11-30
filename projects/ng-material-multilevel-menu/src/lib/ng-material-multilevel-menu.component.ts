@@ -69,7 +69,7 @@ export class NgMaterialMultilevelMenuComponent implements OnInit, OnChanges, OnD
       // && !foundNode.disabled // Prevent route redirection for disabled menu
     ) {
       this.currentNode = foundNode;
-      if(foundNode.dontEmit !== undefined && foundNode.dontEmit !== null && !foundNode.dontEmit) {
+      if (foundNode.dontEmit !== undefined && foundNode.dontEmit !== null && !foundNode.dontEmit) {
         this.selectedListItem(foundNode);
       }
     }
@@ -137,12 +137,13 @@ export class NgMaterialMultilevelMenuComponent implements OnInit, OnChanges, OnD
         typeof config.customTemplate === 'boolean') {
         this.nodeConfig.customTemplate = config.customTemplate;
       }
-      
+
     }
     this.checkValidData();
   }
   initExpandCollapseStatus(): void {
-    this.expandCollapseStatusSubscription = this.multilevelMenuService.expandCollapseStatus$.subscribe( (expandCollapseStatus: ExpandCollapseStatusEnum) => {
+    this.expandCollapseStatusSubscription = this.multilevelMenuService.expandCollapseStatus$
+      .subscribe( (expandCollapseStatus: ExpandCollapseStatusEnum) => {
       this.nodeExpandCollapseStatus = expandCollapseStatus ? expandCollapseStatus : ExpandCollapseStatusEnum.neutral;
     }, () => {
       this.nodeExpandCollapseStatus = ExpandCollapseStatusEnum.neutral;
@@ -150,7 +151,7 @@ export class NgMaterialMultilevelMenuComponent implements OnInit, OnChanges, OnD
   }
   initSelectedMenuID(): void {
     this.selectMenuByIDSubscription = this.multilevelMenuService.selectedMenuID$.subscribe( (selectedMenuID: string) => {
-      if(selectedMenuID) {
+      if (selectedMenuID) {
         const foundNode = this.multilevelMenuService.getMatchedObjectById(this.items, selectedMenuID);
         if (foundNode !== undefined) {
           this.currentNode = foundNode;
@@ -189,7 +190,7 @@ export class NgMaterialMultilevelMenuComponent implements OnInit, OnChanges, OnD
   selectedListItem(event: MultilevelNodes): void {
     this.nodeExpandCollapseStatus = ExpandCollapseStatusEnum.neutral;
     this.currentNode = event;
-    if(event.dontEmit !== undefined && event.dontEmit !== null && event.dontEmit) {
+    if (event.dontEmit !== undefined && event.dontEmit !== null && event.dontEmit) {
       return;
     }
     if (event.items === undefined && (!event.onSelected || typeof event.onSelected !== 'function') ) {

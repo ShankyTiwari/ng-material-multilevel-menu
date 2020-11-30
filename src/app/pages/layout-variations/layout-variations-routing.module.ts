@@ -9,27 +9,27 @@ const routes: Routes = [{
   children: [
     {
       path: 'demo-one',
-      loadChildren: () => import("./demo-one/demo-one.module").then((m) => m.DemoOneModule),
+      loadChildren: () => import('./demo-one/demo-one.module').then((m) => m.DemoOneModule),
     },
     {
       path: 'demo-two',
-      loadChildren: () => import("./demo-two/demo-two.module").then((m) => m.DemoTwoModule),
+      loadChildren: () => import('./demo-two/demo-two.module').then((m) => m.DemoTwoModule),
     },
     {
       path: 'demo-three',
-      loadChildren: () => import("./demo-three/demo-three.module").then((m) => m.DemoThreeModule),
+      loadChildren: () => import('./demo-three/demo-three.module').then((m) => m.DemoThreeModule),
     },
     {
       path: 'demo-four',
-      loadChildren: () => import("./demo-four/demo-four.module").then((m) => m.DemoFourModule),
+      loadChildren: () => import('./demo-four/demo-four.module').then((m) => m.DemoFourModule),
     },
     {
       path: 'demo-five',
-      loadChildren: () => import("./demo-five/demo-five.module").then((m) => m.DemoFiveModule),
+      loadChildren: () => import('./demo-five/demo-five.module').then((m) => m.DemoFiveModule),
     },
     {
       path: 'demo-six',
-      loadChildren: () => import("./demo-six/demo-six.module").then((m) => m.DemoSixModule),
+      loadChildren: () => import('./demo-six/demo-six.module').then((m) => m.DemoSixModule),
     }
   ]
 }, {

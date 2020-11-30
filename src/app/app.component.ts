@@ -119,6 +119,6 @@ export class AppComponent implements OnInit {
   getClass(item) {
     return {
       [item.faIcon]: true
-    }
+    };
   }
 }

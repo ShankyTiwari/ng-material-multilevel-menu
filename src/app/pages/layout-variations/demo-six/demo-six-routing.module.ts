@@ -12,15 +12,15 @@ const routes: Routes = [{
     },
     {
       path: 'version-one',
-      loadChildren: () => import("./version-one/version-one.module").then((m) => m.VersionOneModule),
+      loadChildren: () => import('./version-one/version-one.module').then((m) => m.VersionOneModule),
     },
     {
       path: 'version-two',
-      loadChildren: () => import("./version-two/version-two.module").then((m) => m.VersionTwoModule),
+      loadChildren: () => import('./version-two/version-two.module').then((m) => m.VersionTwoModule),
     },
     {
       path: 'version-three',
-      loadChildren: () => import("./version-three/version-three.module").then((m) => m.VersionThreeModule),
+      loadChildren: () => import('./version-three/version-three.module').then((m) => m.VersionThreeModule),
     },
   ]
 }, {

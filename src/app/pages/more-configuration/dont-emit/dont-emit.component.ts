@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DontEmitComponent implements OnInit {
 
-  codeSnippet =`
+  codeSnippet = `
     {
       label: 'Changing Colours',
       link: '/demo two',

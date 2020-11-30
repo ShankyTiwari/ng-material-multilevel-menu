@@ -25,11 +25,11 @@ export class ListItemComponent implements OnChanges, OnInit {
   isSelected = false;
   expanded = false;
   firstInitializer = false;
-  
+
   nodeChildren: MultilevelNodes[];
   classes: { [index: string]: boolean };
   selectedListClasses: { [index: string]: boolean };
-  
+
   constructor(
     private router: Router,
     public multilevelMenuService: MultilevelMenuService

@@ -63,7 +63,7 @@ export class VersionTwoComponent implements OnInit {
     paddingAtStart: false,
     customTemplate: true,
     selectedListFontColor: '#000'
-  }
+  };
   constructor() { }
 
   ngOnInit(): void {

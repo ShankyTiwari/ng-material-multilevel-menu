@@ -2,7 +2,7 @@ import { animate, group, state, style, transition, trigger } from '@angular/anim
 
 export const SlideInOut = trigger('SlideInOut', [
     state(
-        'in', 
+        'in',
         style({ height: '*', opacity: 0 })),
         transition(':leave', [
             style({ height: '*', opacity: 0.2 }),
@@ -19,7 +19,7 @@ export const SlideInOut = trigger('SlideInOut', [
             ])
         ])
     ]
-)
+);
 
 export const ExpandedLTR = trigger('ExpandedLTR', [
     state('no', style({ transform: 'rotate(-90deg)' })),
@@ -27,7 +27,7 @@ export const ExpandedLTR = trigger('ExpandedLTR', [
 
     transition('no => yes', animate(200)),
     transition('yes => no', animate(200))
-])
+]);
 
 export const ExpandedRTL = trigger('ExpandedRTL', [
     state('no', style({ transform: 'rotate(90deg)' })),
@@ -35,4 +35,4 @@ export const ExpandedRTL = trigger('ExpandedRTL', [
 
     transition('no => yes', animate(200)),
     transition('yes => no', animate(200))
-])
+]);

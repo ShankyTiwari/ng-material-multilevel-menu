@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
-import { MultilevelMenuService, MultilevelNodes, Configuration } from './../../../../../projects/ng-material-multilevel-menu/src/public_api';
+import {
+  MultilevelMenuService,
+  MultilevelNodes,
+  Configuration
+} from './../../../../../projects/ng-material-multilevel-menu/src/public_api';
 
 @Component({
   selector: 'app-select-by-id',
@@ -79,16 +83,16 @@ export class SelectByIdComponent implements OnInit {
       private multilevelMenuService: MultilevelMenuService
   ) {}
 
-  selectMenuID(){
-    if(this.menuId ===  null) {
-      alert("Menu ID can't be empty");
+  selectMenuID() {
+    if (this.menuId ===  null) {
+      alert('Menu ID can\'t be empty');
       return;
     }
     this.multilevelMenuService.selectMenuByID(this.menuId);
   }
 
   selectedItem(event: MultilevelNodes) {
-    console.log(event)
+    console.log(event);
   }
 
   ngOnInit(): void {
