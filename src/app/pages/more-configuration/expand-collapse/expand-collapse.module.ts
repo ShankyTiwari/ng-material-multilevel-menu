@@ -1,6 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NgMaterialMultilevelMenuModule, MultilevelMenuService } from './../../../../../projects/ng-material-multilevel-menu/src/public_api';
+import {
+  NgMaterialMultilevelMenuModule,
+  MultilevelMenuService
+} from './../../../../../projects/ng-material-multilevel-menu/src/public_api';
 
 import { MaterialsModule } from './../../../modules/materials.module';
 import { ExpandCollapseRoutingModule } from './expand-collapse-routing.module';

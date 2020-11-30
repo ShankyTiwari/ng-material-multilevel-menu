@@ -50,8 +50,8 @@ export class MultilevelMenuService {
             if (node.items !== undefined) {
               this.findNodeRecursively({
                 nodes: node.items,
-                link: link? link: null,
-                id: id? id: null
+                link: link ? link : null,
+                id: id ? id : null
               });
             }
           }

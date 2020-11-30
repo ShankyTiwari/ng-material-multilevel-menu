@@ -64,7 +64,7 @@ export class VersionOneComponent implements OnInit {
     paddingAtStart: false,
     rtlLayout: true,
     customTemplate: true,
-  }
+  };
 
   constructor() { }
 
@@ -74,7 +74,7 @@ export class VersionOneComponent implements OnInit {
   getClass(item) {
     return {
       [item.faIcon]: true
-    }
+    };
   }
 
   selectedItem($event) {

@@ -11,10 +11,10 @@ export class DemoSixComponent implements OnInit {
   links = [{
     name: 'Basic Menu (RLT Demo)',
     link: 'version-one'
-  },{
+  }, {
     name: 'Version Two',
     link: 'version-two'
-  },{
+  }, {
     name: 'Version Three',
     link: 'version-three'
   }];
@@ -23,7 +23,7 @@ export class DemoSixComponent implements OnInit {
 
   showDemo(link: string): void {
     this.activeLink = link;
-    this.router.navigate([`/pages/layout-variations/demo-six/${link}`])
+    this.router.navigate([`/pages/layout-variations/demo-six/${link}`]);
   }
 
   constructor(
