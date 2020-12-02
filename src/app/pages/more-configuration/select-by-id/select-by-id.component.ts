@@ -98,4 +98,8 @@ export class SelectByIdComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  menuIsReady(menus: MultilevelNodes[]) {
+    console.log(menus)
+  }
+
 }

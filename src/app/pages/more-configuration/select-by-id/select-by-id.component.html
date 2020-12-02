@@ -4,7 +4,7 @@
         <input [(ngModel)]="menuId" type="text" placeholder="Enter the Menu Id here">
         <button mat-button color="primary" (click)="selectMenuID()">Select Menu</button>
     </div>
-    <ng-material-multilevel-menu [configuration]='config' [items]='appitems' (selectedItem)="selectedItem($event)"></ng-material-multilevel-menu>
+    <ng-material-multilevel-menu [configuration]='config' [items]='appitems' (menuIsReady)="menuIsReady($event)" (selectedItem)="selectedItem($event)"></ng-material-multilevel-menu>
 </div>
 
 <div class="switch-demo">
