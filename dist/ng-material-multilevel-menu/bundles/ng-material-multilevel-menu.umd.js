@@ -383,6 +383,7 @@
             this.configuration = null;
             this.selectedItem = new core.EventEmitter();
             this.selectedLabel = new core.EventEmitter();
+            this.menuIsReady = new core.EventEmitter();
             this.expandCollapseStatusSubscription = null;
             this.selectMenuByIDSubscription = null;
             this.currentNode = null;
@@ -406,6 +407,9 @@
             this.detectInvalidConfig();
             this.initExpandCollapseStatus();
             this.initSelectedMenuID();
+            if (!this.isInvalidData) {
+                this.menuIsReady.emit(this.items);
+            }
         };
         NgMaterialMultilevelMenuComponent.prototype.ngOnInit = function () {
             var _this = this;
@@ -504,7 +508,8 @@
         };
         NgMaterialMultilevelMenuComponent.prototype.initExpandCollapseStatus = function () {
             var _this = this;
-            this.expandCollapseStatusSubscription = this.multilevelMenuService.expandCollapseStatus$.subscribe(function (expandCollapseStatus) {
+            this.expandCollapseStatusSubscription = this.multilevelMenuService.expandCollapseStatus$
+                .subscribe(function (expandCollapseStatus) {
                 _this.nodeExpandCollapseStatus = expandCollapseStatus ? expandCollapseStatus : exports.ExpandCollapseStatusEnum.neutral;
             }, function () {
                 _this.nodeExpandCollapseStatus = exports.ExpandCollapseStatusEnum.neutral;
@@ -586,6 +591,7 @@
         configuration: [{ type: core.Input }],
         selectedItem: [{ type: core.Output }],
         selectedLabel: [{ type: core.Output }],
+        menuIsReady: [{ type: core.Output }],
         listTemplate: [{ type: core.ContentChild, args: ['listTemplate', { static: true },] }]
     };
 

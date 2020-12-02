@@ -79,7 +79,7 @@ In your HTML: Use the ```<ng-material-multilevel-menu>``` wherever you like in y
     [configuration]='config' 
     [items]='appitems'
     (selectedItem)="selectedItem($event)" 
-    [expandCollapseStatus]="expandCollapseStatus"
+    (menuIsReady)="menuIsReady($event)" 
     (selectedLabel)="selectedLabel($event)">
 </ng-material-multilevel-menu>
 ```
@@ -222,12 +222,18 @@ export class AppComponent {
 ### 2. Select Menu By ID
 You can expand all the menu and Collapse all the menus. Below is example how you can do that,
 ```typescript
-import { MultilevelMenuService } from 'ng-material-multilevel-menu';
+import { MultilevelMenuService, MultilevelNodes } from 'ng-material-multilevel-menu';
 
 export class AppComponent {
+    menuWithID: MultilevelNodes[] = null
+
     constructor(
         private multilevelMenuService: MultilevelMenuService
     ) {}
+
+    menuIsReady(menus: MultilevelNodes[]) {
+        this.menuWithID = menus;
+    }
 
     selectMenuID(MenuID){
         this.multilevelMenuService.selectMenuByID(MenuID);

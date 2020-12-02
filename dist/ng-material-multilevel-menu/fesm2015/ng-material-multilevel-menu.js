@@ -376,6 +376,7 @@ class NgMaterialMultilevelMenuComponent {
         this.configuration = null;
         this.selectedItem = new EventEmitter();
         this.selectedLabel = new EventEmitter();
+        this.menuIsReady = new EventEmitter();
         this.expandCollapseStatusSubscription = null;
         this.selectMenuByIDSubscription = null;
         this.currentNode = null;
@@ -399,6 +400,9 @@ class NgMaterialMultilevelMenuComponent {
         this.detectInvalidConfig();
         this.initExpandCollapseStatus();
         this.initSelectedMenuID();
+        if (!this.isInvalidData) {
+            this.menuIsReady.emit(this.items);
+        }
     }
     ngOnInit() {
         if (this.configuration !== null && this.configuration !== undefined && this.configuration !== '' &&
@@ -495,7 +499,8 @@ class NgMaterialMultilevelMenuComponent {
         this.checkValidData();
     }
     initExpandCollapseStatus() {
-        this.expandCollapseStatusSubscription = this.multilevelMenuService.expandCollapseStatus$.subscribe((expandCollapseStatus) => {
+        this.expandCollapseStatusSubscription = this.multilevelMenuService.expandCollapseStatus$
+            .subscribe((expandCollapseStatus) => {
             this.nodeExpandCollapseStatus = expandCollapseStatus ? expandCollapseStatus : ExpandCollapseStatusEnum.neutral;
         }, () => {
             this.nodeExpandCollapseStatus = ExpandCollapseStatusEnum.neutral;
@@ -575,6 +580,7 @@ NgMaterialMultilevelMenuComponent.propDecorators = {
     configuration: [{ type: Input }],
     selectedItem: [{ type: Output }],
     selectedLabel: [{ type: Output }],
+    menuIsReady: [{ type: Output }],
     listTemplate: [{ type: ContentChild, args: ['listTemplate', { static: true },] }]
 };
 
