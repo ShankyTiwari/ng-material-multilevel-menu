@@ -46,6 +46,9 @@ export class NgMaterialMultilevelMenuComponent implements OnInit, OnChanges, OnD
     this.detectInvalidConfig();
     this.initExpandCollapseStatus();
     this.initSelectedMenuID();
+    if (!this.isInvalidData) {
+      this.menuIsReady.emit(this.items);
+    }
   }
   ngOnInit() {
     if (
@@ -82,7 +85,6 @@ export class NgMaterialMultilevelMenuComponent implements OnInit, OnChanges, OnD
       this.items = this.items.filter(n => !n.hidden);
       this.multilevelMenuService.addRandomId(this.items);
       this.isInvalidData = false;
-      this.menuIsReady.emit(this.items);
     }
   }
   detectInvalidConfig(): void {
