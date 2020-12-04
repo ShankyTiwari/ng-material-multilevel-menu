@@ -51,10 +51,13 @@
 </ng-template>
 
 <ng-template #linkTemplate>
-  <a class="anml-link" *ngIf="node.externalRedirect" [href]="node.link" [target]="getHrefTargetType()">
+  <a class="anml-link" *ngIf="node.externalRedirect && node.link" [href]="node.link" [target]="getHrefTargetType()">
     <ng-container *ngTemplateOutlet="linkLabelOutlet"></ng-container>
   </a>
-  <a class="anml-link" *ngIf="!node.externalRedirect" [routerLink]="node.link">
+  <a class="anml-link" *ngIf="!node.externalRedirect && node.link" [routerLink]="node.link">
+    <ng-container *ngTemplateOutlet="linkLabelOutlet"></ng-container>
+  </a>
+  <a class="anml-link" *ngIf="(hasItems() || node.onSelected) && !node.link">
     <ng-container *ngTemplateOutlet="linkLabelOutlet"></ng-container>
   </a>
 </ng-template>
