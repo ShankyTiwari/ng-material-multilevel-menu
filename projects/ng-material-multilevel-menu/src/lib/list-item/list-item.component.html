@@ -51,6 +51,11 @@
 </ng-template>
 
 <ng-template #linkTemplate>
+  <!-- 
+    Improvements:
+    These anchor tags can be removed & we can create a directive.
+    This directive will create a wrapper of an anchor tag with proper attributes on template `linkLabelOutlet`.
+  -->
   <a class="anml-link" *ngIf="node.externalRedirect && node.link" [href]="node.link" [target]="getHrefTargetType()">
     <ng-container *ngTemplateOutlet="linkLabelOutlet"></ng-container>
   </a>
