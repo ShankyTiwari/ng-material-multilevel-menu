@@ -19,7 +19,7 @@ export class OnSelectComponent implements OnInit {
 
   codeSnippetUsage = `
     import { Component } from '@angular/core';
-    import { 
+    import {
       MultilevelNodes,
       Configuration,
       ExpandedRTL,
@@ -51,8 +51,7 @@ export class OnSelectComponent implements OnInit {
           console.log(args)
         }
     }
-  
-  `
+  `;
 
   constructor() { }
 

@@ -99,7 +99,7 @@ export class SelectByIdComponent implements OnInit {
   }
 
   menuIsReady(menus: MultilevelNodes[]) {
-    console.log(menus)
+    console.log(menus);
   }
 
 }
