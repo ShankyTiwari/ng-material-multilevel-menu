@@ -57,7 +57,7 @@
   <a class="anml-link" *ngIf="!node.externalRedirect && node.link" [routerLink]="node.link">
     <ng-container *ngTemplateOutlet="linkLabelOutlet"></ng-container>
   </a>
-  <a class="anml-link" *ngIf="(hasItems() || node.onSelected) && !node.link">
+  <a class="anml-link" *ngIf="!node.link">
     <ng-container *ngTemplateOutlet="linkLabelOutlet"></ng-container>
   </a>
 </ng-template>
