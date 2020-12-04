@@ -28,6 +28,10 @@ const routes: Routes = [{
       loadChildren: () => import('./select-by-id/select-by-id.module').then((m) => m.SelectByIdModule),
     },
     {
+      path: 'on-select',
+      loadChildren: () => import('./on-select/on-select.module').then((m) => m.OnSelectModule),
+    },
+    {
       path: '**',
       redirectTo: 'demo-one',
     }

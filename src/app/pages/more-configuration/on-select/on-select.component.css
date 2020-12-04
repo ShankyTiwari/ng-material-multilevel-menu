@@ -1,0 +1,28 @@
+.module-demo {
+    position: relative;
+    margin: auto;
+    width: 600px;
+    padding: 5%;
+    line-height: 33px;
+}
+
+h2 {
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+code {
+    font-size: 15px;
+    background: #c4c4c457;
+    padding: 5px;
+}
+
+.switch-demo {
+    display: flex;
+    flex-direction: flex-start;
+    justify-content: space-between;
+    padding-top: 10%;
+    padding-bottom: 10%;
+    width: 600px;
+    margin: auto;
+    
+}

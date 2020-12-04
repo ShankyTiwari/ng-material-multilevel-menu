@@ -35,3 +35,7 @@ body {
 .my-custom-list .level-3 .amml-item {
     background: rgb(44, 51, 230, 69%) !important;
 }
+
+.my-custom-list .level-4 .amml-item {
+    background: rgb(76, 82, 226, 1) !important;
+}
