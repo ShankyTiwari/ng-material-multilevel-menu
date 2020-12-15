@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { BackgroundStyle, Configuration, MultilevelNodes, ExpandCollapseStatusEnum } from './app.model';
 import { CONSTANT } from './constants';
 import { MultilevelMenuService } from './multilevel-menu.service';
+import {CommonUtils} from './common-utils';
 
 @Component({
   selector: 'ng-material-multilevel-menu',
@@ -31,24 +32,23 @@ export class NgMaterialMultilevelMenuComponent implements OnInit, OnChanges, OnD
     highlightOnSelect: false,
     useDividers: true,
     rtlLayout: false,
-    customTemplate: false,
+    customTemplate: false
   };
   isInvalidConfig = true;
   isInvalidData = true;
   nodeExpandCollapseStatus: ExpandCollapseStatusEnum = ExpandCollapseStatusEnum.neutral;
 
-  constructor(
-    private router: Router,
-    public multilevelMenuService: MultilevelMenuService
-  ) { }
+  constructor(private router: Router,
+              public multilevelMenuService: MultilevelMenuService) {
+    // NOOP
+  }
   ngOnChanges() {
     this.detectInvalidConfig();
     this.initExpandCollapseStatus();
     this.initSelectedMenuID();
   }
   ngOnInit() {
-    if (
-      this.configuration !== null && this.configuration !== undefined && this.configuration !== '' &&
+    if (!CommonUtils.isNullOrUndefinedOrEmpty(this.configuration) &&
       this.configuration.interfaceWithRoute !== null && this.configuration.interfaceWithRoute) {
       this.router.events
         .subscribe((event) => {
@@ -61,15 +61,11 @@ export class NgMaterialMultilevelMenuComponent implements OnInit, OnChanges, OnD
   }
   updateNodeByURL(url: string): void {
     const foundNode = this.multilevelMenuService.getMatchedObjectByUrl(this.items, url);
-    if (
-      foundNode !== undefined &&
-      foundNode.link !== undefined &&
-      foundNode.link !== null &&
-      foundNode.link !== ''
+    if (foundNode !== undefined && !CommonUtils.isNullOrUndefinedOrEmpty(foundNode.link)
       // && !foundNode.disabled // Prevent route redirection for disabled menu
     ) {
       this.currentNode = foundNode;
-      if (foundNode.dontEmit !== undefined && foundNode.dontEmit !== null && !foundNode.dontEmit) {
+      if (!CommonUtils.isNullOrUndefined(foundNode.dontEmit) && !foundNode.dontEmit) {
         this.selectedListItem(foundNode);
       }
     }
@@ -77,67 +73,55 @@ export class NgMaterialMultilevelMenuComponent implements OnInit, OnChanges, OnD
   checkValidData(): void {
     if (this.items === undefined || (Array.isArray(this.items) && this.items.length === 0)) {
       console.warn(CONSTANT.ERROR_MESSAGE);
-    } else {
-      this.items = this.items.filter(n => !n.hidden);
-      this.multilevelMenuService.addRandomId(this.items);
-      this.isInvalidData = false;
+      return;
     }
+    this.items = this.items.filter(n => !n.hidden);
+    this.multilevelMenuService.addRandomId(this.items);
+    this.isInvalidData = false;
   }
   detectInvalidConfig(): void {
-    if (this.configuration === null || this.configuration === undefined || this.configuration === '') {
+    if (CommonUtils.isNullOrUndefinedOrEmpty(this.configuration)) {
       this.isInvalidConfig = true;
     } else {
       this.isInvalidConfig = false;
       const config = this.configuration;
-      if (config.paddingAtStart !== undefined && config.paddingAtStart !== null && typeof config.paddingAtStart === 'boolean') {
+      if (!CommonUtils.isNullOrUndefined(config.paddingAtStart) &&
+        typeof config.paddingAtStart === 'boolean') {
         this.nodeConfig.paddingAtStart = config.paddingAtStart;
       }
-      if (config.listBackgroundColor !== '' &&
-        config.listBackgroundColor !== null &&
-        config.listBackgroundColor !== undefined) {
+      if (!CommonUtils.isNullOrUndefinedOrEmpty(config.listBackgroundColor)) {
         this.nodeConfig.listBackgroundColor = config.listBackgroundColor;
       }
-      if (config.fontColor !== '' &&
-        config.fontColor !== null &&
-        config.fontColor !== undefined) {
+      if (!CommonUtils.isNullOrUndefinedOrEmpty(config.fontColor)) {
         this.nodeConfig.fontColor = config.fontColor;
       }
-      if (config.selectedListFontColor !== '' &&
-        config.selectedListFontColor !== null &&
-        config.selectedListFontColor !== undefined) {
+      if (!CommonUtils.isNullOrUndefinedOrEmpty(config.selectedListFontColor)) {
         this.nodeConfig.selectedListFontColor = config.selectedListFontColor;
       }
-      if (config.interfaceWithRoute !== null &&
-        config.interfaceWithRoute !== undefined &&
+      if (!CommonUtils.isNullOrUndefined(config.interfaceWithRoute) &&
         typeof config.interfaceWithRoute === 'boolean') {
         this.nodeConfig.interfaceWithRoute = config.interfaceWithRoute;
       }
-      if (config.collapseOnSelect !== null &&
-        config.collapseOnSelect !== undefined &&
+      if (!CommonUtils.isNullOrUndefined(config.collapseOnSelect) &&
         typeof config.collapseOnSelect === 'boolean') {
         this.nodeConfig.collapseOnSelect = config.collapseOnSelect;
       }
-      if (config.highlightOnSelect !== null &&
-        config.highlightOnSelect !== undefined &&
+      if (!CommonUtils.isNullOrUndefined(config.highlightOnSelect) &&
         typeof config.highlightOnSelect === 'boolean') {
         this.nodeConfig.highlightOnSelect = config.highlightOnSelect;
       }
-      if (config.useDividers !== null &&
-        config.useDividers !== undefined &&
+      if (!CommonUtils.isNullOrUndefined(config.useDividers) &&
         typeof config.useDividers === 'boolean') {
         this.nodeConfig.useDividers = config.useDividers;
       }
-      if (config.rtlLayout !== null &&
-        config.rtlLayout !== undefined &&
+      if (!CommonUtils.isNullOrUndefined(config.rtlLayout) &&
         typeof config.rtlLayout === 'boolean') {
         this.nodeConfig.rtlLayout = config.rtlLayout;
       }
-      if (config.customTemplate !== null &&
-        config.customTemplate !== undefined &&
+      if (!CommonUtils.isNullOrUndefined(config.customTemplate) &&
         typeof config.customTemplate === 'boolean') {
         this.nodeConfig.customTemplate = config.customTemplate;
       }
-
     }
     this.checkValidData();
   }
@@ -161,24 +145,17 @@ export class NgMaterialMultilevelMenuComponent implements OnInit, OnChanges, OnD
     });
   }
   getClassName(): string {
-    if (this.isInvalidConfig) {
-      return CONSTANT.DEFAULT_CLASS_NAME;
-    } else {
-      if (this.configuration.classname !== '' && this.configuration.classname !== null && this.configuration.classname !== undefined) {
-        return `${CONSTANT.DEFAULT_CLASS_NAME} ${this.configuration.classname}`;
-      } else {
-        return CONSTANT.DEFAULT_CLASS_NAME;
-      }
+    if (!this.isInvalidConfig && !CommonUtils.isNullOrUndefinedOrEmpty(this.configuration.classname)) {
+      return `${CONSTANT.DEFAULT_CLASS_NAME} ${this.configuration.classname}`;
     }
+    return CONSTANT.DEFAULT_CLASS_NAME;
   }
   getGlobalStyle(): BackgroundStyle {
     if (!this.isInvalidConfig) {
       const styles = {
         background : null
       };
-      if (this.configuration.backgroundColor !== '' &&
-        this.configuration.backgroundColor !== null &&
-        this.configuration.backgroundColor !== undefined) {
+      if (!CommonUtils.isNullOrUndefinedOrEmpty(this.configuration.backgroundColor)) {
         styles.background = this.configuration.backgroundColor;
       }
       return styles;
@@ -190,7 +167,7 @@ export class NgMaterialMultilevelMenuComponent implements OnInit, OnChanges, OnD
   selectedListItem(event: MultilevelNodes): void {
     this.nodeExpandCollapseStatus = ExpandCollapseStatusEnum.neutral;
     this.currentNode = event;
-    if (event.dontEmit !== undefined && event.dontEmit !== null && event.dontEmit) {
+    if (!CommonUtils.isNullOrUndefined(event.dontEmit) && event.dontEmit) {
       return;
     }
     if (event.items === undefined && (!event.onSelected || typeof event.onSelected !== 'function') ) {

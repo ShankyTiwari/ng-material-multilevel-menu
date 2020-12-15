@@ -70,7 +70,7 @@ export class ExpandCollapseComponent implements OnInit {
   ngOnInit(): void {}
 
   setExpandCollapseStatus(type) {
-    this.multilevelMenuService.setMenuExapandCollpaseStatus(type);
+    this.multilevelMenuService.setMenuExpandCollapseStatus(type);
   }
 
   selectedItem(menu) {

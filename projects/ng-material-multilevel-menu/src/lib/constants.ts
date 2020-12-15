@@ -11,5 +11,6 @@ export const CONSTANT = {
     DEFAULT_LIST_BACKGROUND_COLOR: `transparent`,
     DEFAULT_LIST_FONT_COLOR: `rgba(0,0,0,.87)`,
     DEFAULT_HREF_TARGET_TYPE: '_self',
-    ERROR_MESSAGE: `Invalid data for material Multilevel List Component`
+    ERROR_MESSAGE: `Invalid data for material Multilevel List Component`,
+    POSSIBLE: 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
 };

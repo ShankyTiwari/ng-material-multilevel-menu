@@ -1,20 +1,19 @@
-import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
-
+ import {BehaviorSubject, Observable, Subject} from 'rxjs';
 import { MultilevelNodes, ExpandCollapseStatusEnum } from './app.model';
+import {CONSTANT} from './constants';
+
 export class MultilevelMenuService {
   foundLinkObject: MultilevelNodes;
-  expandCollapseStatus: Subject<ExpandCollapseStatusEnum> = new Subject<ExpandCollapseStatusEnum>();
+  private expandCollapseStatus: Subject<ExpandCollapseStatusEnum> = new Subject<ExpandCollapseStatusEnum>();
   expandCollapseStatus$: Observable<ExpandCollapseStatusEnum> = this.expandCollapseStatus.asObservable();
 
-  selectedMenuID: Subject<string> = new Subject<string>();
+  private selectedMenuID: Subject<string> = new Subject<string>();
   selectedMenuID$: Observable<string> = this.selectedMenuID.asObservable();
 
   private generateId(): string {
     let text = '';
-    const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     for (let i = 0; i < 20; i++) {
-      text += possible.charAt(Math.floor(Math.random() * possible.length));
+      text += CONSTANT.POSSIBLE.charAt(Math.floor(Math.random() * CONSTANT.POSSIBLE.length));
     }
     return text;
   }
@@ -72,7 +71,7 @@ export class MultilevelMenuService {
   kvDummyComparerFn() {
     return 0;
   }
-  setMenuExapandCollpaseStatus(status: ExpandCollapseStatusEnum): void {
+  setMenuExpandCollapseStatus(status: ExpandCollapseStatusEnum): void {
     this.expandCollapseStatus.next(status ? status : ExpandCollapseStatusEnum.neutral);
   }
   selectMenuByID(menuID: string) {

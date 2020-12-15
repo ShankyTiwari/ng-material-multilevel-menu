@@ -1,10 +1,12 @@
 import { Component, Input, OnChanges, OnInit, Output, EventEmitter, TemplateRef, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { Configuration, ListStyle, MultilevelNodes, ExpandCollapseStatusEnum } from './../app.model';
-import { CONSTANT } from './../constants';
-import { MultilevelMenuService } from './../multilevel-menu.service';
-import { SlideInOut, ExpandedLTR, ExpandedRTL  } from './../animation';
+import { Configuration, ListStyle, MultilevelNodes, ExpandCollapseStatusEnum } from '../app.model';
+import { CONSTANT } from '../constants';
+import { MultilevelMenuService } from '../multilevel-menu.service';
+import { SlideInOut, ExpandedLTR, ExpandedRTL  } from '../animation';
+import {CommonUtils} from '../common-utils';
+import {Observable} from 'rxjs';
 @Component({
   selector: 'ng-list-item',
   templateUrl: './list-item.component.html',
@@ -44,7 +46,7 @@ export class ListItemComponent implements OnChanges, OnInit {
     this.nodeChildren = this.node && this.node.items ? this.node.items.filter(n => !n.hidden) : [];
     this.node.hasChilden = this.hasItems();
 
-    if (this.selectedNode !== undefined && this.selectedNode !== null) {
+    if (!CommonUtils.isNullOrUndefined(this.selectedNode)) {
       this.setSelectedClass(this.multilevelMenuService.recursiveCheckId(this.node, this.selectedNode.id));
     }
     this.setExpandCollapseStatus();
@@ -52,8 +54,7 @@ export class ListItemComponent implements OnChanges, OnInit {
   ngOnInit() {
     this.selectedListClasses[CONSTANT.DISABLED_ITEM_CLASS_NAME] = this.node.disabled;
 
-    if (this.node.faIcon !== null &&
-      this.node.faIcon !== undefined &&
+    if (!CommonUtils.isNullOrUndefined(this.node.faIcon) &&
       this.node.faIcon.match(/\bfa\w(?!-)/) === null) {
       this.node.faIcon = `fas ${this.node.faIcon}`;
     }
@@ -69,7 +70,7 @@ export class ListItemComponent implements OnChanges, OnInit {
       if (!this.firstInitializer) {
         this.expanded = true;
       }
-      this.isSelected = this.nodeConfiguration.highlightOnSelect || this.selectedNode.items === undefined ? true : false;
+      this.isSelected = this.nodeConfiguration.highlightOnSelect || this.selectedNode.items === undefined;
     } else {
       this.isSelected = false;
       if (this.nodeConfiguration.collapseOnSelect) {
@@ -88,7 +89,7 @@ export class ListItemComponent implements OnChanges, OnInit {
     this.setClasses();
   }
   getPaddingAtStart(): boolean {
-    return this.nodeConfiguration.paddingAtStart ? true : false;
+    return this.nodeConfiguration.paddingAtStart;
   }
   getListStyle(): ListStyle {
     const styles = {
@@ -107,13 +108,13 @@ export class ListItemComponent implements OnChanges, OnInit {
     return styles;
   }
   getListIcon(node: MultilevelNodes): string {
-    if (node.icon !== null && node.icon !== undefined && node.icon !== '') {
+    if (!CommonUtils.isNullOrUndefinedOrEmpty(node.icon)) {
       return `icon`;
-    } else if (node.faIcon !== null && node.faIcon !== undefined && node.faIcon !== '') {
+    } else if (!CommonUtils.isNullOrUndefinedOrEmpty(node.faIcon)) {
       return `faicon`;
-    } else if (node.imageIcon !== null && node.imageIcon !== undefined && node.imageIcon !== '') {
+    } else if (!CommonUtils.isNullOrUndefinedOrEmpty(node.imageIcon)) {
       return `imageicon`;
-    } else if (node.svgIcon !== null && node.svgIcon !== undefined && node.svgIcon !== '') {
+    } else if (!CommonUtils.isNullOrUndefinedOrEmpty(node.svgIcon)) {
       return `svgicon`;
     } else {
       return ``;
@@ -150,7 +151,7 @@ export class ListItemComponent implements OnChanges, OnInit {
     return CONSTANT.DEFAULT_HREF_TARGET_TYPE;
   }
   hasItems(): boolean {
-    return this.nodeChildren.length > 0 ? true : false;
+    return this.nodeChildren.length > 0;
   }
   isRtlLayout(): boolean {
     return this.nodeConfiguration.rtlLayout;
@@ -163,7 +164,7 @@ export class ListItemComponent implements OnChanges, OnInit {
     };
   }
   setExpandCollapseStatus(): void {
-    if (this.nodeExpandCollapseStatus !== null && this.nodeExpandCollapseStatus !== undefined ) {
+    if (!CommonUtils.isNullOrUndefined(this.nodeExpandCollapseStatus)) {
       if (this.nodeExpandCollapseStatus === ExpandCollapseStatusEnum.expand) {
         this.expanded = true;
         if (this.nodeConfiguration.customTemplate) {
@@ -203,4 +204,5 @@ export class ListItemComponent implements OnChanges, OnInit {
   selectedListItem(node: MultilevelNodes): void {
     this.selectedItem.emit(node);
   }
+
 }
