@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { animate, group, state, style, transition, trigger } from '@angular/animations';
 
-import { MultilevelNodes, Configuration, ExpandedRTL, ExpandedLTR } from './../../../../../../projects/ng-material-multilevel-menu/src/public_api';
+import { MultilevelNode, Configuration, ExpandedRTL, ExpandedLTR } from './../../../../../../projects/ng-material-multilevel-menu/src/public_api';
 
 @Component({
   selector: 'app-version-two',
@@ -20,7 +20,7 @@ import { MultilevelNodes, Configuration, ExpandedRTL, ExpandedLTR } from './../.
   ]
 })
 export class VersionTwoComponent implements OnInit {
-  appitems: MultilevelNodes[] = [
+  appitems: MultilevelNode[] = [
     {
       label: 'Item 1 (with Font awesome icon)',
       faIcon: 'fab fa-500px',

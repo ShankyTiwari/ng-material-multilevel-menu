@@ -5,7 +5,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { DomSanitizer } from '@angular/platform-browser';
 import { MatIconRegistry } from '@angular/material/icon';
 
-import { MultilevelNodes, MultilevelMenuService, ExpandedRTL, ExpandedLTR } from './../../projects/ng-material-multilevel-menu/src/public_api';
+import { MultilevelNode, MultilevelMenuService, ExpandedRTL, ExpandedLTR } from './../../projects/ng-material-multilevel-menu/src/public_api';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',

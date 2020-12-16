@@ -1,7 +1,7 @@
 import { Component, OnChanges, OnInit, OnDestroy, Output, EventEmitter, Input, ContentChild, TemplateRef, ElementRef } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { BackgroundStyle, Configuration, MultilevelNodes, ExpandCollapseStatusEnum } from './app.model';
+import { BackgroundStyle, Configuration, MultilevelNode, ExpandCollapseStatusEnum } from './app.model';
 import { CONSTANT } from './constants';
 import { MultilevelMenuService } from './multilevel-menu.service';
 import {CommonUtils} from './common-utils';
@@ -12,15 +12,15 @@ import {CommonUtils} from './common-utils';
   styleUrls: ['./ng-material-multilevel-menu.component.css'],
 })
 export class NgMaterialMultilevelMenuComponent implements OnInit, OnChanges, OnDestroy {
-  @Input() items: MultilevelNodes[];
+  @Input() items: MultilevelNode[];
   @Input() configuration: Configuration = null;
-  @Output() selectedItem = new EventEmitter<MultilevelNodes>();
-  @Output() selectedLabel = new EventEmitter<MultilevelNodes>();
+  @Output() selectedItem = new EventEmitter<MultilevelNode>();
+  @Output() selectedLabel = new EventEmitter<MultilevelNode>();
   @ContentChild('listTemplate', {static: true}) listTemplate: TemplateRef<ElementRef>;
 
   expandCollapseStatusSubscription: Subscription = null;
   selectMenuByIDSubscription: Subscription = null;
-  currentNode: MultilevelNodes = null;
+  currentNode: MultilevelNode = null;
 
   nodeConfig: Configuration = {
     paddingAtStart: true,
@@ -164,7 +164,7 @@ export class NgMaterialMultilevelMenuComponent implements OnInit, OnChanges, OnD
   isRtlLayout(): boolean {
     return this.nodeConfig.rtlLayout;
   }
-  selectedListItem(event: MultilevelNodes): void {
+  selectedListItem(event: MultilevelNode): void {
     this.nodeExpandCollapseStatus = ExpandCollapseStatusEnum.neutral;
     this.currentNode = event;
     if (!CommonUtils.isNullOrUndefined(event.dontEmit) && event.dontEmit) {

@@ -1,0 +1,65 @@
+.amml-item {
+  position: relative;
+  cursor: pointer;
+}
+
+.anml-link {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  text-transform: capitalize;
+  text-decoration: none;
+  color: inherit;
+}
+
+.anml-data {
+  width: 100%;
+  height: 48px;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.disabled-amml-item {
+  opacity: 0.5;
+  text-decoration: none;
+  pointer-events: none;
+}
+
+.icon-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.amml-icon-fa {
+  font-size: 20px;
+}
+
+.label {
+  line-height: 48px;
+  font-weight: 400;
+}
+
+.amml-svg-icon {
+  width: 22px;
+  height: 22px;
+  margin-top: -12px;
+}
+.amml-icon-arrow-container {
+  direction: ltr;
+  display: flex;
+  align-items: center;
+}
+div[dir="ltr"] .amml-icon {
+  margin-right: 16px;
+}
+div[dir="ltr"].amml-submenu {
+  margin-left: 16px;
+}
+
+div[dir="rtl"] .amml-icon {
+  margin-left: 16px;
+}
+div[dir="rtl"].amml-submenu {
+  margin-right: 16px;
+}
