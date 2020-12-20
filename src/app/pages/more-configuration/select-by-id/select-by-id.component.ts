@@ -98,7 +98,7 @@ export class SelectByIdComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  menuIsReady(menus: MultilevelNodes[]) {
+  menuIsReady(menus: MultilevelNode[]) {
     console.log(menus);
   }
 

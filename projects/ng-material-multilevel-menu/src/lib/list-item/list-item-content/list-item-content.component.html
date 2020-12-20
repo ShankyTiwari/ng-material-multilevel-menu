@@ -5,8 +5,12 @@
     <ng-container *ngTemplateOutlet="isRtlLayout ? linkLabelRtlOutlet : linkLabelLtrOutlet"></ng-container>
   </a>
 </ng-template>
+
 <ng-template #routerLinkTemplate>
-  <a class="anml-link" [routerLink]="node.link">
+  <a class="anml-link" *ngIf="!node.externalRedirect && node.link" [routerLink]="node.link">
+    <ng-container *ngTemplateOutlet="isRtlLayout ? linkLabelRtlOutlet : linkLabelLtrOutlet"></ng-container>
+  </a>
+  <a class="anml-link" *ngIf="!node.link">
     <ng-container *ngTemplateOutlet="isRtlLayout ? linkLabelRtlOutlet : linkLabelLtrOutlet"></ng-container>
   </a>
 </ng-template>
