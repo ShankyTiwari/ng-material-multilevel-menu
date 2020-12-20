@@ -1,3 +1,11 @@
 .filled {
   width: 100%;
 }
+
+div[dir="rtl"].amml-submenu {
+  margin-right: 16px;
+}
+
+div[dir="ltr"].amml-submenu {
+  margin-left: 16px;
+}
