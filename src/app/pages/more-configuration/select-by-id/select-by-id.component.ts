@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import {
   MultilevelMenuService,
-  MultilevelNodes,
+  MultilevelNode,
   Configuration
 } from './../../../../../projects/ng-material-multilevel-menu/src/public_api';
 
@@ -12,7 +12,7 @@ import {
   styleUrls: ['./select-by-id.component.css']
 })
 export class SelectByIdComponent implements OnInit {
-  appitems: MultilevelNodes[] = [
+  appitems: MultilevelNode[] = [
     {
       label: 'Item 1 (with Font awesome icon)',
       faIcon: 'fab fa-500px',
@@ -91,14 +91,14 @@ export class SelectByIdComponent implements OnInit {
     this.multilevelMenuService.selectMenuByID(this.menuId);
   }
 
-  selectedItem(event: MultilevelNodes) {
+  selectedItem(event: MultilevelNode) {
     console.log(event);
   }
 
   ngOnInit(): void {
   }
 
-  menuIsReady(menus: MultilevelNodes[]) {
+  menuIsReady(menus: MultilevelNode[]) {
     console.log(menus);
   }
 

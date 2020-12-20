@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { ExpandCollapseComponent } from './expand-collapse.component';
+import {MultilevelMenuService} from '../../../../../projects/ng-material-multilevel-menu/src/lib/multilevel-menu.service';
 
 describe('ExpandCollapseComponent', () => {
   let component: ExpandCollapseComponent;
@@ -8,7 +9,8 @@ describe('ExpandCollapseComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ ExpandCollapseComponent ]
+      declarations: [ ExpandCollapseComponent ],
+      providers: [ MultilevelMenuService ]
     })
     .compileComponents();
   }));

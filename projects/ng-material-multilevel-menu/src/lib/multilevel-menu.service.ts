@@ -1,43 +1,42 @@
-import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+ import {BehaviorSubject, Observable, Subject} from 'rxjs';
+import { MultilevelNode, ExpandCollapseStatusEnum } from './app.model';
+import {CONSTANT} from './constants';
 
-import { MultilevelNodes, ExpandCollapseStatusEnum } from './app.model';
 export class MultilevelMenuService {
-  foundLinkObject: MultilevelNodes;
-  expandCollapseStatus: Subject<ExpandCollapseStatusEnum> = new Subject<ExpandCollapseStatusEnum>();
+  foundLinkObject: MultilevelNode;
+  private expandCollapseStatus: Subject<ExpandCollapseStatusEnum> = new Subject<ExpandCollapseStatusEnum>();
   expandCollapseStatus$: Observable<ExpandCollapseStatusEnum> = this.expandCollapseStatus.asObservable();
 
-  selectedMenuID: Subject<string> = new Subject<string>();
+  private selectedMenuID: Subject<string> = new Subject<string>();
   selectedMenuID$: Observable<string> = this.selectedMenuID.asObservable();
 
   private generateId(): string {
     let text = '';
-    const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     for (let i = 0; i < 20; i++) {
-      text += possible.charAt(Math.floor(Math.random() * possible.length));
+      text += CONSTANT.POSSIBLE.charAt(Math.floor(Math.random() * CONSTANT.POSSIBLE.length));
     }
     return text;
   }
-  addRandomId(nodes: MultilevelNodes[]): void {
-    nodes.forEach((node: MultilevelNodes) => {
+  addRandomId(nodes: MultilevelNode[]): void {
+    nodes.forEach((node: MultilevelNode) => {
       node.id = this.generateId();
       if (node.items !== undefined) {
         this.addRandomId(node.items);
       }
     });
   }
-  recursiveCheckId(node: MultilevelNodes, nodeId: string): boolean {
+  recursiveCheckId(node: MultilevelNode, nodeId: string): boolean {
     if (node.id === nodeId) {
       return true;
     } else {
       if (node.items !== undefined) {
-        return node.items.some((nestedNode: MultilevelNodes) => {
+        return node.items.some((nestedNode: MultilevelNode) => {
           return this.recursiveCheckId(nestedNode, nodeId);
         });
       }
     }
   }
-  private findNodeRecursively({nodes, link, id}: {nodes: MultilevelNodes[], link?: string, id?: string}): void {
+  private findNodeRecursively({nodes, link, id}: {nodes: MultilevelNode[], link?: string, id?: string}): void {
     for (let nodeIndex = 0; nodeIndex < nodes.length; nodeIndex++) {
       const node = nodes[nodeIndex];
       for (const key in node) {
@@ -59,11 +58,11 @@ export class MultilevelMenuService {
       }
     }
   }
-  getMatchedObjectByUrl(nodes: MultilevelNodes[], link: string): MultilevelNodes {
+  getMatchedObjectByUrl(nodes: MultilevelNode[], link: string): MultilevelNode {
     this.findNodeRecursively({nodes, link});
     return this.foundLinkObject;
   }
-  getMatchedObjectById(nodes: MultilevelNodes[], id: string): MultilevelNodes {
+  getMatchedObjectById(nodes: MultilevelNode[], id: string): MultilevelNode {
     this.findNodeRecursively({nodes, id});
     return this.foundLinkObject;
   }
@@ -72,7 +71,7 @@ export class MultilevelMenuService {
   kvDummyComparerFn() {
     return 0;
   }
-  setMenuExapandCollpaseStatus(status: ExpandCollapseStatusEnum): void {
+  setMenuExpandCollapseStatus(status: ExpandCollapseStatusEnum): void {
     this.expandCollapseStatus.next(status ? status : ExpandCollapseStatusEnum.neutral);
   }
   selectMenuByID(menuID: string) {

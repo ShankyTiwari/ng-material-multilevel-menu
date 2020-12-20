@@ -1,0 +1,57 @@
+<ng-container *ngTemplateOutlet="node.externalRedirect ? redirectLinkTemplate : routerLinkTemplate"></ng-container>
+
+<ng-template #redirectLinkTemplate>
+  <a class="anml-link" [href]="node.link" [target]="getHrefTargetType()">
+    <ng-container *ngTemplateOutlet="isRtlLayout ? linkLabelRtlOutlet : linkLabelLtrOutlet"></ng-container>
+  </a>
+</ng-template>
+
+<ng-template #routerLinkTemplate>
+  <a class="anml-link" *ngIf="!node.externalRedirect && node.link" [routerLink]="node.link">
+    <ng-container *ngTemplateOutlet="isRtlLayout ? linkLabelRtlOutlet : linkLabelLtrOutlet"></ng-container>
+  </a>
+  <a class="anml-link" *ngIf="!node.link">
+    <ng-container *ngTemplateOutlet="isRtlLayout ? linkLabelRtlOutlet : linkLabelLtrOutlet"></ng-container>
+  </a>
+</ng-template>
+
+<ng-template #linkLabelLtrOutlet>
+  <div class="anml-data" [dir]="'ltr'">
+    <ng-container *ngTemplateOutlet="iconContainer"></ng-container>
+    <span class="label">{{node.label}}</span>
+  </div>
+  <div class="amml-icon-arrow-container" *ngIf='node.hasChildren'>
+    <mat-icon [@ExpandedLTR]="nodeExpandStatus()">
+      keyboard_arrow_down
+    </mat-icon>
+  </div>
+</ng-template>
+
+<ng-template #linkLabelRtlOutlet>
+  <div class="anml-data" [dir]="'rtl'">
+    <ng-container *ngTemplateOutlet="iconContainer"></ng-container>
+    <span class="label">{{node.label}}</span>
+  </div>
+  <div class="amml-icon-arrow-container" *ngIf='node.hasChildren'>
+    <mat-icon [@ExpandedRTL]="nodeExpandStatus()">
+      keyboard_arrow_down
+    </mat-icon>
+  </div>
+</ng-template>
+
+<ng-template #iconContainer>
+  <div class="icon-container" [ngSwitch]="getListIcon(node)">
+      <span *ngSwitchCase="'faIcon'" class="amml-icon amml-icon-fa">
+        <i [ngClass]="getSelectedFaIcon()"></i>
+      </span>
+    <mat-icon *ngSwitchCase="'icon'" class="amml-icon">
+      {{getSelectedIcon()}}
+    </mat-icon>
+    <mat-icon *ngSwitchCase="'svgIcon'" class="amml-icon amml-svg-icon"
+              svgIcon="{{getSelectedSvgIcon()}}">
+    </mat-icon>
+    <img *ngSwitchCase="'imageIcon'" matListAvatar class="amml-icon"
+         src="{{getSelectedImageIcon()}}" alt="{{node.label}}"/>
+  </div>
+</ng-template>
+
