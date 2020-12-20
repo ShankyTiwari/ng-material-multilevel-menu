@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { MultilevelNodes, Configuration, SlideInOut, ExpandedLTR } from './../../../../../../projects/ng-material-multilevel-menu/src/public_api';
+import { MultilevelNode, Configuration, SlideInOut, ExpandedLTR } from './../../../../../../projects/ng-material-multilevel-menu/src/public_api';
 @Component({
   selector: 'app-version-three',
   templateUrl: './version-three.component.html',
@@ -11,7 +11,7 @@ import { MultilevelNodes, Configuration, SlideInOut, ExpandedLTR } from './../..
   ]
 })
 export class VersionThreeComponent implements OnInit {
-  appitems: MultilevelNodes[] = [
+  appitems: MultilevelNode[] = [
     {
       label: 'Item 1 (with Font awesome icon)',
       faIcon: 'fab fa-500px',

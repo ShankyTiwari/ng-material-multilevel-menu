@@ -1,6 +1,6 @@
 import { NavigationExtras } from '@angular/router';
 
-export interface MultilevelNodes {
+export interface MultilevelNode {
   id?: string;
   label: string;
   faIcon?: string;
@@ -16,13 +16,13 @@ export interface MultilevelNodes {
   externalRedirect?: boolean;
   hrefTargetType?: string;
   data?: any;
-  items?: MultilevelNodes[];
+  items?: MultilevelNode[];
   onSelected?: Function;
   disabled?: boolean;
   expanded?: boolean;
   navigationExtras?: NavigationExtras;
   dontEmit?: boolean;
-  hasChilden?: boolean;
+  hasChildren?: boolean;
   isSelected?: boolean;
 }
 

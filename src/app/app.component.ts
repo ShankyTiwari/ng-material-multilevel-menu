@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { ExpandedRTL, ExpandedLTR } from './../../projects/ng-material-multilevel-menu/src/public_api';
+import { MultilevelNode, MultilevelMenuService, ExpandedRTL, ExpandedLTR } from './../../projects/ng-material-multilevel-menu/src/public_api';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
