@@ -45,14 +45,17 @@
   height: 22px;
   margin-top: -12px;
 }
+
 .amml-icon-arrow-container {
   direction: ltr;
   display: flex;
   align-items: center;
 }
+
 div[dir="ltr"] .amml-icon {
   margin-right: 16px;
 }
+
 div[dir="ltr"].amml-submenu {
   margin-left: 16px;
 }
@@ -60,6 +63,7 @@ div[dir="ltr"].amml-submenu {
 div[dir="rtl"] .amml-icon {
   margin-left: 16px;
 }
+
 div[dir="rtl"].amml-submenu {
   margin-right: 16px;
 }

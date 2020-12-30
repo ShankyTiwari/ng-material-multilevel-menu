@@ -37,3 +37,4 @@ testem.log
 .DS_Store
 Thumbs.db
 projects/ng-material-multilevel-menu/node_modules/.cache
+dist

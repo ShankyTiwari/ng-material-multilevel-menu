@@ -1,5 +1,25 @@
-<div [ngClass]="getClassName()" [ngStyle]="getGlobalStyle()" *ngIf='!isInvalidData && items.length !== 0' [dir]="isRtlLayout() ? 'rtl' : 'ltr'">
-  <mat-list>
+<ng-container *ngTemplateOutlet="isRtlLayout() ? rtlMenu : ltrMenu"></ng-container>
+
+<ng-template #rtlMenu>
+    <div [ngClass]="getClassName()" [ngStyle]="getGlobalStyle()"
+         *ngIf='!isInvalidData && items.length !== 0'
+         [dir]="'rtl'"
+         [@slideInOutRight]="!(minimizedStatus$ | async)">
+      <ng-container *ngTemplateOutlet="matList"></ng-container>
+    </div>
+</ng-template>
+<ng-template #ltrMenu>
+  <div [ngClass]="getClassName()" [ngStyle]="getGlobalStyle()"
+       *ngIf='!isInvalidData && items.length !== 0'
+       [dir]="'ltr'"
+       [@slideInOutLeft]="!(minimizedStatus$ | async)">
+    <ng-container *ngTemplateOutlet="matList"></ng-container>
+  </div>
+</ng-template>
+
+<ng-template #matList>
+  <mat-list style="will-change: transform;">
+    <ng-container *ngTemplateOutlet="showOnTopMinimisedViewIcon() ? minimisedViewIcon : emptyMinimisedViewIcon"></ng-container>
     <ng-list-item
       *ngFor="let node of items | keyvalue: multilevelMenuService.kvDummyComparerFn"
       [nodeConfiguration]='nodeConfig'
@@ -9,8 +29,18 @@
       [selectedNode]='currentNode'
       [nodeExpandCollapseStatus]='nodeExpandCollapseStatus'
       (selectedItem)="selectedListItem($event)"
-      [listTemplate] = "listTemplate"
-    >
+      [listTemplate]="listTemplate"
+      [minimisedStatus]="minimizedStatus$ | async">
     </ng-list-item>
+    <ng-container *ngTemplateOutlet="showAtBottomMinimisedViewIcon() ? minimisedViewIcon : emptyMinimisedViewIcon"></ng-container>
   </mat-list>
-</div>
+</ng-template>
+
+<ng-template #minimisedViewIcon>
+  <mat-icon *ngIf="allIconsConfigured$ | async"
+            (click)="toggleMinimisedView()"
+            [@FlipIcon]="menuMinimisedStatus()">
+    {{isRtlLayout() ? 'keyboard_arrow_right' : 'keyboard_arrow_left'}}</mat-icon>
+</ng-template>
+<ng-template #emptyMinimisedViewIcon>
+</ng-template>

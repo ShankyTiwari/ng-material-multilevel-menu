@@ -39,6 +39,7 @@ export interface Configuration {
     useDividers?: boolean;
     rtlLayout?: boolean;
     customTemplate?: boolean;
+    minimisedView?: 'top' | 'bottom' | undefined;
 }
 
 export interface BackgroundStyle {

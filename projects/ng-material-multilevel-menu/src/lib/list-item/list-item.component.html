@@ -41,5 +41,7 @@
 </ng-template>
 
 <ng-template #linkTemplate>
-  <ng-list-item-content class="filled" [node]="node" [isRtlLayout]="isRtlLayout()"></ng-list-item-content>
+  <ng-list-item-content class="filled" [node]="node"
+                        [isRtlLayout]="isRtlLayout()"
+                        [isMinimised]="minimisedStatus"></ng-list-item-content>
 </ng-template>

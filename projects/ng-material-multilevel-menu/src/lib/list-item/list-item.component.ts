@@ -21,6 +21,7 @@ export class ListItemComponent implements OnChanges, OnInit {
   @Input() nodeConfiguration: Configuration = null;
   @Input() nodeExpandCollapseStatus: ExpandCollapseStatusEnum = null;
   @Input() listTemplate: TemplateRef<ElementRef> = null;
+  @Input() minimisedStatus: boolean;
 
   @Output() selectedItem = new EventEmitter<MultilevelNode>();
 

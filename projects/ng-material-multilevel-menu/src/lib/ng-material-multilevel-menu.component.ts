@@ -1,15 +1,29 @@
-import { Component, OnChanges, OnInit, OnDestroy, Output, EventEmitter, Input, ContentChild, TemplateRef, ElementRef } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
-import { BackgroundStyle, Configuration, MultilevelNode, ExpandCollapseStatusEnum } from './app.model';
-import { CONSTANT } from './constants';
-import { MultilevelMenuService } from './multilevel-menu.service';
+import {
+  Component,
+  OnChanges,
+  OnInit,
+  OnDestroy,
+  Output,
+  EventEmitter,
+  Input,
+  ContentChild,
+  TemplateRef,
+  ElementRef
+} from '@angular/core';
+import {NavigationEnd, Router} from '@angular/router';
+import {BehaviorSubject, from, Observable, of, Subscription} from 'rxjs';
+import {BackgroundStyle, Configuration, MultilevelNode, ExpandCollapseStatusEnum} from './app.model';
+import {CONSTANT} from './constants';
+import {MultilevelMenuService} from './multilevel-menu.service';
 import {CommonUtils} from './common-utils';
+import {MinimiseMenuList, FlipIcon, slideInOutLeft, slideInOutRight} from './animation';
+import {count, expand, filter, map, tap} from 'rxjs/operators';
 
 @Component({
   selector: 'ng-material-multilevel-menu',
   templateUrl: './ng-material-multilevel-menu.component.html',
   styleUrls: ['./ng-material-multilevel-menu.component.css'],
+  animations: [MinimiseMenuList, FlipIcon, slideInOutLeft, slideInOutRight]
 })
 export class NgMaterialMultilevelMenuComponent implements OnInit, OnChanges, OnDestroy {
   @Input() items: MultilevelNode[];
@@ -17,6 +31,14 @@ export class NgMaterialMultilevelMenuComponent implements OnInit, OnChanges, OnD
   @Output() selectedItem = new EventEmitter<MultilevelNode>();
   @Output() selectedLabel = new EventEmitter<MultilevelNode>();
   @ContentChild('listTemplate', {static: true}) listTemplate: TemplateRef<ElementRef>;
+
+  private minimizedStatus: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  minimizedStatus$: Observable<boolean> = this.minimizedStatus.asObservable();
+
+  private missingIconCount$: Observable<number> = of(0);
+  private allNodes$: Observable<MultilevelNode> | Observable<MultilevelNode[]>;
+  private appItems$: Observable<MultilevelNode>;
+  allIconsConfigured$: Observable<boolean>;
 
   expandCollapseStatusSubscription: Subscription = null;
   selectMenuByIDSubscription: Subscription = null;
@@ -34,6 +56,7 @@ export class NgMaterialMultilevelMenuComponent implements OnInit, OnChanges, OnD
     rtlLayout: false,
     customTemplate: false
   };
+
   isInvalidConfig = true;
   isInvalidData = true;
   nodeExpandCollapseStatus: ExpandCollapseStatusEnum = ExpandCollapseStatusEnum.neutral;
@@ -42,11 +65,13 @@ export class NgMaterialMultilevelMenuComponent implements OnInit, OnChanges, OnD
               public multilevelMenuService: MultilevelMenuService) {
     // NOOP
   }
+
   ngOnChanges() {
     this.detectInvalidConfig();
     this.initExpandCollapseStatus();
     this.initSelectedMenuID();
   }
+
   ngOnInit() {
     if (!CommonUtils.isNullOrUndefinedOrEmpty(this.configuration) &&
       this.configuration.interfaceWithRoute !== null && this.configuration.interfaceWithRoute) {
@@ -59,6 +84,7 @@ export class NgMaterialMultilevelMenuComponent implements OnInit, OnChanges, OnD
       this.updateNodeByURL(this.router.url);
     }
   }
+
   updateNodeByURL(url: string): void {
     const foundNode = this.multilevelMenuService.getMatchedObjectByUrl(this.items, url);
     if (foundNode !== undefined && !CommonUtils.isNullOrUndefinedOrEmpty(foundNode.link)
@@ -70,6 +96,7 @@ export class NgMaterialMultilevelMenuComponent implements OnInit, OnChanges, OnD
       }
     }
   }
+
   checkValidData(): void {
     if (this.items === undefined || (Array.isArray(this.items) && this.items.length === 0)) {
       console.warn(CONSTANT.ERROR_MESSAGE);
@@ -78,7 +105,27 @@ export class NgMaterialMultilevelMenuComponent implements OnInit, OnChanges, OnD
     this.items = this.items.filter(n => !n.hidden);
     this.multilevelMenuService.addRandomId(this.items);
     this.isInvalidData = false;
+
+    // TODO aggregate streams!!!
+    this.appItems$ = from(this.items);
+    this.allNodes$ = this.flatStream(this.appItems$).pipe(
+        expand((val: MultilevelNode) => {
+          return val.items ? this.flatStream(from(val.items)) : empty();
+        })
+      );
+    this.missingIconCount$ = this.allNodes$.pipe(
+      filter(el => !this.hasIconConfigured(el)),
+      count((ccc: MultilevelNode) => ccc)
+    );
+    this.allIconsConfigured$ = this.missingIconCount$.pipe(
+      map(co => co === 0)
+    );
   }
+
+  isMinimisedViewConfigured(): boolean {
+    return this.configuration.minimisedView !== undefined/* && this.allIconsConfigured()*/;
+  }
+
   detectInvalidConfig(): void {
     if (CommonUtils.isNullOrUndefinedOrEmpty(this.configuration)) {
       this.isInvalidConfig = true;
@@ -122,19 +169,25 @@ export class NgMaterialMultilevelMenuComponent implements OnInit, OnChanges, OnD
         typeof config.customTemplate === 'boolean') {
         this.nodeConfig.customTemplate = config.customTemplate;
       }
+      console.log('check conf: ', config.minimisedView);
+      if (!CommonUtils.isNullOrUndefined(config.minimisedView)) {
+        this.nodeConfig.minimisedView = config.minimisedView;
+      }
     }
     this.checkValidData();
   }
+
   initExpandCollapseStatus(): void {
     this.expandCollapseStatusSubscription = this.multilevelMenuService.expandCollapseStatus$
-      .subscribe( (expandCollapseStatus: ExpandCollapseStatusEnum) => {
-      this.nodeExpandCollapseStatus = expandCollapseStatus ? expandCollapseStatus : ExpandCollapseStatusEnum.neutral;
-    }, () => {
-      this.nodeExpandCollapseStatus = ExpandCollapseStatusEnum.neutral;
-    });
+      .subscribe((expandCollapseStatus: ExpandCollapseStatusEnum) => {
+        this.nodeExpandCollapseStatus = expandCollapseStatus ? expandCollapseStatus : ExpandCollapseStatusEnum.neutral;
+      }, () => {
+        this.nodeExpandCollapseStatus = ExpandCollapseStatusEnum.neutral;
+      });
   }
+
   initSelectedMenuID(): void {
-    this.selectMenuByIDSubscription = this.multilevelMenuService.selectedMenuID$.subscribe( (selectedMenuID: string) => {
+    this.selectMenuByIDSubscription = this.multilevelMenuService.selectedMenuID$.subscribe((selectedMenuID: string) => {
       if (selectedMenuID) {
         const foundNode = this.multilevelMenuService.getMatchedObjectById(this.items, selectedMenuID);
         if (foundNode !== undefined) {
@@ -144,16 +197,18 @@ export class NgMaterialMultilevelMenuComponent implements OnInit, OnChanges, OnD
       }
     });
   }
+
   getClassName(): string {
     if (!this.isInvalidConfig && !CommonUtils.isNullOrUndefinedOrEmpty(this.configuration.classname)) {
       return `${CONSTANT.DEFAULT_CLASS_NAME} ${this.configuration.classname}`;
     }
     return CONSTANT.DEFAULT_CLASS_NAME;
   }
+
   getGlobalStyle(): BackgroundStyle {
     if (!this.isInvalidConfig) {
       const styles = {
-        background : null
+        background: null
       };
       if (!CommonUtils.isNullOrUndefinedOrEmpty(this.configuration.backgroundColor)) {
         styles.background = this.configuration.backgroundColor;
@@ -161,23 +216,64 @@ export class NgMaterialMultilevelMenuComponent implements OnInit, OnChanges, OnD
       return styles;
     }
   }
+
   isRtlLayout(): boolean {
     return this.nodeConfig.rtlLayout;
   }
+
   selectedListItem(event: MultilevelNode): void {
     this.nodeExpandCollapseStatus = ExpandCollapseStatusEnum.neutral;
     this.currentNode = event;
     if (!CommonUtils.isNullOrUndefined(event.dontEmit) && event.dontEmit) {
       return;
     }
-    if (event.items === undefined && (!event.onSelected || typeof event.onSelected !== 'function') ) {
+    if (event.items === undefined && (!event.onSelected || typeof event.onSelected !== 'function')) {
       this.selectedItem.emit(event);
     } else {
       this.selectedLabel.emit(event);
     }
   }
+
   ngOnDestroy() {
     this.expandCollapseStatusSubscription.unsubscribe();
     this.selectMenuByIDSubscription.unsubscribe();
+  }
+
+  setMenuMinimizedStatus(status: boolean): void {
+    this.minimizedStatus.next(status);
+  }
+
+  getCurrentMinimisedViewStatus(): boolean {
+    return this.minimizedStatus.getValue();
+  }
+
+  toggleMinimisedView(): void {
+    this.setMenuMinimizedStatus(!this.getCurrentMinimisedViewStatus());
+  }
+
+  private menuMinimisedStatus(): string {
+    return this.getCurrentMinimisedViewStatus() ? CONSTANT.YES : CONSTANT.NO;
+  }
+
+  hasIcon = (node: MultilevelNode) => !CommonUtils.isNullOrUndefinedOrEmpty(node.icon);
+  hasSvgIcon = (node: MultilevelNode) => !CommonUtils.isNullOrUndefinedOrEmpty(node.svgIcon);
+  hasFaIcon = (node: MultilevelNode) => !CommonUtils.isNullOrUndefinedOrEmpty(node.faIcon);
+  hasImageIcon = (node: MultilevelNode) => !CommonUtils.isNullOrUndefinedOrEmpty(node.imageIcon);
+
+  hasIconConfigured = (node: MultilevelNode) => this.hasIcon(node) || this.hasSvgIcon(node) ||
+    this.hasFaIcon(node) || this.hasImageIcon(node)
+
+  flatStream = (node: Observable<MultilevelNode> | Observable<MultilevelNode[]>) =>
+    node.pipe(
+      tap((nodeContent: MultilevelNode | MultilevelNode[]) =>
+        Array.isArray(nodeContent) ? this.flatStream(from(nodeContent)) : nodeContent)
+    )
+
+  showOnTopMinimisedViewIcon() {
+    return this.nodeConfig.minimisedView === 'top';
+  }
+
+  showAtBottomMinimisedViewIcon() {
+    return this.nodeConfig.minimisedView === 'bottom';
   }
 }
