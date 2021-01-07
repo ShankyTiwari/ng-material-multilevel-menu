@@ -56,14 +56,6 @@ div[dir="ltr"] .amml-icon {
   margin-right: 16px;
 }
 
-div[dir="ltr"].amml-submenu {
-  margin-left: 16px;
-}
-
 div[dir="rtl"] .amml-icon {
   margin-left: 16px;
-}
-
-div[dir="rtl"].amml-submenu {
-  margin-right: 16px;
 }

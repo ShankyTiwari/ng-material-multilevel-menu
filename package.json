@@ -1,6 +1,6 @@
 {
   "name": "ng-material-multilevel-menu-angular-project",
-  "version": "5.5.1",
+  "version": "5.5.3",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -10,7 +10,7 @@
     "lint-fix": "ng lint --fix",
     "e2e": "ng e2e"
   },
-  "homepage": "https://multilevel-menu-demo.web.app/pages/home",
+  "homepage": "https://multilevel-menu-demo.web.app/",
   "private": false,
   "dependencies": {
     "@angular/animations": "^11.0.0",

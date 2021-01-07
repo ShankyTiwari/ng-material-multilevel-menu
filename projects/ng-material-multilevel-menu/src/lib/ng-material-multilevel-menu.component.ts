@@ -30,6 +30,7 @@ export class NgMaterialMultilevelMenuComponent implements OnInit, OnChanges, OnD
   @Input() configuration: Configuration = null;
   @Output() selectedItem = new EventEmitter<MultilevelNode>();
   @Output() selectedLabel = new EventEmitter<MultilevelNode>();
+  @Output() menuIsReady = new EventEmitter<MultilevelNode[]>();
   @ContentChild('listTemplate', {static: true}) listTemplate: TemplateRef<ElementRef>;
 
   private minimizedStatus: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
@@ -70,6 +71,9 @@ export class NgMaterialMultilevelMenuComponent implements OnInit, OnChanges, OnD
     this.detectInvalidConfig();
     this.initExpandCollapseStatus();
     this.initSelectedMenuID();
+    if (!this.isInvalidData) {
+      this.menuIsReady.emit(this.items);
+    }
   }
 
   ngOnInit() {

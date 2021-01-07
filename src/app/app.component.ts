@@ -81,6 +81,10 @@ export class AppComponent implements OnInit {
         {
           label: `Select Menu By ID` ,
           link: '/pages/more-configuration/select-by-id'
+        },
+        {
+          label: `On Select Property` ,
+          link: '/pages/more-configuration/on-select'
         }
       ],
     },
