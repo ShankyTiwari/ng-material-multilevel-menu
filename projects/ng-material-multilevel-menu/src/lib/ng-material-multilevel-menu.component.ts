@@ -31,6 +31,7 @@ export class NgMaterialMultilevelMenuComponent implements OnInit, OnChanges, OnD
   @Output() selectedItem = new EventEmitter<MultilevelNode>();
   @Output() selectedLabel = new EventEmitter<MultilevelNode>();
   @Output() menuIsReady = new EventEmitter<MultilevelNode[]>();
+  @Output() menuIsMinimised = new EventEmitter<boolean>(); // or subscribe to minimizedStatus$
   @ContentChild('listTemplate', {static: true}) listTemplate: TemplateRef<ElementRef>;
 
   private minimizedStatus: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
@@ -260,6 +261,7 @@ export class NgMaterialMultilevelMenuComponent implements OnInit, OnChanges, OnD
 
   toggleMinimisedView(): void {
     this.setMenuMinimizedStatus(!this.getCurrentMinimisedViewStatus());
+    this.menuIsMinimised.emit(this.getCurrentMinimisedViewStatus());
   }
 
   private menuMinimisedStatus(): string {
