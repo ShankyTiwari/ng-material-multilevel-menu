@@ -17,7 +17,7 @@ import {CONSTANT} from './constants';
 import {MultilevelMenuService} from './multilevel-menu.service';
 import {CommonUtils} from './common-utils';
 import {MinimiseMenuList, FlipIcon, slideInOutLeft, slideInOutRight} from './animation';
-import {count, every, expand, filter, map, tap} from 'rxjs/operators';
+import {every, expand, tap} from 'rxjs/operators';
 
 @Component({
   selector: 'ng-material-multilevel-menu',
@@ -37,9 +37,7 @@ export class NgMaterialMultilevelMenuComponent implements OnInit, OnChanges, OnD
   private minimizedStatus: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   minimizedStatus$: Observable<boolean> = this.minimizedStatus.asObservable();
 
-  private missingIconCount$: Observable<number> = of(0);
-  private allNodes$: Observable<any>; // TODO type specific
-  private appItems$: Observable<MultilevelNode>;
+  private allNodes$: Observable<MultilevelNode>;
   allIconsConfigured$: Observable<boolean>;
 
   expandCollapseStatusSubscription: Subscription = null;
@@ -111,24 +109,21 @@ export class NgMaterialMultilevelMenuComponent implements OnInit, OnChanges, OnD
     this.multilevelMenuService.addRandomId(this.items);
     this.isInvalidData = false;
 
-    // TODO aggregate streams
-    this.appItems$ = from(this.items);
-    this.allNodes$ = this.flatStream(this.appItems$)
+    this.allIconsConfigured$ = this.getAllIconsConfigured$();
+  }
+
+  private getAllIconsConfigured$(): Observable<boolean> {
+    this.allNodes$ = this.flatStream(from(this.items))
       .pipe(
         expand((val: MultilevelNode) => {
           return val.items ? this.flatStream(from(val.items)) : EMPTY;
         })
       );
-    this.missingIconCount$ = this.allNodes$
-      .pipe(
-        filter((el: MultilevelNode) => !this.hasIconConfigured(el)),
-        count(),
-        map( (c: number) => c)
-      );
 
-    this.allIconsConfigured$ = this.missingIconCount$.pipe(
-      map(co => co === 0)
-    );
+    return this.allNodes$
+      .pipe(
+        every((el: MultilevelNode) => this.hasIconConfigured(el))
+      );
   }
 
   isMinimisedViewConfigured(): boolean {
@@ -277,7 +272,7 @@ export class NgMaterialMultilevelMenuComponent implements OnInit, OnChanges, OnD
     return this.hasIcon(node) || this.hasSvgIcon(node) || this.hasFaIcon(node) || this.hasImageIcon(node);
   }
 
-  flatStream(node: Observable<any>): Observable<any> {
+  flatStream(node: Observable<any>): Observable<MultilevelNode> {
     return node.pipe(
       tap((nodeContent) =>  Array.isArray(nodeContent) ?
         this.flatStream(from(nodeContent)) : nodeContent)
