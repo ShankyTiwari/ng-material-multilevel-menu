@@ -39,7 +39,14 @@ export interface Configuration {
     useDividers?: boolean;
     rtlLayout?: boolean;
     customTemplate?: boolean;
-    minimisedView?: 'top' | 'bottom' | undefined;
+    minimisedView?: MinimisedView | undefined;
+}
+
+export interface MinimisedView {
+  position: 'top' | 'bottom';
+  icon: `keyboard_arrow_left` | string;
+  minimiseTooltipLabel?: string;
+  maximiseTooltipLabel?: string;
 }
 
 export interface BackgroundStyle {

@@ -255,6 +255,9 @@ export class NgMaterialMultilevelMenuComponent implements OnInit, OnChanges, OnD
   }
 
   toggleMinimisedView(): void {
+    this.configuration.paddingAtStart = !this.getCurrentMinimisedViewStatus();
+
+
     this.setMenuMinimizedStatus(!this.getCurrentMinimisedViewStatus());
     this.menuIsMinimised.emit(this.getCurrentMinimisedViewStatus());
   }
@@ -280,10 +283,15 @@ export class NgMaterialMultilevelMenuComponent implements OnInit, OnChanges, OnD
   }
 
   showOnTopMinimisedViewIcon() {
-    return this.nodeConfig.minimisedView === 'top';
+    return this.nodeConfig.minimisedView?.position === 'top';
   }
 
   showAtBottomMinimisedViewIcon() {
-    return this.nodeConfig.minimisedView === 'bottom';
+    return this.nodeConfig.minimisedView?.position === 'bottom';
   }
+
+  getOppositeDirection(): string {
+    return this.isRtlLayout() ? CONSTANT.LTR : CONSTANT.RTL;
+  }
+
 }

@@ -37,10 +37,15 @@
 </ng-template>
 
 <ng-template #minimisedViewIcon>
-  <mat-icon *ngIf="allIconsConfigured$ | async"
-            (click)="toggleMinimisedView()"
-            [@FlipIcon]="menuMinimisedStatus()">
-    {{isRtlLayout() ? 'keyboard_arrow_right' : 'keyboard_arrow_left'}}</mat-icon>
+  <div class="minimise-container" [dir]="getOppositeDirection()">
+    <mat-icon class="minimise-icon mat-icon-rtl-mirror"
+              *ngIf="allIconsConfigured$ | async"
+              (click)="toggleMinimisedView()"
+              [@FlipIcon]="menuMinimisedStatus()"
+              matTooltip="{{(minimizedStatus$ | async) ? configuration.minimisedView.maximiseTooltipLabel
+              : configuration.minimisedView.minimiseTooltipLabel}}">
+      {{configuration.minimisedView.icon}}</mat-icon>
+  </div>
 </ng-template>
 <ng-template #emptyMinimisedViewIcon>
 </ng-template>
