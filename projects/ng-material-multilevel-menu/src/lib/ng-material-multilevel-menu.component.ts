@@ -1,22 +1,11 @@
-import {
-  Component,
-  OnChanges,
-  OnInit,
-  OnDestroy,
-  Output,
-  EventEmitter,
-  Input,
-  ContentChild,
-  TemplateRef,
-  ElementRef
-} from '@angular/core';
+import {Component, ContentChild, ElementRef, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, TemplateRef} from '@angular/core';
 import {NavigationEnd, Router} from '@angular/router';
-import {BehaviorSubject, EMPTY, from, Observable, of, Subscription} from 'rxjs';
-import {BackgroundStyle, Configuration, MultilevelNode, ExpandCollapseStatusEnum} from './app.model';
+import {BehaviorSubject, EMPTY, from, Observable, Subscription} from 'rxjs';
+import {BackgroundStyle, Configuration, ExpandCollapseStatusEnum, MultilevelNode} from './app.model';
 import {CONSTANT} from './constants';
 import {MultilevelMenuService} from './multilevel-menu.service';
 import {CommonUtils} from './common-utils';
-import {MinimiseMenuList, FlipIcon, slideInOutLeft, slideInOutRight} from './animation';
+import {FlipIcon, MinimiseMenuList, slideInOutLeft, slideInOutRight} from './animation';
 import {every, expand, tap} from 'rxjs/operators';
 
 @Component({
@@ -255,8 +244,9 @@ export class NgMaterialMultilevelMenuComponent implements OnInit, OnChanges, OnD
   }
 
   toggleMinimisedView(): void {
-    this.configuration.paddingAtStart = !this.getCurrentMinimisedViewStatus();
-
+    if (this.configuration.paddingAtStart) {
+      this.nodeConfig.paddingAtStart = this.getCurrentMinimisedViewStatus();
+    }
 
     this.setMenuMinimizedStatus(!this.getCurrentMinimisedViewStatus());
     this.menuIsMinimised.emit(this.getCurrentMinimisedViewStatus());
