@@ -32,6 +32,10 @@ const routes: Routes = [{
       loadChildren: () => import('./on-select/on-select.module').then((m) => m.OnSelectModule),
     },
     {
+      path: 'minimise',
+      loadChildren: () => import('./minimise/minimise.module').then((m) => m.MinimiseModule),
+    },
+    {
       path: '**',
       redirectTo: 'demo-one',
     }

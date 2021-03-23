@@ -1,0 +1,14 @@
+ng-material-multilevel-menu {
+  padding-top: 25px;
+  padding-bottom: 25px;
+}
+
+.switch-demo {
+  display: flex;
+  flex-direction: flex-start;
+  justify-content: space-between;
+  padding-top: 10%;
+  padding-bottom: 10%;
+  width: 600px;
+  margin: auto;
+}

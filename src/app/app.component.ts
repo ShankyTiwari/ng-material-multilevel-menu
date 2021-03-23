@@ -57,6 +57,14 @@ export class AppComponent implements OnInit {
             }
           ],
         },
+        {
+          label: 'Minimise Demo',
+          link: '/pages/layout-variations/demo-seven',
+        },
+        {
+          label: 'Minimise Rtl Demo',
+          link: '/pages/layout-variations/demo-eight',
+        },
       ],
     },
     {
@@ -85,6 +93,10 @@ export class AppComponent implements OnInit {
         {
           label: `On Select Property` ,
           link: '/pages/more-configuration/on-select'
+        },
+        {
+          label: `Minimise menu` ,
+          link: '/pages/more-configuration/minimise'
         }
       ],
     },

@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import {Configuration} from '../../../../../projects/ng-material-multilevel-menu/src/lib/app.model';
 
 @Component({
-  selector: 'app-demo-one',
-  templateUrl: './demo-one.component.html',
-  styleUrls: ['./demo-one.component.css']
+  selector: 'app-minimise',
+  templateUrl: './minimise.component.html',
+  styleUrls: ['./minimise.component.css']
 })
-export class DemoOneComponent implements OnInit {
+export class MinimiseComponent implements OnInit {
   appitems = [
     {
       label: 'Item 1 (with Font awesome icon)',
@@ -62,25 +62,42 @@ export class DemoOneComponent implements OnInit {
       hidden: true
     }
   ];
-
   config: Configuration = {
     minimisedView: {
-      position: 'top',
-      icon: `reply`,
+      position: 'bottom',
+      icon: `keyboard_arrow_left`,
       maximiseTooltipLabel: 'Maximise',
       minimiseTooltipLabel: 'Minimise'
     },
     rtlLayout: false,
     paddingAtStart: true
   };
-  constructor(
-  ) { }
 
-  ngOnInit() {
+  icon: any;
+  codeSnippet = `
+    config: Configuration = {
+      minimisedView: {
+        position: 'bottom',
+        icon: \`keyboard_arrow_left\`,
+        maximiseTooltipLabel: 'Maximise',
+        minimiseTooltipLabel: 'Minimise'
+      }
+    };
+  `;
+  isChecked = false;
+
+  constructor() { }
+
+  ngOnInit(): void {
   }
 
-  selectedItem($event) {
-    console.log($event);
+  setMenuIcon() {
+    if (this.icon !== '') {
+      this.config.minimisedView.icon = `${this.icon}`;
+    }
   }
 
+  setPosition(e) {
+    this.config.minimisedView.position = e.checked ? 'top' : 'bottom';
+  }
 }

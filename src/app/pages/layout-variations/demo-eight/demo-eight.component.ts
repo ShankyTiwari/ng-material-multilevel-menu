@@ -1,12 +1,43 @@
 import { Component, OnInit } from '@angular/core';
+import { style, animate, transition, trigger, state } from '@angular/animations';
 import {Configuration} from '../../../../../projects/ng-material-multilevel-menu/src/lib/app.model';
 
 @Component({
-  selector: 'app-demo-one',
-  templateUrl: './demo-one.component.html',
-  styleUrls: ['./demo-one.component.css']
+  selector: 'app-demo-eight',
+  animations: [
+    trigger('slideInOutLeft', [
+      transition(':enter', [
+        style({transform: 'translateX(-100%)'}),
+        animate('500ms', style({transform: 'translateX(0%)'}))
+      ]),
+      transition(':leave', [
+        animate('500ms', style({transform: 'translateX(-100%)'}))
+      ])
+    ]),
+    trigger('slideInOutRight', [
+      transition(':enter', [
+        style({transform: 'translateX(100%)'}),
+        animate('500ms ease-in', style({transform: 'translateX(0%)'}))
+      ]),
+      transition(':leave', [
+        animate('500ms ease-in', style({transform: 'translateX(100%)'}))
+      ])
+    ]),
+    trigger('centerleft', [
+      state('true', style({ width: 'calc(100% - 340px )' })),
+      state('false', style({ width: '100%' })),
+      transition('* => *', animate('300ms  linear'))
+    ]),
+    trigger('slideInOut', [
+      state('true', style({ width: '*' })),
+      state('false', style({ width: '10%' })),
+      transition('* => *', animate('500ms linear'))
+    ])
+  ],
+  templateUrl: './demo-eight.component.html',
+  styleUrls: ['./demo-eight.component.css']
 })
-export class DemoOneComponent implements OnInit {
+export class DemoEightComponent implements OnInit {
   appitems = [
     {
       label: 'Item 1 (with Font awesome icon)',
@@ -65,22 +96,18 @@ export class DemoOneComponent implements OnInit {
 
   config: Configuration = {
     minimisedView: {
-      position: 'top',
-      icon: `reply`,
+      position: 'bottom',
+      icon: `keyboard_arrow_right`,
       maximiseTooltipLabel: 'Maximise',
       minimiseTooltipLabel: 'Minimise'
     },
-    rtlLayout: false,
+    rtlLayout: true,
     paddingAtStart: true
   };
-  constructor(
-  ) { }
 
-  ngOnInit() {
-  }
+  constructor() { }
 
-  selectedItem($event) {
-    console.log($event);
+  ngOnInit(): void {
   }
 
 }

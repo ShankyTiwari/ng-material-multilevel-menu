@@ -1,9 +1,9 @@
 <div class="module-demo">
   <h2>Expand/Collapse the Menu</h2>
-  <ng-material-multilevel-menu [items]='appitems'
+  <ng-material-multilevel-menu [items]='appitems' [configuration]="config"
     (selectedItem)="selectedItem($event)"></ng-material-multilevel-menu>
   <br>
-  <button (click)="setExpandCollapseStatus('expand')">Expand All</button> &nbsp; 
+  <button (click)="setExpandCollapseStatus('expand')">Expand All</button> &nbsp;
   <button (click)="setExpandCollapseStatus('collapse')">Collapse All</button>
   <br> <hr/>
 </div>

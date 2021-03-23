@@ -1,21 +1,20 @@
 import { Component, OnInit } from '@angular/core';
-
-import {MultilevelNode, MultilevelMenuService, Configuration} from './../../../../../projects/ng-material-multilevel-menu/src/public_api';
+import {Configuration} from '../../../../../projects/ng-material-multilevel-menu/src/lib/app.model';
 
 @Component({
-  selector: 'app-expand-collapse',
-  templateUrl: './expand-collapse.component.html',
-  styleUrls: ['./expand-collapse.component.css'],
+  selector: 'app-demo-seven',
+  templateUrl: './demo-seven.component.html',
+  styleUrls: ['./demo-seven.component.css']
 })
-export class ExpandCollapseComponent implements OnInit {
-  appitems: MultilevelNode[] = [
+export class DemoSevenComponent implements OnInit {
+  appitems = [
     {
       label: 'Item 1 (with Font awesome icon)',
       faIcon: 'fab fa-500px',
       items: [
         {
           label: 'Item 1.1',
-          faIcon: 'fab fa-accusoft',
+          faIcon: 'fab fa-accusoft'
         },
         {
           label: 'Item 1.2',
@@ -23,7 +22,7 @@ export class ExpandCollapseComponent implements OnInit {
           items: [
             {
               label: 'Item 1.2.1',
-              faIcon: 'fas fa-allergies',
+              faIcon: 'fas fa-allergies'
             },
             {
               label: 'Item 1.2.2',
@@ -31,13 +30,13 @@ export class ExpandCollapseComponent implements OnInit {
               items: [
                 {
                   label: 'Item 1.2.2.1',
-                  faIcon: 'fas fa-anchor',
-                },
-              ],
-            },
-          ],
-        },
-      ],
+                  faIcon: 'fas fa-anchor'
+                }
+              ]
+            }
+          ]
+        }
+      ]
     },
     {
       label: 'Item 2',
@@ -45,45 +44,42 @@ export class ExpandCollapseComponent implements OnInit {
       items: [
         {
           label: 'Item 2.1',
-          icon: 'favorite',
+          icon: 'favorite'
         },
         {
           label: 'Item 2.2',
-          icon: 'favorite_border',
-        },
-      ],
+          icon: 'favorite_border'
+        }
+      ]
     },
     {
       label: 'Item 3',
-      icon: 'offline_pin',
+      icon: 'offline_pin'
     },
     {
       label: 'Item 4',
       icon: 'star_rate',
-      hidden: true,
-    },
+      hidden: true
+    }
   ];
 
   config: Configuration = {
     minimisedView: {
-      position: 'top',
-      icon: `reply`,
+      position: 'bottom',
+      icon: `keyboard_arrow_left`,
       maximiseTooltipLabel: 'Maximise',
       minimiseTooltipLabel: 'Minimise'
     },
+    rtlLayout: false,
     paddingAtStart: true
   };
   constructor(
-    private multilevelMenuService: MultilevelMenuService,
-  ) {}
+  ) { }
 
-  ngOnInit(): void {}
-
-  setExpandCollapseStatus(type) {
-    this.multilevelMenuService.setMenuExpandCollapseStatus(type);
+  ngOnInit() {
   }
 
-  selectedItem(menu) {
-    console.log(menu);
+  selectedItem($event) {
+    console.log($event);
   }
 }

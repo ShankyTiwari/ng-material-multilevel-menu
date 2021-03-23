@@ -30,6 +30,14 @@ const routes: Routes = [{
     {
       path: 'demo-six',
       loadChildren: () => import('./demo-six/demo-six.module').then((m) => m.DemoSixModule),
+    },
+    {
+      path: 'demo-seven',
+      loadChildren: () => import('./demo-seven/demo-seven.module').then((m) => m.DemoSevenModule),
+    },
+    {
+      path: 'demo-eight',
+      loadChildren: () => import('./demo-eight/demo-eight.module').then((m) => m.DemoEightModule),
     }
   ]
 }, {

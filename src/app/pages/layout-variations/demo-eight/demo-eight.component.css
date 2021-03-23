@@ -1,0 +1,37 @@
+.module-demo {
+  position: relative;
+  display: flex;
+
+  margin: auto;
+  width: 600px;
+}
+
+.btn {
+  width: 5%;
+}
+
+h2 {
+  margin-top: 2%;
+  margin-bottom: 2%;
+}
+
+.switch-demo {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 10%;
+  width: 600px;
+  margin: auto;
+}
+
+.parent {
+  position: relative;
+  display: flex;
+}
+
+.parent :first-child {
+  padding-right: 300px;
+}
+
+.right-aligned {
+  justify-content: flex-end;
+}

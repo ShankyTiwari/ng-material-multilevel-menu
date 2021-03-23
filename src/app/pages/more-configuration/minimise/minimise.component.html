@@ -1,0 +1,31 @@
+<div class="module-demo">
+  <h2>Configuration of Minimise feature</h2>
+  <br/>
+  To make use of the <code><strong>minimise</strong></code> feature, the <code><strong>minimisedView</strong></code> attribute has to be populated.
+  <pre>
+      {{codeSnippet}}
+  </pre>
+  The trigger icon is highly configurable. The position of the icon can be the <code><strong>top</strong></code> or <code><strong>bottom</strong></code>. The <code><strong>icon</strong></code> can be any <a href="https://fonts.google.com/icons">material icon</a>.
+  <br/><br/>
+  <div class="input-box">
+    <mat-form-field class="example-form-field">
+      <mat-label>Minimise icon</mat-label>
+      <input matInput type="text" [(ngModel)]="icon" (keydown.enter)="setMenuIcon();this.icon='';"
+             matTooltip="Example: arrow_left_alt, keyboard_arrow_left">
+      <button mat-button *ngIf="icon" matSuffix mat-icon-button aria-label="Clear" (click)="icon=''">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+
+    <button mat-button color="primary" (click)="setMenuIcon();this.icon='';">Set icon</button>
+    <mat-slide-toggle [(ngModel)]="isChecked" (change)="setPosition($event)">{{isChecked ? 'Top' : 'Bottom'}}</mat-slide-toggle>
+  </div>
+  <br/>
+  <ng-material-multilevel-menu [configuration]='config' [items]='appitems'></ng-material-multilevel-menu>
+  <br/>
+</div>
+
+<div class="switch-demo">
+  <a class="next-demo" mat-button [routerLink]="['/pages/more-configuration/on-select']">Previous Demo</a>
+  <a class="next-demo" mat-button [routerLink]="['/pages/home']">Go Home</a>
+</div>
