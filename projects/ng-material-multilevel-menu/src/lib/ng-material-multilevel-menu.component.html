@@ -1,18 +1,10 @@
-<ng-container *ngTemplateOutlet="isRtlLayout() ? rtlMenu : ltrMenu"></ng-container>
+<ng-container *ngTemplateOutlet="menu"></ng-container>
 
-<ng-template #rtlMenu>
-    <div [ngClass]="getClassName()" [ngStyle]="getGlobalStyle()"
-         *ngIf='!isInvalidData && items.length !== 0'
-         [dir]="'rtl'"
-         [@slideInOutRight]="!(minimizedStatus$ | async)">
-      <ng-container *ngTemplateOutlet="matList"></ng-container>
-    </div>
-</ng-template>
-<ng-template #ltrMenu>
+<ng-template #menu>
   <div [ngClass]="getClassName()" [ngStyle]="getGlobalStyle()"
        *ngIf='!isInvalidData && items.length !== 0'
-       [dir]="'ltr'"
-       [@slideInOutLeft]="!(minimizedStatus$ | async)">
+       [dir]="isRtlLayout() ? 'rtl' : 'ltr'"
+       [@MinimiseMenuList]="!(minimizedStatus$ | async)">
     <ng-container *ngTemplateOutlet="matList"></ng-container>
   </div>
 </ng-template>

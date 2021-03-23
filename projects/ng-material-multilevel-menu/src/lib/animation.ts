@@ -87,21 +87,16 @@ export const ExpandedRTL = trigger('ExpandedRTL', [
 ]);
 
 /**
+ * Default minimum width state for menu.
+ */
+export const defaultMinimumWidthState = {minimumWidth: '55px'};
+
+/**
  * This animation is responsible to change the width of the menu list.
  */
-export const MinimiseMenuList = trigger('MinimiseMenuList', [
-  state('true', style({width: '*'})),
-  state('false', style({width: '10%'})),
-  transition('false <=> true', animate(250))
-]);
-
-export const slideInOutLeft = trigger('slideInOutLeft', [
-  state('true', style({ width: '*' })),
-  state('false', style({ width: '10%' })),
-  transition('* => *', animate('300ms linear'))
-]);
-export const slideInOutRight =  trigger('slideInOutRight', [
-    state('true', style({ width: '*' })),
-    state('false', style({ width: '10%' })),
-    transition('* => *', animate('300ms linear'))
+export const MinimiseMenuList = trigger('MinimiseMenuList',
+  [
+    state('true', style({width: '*'})),
+    state('false', style({width: '{{minimumWidth}}'}), {params: defaultMinimumWidthState}),
+    transition('* => *', animate(300))
   ]);

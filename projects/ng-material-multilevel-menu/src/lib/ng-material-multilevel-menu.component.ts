@@ -5,14 +5,14 @@ import {BackgroundStyle, Configuration, ExpandCollapseStatusEnum, MultilevelNode
 import {CONSTANT} from './constants';
 import {MultilevelMenuService} from './multilevel-menu.service';
 import {CommonUtils} from './common-utils';
-import {FlipIcon, MinimiseMenuList, slideInOutLeft, slideInOutRight} from './animation';
+import {FlipIcon, MinimiseMenuList} from './animation';
 import {every, expand, tap} from 'rxjs/operators';
 
 @Component({
   selector: 'ng-material-multilevel-menu',
   templateUrl: './ng-material-multilevel-menu.component.html',
   styleUrls: ['./ng-material-multilevel-menu.component.css'],
-  animations: [MinimiseMenuList, FlipIcon, slideInOutLeft, slideInOutRight]
+  animations: [MinimiseMenuList, FlipIcon]
 })
 export class NgMaterialMultilevelMenuComponent implements OnInit, OnChanges, OnDestroy {
   @Input() items: MultilevelNode[];
