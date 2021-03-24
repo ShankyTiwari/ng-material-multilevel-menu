@@ -1,5 +1,17 @@
-<div [ngClass]="getClassName()" [ngStyle]="getGlobalStyle()" *ngIf='!isInvalidData && items.length !== 0' [dir]="isRtlLayout() ? 'rtl' : 'ltr'">
-  <mat-list>
+<ng-container *ngTemplateOutlet="menu"></ng-container>
+
+<ng-template #menu>
+  <div [ngClass]="getClassName()" [ngStyle]="getGlobalStyle()"
+       *ngIf='!isInvalidData && items.length !== 0'
+       [dir]="isRtlLayout() ? 'rtl' : 'ltr'"
+       [@MinimiseMenuList]="!(minimizedStatus$ | async)">
+    <ng-container *ngTemplateOutlet="matList"></ng-container>
+  </div>
+</ng-template>
+
+<ng-template #matList>
+  <mat-list style="will-change: transform;">
+    <ng-container *ngTemplateOutlet="showOnTopMinimisedViewIcon() ? minimisedViewIcon : emptyMinimisedViewIcon"></ng-container>
     <ng-list-item
       *ngFor="let node of items | keyvalue: multilevelMenuService.kvDummyComparerFn"
       [nodeConfiguration]='nodeConfig'
@@ -9,8 +21,23 @@
       [selectedNode]='currentNode'
       [nodeExpandCollapseStatus]='nodeExpandCollapseStatus'
       (selectedItem)="selectedListItem($event)"
-      [listTemplate] = "listTemplate"
-    >
+      [listTemplate]="listTemplate"
+      [minimisedStatus]="minimizedStatus$ | async">
     </ng-list-item>
+    <ng-container *ngTemplateOutlet="showAtBottomMinimisedViewIcon() ? minimisedViewIcon : emptyMinimisedViewIcon"></ng-container>
   </mat-list>
-</div>
+</ng-template>
+
+<ng-template #minimisedViewIcon>
+  <div class="minimise-container" [dir]="getOppositeDirection()">
+    <mat-icon class="minimise-icon mat-icon-rtl-mirror"
+              *ngIf="allIconsConfigured$ | async"
+              (click)="toggleMinimisedView()"
+              [@FlipIcon]="menuMinimisedStatus()"
+              matTooltip="{{(minimizedStatus$ | async) ? configuration.minimisedView.maximiseTooltipLabel
+              : configuration.minimisedView.minimiseTooltipLabel}}">
+      {{configuration.minimisedView.icon}}</mat-icon>
+  </div>
+</ng-template>
+<ng-template #emptyMinimisedViewIcon>
+</ng-template>

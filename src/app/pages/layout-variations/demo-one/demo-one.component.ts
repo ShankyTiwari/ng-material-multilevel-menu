@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {Configuration} from '../../../../../projects/ng-material-multilevel-menu/src/lib/app.model';
 
 @Component({
   selector: 'app-demo-one',
@@ -61,6 +62,17 @@ export class DemoOneComponent implements OnInit {
       hidden: true
     }
   ];
+
+  config: Configuration = {
+    minimisedView: {
+      position: 'top',
+      icon: `reply`,
+      maximiseTooltipLabel: 'Maximise',
+      minimiseTooltipLabel: 'Minimise'
+    },
+    rtlLayout: false,
+    paddingAtStart: true
+  };
   constructor(
   ) { }
 

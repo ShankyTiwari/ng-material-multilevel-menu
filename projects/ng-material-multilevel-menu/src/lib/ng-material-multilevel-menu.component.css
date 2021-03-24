@@ -42,4 +42,20 @@ div[dir="rtl"] .amml-submenu {
   margin-right: 16px;
 }
 
+.minimise-container {
+  display: flex;
+  min-height: 40px;
+}
 
+div[dir="ltr"] .minimise-icon {
+  align-self: center;
+  margin-right: 20px;
+  font-weight: bold;
+  cursor: pointer;
+}
+div[dir="rtl"] .minimise-icon {
+  align-self: center;
+  margin-left: 15px;
+  font-weight: bold;
+  cursor: pointer;
+}

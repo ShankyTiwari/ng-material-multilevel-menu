@@ -2,38 +2,25 @@
 
 <ng-template #redirectLinkTemplate>
   <a class="anml-link" [href]="node.link" [target]="getHrefTargetType()">
-    <ng-container *ngTemplateOutlet="isRtlLayout ? linkLabelRtlOutlet : linkLabelLtrOutlet"></ng-container>
+    <ng-container *ngTemplateOutlet="linkLabelOutlet"></ng-container>
   </a>
 </ng-template>
 
 <ng-template #routerLinkTemplate>
-  <a class="anml-link" *ngIf="!node.externalRedirect && node.link" [routerLink]="node.link">
-    <ng-container *ngTemplateOutlet="isRtlLayout ? linkLabelRtlOutlet : linkLabelLtrOutlet"></ng-container>
-  </a>
-  <a class="anml-link" *ngIf="!node.link">
-    <ng-container *ngTemplateOutlet="isRtlLayout ? linkLabelRtlOutlet : linkLabelLtrOutlet"></ng-container>
+  <a class="anml-link" [routerLink]="node.link">
+    <ng-container *ngTemplateOutlet="linkLabelOutlet"></ng-container>
   </a>
 </ng-template>
 
-<ng-template #linkLabelLtrOutlet>
-  <div class="anml-data" [dir]="'ltr'">
+<ng-template #linkLabelOutlet>
+  <div class="anml-data" [dir]="layoutDirection">
     <ng-container *ngTemplateOutlet="iconContainer"></ng-container>
-    <span class="label">{{node.label}}</span>
+    <span class="label" [@FadeInOutListItemElement]="!isMinimised">{{node.label}}</span>
   </div>
-  <div class="amml-icon-arrow-container" *ngIf='node.hasChildren'>
-    <mat-icon [@ExpandedLTR]="nodeExpandStatus()">
-      keyboard_arrow_down
-    </mat-icon>
-  </div>
-</ng-template>
-
-<ng-template #linkLabelRtlOutlet>
-  <div class="anml-data" [dir]="'rtl'">
-    <ng-container *ngTemplateOutlet="iconContainer"></ng-container>
-    <span class="label">{{node.label}}</span>
-  </div>
-  <div class="amml-icon-arrow-container" *ngIf='node.hasChildren'>
-    <mat-icon [@ExpandedRTL]="nodeExpandStatus()">
+  <div class="amml-icon-arrow-container"
+       *ngIf="node.hasChildren"
+       [@FadeInOutListItemElement]="!isMinimised">
+    <mat-icon [@RotateListItemIcon]="animationTrigger()">
       keyboard_arrow_down
     </mat-icon>
   </div>

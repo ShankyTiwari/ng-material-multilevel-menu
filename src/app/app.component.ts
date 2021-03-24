@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
-import { MultilevelNode, MultilevelMenuService, ExpandedRTL, ExpandedLTR } from './../../projects/ng-material-multilevel-menu/src/public_api';
+import {ExpandedRTL, ExpandedLTR } from './../../projects/ng-material-multilevel-menu/src/public_api';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -58,6 +57,14 @@ export class AppComponent implements OnInit {
             }
           ],
         },
+        {
+          label: 'Minimise Demo',
+          link: '/pages/layout-variations/demo-seven',
+        },
+        {
+          label: 'Minimise Rtl Demo',
+          link: '/pages/layout-variations/demo-eight',
+        },
       ],
     },
     {
@@ -86,6 +93,10 @@ export class AppComponent implements OnInit {
         {
           label: `On Select Property` ,
           link: '/pages/more-configuration/on-select'
+        },
+        {
+          label: `Minimise menu` ,
+          link: '/pages/more-configuration/minimise'
         }
       ],
     },

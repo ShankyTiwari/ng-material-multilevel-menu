@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {MultilevelNode} from '../../app.model';
-import {ExpandedLTR, ExpandedRTL} from '../../animation';
+import {FadeInOutListItemElement, RotateListItemIcon, rtlListItemIconState} from '../../animation';
 import {CommonUtils} from '../../common-utils';
 import {CONSTANT} from '../../constants';
 
@@ -8,18 +8,23 @@ import {CONSTANT} from '../../constants';
   selector: 'ng-list-item-content',
   templateUrl: './list-item-content.component.html',
   styleUrls: ['./list-item-content.component.css'],
-  animations: [ExpandedLTR, ExpandedRTL]
+  animations: [RotateListItemIcon, FadeInOutListItemElement]
 })
 export class ListItemContentComponent implements OnInit {
   @Input() node: MultilevelNode;
   @Input() isRtlLayout: boolean;
+  @Input() isMinimised: boolean;
+
+  layoutDirection = CONSTANT.LTR;
 
   constructor() {
     // NOOP
   }
 
   ngOnInit(): void {
-    // NOOP
+    if (this.isRtlLayout) {
+      this.layoutDirection = CONSTANT.RTL;
+    }
   }
 
   getListIcon(node: MultilevelNode): string {
@@ -56,7 +61,13 @@ export class ListItemContentComponent implements OnInit {
     return this.node.isSelected && this.node.activeImageIcon ? this.node.activeImageIcon : this.node.imageIcon;
   }
 
-  nodeExpandStatus(): string {
+  animationTrigger() {
+    return this.isRtlLayout ? {value: this.nodeExpandStatus(), rtlListItemIconState} :
+      {value: this.nodeExpandStatus()};
+  }
+
+  private nodeExpandStatus(): string {
     return this.node.expanded ? CONSTANT.YES : CONSTANT.NO;
   }
+
 }

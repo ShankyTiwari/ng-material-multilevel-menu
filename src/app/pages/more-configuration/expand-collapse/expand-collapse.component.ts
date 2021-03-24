@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { MultilevelNode, MultilevelMenuService } from './../../../../../projects/ng-material-multilevel-menu/src/public_api';
+import {MultilevelNode, MultilevelMenuService, Configuration} from './../../../../../projects/ng-material-multilevel-menu/src/public_api';
 
 @Component({
   selector: 'app-expand-collapse',
@@ -63,6 +63,16 @@ export class ExpandCollapseComponent implements OnInit {
       hidden: true,
     },
   ];
+
+  config: Configuration = {
+    minimisedView: {
+      position: 'top',
+      icon: `reply`,
+      maximiseTooltipLabel: 'Maximise',
+      minimiseTooltipLabel: 'Minimise'
+    },
+    paddingAtStart: true
+  };
   constructor(
     private multilevelMenuService: MultilevelMenuService,
   ) {}

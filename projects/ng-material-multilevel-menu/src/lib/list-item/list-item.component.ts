@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, Output, EventEmitter, TemplateRef, ElementRef } from '@angular/core';
+import {Component, Input, OnChanges, OnInit, Output, EventEmitter, TemplateRef, ElementRef, SimpleChanges} from '@angular/core';
 import { Router } from '@angular/router';
 
 import { Configuration, ListStyle, MultilevelNode, ExpandCollapseStatusEnum } from '../app.model';
@@ -21,6 +21,7 @@ export class ListItemComponent implements OnChanges, OnInit {
   @Input() nodeConfiguration: Configuration = null;
   @Input() nodeExpandCollapseStatus: ExpandCollapseStatusEnum = null;
   @Input() listTemplate: TemplateRef<ElementRef> = null;
+  @Input() minimisedStatus: boolean;
 
   @Output() selectedItem = new EventEmitter<MultilevelNode>();
 
@@ -41,14 +42,28 @@ export class ListItemComponent implements OnChanges, OnInit {
     };
   }
 
-  ngOnChanges() {
+  ngOnChanges(changes: SimpleChanges) {
     this.nodeChildren = this.node && this.node.items ? this.node.items.filter(n => !n.hidden) : [];
     this.node.hasChildren = this.hasItems();
+
+    if (this.minimisedStatusChanged(changes)) {
+      this.setClasses();
+    }
 
     if (!CommonUtils.isNullOrUndefined(this.selectedNode)) {
       this.setSelectedClass(this.multilevelMenuService.recursiveCheckId(this.node, this.selectedNode.id));
     }
     this.setExpandCollapseStatus();
+  }
+
+  private minimisedStatusChanged(changes: SimpleChanges) {
+    if (changes.hasOwnProperty('minimisedStatus')) {
+      const curr = changes.minimisedStatus.currentValue;
+      const prev = changes.minimisedStatus.previousValue;
+      // change f -> t or t -> f
+      return (!prev && curr) || (prev && !curr);
+    }
+    return false;
   }
 
   ngOnInit() {
