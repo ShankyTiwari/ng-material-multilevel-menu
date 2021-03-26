@@ -17,7 +17,14 @@ export class ListItemComponent implements OnChanges, OnInit {
   @Input() node: MultilevelNode;
   @Input() level = 1;
   @Input() submenuLevel = 0;
-  @Input() selectedNode: MultilevelNode;
+  @Input() set selectedNode(value: {node: MultilevelNode}) {
+		this._selectedNode = value;
+    if(value)
+     this.setSelectedClass(this.multilevelMenuService.recursiveCheckId(this.node, this.selectedNode.node.id));
+	}
+	get selectedNode():  {node: MultilevelNode} { return this._selectedNode;}
+
+	_selectedNode: {node: MultilevelNode};
   @Input() nodeConfiguration: Configuration = null;
   @Input() nodeExpandCollapseStatus: ExpandCollapseStatusEnum = null;
   @Input() listTemplate: TemplateRef<ElementRef> = null;
@@ -45,9 +52,6 @@ export class ListItemComponent implements OnChanges, OnInit {
     this.nodeChildren = this.node && this.node.items ? this.node.items.filter(n => !n.hidden) : [];
     this.node.hasChildren = this.hasItems();
 
-    if (!CommonUtils.isNullOrUndefined(this.selectedNode)) {
-      this.setSelectedClass(this.multilevelMenuService.recursiveCheckId(this.node, this.selectedNode.id));
-    }
     this.setExpandCollapseStatus();
   }
 
@@ -68,10 +72,8 @@ export class ListItemComponent implements OnChanges, OnInit {
 
   setSelectedClass(isFound: boolean): void {
     if (isFound) {
-      if (!this.firstInitializer) {
-        this.expanded = true;
-      }
-      this.isSelected = this.nodeConfiguration.highlightOnSelect || this.selectedNode.items === undefined;
+      this.expanded = true;
+      this.isSelected = this.nodeConfiguration.highlightOnSelect || this.selectedNode.node.items === undefined;
     } else {
       this.isSelected = false;
       if (this.nodeConfiguration.collapseOnSelect) {
@@ -82,7 +84,7 @@ export class ListItemComponent implements OnChanges, OnInit {
     this.selectedListClasses = {
       [CONSTANT.DEFAULT_LIST_CLASS_NAME]: true,
       [CONSTANT.SELECTED_LIST_CLASS_NAME]: this.isSelected,
-      [CONSTANT.ACTIVE_ITEM_CLASS_NAME]: this.selectedNode.id === this.node.id,
+      [CONSTANT.ACTIVE_ITEM_CLASS_NAME]: this.selectedNode.node.id === this.node.id,
       [CONSTANT.DISABLED_ITEM_CLASS_NAME]: this.node.disabled,
       [`level-${this.level}-submenulevel-${this.submenuLevel}`]: true,
     };
@@ -112,7 +114,7 @@ export class ListItemComponent implements OnChanges, OnInit {
   }
 
   hasItems(): boolean {
-    return this.nodeChildren.length > 0;
+    return this.nodeChildren && this.nodeChildren.length > 0;
   }
 
   isRtlLayout(): boolean {
