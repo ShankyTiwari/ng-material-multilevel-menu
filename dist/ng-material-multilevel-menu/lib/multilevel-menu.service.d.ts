@@ -1,18 +1,19 @@
-import { Observable, Subject } from 'rxjs';
-import { MultilevelNodes, ExpandCollapseStatusEnum } from './app.model';
+import { Observable } from 'rxjs';
+import { MultilevelNode, ExpandCollapseStatusEnum } from './app.model';
 export declare class MultilevelMenuService {
-    foundLinkObject: MultilevelNodes;
-    expandCollapseStatus: Subject<ExpandCollapseStatusEnum>;
+    foundLinkObject: MultilevelNode;
+    private expandCollapseStatus;
     expandCollapseStatus$: Observable<ExpandCollapseStatusEnum>;
-    selectedMenuID: Subject<string>;
+    private selectedMenuID;
     selectedMenuID$: Observable<string>;
     private generateId;
-    addRandomId(nodes: MultilevelNodes[]): void;
-    recursiveCheckId(node: MultilevelNodes, nodeId: string): boolean;
+    addRandomId(nodes: MultilevelNode[]): void;
+    recursiveCheckId(node: MultilevelNode, nodeId: string): boolean;
     private findNodeRecursively;
-    getMatchedObjectByUrl(nodes: MultilevelNodes[], link: string): MultilevelNodes;
-    getMatchedObjectById(nodes: MultilevelNodes[], id: string): MultilevelNodes;
+    getMatchedObjectByUrl(nodes: MultilevelNode[], link: string): MultilevelNode;
+    getMatchedObjectById(nodes: MultilevelNode[], id: string): MultilevelNode;
     kvDummyComparerFn(): number;
-    setMenuExapandCollpaseStatus(status: ExpandCollapseStatusEnum): void;
-    selectMenuByID(menuID: string): MultilevelNodes;
+    setMenuExpandCollapseStatus(status: ExpandCollapseStatusEnum): void;
+    selectMenuByID(menuID: string): MultilevelNode;
 }
+//# sourceMappingURL=multilevel-menu.service.d.ts.map

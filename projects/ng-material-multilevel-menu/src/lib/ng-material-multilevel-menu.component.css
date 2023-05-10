@@ -1,5 +1,5 @@
-.amml-container .mat-list-base {
-  padding-top: unset;
+.amml-container   .mat-mdc-list.mat-mdc-list-base.mdc-list {
+  padding: unset;
 }
 
 .amml-item {

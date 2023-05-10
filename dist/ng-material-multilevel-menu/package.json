@@ -1,11 +1,10 @@
 {
   "name": "ng-material-multilevel-menu",
-  "version": "5.5.3",
+  "version": "6.0.0",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ShankyTiwari/ng-material-multilevel-menu.git"
   },
-  "homepage": "https://multilevel-menu-demo.web.app/",
   "keywords": [
     "Angular2",
     "Angular4",
@@ -20,18 +19,27 @@
     "url": "https://github.com/ShankyTiwari/ng-material-multilevel-menu/issues"
   },
   "dependencies": {
-    "tslib": "^2.0.0"
+    "tslib": "^2.5.0"
   },
   "peerDependencies": {
-    "@angular/common": ">= 6.0.0-rc.0 || >= 6.0.0",
-    "@angular/core": ">= 6.0.0-rc.0 || >= 6.0.0"
+    "@angular/common": ">= 16.0.0-rc.0 || >= 16.0.0",
+    "@angular/core": ">= 16.0.0-rc.0 || >= 16.0.0"
   },
-  "main": "bundles/ng-material-multilevel-menu.umd.js",
-  "module": "fesm2015/ng-material-multilevel-menu.js",
-  "es2015": "fesm2015/ng-material-multilevel-menu.js",
-  "esm2015": "esm2015/ng-material-multilevel-menu.js",
-  "fesm2015": "fesm2015/ng-material-multilevel-menu.js",
-  "typings": "ng-material-multilevel-menu.d.ts",
-  "metadata": "ng-material-multilevel-menu.metadata.json",
-  "sideEffects": false
+  "module": "fesm2022/ng-material-multilevel-menu.mjs",
+  "typings": "index.d.ts",
+  "exports": {
+    "./package.json": {
+      "default": "./package.json"
+    },
+    ".": {
+      "types": "./index.d.ts",
+      "esm2022": "./esm2022/ng-material-multilevel-menu.mjs",
+      "esm": "./esm2022/ng-material-multilevel-menu.mjs",
+      "default": "./fesm2022/ng-material-multilevel-menu.mjs"
+    }
+  },
+  "sideEffects": false,
+  "scripts": {
+    "prepublishOnly": "node --eval \"console.error('ERROR: Trying to publish a package that has been compiled by Ivy in full compilation mode. This is not allowed.\\nPlease delete and rebuild the package with Ivy partial compilation mode, before attempting to publish.\\n')\" && exit 1"
+  }
 }
