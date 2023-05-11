@@ -26,5 +26,9 @@
         "dist/ng-material-multilevel-menu/*"
       ]
     }
+  },
+  "angularCompilerOptions": {
+    "enableIvy": true,
+    "compilationMode": "partial"
   }
 }
