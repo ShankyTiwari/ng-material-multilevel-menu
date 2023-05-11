@@ -1,22 +1,22 @@
 {
-  "name": "ng-material-multilevel-menu",
+  "name": "@eddie666/ng-material-multilevel-menu",
   "version": "6.0.0",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ShankyTiwari/ng-material-multilevel-menu.git"
+    "url": "git+https://github.com/eddiefrank/ng-material-multilevel-menu.git"
   },
   "keywords": [
     "Angular2",
-    "Angular4",
+    "Angular16",
     "Angular",
     "multilevel-list",
     "material-list",
     "angular-multilevel-list"
   ],
-  "author": "Shashank Tiwari <shashank@codershood.info>",
+  "author": "Eduard Frank <frankeduard@hotmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ShankyTiwari/ng-material-multilevel-menu/issues"
+    "url": "https://github.com/eddiefrank/ng-material-multilevel-menu/issues"
   },
   "dependencies": {
     "tslib": "^2.5.0"

@@ -2,19 +2,11 @@
 
 Angular 16 compatible (ivy)
 
+fork from https://www.npmjs.com/package/ng-material-multilevel-menu v5.5.3
+
 # ng-material-multilevel-menu
 
 Material Multi-Level Menu for Angular Projects.
-
-# Breaking Change
-
-> From version 5.0.0, the `@Input` called `expandCollapseStatus` have been removed in favor [major bug](https://github.com/ShankyTiwari/ng-material-multilevel-menu/issues/131), please use the
-> `MultilevelMenuService`. You can find out the implementation of the same [here](https://github.com/ShankyTiwari/ng-material-multilevel-menu-demo/blob/master/src/app/pages/more-configuration/expand-collapse/expand-collapse.component.ts#L73).
-> Thanks,
-
-## Why ng-material-multilevel-menu?
-
-The main goal of this package is to deliver a slim and Skinny Material Multi-Level Menu for Angular Projects. That can fit into any kind of projects with no muss, no fuss. Within few lines, you will get an animation ready multilevel list that just works.
 
 ## Demo
 
@@ -22,14 +14,9 @@ Check the Material Multi-Level Menu in action, [click here](http://plugins.coder
 
 ## Features
 
-1. [Material Icons](https://material.io/tools/icons/?style=baseline) are supported.
-2. [FontAwesome Icons](https://fontawesome.com/v4.7.0/icons/) are supported.
-3. Use images as icons in the list.
-4. Seamlessly work with Angular routing, if provided.
-5. RTL supported ([thanks to StavM](https://github.com/StavM)).
-6. Supports Custom List Templates
-   1. [Demos](https://multilevel-menu-demo.web.app/pages/layout-variations/demo-six/version-one)
-   2. [Documentation](#3-building-custom-templates)
+check the documentation on the original page
+
+https://github.com/ShankyTiwari/ng-material-multilevel-menu
 
 ## Installation
 
