@@ -1,4 +1,4 @@
-import { NavigationExtras } from '@angular/router';
+import { NavigationExtras } from "@angular/router";
 
 export interface MultilevelNode {
   id?: string;
@@ -27,31 +27,34 @@ export interface MultilevelNode {
 }
 
 export interface Configuration {
-    classname?: string;
-    paddingAtStart?: boolean;
-    backgroundColor?: string;
-    listBackgroundColor?: string;
-    fontColor?: string;
-    selectedListFontColor?: string;
-    interfaceWithRoute?: boolean;
-    collapseOnSelect?: boolean;
-    highlightOnSelect?: boolean;
-    useDividers?: boolean;
-    rtlLayout?: boolean;
-    customTemplate?: boolean;
+  classname?: string;
+  paddingAtStart?: boolean;
+  backgroundColor?: string;
+  listBackgroundColor?: string;
+  fontColor?: string;
+  selectedListFontColor?: string;
+  interfaceWithRoute?: boolean;
+  collapseOnSelect?: boolean;
+  highlightOnSelect?: boolean;
+  useDividers?: boolean;
+  rtlLayout?: boolean;
+  customTemplate?: boolean;
 }
 
 export interface BackgroundStyle {
-    background: string;
+  backgroundColor: string;
+}
+export interface ColorStyle {
+  color: string;
 }
 
 export interface ListStyle {
-    background: string;
-    color: string;
+  backgroundColor: string;
+  color: string;
 }
 
 export enum ExpandCollapseStatusEnum {
-    expand = 'expand',
-    collapse = 'collapse',
-    neutral = 'neutral',
+  expand = "expand",
+  collapse = "collapse",
+  neutral = "neutral",
 }

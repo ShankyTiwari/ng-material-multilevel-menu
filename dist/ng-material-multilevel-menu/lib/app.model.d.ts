@@ -1,4 +1,4 @@
-import { NavigationExtras } from '@angular/router';
+import { NavigationExtras } from "@angular/router";
 export interface MultilevelNode {
     id?: string;
     label: string;
@@ -39,10 +39,13 @@ export interface Configuration {
     customTemplate?: boolean;
 }
 export interface BackgroundStyle {
-    background: string;
+    backgroundColor: string;
+}
+export interface ColorStyle {
+    color: string;
 }
 export interface ListStyle {
-    background: string;
+    backgroundColor: string;
     color: string;
 }
 export declare enum ExpandCollapseStatusEnum {

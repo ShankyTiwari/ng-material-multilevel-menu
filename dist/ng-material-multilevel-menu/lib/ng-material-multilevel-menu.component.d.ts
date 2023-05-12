@@ -1,8 +1,8 @@
-import { OnChanges, OnInit, OnDestroy, EventEmitter, TemplateRef, ElementRef } from '@angular/core';
-import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
-import { BackgroundStyle, Configuration, MultilevelNode, ExpandCollapseStatusEnum } from './app.model';
-import { MultilevelMenuService } from './multilevel-menu.service';
+import { OnChanges, OnInit, OnDestroy, EventEmitter, TemplateRef, ElementRef } from "@angular/core";
+import { Router } from "@angular/router";
+import { Subscription } from "rxjs";
+import { BackgroundStyle, Configuration, MultilevelNode, ExpandCollapseStatusEnum } from "./app.model";
+import { MultilevelMenuService } from "./multilevel-menu.service";
 import * as i0 from "@angular/core";
 export declare class NgMaterialMultilevelMenuComponent implements OnInit, OnChanges, OnDestroy {
     private router;

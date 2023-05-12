@@ -1,5 +1,5 @@
-import { OnInit } from '@angular/core';
-import { MultilevelNode } from '../../app.model';
+import { OnInit } from "@angular/core";
+import { MultilevelNode } from "../../app.model";
 import * as i0 from "@angular/core";
 export declare class ListItemContentComponent implements OnInit {
     node: MultilevelNode;

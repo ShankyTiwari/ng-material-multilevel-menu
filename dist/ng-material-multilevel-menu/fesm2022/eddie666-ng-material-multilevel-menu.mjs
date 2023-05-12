@@ -186,19 +186,29 @@ class ListItemContentComponent {
         }
     }
     getHrefTargetType() {
-        return this.node.hrefTargetType ? this.node.hrefTargetType : CONSTANT.DEFAULT_HREF_TARGET_TYPE;
+        return this.node.hrefTargetType
+            ? this.node.hrefTargetType
+            : CONSTANT.DEFAULT_HREF_TARGET_TYPE;
     }
     getSelectedSvgIcon() {
-        return this.node.isSelected && this.node.activeSvgIcon ? this.node.activeSvgIcon : this.node.svgIcon;
+        return this.node.isSelected && this.node.activeSvgIcon
+            ? this.node.activeSvgIcon
+            : this.node.svgIcon;
     }
     getSelectedIcon() {
-        return this.node.isSelected && this.node.activeIcon ? this.node.activeIcon : this.node.icon;
+        return this.node.isSelected && this.node.activeIcon
+            ? this.node.activeIcon
+            : this.node.icon;
     }
     getSelectedFaIcon() {
-        return this.node.isSelected && this.node.activeFaIcon ? this.node.activeFaIcon : this.node.faIcon;
+        return this.node.isSelected && this.node.activeFaIcon
+            ? this.node.activeFaIcon
+            : this.node.faIcon;
     }
     getSelectedImageIcon() {
-        return this.node.isSelected && this.node.activeImageIcon ? this.node.activeImageIcon : this.node.imageIcon;
+        return this.node.isSelected && this.node.activeImageIcon
+            ? this.node.activeImageIcon
+            : this.node.imageIcon;
     }
     nodeExpandStatus() {
         return this.node.expanded ? CONSTANT.YES : CONSTANT.NO;
@@ -208,7 +218,7 @@ class ListItemContentComponent {
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.1", ngImport: i0, type: ListItemContentComponent, decorators: [{
             type: Component,
-            args: [{ selector: 'ng-list-item-content', animations: [ExpandedLTR, ExpandedRTL], template: "<ng-container *ngTemplateOutlet=\"node.externalRedirect ? redirectLinkTemplate : routerLinkTemplate\"></ng-container>\r\n\r\n<ng-template #redirectLinkTemplate>\r\n  <a class=\"anml-link\" [href]=\"node.link\" [target]=\"getHrefTargetType()\">\r\n    <ng-container *ngTemplateOutlet=\"isRtlLayout ? linkLabelRtlOutlet : linkLabelLtrOutlet\"></ng-container>\r\n  </a>\r\n</ng-template>\r\n\r\n<ng-template #routerLinkTemplate>\r\n  <a class=\"anml-link\" *ngIf=\"!node.externalRedirect && node.link\" [routerLink]=\"node.link\">\r\n    <ng-container *ngTemplateOutlet=\"isRtlLayout ? linkLabelRtlOutlet : linkLabelLtrOutlet\"></ng-container>\r\n  </a>\r\n  <a class=\"anml-link\" *ngIf=\"!node.link\">\r\n    <ng-container *ngTemplateOutlet=\"isRtlLayout ? linkLabelRtlOutlet : linkLabelLtrOutlet\"></ng-container>\r\n  </a>\r\n</ng-template>\r\n\r\n<ng-template #linkLabelLtrOutlet>\r\n  <div class=\"anml-data\" [dir]=\"'ltr'\">\r\n    <ng-container *ngTemplateOutlet=\"iconContainer\"></ng-container>\r\n    <span class=\"label\">{{node.label}}</span>\r\n  </div>\r\n  <div class=\"amml-icon-arrow-container\" *ngIf='node.hasChildren'>\r\n    <mat-icon [@ExpandedLTR]=\"nodeExpandStatus()\">\r\n      keyboard_arrow_down\r\n    </mat-icon>\r\n  </div>\r\n</ng-template>\r\n\r\n<ng-template #linkLabelRtlOutlet>\r\n  <div class=\"anml-data\" [dir]=\"'rtl'\">\r\n    <ng-container *ngTemplateOutlet=\"iconContainer\"></ng-container>\r\n    <span class=\"label\">{{node.label}}</span>\r\n  </div>\r\n  <div class=\"amml-icon-arrow-container\" *ngIf='node.hasChildren'>\r\n    <mat-icon [@ExpandedRTL]=\"nodeExpandStatus()\">\r\n      keyboard_arrow_down\r\n    </mat-icon>\r\n  </div>\r\n</ng-template>\r\n\r\n<ng-template #iconContainer>\r\n  <div class=\"icon-container\" [ngSwitch]=\"getListIcon(node)\">\r\n      <span *ngSwitchCase=\"'faIcon'\" class=\"amml-icon amml-icon-fa\">\r\n        <i [ngClass]=\"getSelectedFaIcon()\"></i>\r\n      </span>\r\n    <mat-icon *ngSwitchCase=\"'icon'\" class=\"amml-icon\">\r\n      {{getSelectedIcon()}}\r\n    </mat-icon>\r\n    <mat-icon *ngSwitchCase=\"'svgIcon'\" class=\"amml-icon amml-svg-icon\"\r\n              svgIcon=\"{{getSelectedSvgIcon()}}\">\r\n    </mat-icon>\r\n    <img *ngSwitchCase=\"'imageIcon'\" matListAvatar class=\"amml-icon\"\r\n         src=\"{{getSelectedImageIcon()}}\" alt=\"{{node.label}}\"/>\r\n  </div>\r\n</ng-template>\r\n\r\n", styles: [".amml-item{position:relative;cursor:pointer}.anml-link{width:100%;display:flex;justify-content:flex-start;text-transform:capitalize;text-decoration:none;color:inherit}.anml-data{width:100%;height:48px;display:flex;justify-content:flex-start}.disabled-amml-item{opacity:.5;text-decoration:none;pointer-events:none}.icon-container{display:flex;flex-direction:column;justify-content:center}.amml-icon-fa{font-size:20px}.label{line-height:48px;font-weight:400}.amml-svg-icon{width:22px;height:22px;margin-top:-12px}.amml-icon-arrow-container{direction:ltr;display:flex;align-items:center}div[dir=ltr] .amml-icon{margin-right:16px}div[dir=rtl] .amml-icon{margin-left:16px}\n"] }]
+            args: [{ selector: "ng-list-item-content", animations: [ExpandedLTR, ExpandedRTL], template: "<ng-container *ngTemplateOutlet=\"node.externalRedirect ? redirectLinkTemplate : routerLinkTemplate\"></ng-container>\r\n\r\n<ng-template #redirectLinkTemplate>\r\n  <a class=\"anml-link\" [href]=\"node.link\" [target]=\"getHrefTargetType()\">\r\n    <ng-container *ngTemplateOutlet=\"isRtlLayout ? linkLabelRtlOutlet : linkLabelLtrOutlet\"></ng-container>\r\n  </a>\r\n</ng-template>\r\n\r\n<ng-template #routerLinkTemplate>\r\n  <a class=\"anml-link\" *ngIf=\"!node.externalRedirect && node.link\" [routerLink]=\"node.link\">\r\n    <ng-container *ngTemplateOutlet=\"isRtlLayout ? linkLabelRtlOutlet : linkLabelLtrOutlet\"></ng-container>\r\n  </a>\r\n  <a class=\"anml-link\" *ngIf=\"!node.link\">\r\n    <ng-container *ngTemplateOutlet=\"isRtlLayout ? linkLabelRtlOutlet : linkLabelLtrOutlet\"></ng-container>\r\n  </a>\r\n</ng-template>\r\n\r\n<ng-template #linkLabelLtrOutlet>\r\n  <div class=\"anml-data\" [dir]=\"'ltr'\">\r\n    <ng-container *ngTemplateOutlet=\"iconContainer\"></ng-container>\r\n    <span class=\"label\">{{node.label}}</span>\r\n  </div>\r\n  <div class=\"amml-icon-arrow-container\" *ngIf='node.hasChildren'>\r\n    <mat-icon [@ExpandedLTR]=\"nodeExpandStatus()\">\r\n      keyboard_arrow_down\r\n    </mat-icon>\r\n  </div>\r\n</ng-template>\r\n\r\n<ng-template #linkLabelRtlOutlet>\r\n  <div class=\"anml-data\" [dir]=\"'rtl'\">\r\n    <ng-container *ngTemplateOutlet=\"iconContainer\"></ng-container>\r\n    <span class=\"label\">{{node.label}}</span>\r\n  </div>\r\n  <div class=\"amml-icon-arrow-container\" *ngIf='node.hasChildren'>\r\n    <mat-icon [@ExpandedRTL]=\"nodeExpandStatus()\">\r\n      keyboard_arrow_down\r\n    </mat-icon>\r\n  </div>\r\n</ng-template>\r\n\r\n<ng-template #iconContainer>\r\n  <div class=\"icon-container\" [ngSwitch]=\"getListIcon(node)\">\r\n      <span *ngSwitchCase=\"'faIcon'\" class=\"amml-icon amml-icon-fa\">\r\n        <i [ngClass]=\"getSelectedFaIcon()\"></i>\r\n      </span>\r\n    <mat-icon *ngSwitchCase=\"'icon'\" class=\"amml-icon\">\r\n      {{getSelectedIcon()}}\r\n    </mat-icon>\r\n    <mat-icon *ngSwitchCase=\"'svgIcon'\" class=\"amml-icon amml-svg-icon\"\r\n              svgIcon=\"{{getSelectedSvgIcon()}}\">\r\n    </mat-icon>\r\n    <img *ngSwitchCase=\"'imageIcon'\" matListAvatar class=\"amml-icon\"\r\n         src=\"{{getSelectedImageIcon()}}\" alt=\"{{node.label}}\"/>\r\n  </div>\r\n</ng-template>\r\n\r\n", styles: [".amml-item{position:relative;cursor:pointer}.anml-link{width:100%;display:flex;justify-content:flex-start;text-transform:capitalize;text-decoration:none;color:inherit}.anml-data{width:100%;height:48px;display:flex;justify-content:flex-start}.disabled-amml-item{opacity:.5;text-decoration:none;pointer-events:none}.icon-container{display:flex;flex-direction:column;justify-content:center}.amml-icon-fa{font-size:20px}.label{line-height:48px;font-weight:400}.amml-svg-icon{width:22px;height:22px;margin-top:-12px}.amml-icon-arrow-container{direction:ltr;display:flex;align-items:center}div[dir=ltr] .amml-icon{margin-right:16px}div[dir=rtl] .amml-icon{margin-left:16px}\n"] }]
         }], ctorParameters: function () { return []; }, propDecorators: { node: [{
                 type: Input
             }], isRtlLayout: [{
@@ -242,7 +252,10 @@ class ListItemComponent {
         };
     }
     ngOnChanges() {
-        this.nodeChildren = this.node && this.node.items ? this.node.items.filter(n => !n.hidden) : [];
+        this.nodeChildren =
+            this.node && this.node.items
+                ? this.node.items.filter((n) => !n.hidden)
+                : [];
         this.node.hasChildren = this.hasItems();
         if (!CommonUtils.isNullOrUndefined(this.selectedNode)) {
             this.setSelectedClass(this.multilevelMenuService.recursiveCheckId(this.node, this.selectedNode.id));
@@ -250,13 +263,14 @@ class ListItemComponent {
         this.setExpandCollapseStatus();
     }
     ngOnInit() {
-        this.selectedListClasses[CONSTANT.DISABLED_ITEM_CLASS_NAME] = this.node.disabled;
+        this.selectedListClasses[CONSTANT.DISABLED_ITEM_CLASS_NAME] =
+            this.node.disabled;
         if (!CommonUtils.isNullOrUndefined(this.node.faIcon) &&
             this.node.faIcon.match(/\bfa\w(?!-)/) === null) {
             this.node.faIcon = `fas ${this.node.faIcon}`;
         }
         this.selectedListClasses[`level-${this.level}-submenulevel-${this.submenuLevel}`] = true;
-        if (typeof this.node.expanded === 'boolean') {
+        if (typeof this.node.expanded === "boolean") {
             this.expanded = this.node.expanded;
         }
         this.setClasses();
@@ -266,7 +280,9 @@ class ListItemComponent {
             if (!this.firstInitializer) {
                 this.expanded = true;
             }
-            this.isSelected = this.nodeConfiguration.highlightOnSelect || this.selectedNode.items === undefined;
+            this.isSelected =
+                this.nodeConfiguration.highlightOnSelect ||
+                    this.selectedNode.items === undefined;
         }
         else {
             this.isSelected = false;
@@ -289,21 +305,30 @@ class ListItemComponent {
         return this.nodeConfiguration.paddingAtStart;
     }
     getListStyle() {
-        const styles = {
-            background: CONSTANT.DEFAULT_LIST_BACKGROUND_COLOR,
-            color: CONSTANT.DEFAULT_LIST_FONT_COLOR
+        return {
+            color: this.getColor(),
+            backgroundColor: this.getBackgroundColor(),
         };
-        if (this.nodeConfiguration.listBackgroundColor !== null) {
-            styles.background = this.nodeConfiguration.listBackgroundColor;
-        }
-        if (this.isSelected) {
-            this.nodeConfiguration.selectedListFontColor !== null ?
-                styles.color = this.nodeConfiguration.selectedListFontColor : styles.color = CONSTANT.DEFAULT_SELECTED_FONT_COLOR;
-        }
-        else if (this.nodeConfiguration.fontColor !== null) {
-            styles.color = this.nodeConfiguration.fontColor;
-        }
-        return styles;
+    }
+    getColorStyle() {
+        return { color: this.getColor() };
+    }
+    getBackgroundStyle() {
+        return { backgroundColor: this.getBackgroundColor() };
+    }
+    getColor() {
+        return this.isSelected
+            ? this.nodeConfiguration.selectedListFontColor !== null
+                ? this.nodeConfiguration.selectedListFontColor
+                : CONSTANT.DEFAULT_SELECTED_FONT_COLOR
+            : this.nodeConfiguration.fontColor !== null
+                ? this.nodeConfiguration.fontColor
+                : CONSTANT.DEFAULT_LIST_FONT_COLOR;
+    }
+    getBackgroundColor() {
+        return this.nodeConfiguration.listBackgroundColor !== null
+            ? this.nodeConfiguration.listBackgroundColor
+            : CONSTANT.DEFAULT_LIST_BACKGROUND_COLOR;
     }
     hasItems() {
         return this.nodeChildren.length > 0;
@@ -315,7 +340,7 @@ class ListItemComponent {
         this.classes = {
             [`level-${this.level + 1}`]: true,
             [CONSTANT.SUBMENU_ITEM_CLASS_NAME]: this.hasItems() && this.getPaddingAtStart(),
-            [CONSTANT.HAS_SUBMENU_ITEM_CLASS_NAME]: this.hasItems()
+            [CONSTANT.HAS_SUBMENU_ITEM_CLASS_NAME]: this.hasItems(),
         };
     }
     setExpandCollapseStatus() {
@@ -343,17 +368,18 @@ class ListItemComponent {
         this.node.expanded = this.expanded;
         this.firstInitializer = true;
         this.setClasses();
-        if (this.nodeConfiguration.interfaceWithRoute !== null
-            && this.nodeConfiguration.interfaceWithRoute
-            && node.link !== undefined
-            && node.link) {
+        if (this.nodeConfiguration.interfaceWithRoute !== null &&
+            this.nodeConfiguration.interfaceWithRoute &&
+            node.link !== undefined &&
+            node.link) {
             this.router.navigate([node.link], node.navigationExtras).then();
         }
-        else if (node.onSelected && typeof node.onSelected === 'function') {
+        else if (node.onSelected && typeof node.onSelected === "function") {
             node.onSelected(node);
             this.selectedListItem(node);
         }
-        else if (node.items === undefined || this.nodeConfiguration.collapseOnSelect) {
+        else if (node.items === undefined ||
+            this.nodeConfiguration.collapseOnSelect) {
             this.selectedListItem(node);
         }
     }
@@ -361,11 +387,11 @@ class ListItemComponent {
         this.selectedItem.emit(node);
     }
     static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.1", ngImport: i0, type: ListItemComponent, deps: [{ token: i1.Router }, { token: MultilevelMenuService }], target: i0.ɵɵFactoryTarget.Component });
-    static ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "14.0.0", version: "16.0.1", type: ListItemComponent, selector: "ng-list-item", inputs: { node: "node", level: "level", submenuLevel: "submenuLevel", selectedNode: "selectedNode", nodeConfiguration: "nodeConfiguration", nodeExpandCollapseStatus: "nodeExpandCollapseStatus", listTemplate: "listTemplate" }, outputs: { selectedItem: "selectedItem" }, usesOnChanges: true, ngImport: i0, template: "<div class=\"amml-menu-container\">\r\n  <!-- Base Template rendering condition starts -->\r\n  <div *ngIf=\"nodeConfiguration.customTemplate && !node.hidden;else baseTemplate\"\r\n       [ngClass]=\"selectedListClasses\"\r\n       [ngStyle]=\"getListStyle()\"\r\n       (click)=\"expand(node)\">\r\n    <ng-container [ngTemplateOutlet]=\"listTemplate\"\r\n                  [ngTemplateOutletContext]=\"{item: node, configuration: nodeConfiguration}\">\r\n    </ng-container>\r\n  </div>\r\n  <!-- Base Template rendering condition ends -->\r\n\r\n  <!-- Recursive Template calls begins -->\r\n  <div *ngIf=\"hasItems() && expanded\" [@SlideInOut] [dir]=\"isRtlLayout() ? 'rtl' : 'ltr'\" [ngClass]=\"classes\">\r\n    <ng-list-item *ngFor=\"let singleNode of nodeChildren | keyvalue : multilevelMenuService.kvDummyComparerFn\"\r\n                  [nodeConfiguration]='nodeConfiguration'\r\n                  [node]=\"singleNode.value\"\r\n                  [level]=\"level + 1\"\r\n                  [submenuLevel]=\"singleNode.key\"\r\n                  [selectedNode]='selectedNode'\r\n                  [nodeExpandCollapseStatus]='nodeExpandCollapseStatus'\r\n                  (selectedItem)=\"selectedListItem($event)\"\r\n                  [listTemplate]=\"listTemplate\">\r\n    </ng-list-item>\r\n  </div>\r\n</div>\r\n<!-- Recursive Template calls ends -->\r\n\r\n<!-- Base Template starts from here -->\r\n<ng-template #baseTemplate>\r\n  <mat-list-item matRipple\r\n                 *ngIf=\"!node.hidden\"\r\n                 title=\"{{node.label}}\"\r\n                 [matRippleDisabled]=\"node.disabled\"\r\n                 [ngClass]=\"selectedListClasses\"\r\n                 [ngStyle]=\"getListStyle()\"\r\n                 (click)=\"expand(node)\">\r\n    <ng-container *ngTemplateOutlet=\"linkTemplate\"></ng-container>\r\n  </mat-list-item>\r\n  <mat-divider *ngIf=\"nodeConfiguration.useDividers\"></mat-divider>\r\n</ng-template>\r\n\r\n<ng-template #linkTemplate>\r\n  <ng-list-item-content class=\"filled\" [node]=\"node\" [isRtlLayout]=\"isRtlLayout()\"></ng-list-item-content>\r\n</ng-template>\r\n", styles: [".filled{width:100%}div[dir=rtl].amml-submenu{margin-right:16px}div[dir=ltr].amml-submenu{margin-left:16px}\n"], dependencies: [{ kind: "directive", type: i3.NgClass, selector: "[ngClass]", inputs: ["class", "ngClass"] }, { kind: "directive", type: i3.NgForOf, selector: "[ngFor][ngForOf]", inputs: ["ngForOf", "ngForTrackBy", "ngForTemplate"] }, { kind: "directive", type: i3.NgIf, selector: "[ngIf]", inputs: ["ngIf", "ngIfThen", "ngIfElse"] }, { kind: "directive", type: i3.NgTemplateOutlet, selector: "[ngTemplateOutlet]", inputs: ["ngTemplateOutletContext", "ngTemplateOutlet", "ngTemplateOutletInjector"] }, { kind: "directive", type: i3.NgStyle, selector: "[ngStyle]", inputs: ["ngStyle"] }, { kind: "directive", type: i4.Dir, selector: "[dir]", inputs: ["dir"], outputs: ["dirChange"], exportAs: ["dir"] }, { kind: "component", type: i5.MatListItem, selector: "mat-list-item, a[mat-list-item], button[mat-list-item]", inputs: ["activated"], exportAs: ["matListItem"] }, { kind: "component", type: i6.MatDivider, selector: "mat-divider", inputs: ["vertical", "inset"] }, { kind: "directive", type: i7.MatRipple, selector: "[mat-ripple], [matRipple]", inputs: ["matRippleColor", "matRippleUnbounded", "matRippleCentered", "matRippleRadius", "matRippleAnimation", "matRippleDisabled", "matRippleTrigger"], exportAs: ["matRipple"] }, { kind: "component", type: ListItemComponent, selector: "ng-list-item", inputs: ["node", "level", "submenuLevel", "selectedNode", "nodeConfiguration", "nodeExpandCollapseStatus", "listTemplate"], outputs: ["selectedItem"] }, { kind: "component", type: ListItemContentComponent, selector: "ng-list-item-content", inputs: ["node", "isRtlLayout"] }, { kind: "pipe", type: i3.KeyValuePipe, name: "keyvalue" }], animations: [SlideInOut] });
+    static ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "14.0.0", version: "16.0.1", type: ListItemComponent, selector: "ng-list-item", inputs: { node: "node", level: "level", submenuLevel: "submenuLevel", selectedNode: "selectedNode", nodeConfiguration: "nodeConfiguration", nodeExpandCollapseStatus: "nodeExpandCollapseStatus", listTemplate: "listTemplate" }, outputs: { selectedItem: "selectedItem" }, usesOnChanges: true, ngImport: i0, template: "<div class=\"amml-menu-container\">\r\n    <!-- Base Template rendering condition starts -->\r\n    <div\r\n        *ngIf=\"nodeConfiguration.customTemplate && !node.hidden;else baseTemplate\"\r\n        [ngClass]=\"selectedListClasses\"\r\n        [ngStyle]=\"getListStyle()\"\r\n        (click)=\"expand(node)\">\r\n        <ng-container\r\n            [ngTemplateOutlet]=\"listTemplate\"\r\n            [ngTemplateOutletContext]=\"{item: node, configuration: nodeConfiguration}\">\r\n        </ng-container>\r\n    </div>\r\n    <!-- Base Template rendering condition ends -->\r\n    <!-- Recursive Template calls begins -->\r\n    <div\r\n        *ngIf=\"hasItems() && expanded\"\r\n        [@SlideInOut]\r\n        [dir]=\"isRtlLayout() ? 'rtl' : 'ltr'\"\r\n        [ngClass]=\"classes\">\r\n        <ng-list-item\r\n            *ngFor=\"let singleNode of nodeChildren | keyvalue : multilevelMenuService.kvDummyComparerFn\"\r\n            [nodeConfiguration]='nodeConfiguration'\r\n            [node]=\"singleNode.value\"\r\n            [level]=\"level + 1\"\r\n            [submenuLevel]=\"singleNode.key\"\r\n            [selectedNode]='selectedNode'\r\n            [nodeExpandCollapseStatus]='nodeExpandCollapseStatus'\r\n            (selectedItem)=\"selectedListItem($event)\"\r\n            [listTemplate]=\"listTemplate\">\r\n        </ng-list-item>\r\n    </div>\r\n</div>\r\n<!-- Recursive Template calls ends -->\r\n<!-- Base Template starts from here -->\r\n<ng-template #baseTemplate>\r\n    <mat-list-item\r\n        matRipple\r\n        *ngIf=\"!node.hidden\"\r\n        title=\"{{node.label}}\"\r\n        [matRippleDisabled]=\"node.disabled\"\r\n        [ngClass]=\"selectedListClasses\"\r\n        [ngStyle]=\"getBackgroundStyle()\"\r\n        (click)=\"expand(node)\">\r\n        <ng-container *ngTemplateOutlet=\"linkTemplate\"></ng-container>\r\n    </mat-list-item>\r\n    <mat-divider *ngIf=\"nodeConfiguration.useDividers\"></mat-divider>\r\n</ng-template>\r\n<ng-template #linkTemplate>\r\n    <ng-list-item-content\r\n        class=\"filled\"\r\n        [node]=\"node\"\r\n        [isRtlLayout]=\"isRtlLayout()\"\r\n        [ngStyle]=\"getColorStyle()\"></ng-list-item-content>\r\n</ng-template>\r\n", styles: [".filled{width:100%}div[dir=rtl].amml-submenu{margin-right:16px}div[dir=ltr].amml-submenu{margin-left:16px}\n"], dependencies: [{ kind: "directive", type: i3.NgClass, selector: "[ngClass]", inputs: ["class", "ngClass"] }, { kind: "directive", type: i3.NgForOf, selector: "[ngFor][ngForOf]", inputs: ["ngForOf", "ngForTrackBy", "ngForTemplate"] }, { kind: "directive", type: i3.NgIf, selector: "[ngIf]", inputs: ["ngIf", "ngIfThen", "ngIfElse"] }, { kind: "directive", type: i3.NgTemplateOutlet, selector: "[ngTemplateOutlet]", inputs: ["ngTemplateOutletContext", "ngTemplateOutlet", "ngTemplateOutletInjector"] }, { kind: "directive", type: i3.NgStyle, selector: "[ngStyle]", inputs: ["ngStyle"] }, { kind: "directive", type: i4.Dir, selector: "[dir]", inputs: ["dir"], outputs: ["dirChange"], exportAs: ["dir"] }, { kind: "component", type: i5.MatListItem, selector: "mat-list-item, a[mat-list-item], button[mat-list-item]", inputs: ["activated"], exportAs: ["matListItem"] }, { kind: "component", type: i6.MatDivider, selector: "mat-divider", inputs: ["vertical", "inset"] }, { kind: "directive", type: i7.MatRipple, selector: "[mat-ripple], [matRipple]", inputs: ["matRippleColor", "matRippleUnbounded", "matRippleCentered", "matRippleRadius", "matRippleAnimation", "matRippleDisabled", "matRippleTrigger"], exportAs: ["matRipple"] }, { kind: "component", type: ListItemComponent, selector: "ng-list-item", inputs: ["node", "level", "submenuLevel", "selectedNode", "nodeConfiguration", "nodeExpandCollapseStatus", "listTemplate"], outputs: ["selectedItem"] }, { kind: "component", type: ListItemContentComponent, selector: "ng-list-item-content", inputs: ["node", "isRtlLayout"] }, { kind: "pipe", type: i3.KeyValuePipe, name: "keyvalue" }], animations: [SlideInOut] });
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.1", ngImport: i0, type: ListItemComponent, decorators: [{
             type: Component,
-            args: [{ selector: 'ng-list-item', animations: [SlideInOut], template: "<div class=\"amml-menu-container\">\r\n  <!-- Base Template rendering condition starts -->\r\n  <div *ngIf=\"nodeConfiguration.customTemplate && !node.hidden;else baseTemplate\"\r\n       [ngClass]=\"selectedListClasses\"\r\n       [ngStyle]=\"getListStyle()\"\r\n       (click)=\"expand(node)\">\r\n    <ng-container [ngTemplateOutlet]=\"listTemplate\"\r\n                  [ngTemplateOutletContext]=\"{item: node, configuration: nodeConfiguration}\">\r\n    </ng-container>\r\n  </div>\r\n  <!-- Base Template rendering condition ends -->\r\n\r\n  <!-- Recursive Template calls begins -->\r\n  <div *ngIf=\"hasItems() && expanded\" [@SlideInOut] [dir]=\"isRtlLayout() ? 'rtl' : 'ltr'\" [ngClass]=\"classes\">\r\n    <ng-list-item *ngFor=\"let singleNode of nodeChildren | keyvalue : multilevelMenuService.kvDummyComparerFn\"\r\n                  [nodeConfiguration]='nodeConfiguration'\r\n                  [node]=\"singleNode.value\"\r\n                  [level]=\"level + 1\"\r\n                  [submenuLevel]=\"singleNode.key\"\r\n                  [selectedNode]='selectedNode'\r\n                  [nodeExpandCollapseStatus]='nodeExpandCollapseStatus'\r\n                  (selectedItem)=\"selectedListItem($event)\"\r\n                  [listTemplate]=\"listTemplate\">\r\n    </ng-list-item>\r\n  </div>\r\n</div>\r\n<!-- Recursive Template calls ends -->\r\n\r\n<!-- Base Template starts from here -->\r\n<ng-template #baseTemplate>\r\n  <mat-list-item matRipple\r\n                 *ngIf=\"!node.hidden\"\r\n                 title=\"{{node.label}}\"\r\n                 [matRippleDisabled]=\"node.disabled\"\r\n                 [ngClass]=\"selectedListClasses\"\r\n                 [ngStyle]=\"getListStyle()\"\r\n                 (click)=\"expand(node)\">\r\n    <ng-container *ngTemplateOutlet=\"linkTemplate\"></ng-container>\r\n  </mat-list-item>\r\n  <mat-divider *ngIf=\"nodeConfiguration.useDividers\"></mat-divider>\r\n</ng-template>\r\n\r\n<ng-template #linkTemplate>\r\n  <ng-list-item-content class=\"filled\" [node]=\"node\" [isRtlLayout]=\"isRtlLayout()\"></ng-list-item-content>\r\n</ng-template>\r\n", styles: [".filled{width:100%}div[dir=rtl].amml-submenu{margin-right:16px}div[dir=ltr].amml-submenu{margin-left:16px}\n"] }]
+            args: [{ selector: "ng-list-item", animations: [SlideInOut], template: "<div class=\"amml-menu-container\">\r\n    <!-- Base Template rendering condition starts -->\r\n    <div\r\n        *ngIf=\"nodeConfiguration.customTemplate && !node.hidden;else baseTemplate\"\r\n        [ngClass]=\"selectedListClasses\"\r\n        [ngStyle]=\"getListStyle()\"\r\n        (click)=\"expand(node)\">\r\n        <ng-container\r\n            [ngTemplateOutlet]=\"listTemplate\"\r\n            [ngTemplateOutletContext]=\"{item: node, configuration: nodeConfiguration}\">\r\n        </ng-container>\r\n    </div>\r\n    <!-- Base Template rendering condition ends -->\r\n    <!-- Recursive Template calls begins -->\r\n    <div\r\n        *ngIf=\"hasItems() && expanded\"\r\n        [@SlideInOut]\r\n        [dir]=\"isRtlLayout() ? 'rtl' : 'ltr'\"\r\n        [ngClass]=\"classes\">\r\n        <ng-list-item\r\n            *ngFor=\"let singleNode of nodeChildren | keyvalue : multilevelMenuService.kvDummyComparerFn\"\r\n            [nodeConfiguration]='nodeConfiguration'\r\n            [node]=\"singleNode.value\"\r\n            [level]=\"level + 1\"\r\n            [submenuLevel]=\"singleNode.key\"\r\n            [selectedNode]='selectedNode'\r\n            [nodeExpandCollapseStatus]='nodeExpandCollapseStatus'\r\n            (selectedItem)=\"selectedListItem($event)\"\r\n            [listTemplate]=\"listTemplate\">\r\n        </ng-list-item>\r\n    </div>\r\n</div>\r\n<!-- Recursive Template calls ends -->\r\n<!-- Base Template starts from here -->\r\n<ng-template #baseTemplate>\r\n    <mat-list-item\r\n        matRipple\r\n        *ngIf=\"!node.hidden\"\r\n        title=\"{{node.label}}\"\r\n        [matRippleDisabled]=\"node.disabled\"\r\n        [ngClass]=\"selectedListClasses\"\r\n        [ngStyle]=\"getBackgroundStyle()\"\r\n        (click)=\"expand(node)\">\r\n        <ng-container *ngTemplateOutlet=\"linkTemplate\"></ng-container>\r\n    </mat-list-item>\r\n    <mat-divider *ngIf=\"nodeConfiguration.useDividers\"></mat-divider>\r\n</ng-template>\r\n<ng-template #linkTemplate>\r\n    <ng-list-item-content\r\n        class=\"filled\"\r\n        [node]=\"node\"\r\n        [isRtlLayout]=\"isRtlLayout()\"\r\n        [ngStyle]=\"getColorStyle()\"></ng-list-item-content>\r\n</ng-template>\r\n", styles: [".filled{width:100%}div[dir=rtl].amml-submenu{margin-right:16px}div[dir=ltr].amml-submenu{margin-left:16px}\n"] }]
         }], ctorParameters: function () { return [{ type: i1.Router }, { type: MultilevelMenuService }]; }, propDecorators: { node: [{
                 type: Input
             }], level: [{
@@ -436,7 +462,7 @@ class NgMaterialMultilevelMenuComponent {
         highlightOnSelect: false,
         useDividers: true,
         rtlLayout: false,
-        customTemplate: false
+        customTemplate: false,
     };
     isInvalidConfig = true;
     isInvalidData = true;
@@ -456,9 +482,9 @@ class NgMaterialMultilevelMenuComponent {
     }
     ngOnInit() {
         if (!CommonUtils.isNullOrUndefinedOrEmpty(this.configuration) &&
-            this.configuration.interfaceWithRoute !== null && this.configuration.interfaceWithRoute) {
-            this.router.events
-                .subscribe((event) => {
+            this.configuration.interfaceWithRoute !== null &&
+            this.configuration.interfaceWithRoute) {
+            this.router.events.subscribe((event) => {
                 if (event instanceof NavigationEnd) {
                     this.updateNodeByURL(event.urlAfterRedirects);
                 }
@@ -468,21 +494,24 @@ class NgMaterialMultilevelMenuComponent {
     }
     updateNodeByURL(url) {
         const foundNode = this.multilevelMenuService.getMatchedObjectByUrl(this.items, url);
-        if (foundNode !== undefined && !CommonUtils.isNullOrUndefinedOrEmpty(foundNode.link)
+        if (foundNode !== undefined &&
+            !CommonUtils.isNullOrUndefinedOrEmpty(foundNode.link)
         // && !foundNode.disabled // Prevent route redirection for disabled menu
         ) {
             this.currentNode = foundNode;
-            if (!CommonUtils.isNullOrUndefined(foundNode.dontEmit) && !foundNode.dontEmit) {
+            if (!CommonUtils.isNullOrUndefined(foundNode.dontEmit) &&
+                !foundNode.dontEmit) {
                 this.selectedListItem(foundNode);
             }
         }
     }
     checkValidData() {
-        if (this.items === undefined || (Array.isArray(this.items) && this.items.length === 0)) {
+        if (this.items === undefined ||
+            (Array.isArray(this.items) && this.items.length === 0)) {
             console.warn(CONSTANT.ERROR_MESSAGE);
             return;
         }
-        this.items = this.items.filter(n => !n.hidden);
+        this.items = this.items.filter((n) => !n.hidden);
         this.multilevelMenuService.addRandomId(this.items);
         this.isInvalidData = false;
     }
@@ -494,7 +523,7 @@ class NgMaterialMultilevelMenuComponent {
             this.isInvalidConfig = false;
             const config = this.configuration;
             if (!CommonUtils.isNullOrUndefined(config.paddingAtStart) &&
-                typeof config.paddingAtStart === 'boolean') {
+                typeof config.paddingAtStart === "boolean") {
                 this.nodeConfig.paddingAtStart = config.paddingAtStart;
             }
             if (!CommonUtils.isNullOrUndefinedOrEmpty(config.listBackgroundColor)) {
@@ -507,53 +536,57 @@ class NgMaterialMultilevelMenuComponent {
                 this.nodeConfig.selectedListFontColor = config.selectedListFontColor;
             }
             if (!CommonUtils.isNullOrUndefined(config.interfaceWithRoute) &&
-                typeof config.interfaceWithRoute === 'boolean') {
+                typeof config.interfaceWithRoute === "boolean") {
                 this.nodeConfig.interfaceWithRoute = config.interfaceWithRoute;
             }
             if (!CommonUtils.isNullOrUndefined(config.collapseOnSelect) &&
-                typeof config.collapseOnSelect === 'boolean') {
+                typeof config.collapseOnSelect === "boolean") {
                 this.nodeConfig.collapseOnSelect = config.collapseOnSelect;
             }
             if (!CommonUtils.isNullOrUndefined(config.highlightOnSelect) &&
-                typeof config.highlightOnSelect === 'boolean') {
+                typeof config.highlightOnSelect === "boolean") {
                 this.nodeConfig.highlightOnSelect = config.highlightOnSelect;
             }
             if (!CommonUtils.isNullOrUndefined(config.useDividers) &&
-                typeof config.useDividers === 'boolean') {
+                typeof config.useDividers === "boolean") {
                 this.nodeConfig.useDividers = config.useDividers;
             }
             if (!CommonUtils.isNullOrUndefined(config.rtlLayout) &&
-                typeof config.rtlLayout === 'boolean') {
+                typeof config.rtlLayout === "boolean") {
                 this.nodeConfig.rtlLayout = config.rtlLayout;
             }
             if (!CommonUtils.isNullOrUndefined(config.customTemplate) &&
-                typeof config.customTemplate === 'boolean') {
+                typeof config.customTemplate === "boolean") {
                 this.nodeConfig.customTemplate = config.customTemplate;
             }
         }
         this.checkValidData();
     }
     initExpandCollapseStatus() {
-        this.expandCollapseStatusSubscription = this.multilevelMenuService.expandCollapseStatus$
-            .subscribe((expandCollapseStatus) => {
-            this.nodeExpandCollapseStatus = expandCollapseStatus ? expandCollapseStatus : ExpandCollapseStatusEnum.neutral;
-        }, () => {
-            this.nodeExpandCollapseStatus = ExpandCollapseStatusEnum.neutral;
-        });
+        this.expandCollapseStatusSubscription =
+            this.multilevelMenuService.expandCollapseStatus$.subscribe((expandCollapseStatus) => {
+                this.nodeExpandCollapseStatus = expandCollapseStatus
+                    ? expandCollapseStatus
+                    : ExpandCollapseStatusEnum.neutral;
+            }, () => {
+                this.nodeExpandCollapseStatus = ExpandCollapseStatusEnum.neutral;
+            });
     }
     initSelectedMenuID() {
-        this.selectMenuByIDSubscription = this.multilevelMenuService.selectedMenuID$.subscribe((selectedMenuID) => {
-            if (selectedMenuID) {
-                const foundNode = this.multilevelMenuService.getMatchedObjectById(this.items, selectedMenuID);
-                if (foundNode !== undefined) {
-                    this.currentNode = foundNode;
-                    this.selectedListItem(foundNode);
+        this.selectMenuByIDSubscription =
+            this.multilevelMenuService.selectedMenuID$.subscribe((selectedMenuID) => {
+                if (selectedMenuID) {
+                    const foundNode = this.multilevelMenuService.getMatchedObjectById(this.items, selectedMenuID);
+                    if (foundNode !== undefined) {
+                        this.currentNode = foundNode;
+                        this.selectedListItem(foundNode);
+                    }
                 }
-            }
-        });
+            });
     }
     getClassName() {
-        if (!this.isInvalidConfig && !CommonUtils.isNullOrUndefinedOrEmpty(this.configuration.classname)) {
+        if (!this.isInvalidConfig &&
+            !CommonUtils.isNullOrUndefinedOrEmpty(this.configuration.classname)) {
             return `${CONSTANT.DEFAULT_CLASS_NAME} ${this.configuration.classname}`;
         }
         return CONSTANT.DEFAULT_CLASS_NAME;
@@ -561,10 +594,10 @@ class NgMaterialMultilevelMenuComponent {
     getGlobalStyle() {
         if (!this.isInvalidConfig) {
             const styles = {
-                background: null
+                backgroundColor: null,
             };
             if (!CommonUtils.isNullOrUndefinedOrEmpty(this.configuration.backgroundColor)) {
-                styles.background = this.configuration.backgroundColor;
+                styles.backgroundColor = this.configuration.backgroundColor;
             }
             return styles;
         }
@@ -578,7 +611,8 @@ class NgMaterialMultilevelMenuComponent {
         if (!CommonUtils.isNullOrUndefined(event.dontEmit) && event.dontEmit) {
             return;
         }
-        if (event.items === undefined && (!event.onSelected || typeof event.onSelected !== 'function')) {
+        if (event.items === undefined &&
+            (!event.onSelected || typeof event.onSelected !== "function")) {
             this.selectedItem.emit(event);
         }
         else {
@@ -594,7 +628,7 @@ class NgMaterialMultilevelMenuComponent {
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.1", ngImport: i0, type: NgMaterialMultilevelMenuComponent, decorators: [{
             type: Component,
-            args: [{ selector: 'ng-material-multilevel-menu', template: "<div [ngClass]=\"getClassName()\" [ngStyle]=\"getGlobalStyle()\" *ngIf='!isInvalidData && items.length !== 0' [dir]=\"isRtlLayout() ? 'rtl' : 'ltr'\">\r\n  <mat-list>\r\n    <ng-list-item\r\n      *ngFor=\"let node of items | keyvalue: multilevelMenuService.kvDummyComparerFn\"\r\n      [nodeConfiguration]='nodeConfig'\r\n      [node]='node.value'\r\n      [level]=\"1\"\r\n      [submenuLevel]=\"node.key\"\r\n      [selectedNode]='currentNode'\r\n      [nodeExpandCollapseStatus]='nodeExpandCollapseStatus'\r\n      (selectedItem)=\"selectedListItem($event)\"\r\n      [listTemplate] = \"listTemplate\"\r\n    >\r\n    </ng-list-item>\r\n  </mat-list>\r\n</div>\r\n", styles: [".amml-container .mat-mdc-list.mat-mdc-list-base.mdc-list{padding:unset}.amml-item{line-height:48px;display:flex;justify-content:space-between;position:relative}.anml-data{width:100%;text-transform:capitalize;display:flex;justify-content:flex-start}.amml-icon-fa{font-size:20px}.amml-icon{line-height:48px}.active{color:#1976d2}div[dir=ltr] .amml-icon{margin-right:15px}div[dir=ltr] .amml-submenu{margin-left:16px}div[dir=rtl] .amml-icon{margin-left:15px}div[dir=rtl] .amml-submenu{margin-right:16px}\n"] }]
+            args: [{ selector: "ng-material-multilevel-menu", template: "<div [ngClass]=\"getClassName()\" [ngStyle]=\"getGlobalStyle()\" *ngIf='!isInvalidData && items.length !== 0' [dir]=\"isRtlLayout() ? 'rtl' : 'ltr'\">\r\n  <mat-list>\r\n    <ng-list-item\r\n      *ngFor=\"let node of items | keyvalue: multilevelMenuService.kvDummyComparerFn\"\r\n      [nodeConfiguration]='nodeConfig'\r\n      [node]='node.value'\r\n      [level]=\"1\"\r\n      [submenuLevel]=\"node.key\"\r\n      [selectedNode]='currentNode'\r\n      [nodeExpandCollapseStatus]='nodeExpandCollapseStatus'\r\n      (selectedItem)=\"selectedListItem($event)\"\r\n      [listTemplate] = \"listTemplate\"\r\n    >\r\n    </ng-list-item>\r\n  </mat-list>\r\n</div>\r\n", styles: [".amml-container .mat-mdc-list.mat-mdc-list-base.mdc-list{padding:unset}.amml-item{line-height:48px;display:flex;justify-content:space-between;position:relative}.anml-data{width:100%;text-transform:capitalize;display:flex;justify-content:flex-start}.amml-icon-fa{font-size:20px}.amml-icon{line-height:48px}.active{color:#1976d2}div[dir=ltr] .amml-icon{margin-right:15px}div[dir=ltr] .amml-submenu{margin-left:16px}div[dir=rtl] .amml-icon{margin-left:15px}div[dir=rtl] .amml-submenu{margin-right:16px}\n"] }]
         }], ctorParameters: function () { return [{ type: i1.Router }, { type: MultilevelMenuService }]; }, propDecorators: { items: [{
                 type: Input
             }], configuration: [{
@@ -607,7 +641,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.1", ngImpor
                 type: Output
             }], listTemplate: [{
                 type: ContentChild,
-                args: ['listTemplate', { static: true }]
+                args: ["listTemplate", { static: true }]
             }] } });
 
 class NgMaterialMultilevelMenuModule {
