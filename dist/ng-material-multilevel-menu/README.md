@@ -47,7 +47,7 @@ import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 
 /* Import the module*/
-import { NgMaterialMultilevelMenuModule } from "ng-material-multilevel-menu";
+import { NgMaterialMultilevelMenuModule, MultilevelMenuService } from "@eddie666/ng-material-multilevel-menu";
 
 import { AppComponent } from "./app.component";
 
@@ -57,7 +57,7 @@ import { AppComponent } from "./app.component";
     BrowserModule,
     NgMaterialMultilevelMenuModule, // Import here
   ],
-  providers: [],
+  providers: [MultilevelMenuService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
@@ -377,7 +377,7 @@ div[dir="ltr"] .icon-container {
 
 ## Contribution
 
-I welcome you to fork and add more features into it. If you have any bugs or feature request, please create an issue at [github repository](https://github.com/ShankyTiwari/ng-material-multilevel-menu/issues).
+I welcome you to fork and add more features into it. If you have any bugs or feature request, please create an issue at [github repository](https://https://github.com/eddiefrank/ng-material-multilevel-menu/issues).
 
 ## License
 
