@@ -1,0 +1,15 @@
+package.json
+package-lock.json
+dist
+.angulardoc.json
+.vscode/*
+Dockerfile
+Dockerfile-dev
+tslint.json
+tsconfig.json
+README.md
+proxy.conf.json
+Jenkinsfile-stage
+Jenkinsfile
+*.html
+*.mustache

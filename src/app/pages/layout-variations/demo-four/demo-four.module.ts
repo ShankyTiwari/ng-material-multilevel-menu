@@ -6,14 +6,10 @@ import { MaterialsModule } from './../../../modules/materials.module';
 
 import { DemoFourRoutingModule } from './demo-four-routing.module';
 import { DemoFourComponent } from './demo-four.component';
+import { LayoutVariationsModule } from '../layout-variations.module';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    DemoFourRoutingModule,
-    NgMaterialMultilevelMenuModule,
-    MaterialsModule
-  ],
-  declarations: [DemoFourComponent]
+    imports: [CommonModule, DemoFourRoutingModule, NgMaterialMultilevelMenuModule, MaterialsModule, LayoutVariationsModule],
+    declarations: [DemoFourComponent],
 })
-export class DemoFourModule { }
+export class DemoFourModule {}

@@ -1,5 +1,17 @@
 <div class="module-demo">
-    Just in case if you don't want to use <code><strong>href</strong></code>, <code><strong>routerLink</strong></code> and you want to write your own logic for redirection then you can use <code><strong>onSelect</strong></code> Property.
+    Just in case if you don't want to use
+    <code>
+        <strong>href</strong>
+    </code>
+    ,
+    <code>
+        <strong>routerLink</strong>
+    </code>
+    and you want to write your own logic for redirection then you can use
+    <code>
+        <strong>onSelect</strong>
+    </code>
+    Property.
     <pre>
         {{codeSnippet}}
     </pre>
@@ -7,10 +19,9 @@
     <pre>
         {{codeSnippetUsage}}
     </pre>
-    <br/>
-</div>
-
-<div class="switch-demo">
-    <a class="next-demo" mat-button [routerLink]="['/pages/more-configuration/select-by-id']">Previous Demo</a>
-    <a class="next-demo" mat-button [routerLink]="['/pages/home']">Go Home</a>
+    <br>
+    <app-switch-demo
+        previous="/pages/more-configuration/select-by-id"
+        next="/pages/home"
+        nextLabel="Go Home"></app-switch-demo>
 </div>

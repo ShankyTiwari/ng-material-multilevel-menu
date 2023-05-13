@@ -1,7 +1,7 @@
-import { OnChanges, OnInit, EventEmitter, TemplateRef, ElementRef } from "@angular/core";
-import { Router } from "@angular/router";
-import { Configuration, ListStyle, MultilevelNode, ExpandCollapseStatusEnum, ColorStyle, BackgroundStyle } from "../app.model";
-import { MultilevelMenuService } from "../multilevel-menu.service";
+import { OnChanges, OnInit, EventEmitter, TemplateRef, ElementRef } from '@angular/core';
+import { Router } from '@angular/router';
+import { Configuration, ListStyle, MultilevelNode, ExpandCollapseStatusEnum } from '../app.model';
+import { MultilevelMenuService } from '../multilevel-menu.service';
 import * as i0 from "@angular/core";
 export declare class ListItemComponent implements OnChanges, OnInit {
     private router;
@@ -25,19 +25,20 @@ export declare class ListItemComponent implements OnChanges, OnInit {
         [index: string]: boolean;
     };
     constructor(router: Router, multilevelMenuService: MultilevelMenuService);
-    ngOnChanges(): void;
     ngOnInit(): void;
+    ngOnChanges(): void;
     setSelectedClass(isFound: boolean): void;
     getPaddingAtStart(): boolean;
     getListStyle(): ListStyle;
-    getColorStyle(): ColorStyle;
-    getBackgroundStyle(): BackgroundStyle;
-    getColor(): string;
-    getBackgroundColor(): string;
+    getColorStyle(): ListStyle;
+    getBackgroundStyle(): ListStyle;
+    private getColor;
+    private getBackgroundColor;
     hasItems(): boolean;
     isRtlLayout(): boolean;
     setClasses(): void;
     setExpandCollapseStatus(): void;
+    private setExpandStatus;
     expand(node: MultilevelNode): void;
     selectedListItem(node: MultilevelNode): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<ListItemComponent, never>;

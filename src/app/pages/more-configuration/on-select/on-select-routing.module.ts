@@ -3,17 +3,20 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { OnSelectComponent } from './on-select.component';
 
-const routes: Routes = [{
-  path: '',
-  component: OnSelectComponent,
-}, {
-    path: '',
-    redirectTo: '/',
-    pathMatch: 'full'
-}];
+const routes: Routes = [
+    {
+        path: '',
+        component: OnSelectComponent,
+    },
+    {
+        path: '',
+        redirectTo: '/',
+        pathMatch: 'full',
+    },
+];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+    imports: [RouterModule.forChild(routes)],
+    exports: [RouterModule],
 })
-export class OnSelectRoutingModule { }
+export class OnSelectRoutingModule {}

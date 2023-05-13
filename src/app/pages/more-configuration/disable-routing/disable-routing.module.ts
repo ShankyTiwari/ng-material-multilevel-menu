@@ -7,14 +7,10 @@ import { MaterialsModule } from './../../../modules/materials.module';
 
 import { DisableRoutingRoutingModule } from './disable-routing-routing.module';
 import { DisableRoutingComponent } from './disable-routing.component';
+import { LayoutVariationsModule } from '../../layout-variations/layout-variations.module';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    DisableRoutingRoutingModule,
-    NgMaterialMultilevelMenuModule,
-    MaterialsModule
-  ],
-  declarations: [DisableRoutingComponent]
+    imports: [CommonModule, DisableRoutingRoutingModule, NgMaterialMultilevelMenuModule, MaterialsModule, LayoutVariationsModule],
+    declarations: [DisableRoutingComponent],
 })
-export class DisableRoutingModule { }
+export class DisableRoutingModule {}

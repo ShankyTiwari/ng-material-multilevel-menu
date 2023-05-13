@@ -7,15 +7,17 @@ import { SelectByIdComponent } from './select-by-id.component';
 
 import { MaterialsModule } from './../../../modules/materials.module';
 import { NgMaterialMultilevelMenuModule } from './../../../../../projects/ng-material-multilevel-menu/src/public_api';
+import { LayoutVariationsModule } from '../../layout-variations/layout-variations.module';
 
 @NgModule({
-  declarations: [SelectByIdComponent],
-  imports: [
-    CommonModule,
-    SelectByIdRoutingModule,
-    FormsModule,
-    MaterialsModule,
-    NgMaterialMultilevelMenuModule
-  ]
+    declarations: [SelectByIdComponent],
+    imports: [
+        CommonModule,
+        SelectByIdRoutingModule,
+        FormsModule,
+        MaterialsModule,
+        NgMaterialMultilevelMenuModule,
+        LayoutVariationsModule,
+    ],
 })
-export class SelectByIdModule { }
+export class SelectByIdModule {}

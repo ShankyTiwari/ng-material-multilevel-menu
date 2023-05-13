@@ -1,9 +1,10 @@
 <div class="module-demo">
-  <h2>Change the colour of background</h2>
-  <ng-material-multilevel-menu [configuration]='config' [items]='appitems' (selectedItem)="selectedItem($event)"></ng-material-multilevel-menu>
+    <h2>Change the colour of background</h2>
+    <ng-material-multilevel-menu
+        [configuration]='config'
+        [items]='appitems'
+        (selectedItem)="selectedItem($event)"></ng-material-multilevel-menu>
 </div>
-
-<div class="switch-demo">
-  <a class="prev-demo" mat-button [routerLink]="['/pages/layout-variations/demo-two']">Previous Demo</a>
-  <a class="next-demo" mat-button [routerLink]="['/pages/layout-variations/demo-four']">Next Demo</a>
-</div>
+<app-switch-demo
+    previous="/pages/layout-variations/demo-two"
+    next="/pages/layout-variations/demo-four"></app-switch-demo>

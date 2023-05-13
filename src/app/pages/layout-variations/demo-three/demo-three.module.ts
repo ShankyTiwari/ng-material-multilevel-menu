@@ -1,3 +1,4 @@
+import { LayoutVariationsModule } from './../layout-variations.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -8,12 +9,7 @@ import { DemoThreeRoutingModule } from './demo-three-routing.module';
 import { DemoThreeComponent } from './demo-three.component';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    DemoThreeRoutingModule,
-    NgMaterialMultilevelMenuModule,
-    MaterialsModule
-  ],
-  declarations: [DemoThreeComponent]
+    imports: [CommonModule, DemoThreeRoutingModule, NgMaterialMultilevelMenuModule, MaterialsModule, LayoutVariationsModule],
+    declarations: [DemoThreeComponent],
 })
-export class DemoThreeModule { }
+export class DemoThreeModule {}

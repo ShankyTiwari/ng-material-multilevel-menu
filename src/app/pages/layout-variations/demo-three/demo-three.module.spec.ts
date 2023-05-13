@@ -1,13 +1,13 @@
 import { DemoThreeModule } from './demo-three.module';
 
 describe('DemoThreeModule', () => {
-  let demoThreeModule: DemoThreeModule;
+    let demoThreeModule: DemoThreeModule;
 
-  beforeEach(() => {
-    demoThreeModule = new DemoThreeModule();
-  });
+    beforeEach(() => {
+        demoThreeModule = new DemoThreeModule();
+    });
 
-  it('should create an instance', () => {
-    expect(demoThreeModule).toBeTruthy();
-  });
+    it('should create an instance', () => {
+        expect(demoThreeModule).toBeTruthy();
+    });
 });

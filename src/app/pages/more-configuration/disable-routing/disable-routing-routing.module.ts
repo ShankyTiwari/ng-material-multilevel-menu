@@ -3,17 +3,20 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { DisableRoutingComponent } from './disable-routing.component';
 
-const routes: Routes = [{
-  path: '',
-  component: DisableRoutingComponent,
-}, {
-    path: '',
-    redirectTo: '/',
-    pathMatch: 'full'
-}];
+const routes: Routes = [
+    {
+        path: '',
+        component: DisableRoutingComponent,
+    },
+    {
+        path: '',
+        redirectTo: '/',
+        pathMatch: 'full',
+    },
+];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+    imports: [RouterModule.forChild(routes)],
+    exports: [RouterModule],
 })
-export class DisableRoutingRoutingModule { }
+export class DisableRoutingRoutingModule {}

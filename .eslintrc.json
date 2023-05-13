@@ -1,0 +1,162 @@
+{
+  "root": true,
+  "ignorePatterns": [
+    "projects/**/*",
+    "src/polyfills.ts",
+    "src/app/generated/**/*"
+  ],
+  "overrides": [
+    {
+      "files": [
+        "*.ts"
+      ],
+      "parserOptions": {
+        "project": [
+          "tsconfig.json"
+        ],
+        "createDefaultProgram": true
+      },
+      "extends": [
+        "plugin:@angular-eslint/recommended",
+        "plugin:@angular-eslint/template/process-inline-templates",
+        "eslint:recommended",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:@typescript-eslint/recommended-requiring-type-checking",
+        "plugin:prettier/recommended"
+      ],
+      "plugins": [
+        "eslint-plugin-rxjs",
+        "prettier"
+      ],
+      "rules": {
+        "no-prototype-builtins": "off",
+        "@angular-eslint/component-selector": [
+          "error",
+          {
+            "type": "element",
+            "prefix": "pp",
+            "style": "kebab-case"
+          }
+        ],
+        "@angular-eslint/directive-class-suffix": "off",
+        "@angular-eslint/directive-selector": [
+          "error",
+          {
+            "type": "attribute",
+            "prefix": "pp",
+            "style": "camelCase"
+          }
+        ],
+        "@typescript-eslint/adjacent-overload-signatures": "off",
+        "@typescript-eslint/array-type": [
+          "error",
+          {
+            "default": "array"
+          }
+        ],
+        "@typescript-eslint/consistent-type-definitions": "error",
+        "@typescript-eslint/dot-notation": "off",
+        "@typescript-eslint/explicit-member-accessibility": [
+          "off",
+          {
+            "accessibility": "explicit"
+          }
+        ],
+        "@typescript-eslint/no-this-alias": "error",
+        "@typescript-eslint/no-var-requires": "error",
+        "@typescript-eslint/explicit-module-boundary-types": "off",
+        "@typescript-eslint/no-unsafe-member-access": "off",
+        "@typescript-eslint/no-explicit-any": "off",
+        "@typescript-eslint/no-unsafe-assignment": "off",
+        "@typescript-eslint/no-unsafe-return": "off",
+        "@typescript-eslint/no-unsafe-call": "off",
+        "@typescript-eslint/restrict-template-expressions": "off",
+        "@typescript-eslint/prefer-regexp-exec": "off",
+        "@typescript-eslint/unbound-method": "off",
+        "@typescript-eslint/no-empty-function": "off",
+        "arrow-parens": [
+          "off",
+          "always"
+        ],
+        "brace-style": [
+          "error",
+          "1tbs"
+        ],
+        "id-blacklist": "off",
+        "id-match": "off",
+        "import/no-extraneous-dependencies": "off",
+        "import/no-internal-modules": "off",
+        "linebreak-style": "off",
+        "max-classes-per-file": [
+          "error",
+          1
+        ],
+        "max-len": [
+          "error",
+          {
+            "code": 240
+          }
+        ],
+        "new-parens": "off",
+        "newline-per-chained-call": "off",
+        "no-duplicate-case": "error",
+        "no-duplicate-imports": "error",
+        "no-extra-bind": "error",
+        "no-extra-semi": "off",
+        "no-irregular-whitespace": "off",
+        "no-new-func": "error",
+        "no-redeclare": "error",
+        "no-return-await": "error",
+        "no-sequences": "error",
+        "no-sparse-arrays": "error",
+        "no-template-curly-in-string": "error",
+        "no-underscore-dangle": "off",
+        "object-shorthand": "off",
+        "prefer-object-spread": "error",
+        "quote-props": "off",
+        "react/jsx-curly-spacing": "off",
+        "react/jsx-equals-spacing": "off",
+        "react/jsx-wrap-multilines": "off",
+        "rxjs/no-unsafe-takeuntil": "error",
+        "space-before-function-paren": "off",
+        "no-extra-boolean-cast": "off",
+        "no-empty": [
+          "error",
+          {
+            "allowEmptyCatch": true
+          }
+        ],
+        "space-in-parens": [
+          "off",
+          "never"
+        ],
+        "prettier/prettier": [
+          "error",
+          {
+            "endOfLine": "auto"
+          }
+        ],
+        "curly": "warn",
+        "no-multiple-empty-lines": [
+          "error",
+          {
+            "max": 2,
+            "maxEOF": 0
+          }
+        ]
+      }
+    },
+    {
+      "files": [
+        "*.html"
+      ],
+      "extends": [
+        "plugin:@angular-eslint/template/recommended"
+      ],
+      "rules": {
+        "@angular-eslint/template/banana-in-box": "off",
+        "@angular-eslint/template/no-negated-async": "off"
+      }
+    }
+  ]
+}

@@ -14,5 +14,5 @@ export const CONSTANT = {
     ERROR_MESSAGE: `Invalid data for material Multilevel List Component`,
     POSSIBLE: 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789',
     YES: 'yes',
-    NO: 'no'
+    NO: 'no',
 };

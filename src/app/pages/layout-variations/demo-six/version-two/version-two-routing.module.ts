@@ -3,17 +3,20 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { VersionTwoComponent } from './version-two.component';
 
-const routes: Routes = [{
-  path: '',
-  component: VersionTwoComponent,
-}, {
-  path: '',
-  redirectTo: '/',
-  pathMatch: 'full'
-}];
+const routes: Routes = [
+    {
+        path: '',
+        component: VersionTwoComponent,
+    },
+    {
+        path: '',
+        redirectTo: '/',
+        pathMatch: 'full',
+    },
+];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+    imports: [RouterModule.forChild(routes)],
+    exports: [RouterModule],
 })
-export class VersionTwoRoutingModule { }
+export class VersionTwoRoutingModule {}

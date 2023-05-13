@@ -8,16 +8,8 @@ import { NgMaterialMultilevelMenuComponent } from './ng-material-multilevel-menu
 import { ListItemContentComponent } from './list-item/list-item-content/list-item-content.component';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    MaterialsModule,
-    RouterModule,
-  ],
-  declarations: [
-    NgMaterialMultilevelMenuComponent,
-    ListItemComponent,
-    ListItemContentComponent,
-  ],
-  exports: [NgMaterialMultilevelMenuComponent]
+    imports: [CommonModule, MaterialsModule, RouterModule],
+    declarations: [NgMaterialMultilevelMenuComponent, ListItemComponent, ListItemContentComponent],
+    exports: [NgMaterialMultilevelMenuComponent],
 })
 export class NgMaterialMultilevelMenuModule {}

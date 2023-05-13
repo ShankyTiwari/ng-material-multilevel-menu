@@ -5,10 +5,7 @@ import { PagesRoutingModule } from './pages-routing.module';
 import { PagesComponent } from './pages.component';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    PagesRoutingModule
-  ],
-  declarations: [PagesComponent]
+    imports: [CommonModule, PagesRoutingModule],
+    declarations: [PagesComponent],
 })
-export class PagesModule { }
+export class PagesModule {}

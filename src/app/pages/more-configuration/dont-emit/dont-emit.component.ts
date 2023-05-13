@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-dont-emit',
-  templateUrl: './dont-emit.component.html',
-  styleUrls: ['./dont-emit.component.css']
+    selector: 'app-dont-emit',
+    templateUrl: './dont-emit.component.html',
+    styleUrls: ['./dont-emit.component.css'],
 })
 export class DontEmitComponent implements OnInit {
-
-  codeSnippet = `
+    codeSnippet = `
     {
       label: 'Changing Colours',
       link: '/demo two',
@@ -19,9 +18,7 @@ export class DontEmitComponent implements OnInit {
       }
   }`;
 
-  constructor() { }
+    constructor() {}
 
-  ngOnInit(): void {
-  }
-
+    ngOnInit(): void {}
 }

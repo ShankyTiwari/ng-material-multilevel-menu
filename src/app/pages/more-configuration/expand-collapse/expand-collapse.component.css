@@ -16,12 +16,3 @@ code {
   background: #c4c4c457;
   padding: 5px;
 }
-
-.switch-demo {
-  display: flex;
-  flex-direction: flex-start;
-  justify-content: space-between;
-  padding-top: 10%;
-  width: 600px;
-  margin: auto;
-}

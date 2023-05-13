@@ -3,17 +3,20 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { DemoTwoComponent } from './demo-two.component';
 
-const routes: Routes = [{
-  path: '',
-  component: DemoTwoComponent
-}, {
-  path: '',
-  redirectTo: '/',
-  pathMatch: 'full'
-}];
+const routes: Routes = [
+    {
+        path: '',
+        component: DemoTwoComponent,
+    },
+    {
+        path: '',
+        redirectTo: '/',
+        pathMatch: 'full',
+    },
+];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+    imports: [RouterModule.forChild(routes)],
+    exports: [RouterModule],
 })
-export class DemoTwoRoutingModule { }
+export class DemoTwoRoutingModule {}

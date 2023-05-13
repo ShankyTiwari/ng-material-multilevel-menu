@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-on-select',
-  templateUrl: './on-select.component.html',
-  styleUrls: ['./on-select.component.css']
+    selector: 'app-on-select',
+    templateUrl: './on-select.component.html',
+    styleUrls: ['./on-select.component.css'],
 })
 export class OnSelectComponent implements OnInit {
-
-  codeSnippet = `
+    codeSnippet = `
     {
       label: 'Changing Colours',
       link: '/demo two',
@@ -17,7 +16,7 @@ export class OnSelectComponent implements OnInit {
       }
   }`;
 
-  codeSnippetUsage = `
+    codeSnippetUsage = `
     import { Component } from '@angular/core';
     import {
       MultilevelNodes,
@@ -53,9 +52,7 @@ export class OnSelectComponent implements OnInit {
     }
   `;
 
-  constructor() { }
+    constructor() {}
 
-  ngOnInit(): void {
-  }
-
+    ngOnInit(): void {}
 }

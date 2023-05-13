@@ -6,15 +6,10 @@ import { MaterialsModule } from './../../../../modules/materials.module';
 
 import { VersionThreeRoutingModule } from './version-three-routing.module';
 import { VersionThreeComponent } from './version-three.component';
-
+import { LayoutVariationsModule } from '../../layout-variations.module';
 
 @NgModule({
-  declarations: [VersionThreeComponent],
-  imports: [
-    CommonModule,
-    VersionThreeRoutingModule,
-    NgMaterialMultilevelMenuModule,
-    MaterialsModule
-  ]
+    declarations: [VersionThreeComponent],
+    imports: [CommonModule, VersionThreeRoutingModule, NgMaterialMultilevelMenuModule, MaterialsModule, LayoutVariationsModule],
 })
-export class VersionThreeModule { }
+export class VersionThreeModule {}
