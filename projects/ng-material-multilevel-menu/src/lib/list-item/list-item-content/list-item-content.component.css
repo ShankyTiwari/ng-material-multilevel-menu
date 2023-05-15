@@ -9,7 +9,6 @@
   justify-content: flex-start;
   text-transform: capitalize;
   text-decoration: none;
-  color: inherit;
 }
 
 .anml-data {
@@ -45,6 +44,15 @@
   height: 22px;
   margin-top: -12px;
 }
+
+.amml-img-icon {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
 .amml-icon-arrow-container {
   direction: ltr;
   display: flex;
