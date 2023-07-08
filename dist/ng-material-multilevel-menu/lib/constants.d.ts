@@ -12,4 +12,7 @@ export declare const CONSTANT: {
     DEFAULT_LIST_FONT_COLOR: string;
     DEFAULT_HREF_TARGET_TYPE: string;
     ERROR_MESSAGE: string;
+    POSSIBLE: string;
+    YES: string;
+    NO: string;
 };
