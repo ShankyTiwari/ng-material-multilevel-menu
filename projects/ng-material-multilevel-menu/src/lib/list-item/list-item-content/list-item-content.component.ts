@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {MultilevelNode, ListStyle} from '../../app.model';
+import {Configuration, MultilevelNode, ListStyle} from '../../app.model';
 import {ExpandedLTR, ExpandedRTL} from '../../animation';
 import {CommonUtils} from '../../common-utils';
 import {CONSTANT} from '../../constants';
@@ -14,6 +14,7 @@ export class ListItemContentComponent implements OnInit {
   @Input() node: MultilevelNode;
   @Input() isRtlLayout: boolean;
   @Input() listContentStyle: ListStyle;
+  @Input() nodeConfiguration: Configuration = null;
 
   constructor() {
     // NOOP

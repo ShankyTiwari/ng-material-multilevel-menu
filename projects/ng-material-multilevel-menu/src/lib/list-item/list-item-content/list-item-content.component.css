@@ -18,12 +18,6 @@
   justify-content: flex-start;
 }
 
-.disabled-amml-item {
-  opacity: 0.5;
-  text-decoration: none;
-  pointer-events: none;
-}
-
 .icon-container {
   display: flex;
   flex-direction: column;

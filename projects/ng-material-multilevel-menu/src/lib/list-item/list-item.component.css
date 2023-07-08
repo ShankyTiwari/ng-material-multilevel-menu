@@ -9,3 +9,9 @@ div[dir="rtl"].amml-submenu {
 div[dir="ltr"].amml-submenu {
   margin-left: 16px;
 }
+
+.disabled-amml-item {
+  opacity: 0.5;
+  text-decoration: none;
+  pointer-events: none;
+}
