@@ -21,7 +21,7 @@ export class NgMaterialMultilevelMenuComponent implements OnInit, OnChanges, OnD
 
   expandCollapseStatusSubscription: Subscription = null;
   selectMenuByIDSubscription: Subscription = null;
-  currentNode: { node: MultilevelNode } = null;
+  currentNode: MultilevelNode = null;
 
   nodeConfig: Configuration = {
     paddingAtStart: true,
@@ -46,12 +46,12 @@ export class NgMaterialMultilevelMenuComponent implements OnInit, OnChanges, OnD
   ngOnChanges() {
     this.detectInvalidConfig();
     this.initExpandCollapseStatus();
+    this.initSelectedMenuID();
     if (!this.isInvalidData) {
       this.menuIsReady.emit(this.items);
     }
   }
   ngOnInit() {
-    this.initSelectedMenuID();
     if (!CommonUtils.isNullOrUndefinedOrEmpty(this.configuration) &&
       this.configuration.interfaceWithRoute !== null && this.configuration.interfaceWithRoute) {
       this.router.events
@@ -68,7 +68,7 @@ export class NgMaterialMultilevelMenuComponent implements OnInit, OnChanges, OnD
     if (foundNode !== undefined && !CommonUtils.isNullOrUndefinedOrEmpty(foundNode.link)
       // && !foundNode.disabled // Prevent route redirection for disabled menu
     ) {
-      this.currentNode = { node: foundNode};
+      this.currentNode = foundNode;
       if (!CommonUtils.isNullOrUndefined(foundNode.dontEmit) && !foundNode.dontEmit) {
         this.selectedListItem(foundNode);
       }
@@ -142,6 +142,7 @@ export class NgMaterialMultilevelMenuComponent implements OnInit, OnChanges, OnD
       if (selectedMenuID) {
         const foundNode = this.multilevelMenuService.getMatchedObjectById(this.items, selectedMenuID);
         if (foundNode !== undefined) {
+          this.currentNode = foundNode;
           this.selectedListItem(foundNode);
         }
       }
@@ -169,7 +170,7 @@ export class NgMaterialMultilevelMenuComponent implements OnInit, OnChanges, OnD
   }
   selectedListItem(event: MultilevelNode): void {
     this.nodeExpandCollapseStatus = ExpandCollapseStatusEnum.neutral;
-    this.currentNode = { node: event };
+    this.currentNode = event;
     if (!CommonUtils.isNullOrUndefined(event.dontEmit) && event.dontEmit) {
       return;
     }

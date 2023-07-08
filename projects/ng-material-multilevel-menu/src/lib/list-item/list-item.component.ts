@@ -14,17 +14,10 @@ import {CommonUtils} from '../common-utils';
   animations: [SlideInOut]
 })
 export class ListItemComponent implements OnChanges, OnInit {
-	_selectedNode: {node: MultilevelNode};
-  
   @Input() node: MultilevelNode;
   @Input() level = 1;
   @Input() submenuLevel = 0;
-  @Input() set selectedNode(value: {node: MultilevelNode}) {
-		this._selectedNode = value;
-    if(value)
-     this.setSelectedClass(this.multilevelMenuService.recursiveCheckId(this.node, this.selectedNode.node.id));
-	}
-
+  @Input() selectedNode: MultilevelNode;
   @Input() nodeConfiguration: Configuration = null;
   @Input() nodeExpandCollapseStatus: ExpandCollapseStatusEnum = null;
   @Input() listTemplate: TemplateRef<ElementRef> = null;
@@ -33,6 +26,7 @@ export class ListItemComponent implements OnChanges, OnInit {
 
   isSelected = false;
   expanded = false;
+  firstInitializer = false;
 
   nodeChildren: MultilevelNode[];
   classes: { [index: string]: boolean };
@@ -47,12 +41,13 @@ export class ListItemComponent implements OnChanges, OnInit {
     };
   }
 
-	get selectedNode():  {node: MultilevelNode} { return this._selectedNode;}
-
   ngOnChanges() {
     this.nodeChildren = this.node && this.node.items ? this.node.items.filter(n => !n.hidden) : [];
     this.node.hasChildren = this.hasItems();
 
+    if (!CommonUtils.isNullOrUndefined(this.selectedNode)) {
+      this.setSelectedClass(this.multilevelMenuService.recursiveCheckId(this.node, this.selectedNode.id));
+    }
     this.setExpandCollapseStatus();
   }
 
@@ -73,8 +68,10 @@ export class ListItemComponent implements OnChanges, OnInit {
 
   setSelectedClass(isFound: boolean): void {
     if (isFound) {
-      this.expanded = true;
-      this.isSelected = this.nodeConfiguration.highlightOnSelect || this.selectedNode.node.items === undefined;
+      if (!this.firstInitializer) {
+        this.expanded = true;
+      }
+      this.isSelected = this.nodeConfiguration.highlightOnSelect || this.selectedNode.items === undefined;
     } else {
       this.isSelected = false;
       if (this.nodeConfiguration.collapseOnSelect) {
@@ -85,7 +82,7 @@ export class ListItemComponent implements OnChanges, OnInit {
     this.selectedListClasses = {
       [CONSTANT.DEFAULT_LIST_CLASS_NAME]: true,
       [CONSTANT.SELECTED_LIST_CLASS_NAME]: this.isSelected,
-      [CONSTANT.ACTIVE_ITEM_CLASS_NAME]: this.selectedNode.node.id === this.node.id,
+      [CONSTANT.ACTIVE_ITEM_CLASS_NAME]: this.selectedNode.id === this.node.id,
       [CONSTANT.DISABLED_ITEM_CLASS_NAME]: this.node.disabled,
       [`level-${this.level}-submenulevel-${this.submenuLevel}`]: true,
     };
@@ -115,7 +112,7 @@ export class ListItemComponent implements OnChanges, OnInit {
   }
 
   hasItems(): boolean {
-    return this.nodeChildren && this.nodeChildren.length > 0;
+    return this.nodeChildren.length > 0;
   }
 
   isRtlLayout(): boolean {
@@ -154,6 +151,7 @@ export class ListItemComponent implements OnChanges, OnInit {
     this.nodeExpandCollapseStatus = ExpandCollapseStatusEnum.neutral;
     this.expanded = !this.expanded;
     this.node.expanded =  this.expanded;
+    this.firstInitializer = true;
     this.setClasses();
     if (this.nodeConfiguration.interfaceWithRoute !== null
       && this.nodeConfiguration.interfaceWithRoute
