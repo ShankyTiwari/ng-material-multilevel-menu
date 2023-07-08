@@ -14,6 +14,8 @@ import {CommonUtils} from '../common-utils';
   animations: [SlideInOut]
 })
 export class ListItemComponent implements OnChanges, OnInit {
+	_selectedNode: {node: MultilevelNode};
+  
   @Input() node: MultilevelNode;
   @Input() level = 1;
   @Input() submenuLevel = 0;
@@ -22,9 +24,7 @@ export class ListItemComponent implements OnChanges, OnInit {
     if(value)
      this.setSelectedClass(this.multilevelMenuService.recursiveCheckId(this.node, this.selectedNode.node.id));
 	}
-	get selectedNode():  {node: MultilevelNode} { return this._selectedNode;}
 
-	_selectedNode: {node: MultilevelNode};
   @Input() nodeConfiguration: Configuration = null;
   @Input() nodeExpandCollapseStatus: ExpandCollapseStatusEnum = null;
   @Input() listTemplate: TemplateRef<ElementRef> = null;
@@ -33,7 +33,6 @@ export class ListItemComponent implements OnChanges, OnInit {
 
   isSelected = false;
   expanded = false;
-  firstInitializer = false;
 
   nodeChildren: MultilevelNode[];
   classes: { [index: string]: boolean };
@@ -47,6 +46,8 @@ export class ListItemComponent implements OnChanges, OnInit {
       [CONSTANT.ACTIVE_ITEM_CLASS_NAME]: false,
     };
   }
+
+	get selectedNode():  {node: MultilevelNode} { return this._selectedNode;}
 
   ngOnChanges() {
     this.nodeChildren = this.node && this.node.items ? this.node.items.filter(n => !n.hidden) : [];
@@ -153,7 +154,6 @@ export class ListItemComponent implements OnChanges, OnInit {
     this.nodeExpandCollapseStatus = ExpandCollapseStatusEnum.neutral;
     this.expanded = !this.expanded;
     this.node.expanded =  this.expanded;
-    this.firstInitializer = true;
     this.setClasses();
     if (this.nodeConfiguration.interfaceWithRoute !== null
       && this.nodeConfiguration.interfaceWithRoute
