@@ -7,12 +7,12 @@
   },
   "homepage": "https://multilevel-menu-demo.web.app/",
   "keywords": [
-    "Angular2",
-    "Angular4",
     "Angular",
     "multilevel-list",
     "material-list",
-    "angular-multilevel-list"
+    "ng-multilevel-list",
+    "angular-multilevel-list",
+    "ng-material-multilevel-menu"
   ],
   "author": "Shashank Tiwari <shashank@codershood.info>",
   "license": "MIT",
