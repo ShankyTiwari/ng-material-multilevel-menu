@@ -8,9 +8,8 @@
     "sourceMap": true,
     "declaration": false,
     "moduleResolution": "node",
-    "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "target": "es5",
+    "target": "ES2022",
     "typeRoots": [
       "node_modules/@types"
     ],
@@ -25,6 +24,7 @@
       "ng-material-multilevel-menu/*": [
         "dist/ng-material-multilevel-menu/*"
       ]
-    }
+    },
+    "useDefineForClassFields": false
   }
 }

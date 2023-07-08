@@ -1,16 +1,21 @@
 <ng-container *ngTemplateOutlet="node.externalRedirect ? redirectLinkTemplate : routerLinkTemplate"></ng-container>
 
 <ng-template #redirectLinkTemplate>
-  <a class="anml-link" [href]="node.link" [target]="getHrefTargetType()">
+  <a class="anml-link" [href]="node.link" [target]="getHrefTargetType()" [ngStyle]="listContentStyle">
     <ng-container *ngTemplateOutlet="isRtlLayout ? linkLabelRtlOutlet : linkLabelLtrOutlet"></ng-container>
   </a>
 </ng-template>
 
 <ng-template #routerLinkTemplate>
-  <a class="anml-link" *ngIf="!node.externalRedirect && node.link" [routerLink]="node.link">
-    <ng-container *ngTemplateOutlet="isRtlLayout ? linkLabelRtlOutlet : linkLabelLtrOutlet"></ng-container>
-  </a>
-  <a class="anml-link" *ngIf="!node.link">
+  <ng-container *ngIf="node.link && nodeConfiguration.interfaceWithRoute; else defaultContentContainer">
+    <a class="anml-link" [routerLink]="node.link" [ngStyle]="listContentStyle">
+      <ng-container *ngTemplateOutlet="isRtlLayout ? linkLabelRtlOutlet : linkLabelLtrOutlet"></ng-container>
+    </a>
+  </ng-container>
+</ng-template>
+
+<ng-template #defaultContentContainer>
+  <a class="anml-link" [ngStyle]="listContentStyle">
     <ng-container *ngTemplateOutlet="isRtlLayout ? linkLabelRtlOutlet : linkLabelLtrOutlet"></ng-container>
   </a>
 </ng-template>
@@ -50,7 +55,7 @@
     <mat-icon *ngSwitchCase="'svgIcon'" class="amml-icon amml-svg-icon"
               svgIcon="{{getSelectedSvgIcon()}}">
     </mat-icon>
-    <img *ngSwitchCase="'imageIcon'" matListAvatar class="amml-icon"
+    <img *ngSwitchCase="'imageIcon'" class="amml-icon amml-img-icon"
          src="{{getSelectedImageIcon()}}" alt="{{node.label}}"/>
   </div>
 </ng-template>

@@ -1,17 +1,17 @@
 {
   "name": "ng-material-multilevel-menu",
-  "version": "4.12.0",
+  "version": "6.0.0",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ShankyTiwari/ng-material-multilevel-menu.git"
   },
   "keywords": [
-    "Angular2",
-    "Angular4",
     "Angular",
     "multilevel-list",
     "material-list",
-    "angular-multilevel-list"
+    "ng-multilevel-list",
+    "angular-multilevel-list",
+    "ng-material-multilevel-menu"
   ],
   "author": "Shashank Tiwari <shashank@codershood.info>",
   "license": "MIT",
