@@ -15,7 +15,9 @@ export declare class NgMaterialMultilevelMenuComponent implements OnInit, OnChan
     listTemplate: TemplateRef<ElementRef>;
     expandCollapseStatusSubscription: Subscription;
     selectMenuByIDSubscription: Subscription;
-    currentNode: MultilevelNode;
+    currentNode: {
+        node: MultilevelNode;
+    };
     nodeConfig: Configuration;
     isInvalidConfig: boolean;
     isInvalidData: boolean;

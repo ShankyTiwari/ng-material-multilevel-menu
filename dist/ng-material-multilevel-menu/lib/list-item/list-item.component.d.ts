@@ -6,17 +6,21 @@ import * as i0 from "@angular/core";
 export declare class ListItemComponent implements OnChanges, OnInit {
     private router;
     multilevelMenuService: MultilevelMenuService;
+    _selectedNode: {
+        node: MultilevelNode;
+    };
     node: MultilevelNode;
     level: number;
     submenuLevel: number;
-    selectedNode: MultilevelNode;
+    set selectedNode(value: {
+        node: MultilevelNode;
+    });
     nodeConfiguration: Configuration;
     nodeExpandCollapseStatus: ExpandCollapseStatusEnum;
     listTemplate: TemplateRef<ElementRef>;
     selectedItem: EventEmitter<MultilevelNode>;
     isSelected: boolean;
     expanded: boolean;
-    firstInitializer: boolean;
     nodeChildren: MultilevelNode[];
     classes: {
         [index: string]: boolean;
@@ -25,6 +29,9 @@ export declare class ListItemComponent implements OnChanges, OnInit {
         [index: string]: boolean;
     };
     constructor(router: Router, multilevelMenuService: MultilevelMenuService);
+    get selectedNode(): {
+        node: MultilevelNode;
+    };
     ngOnChanges(): void;
     ngOnInit(): void;
     setSelectedClass(isFound: boolean): void;

@@ -220,6 +220,11 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.1", ngImpor
             }] } });
 
 class ListItemComponent {
+    set selectedNode(value) {
+        this._selectedNode = value;
+        if (value)
+            this.setSelectedClass(this.multilevelMenuService.recursiveCheckId(this.node, this.selectedNode.node.id));
+    }
     constructor(router, multilevelMenuService) {
         this.router = router;
         this.multilevelMenuService = multilevelMenuService;
@@ -231,19 +236,16 @@ class ListItemComponent {
         this.selectedItem = new EventEmitter();
         this.isSelected = false;
         this.expanded = false;
-        this.firstInitializer = false;
         this.selectedListClasses = {
             [CONSTANT.DEFAULT_LIST_CLASS_NAME]: true,
             [CONSTANT.SELECTED_LIST_CLASS_NAME]: false,
             [CONSTANT.ACTIVE_ITEM_CLASS_NAME]: false,
         };
     }
+    get selectedNode() { return this._selectedNode; }
     ngOnChanges() {
         this.nodeChildren = this.node && this.node.items ? this.node.items.filter(n => !n.hidden) : [];
         this.node.hasChildren = this.hasItems();
-        if (!CommonUtils.isNullOrUndefined(this.selectedNode)) {
-            this.setSelectedClass(this.multilevelMenuService.recursiveCheckId(this.node, this.selectedNode.id));
-        }
         this.setExpandCollapseStatus();
     }
     ngOnInit() {
@@ -260,10 +262,8 @@ class ListItemComponent {
     }
     setSelectedClass(isFound) {
         if (isFound) {
-            if (!this.firstInitializer) {
-                this.expanded = true;
-            }
-            this.isSelected = this.nodeConfiguration.highlightOnSelect || this.selectedNode.items === undefined;
+            this.expanded = true;
+            this.isSelected = this.nodeConfiguration.highlightOnSelect || this.selectedNode.node.items === undefined;
         }
         else {
             this.isSelected = false;
@@ -275,7 +275,7 @@ class ListItemComponent {
         this.selectedListClasses = {
             [CONSTANT.DEFAULT_LIST_CLASS_NAME]: true,
             [CONSTANT.SELECTED_LIST_CLASS_NAME]: this.isSelected,
-            [CONSTANT.ACTIVE_ITEM_CLASS_NAME]: this.selectedNode.id === this.node.id,
+            [CONSTANT.ACTIVE_ITEM_CLASS_NAME]: this.selectedNode.node.id === this.node.id,
             [CONSTANT.DISABLED_ITEM_CLASS_NAME]: this.node.disabled,
             [`level-${this.level}-submenulevel-${this.submenuLevel}`]: true,
         };
@@ -303,7 +303,7 @@ class ListItemComponent {
         return styles;
     }
     hasItems() {
-        return this.nodeChildren.length > 0;
+        return this.nodeChildren && this.nodeChildren.length > 0;
     }
     isRtlLayout() {
         return this.nodeConfiguration.rtlLayout;
@@ -338,7 +338,6 @@ class ListItemComponent {
         this.nodeExpandCollapseStatus = ExpandCollapseStatusEnum.neutral;
         this.expanded = !this.expanded;
         this.node.expanded = this.expanded;
-        this.firstInitializer = true;
         this.setClasses();
         if (this.nodeConfiguration.interfaceWithRoute !== null
             && this.nodeConfiguration.interfaceWithRoute
@@ -442,12 +441,12 @@ class NgMaterialMultilevelMenuComponent {
     ngOnChanges() {
         this.detectInvalidConfig();
         this.initExpandCollapseStatus();
-        this.initSelectedMenuID();
         if (!this.isInvalidData) {
             this.menuIsReady.emit(this.items);
         }
     }
     ngOnInit() {
+        this.initSelectedMenuID();
         if (!CommonUtils.isNullOrUndefinedOrEmpty(this.configuration) &&
             this.configuration.interfaceWithRoute !== null && this.configuration.interfaceWithRoute) {
             this.router.events
@@ -464,7 +463,7 @@ class NgMaterialMultilevelMenuComponent {
         if (foundNode !== undefined && !CommonUtils.isNullOrUndefinedOrEmpty(foundNode.link)
         // && !foundNode.disabled // Prevent route redirection for disabled menu
         ) {
-            this.currentNode = foundNode;
+            this.currentNode = { node: foundNode };
             if (!CommonUtils.isNullOrUndefined(foundNode.dontEmit) && !foundNode.dontEmit) {
                 this.selectedListItem(foundNode);
             }
@@ -539,7 +538,6 @@ class NgMaterialMultilevelMenuComponent {
             if (selectedMenuID) {
                 const foundNode = this.multilevelMenuService.getMatchedObjectById(this.items, selectedMenuID);
                 if (foundNode !== undefined) {
-                    this.currentNode = foundNode;
                     this.selectedListItem(foundNode);
                 }
             }
@@ -567,7 +565,7 @@ class NgMaterialMultilevelMenuComponent {
     }
     selectedListItem(event) {
         this.nodeExpandCollapseStatus = ExpandCollapseStatusEnum.neutral;
-        this.currentNode = event;
+        this.currentNode = { node: event };
         if (!CommonUtils.isNullOrUndefined(event.dontEmit) && event.dontEmit) {
             return;
         }
