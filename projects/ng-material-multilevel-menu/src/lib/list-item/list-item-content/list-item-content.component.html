@@ -1,21 +1,22 @@
 <ng-container *ngTemplateOutlet="node.externalRedirect ? redirectLinkTemplate : routerLinkTemplate"></ng-container>
 
 <ng-template #redirectLinkTemplate>
-  <a class="anml-link" [href]="node.link" [target]="getHrefTargetType()" [ngStyle]="listContentStyle">
+  <a class="anml-link" [attr.data-test]="node.dataTest" [href]="node.link" [target]="getHrefTargetType()"
+     [ngStyle]="listContentStyle">
     <ng-container *ngTemplateOutlet="isRtlLayout ? linkLabelRtlOutlet : linkLabelLtrOutlet"></ng-container>
   </a>
 </ng-template>
 
 <ng-template #routerLinkTemplate>
   <ng-container *ngIf="node.link && nodeConfiguration.interfaceWithRoute; else defaultContentContainer">
-    <a class="anml-link" [routerLink]="node.link" [ngStyle]="listContentStyle">
+    <a class="anml-link" [attr.data-test]="node.dataTest" [routerLink]="node.link" [ngStyle]="listContentStyle">
       <ng-container *ngTemplateOutlet="isRtlLayout ? linkLabelRtlOutlet : linkLabelLtrOutlet"></ng-container>
     </a>
   </ng-container>
 </ng-template>
 
 <ng-template #defaultContentContainer>
-  <a class="anml-link" [ngStyle]="listContentStyle">
+  <a class="anml-link" [attr.data-test]="node.dataTest" [ngStyle]="listContentStyle">
     <ng-container *ngTemplateOutlet="isRtlLayout ? linkLabelRtlOutlet : linkLabelLtrOutlet"></ng-container>
   </a>
 </ng-template>
