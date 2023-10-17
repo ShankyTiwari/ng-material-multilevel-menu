@@ -24,6 +24,7 @@ export interface MultilevelNode {
   dontEmit?: boolean;
   hasChildren?: boolean;
   isSelected?: boolean;
+  dataTest?: string;
 }
 
 export interface Configuration {
